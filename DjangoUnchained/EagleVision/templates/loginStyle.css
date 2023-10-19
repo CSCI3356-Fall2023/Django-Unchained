@@ -1,0 +1,80 @@
+body {
+    background-color: #6D0000;
+}
+.sub-container {
+    border-radius: 50px;
+    background-color: #fff;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    max-width: 1139px;
+    padding: 19px 20px 40px;
+    flex-direction: column;
+}
+.bclogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: red;
+}
+.title {
+    color: #000;
+    font-family: Rubik, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    
+    margin: auto;
+    width: 50%;
+}
+.form-container {
+    align-self: center;
+    display: flex;
+    margin: 41px 0 4px;
+    width: 100%;
+    max-width: 1036px;
+    flex-direction: column;
+}
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    color: #000;
+    font-family: Rubik, sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+    align-self: start;
+    white-space: nowrap;
+}
+input {
+    border-radius: 15px;
+    background-color: #D9D9D9;
+    align-self: start;
+    display: flex;
+    margin-top: 28px;
+    width: 100%;
+    height: 80px;
+    flex-direction: column;
+    font-size: 36px;
+    border: none;
+}
+.signup {
+    color: #000;
+    font-family: Rubik, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    text-decoration-line: underline;
+    max-width: 506px;
+    align-self: start;
+    flex-grow: 1;
+    flex-basis: auto;
+  }
+.forgot-password {
+    color: #000;
+    font-family: Rubik, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    align-self: start;
+    white-space: nowrap;
+}
