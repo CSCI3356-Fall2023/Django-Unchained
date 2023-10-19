@@ -48,8 +48,9 @@ class Student(Person):
         ('Fall2025', 'Fall 2025'),
         ('Spring2026', 'Spring 2026'),
         ('Fall2026', 'Fall 2026'),
+        ('Spring2027', 'Spring 2027'),
+        ('Fall2027', 'Fall 2027'),
 
-        
     ]
     graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
 # admin class which inherits from person
