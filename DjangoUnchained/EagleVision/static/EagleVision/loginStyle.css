@@ -1,0 +1,48 @@
+body {
+    background-color: #6D0000;
+}
+.sub-container {
+    border-radius: 50px;
+    background-color: #fff;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    max-width: 1139px;
+    padding: 19px 20px 40px;
+    flex-direction: column;
+}
+.bclogo {
+    display: grid;
+    place-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: red;
+}
+.title {
+    color: #000;
+    font-family: Rubik, sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+label {
+    color: #000;
+    font-family: Rubik, sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    text-align: left;
+}
+.fields {
+    float:left;
+    overflow:hidden;
+    width: 100%;
+    color: #000;
+    background-color: #D9D9D9;
+    font-family: Rubik, sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    padding:
+}
