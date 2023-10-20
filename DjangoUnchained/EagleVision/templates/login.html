@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Login </title>
+        <link rel="stylesheet" href="{% static 'EagleVision/loginStyle.css' %}">
+    </head>
+    <div class="sub-container"> 
+        <div class="bclogo">
+            <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+            <div class="title">{{ Title }}</div>
+        </div>
+        <form class="form-container">
+            <div class="form-row">
+                <label for="email">{{ FieldOne }}</label><br>
+                <input type="email" class="fields" />
+            </div>
+            <div class="form-row">
+                <label for="password">{{ FieldTwo }}</label><br>
+                <input type="password" class="fields" />
+            </div>
+            <div class="Login Button">
+                <button></button>
+            </div>
+            <div class="form-row">
+                <div class="signup">
+                Don't have an account? <a href="page-register.html" target="_blank">Sign up</a>
+                </div>
+                <div class="forgot-password">Forgot Password?</div>
+            </div>
+        </form>
+        </div>
+</html>
