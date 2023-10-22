@@ -28,18 +28,6 @@ def forgot(request):
     }
     return HttpResponse(template.render(context, request))
 
-def signup(request):
-    template = loader.get_template('login.html')
-    context = {
-        'Title': 'Sign Up', 
-        'FieldOne': 'Email',
-        'FieldTwo': 'Password',
-        'Button': 'Sign Up'
-    }
-    return HttpResponse(template.render(context, request))
-
-
-
 def register(request):
     return render(request, 'identity_selection.html')
 
