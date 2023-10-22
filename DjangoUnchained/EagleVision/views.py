@@ -27,9 +27,11 @@ def student_register(request):
         form = StudentRegistrationForm(request.POST)
         if form.is_valid():
             user = User(
-                email=form.cleaned_data['email'],
-                password=make_password(form.cleaned_data['password'])
-            )
+    username=form.cleaned_data['email'],
+    email=form.cleaned_data['email'],
+    password=make_password(form.cleaned_data['password'])
+)
+
             user.save()
 
             user_profile = UserProfile(user=user, user_type='student')
@@ -60,9 +62,10 @@ def admin_register(request):
         form = AdminRegistrationForm(request.POST)
         if form.is_valid():
             user = User(
-                email=form.cleaned_data['email'],
-                password=make_password(form.cleaned_data['password'])
-            )
+    username=form.cleaned_data['email'], 
+    email=form.cleaned_data['email'],
+    password=make_password(form.cleaned_data['password'])
+)
             user.save()
 
             user_profile = UserProfile(user=user, user_type='admin')
