@@ -103,6 +103,3 @@ def admin_register(request):
         form = AdminRegistrationForm()
 
     return render(request, 'admin_register.html', {'form': form})
-
-
-
