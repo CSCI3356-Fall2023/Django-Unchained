@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'EagleVision/identitySelection.css' %}">
+</head>
+<body>
+    <div class="bclogo">
+        <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+    </div>
+    <div class="container">
+        <h2>Select Your Identity</h2>
+        <a href="{% url 'student_register' %}" class="button student-button">I'm a Student</a>
+        <a href="{% url 'admin_register' %}" class="button admin-button">I'm an Admin</a>
+    </div>
+</body>
+</html>

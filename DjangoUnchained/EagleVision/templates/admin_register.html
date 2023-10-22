@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Sign Up</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/adminRegister.css' %}">
+</head>
+
+<body>
+    <div class="bclogo">
+        <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+    </div>
+
+    <div class="form-container">
+        <h1>Admin Sign Up</h1>
+        <form action="{% url 'admin_register' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Sign Up" class="submit-button">
+        </form>
+    </div>
+</body>
+</html>

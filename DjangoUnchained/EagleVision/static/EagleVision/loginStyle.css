@@ -37,9 +37,8 @@ label {
 }
 .fields {
     float:left;
-    overflow: hidden;
-    display: flex;
-    width: 96%;
+    overflow:hidden;
+    width: 95%;
     color: #000;
     background-color: #D9D9D9;
     font-family: Rubik, sans-serif;
