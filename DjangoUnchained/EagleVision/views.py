@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm
 from django.contrib.auth.models import User
@@ -8,6 +8,7 @@ from .models import UserProfile, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.urls import reverse
 
 # Create your views here.
 
@@ -29,6 +30,7 @@ def login(request):
         else:
             messages.error(request, ("There was an error when logging in. Plase try again..."))
 
+    ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
 def forgot(request):
@@ -107,6 +109,14 @@ def admin_register(request):
 
 def logout(request):
     return render(request, 'login.html')
+
+##when do I call this
+def correct_login(request):
+    if request.user.is_authenticated:
+        redir_url = reverse('profile')
+    else:
+        redir_url = reverse('login')
+    return HttpResponseRedirect(redir_url)
 
 @login_required
 def user_profile(request):
