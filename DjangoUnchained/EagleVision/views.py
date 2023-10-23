@@ -64,7 +64,7 @@ def student_register(request):
                 
             )
             student.save()
-            return redirect('login')  
+            return redirect(reverse('login'))  
     else:
         form = StudentRegistrationForm()
 
@@ -91,14 +91,31 @@ def admin_register(request):
                 department=form.cleaned_data['department'],
             )
             admin_instance.save()
-            return redirect('login')  
+            return redirect(reverse('login'))  
     else:
         form = AdminRegistrationForm()
 
     return render(request, 'admin_register.html', {'form': form})
 
 def logout(request):
-    return redirect(request, loader.get_template('login.html'))
+    template = loader.get_template('login.html')
+    context = {
+        'Title': 'Sign into your Account', 
+        'FieldOne': 'Email',
+        'FieldTwo': 'Password',
+        'Button': 'Login'
+    }
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, email=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('profile')
+        else:
+            messages.error(request, ("There was an error when logging in. Plase try again..."))
+    ## correct_login(request)
+    return HttpResponse(template.render(context, request))
 
 ##when do I call this
 def correct_login(request):
