@@ -21,4 +21,5 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', include('EagleVision.urls')),
     path('admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls'))
 ]

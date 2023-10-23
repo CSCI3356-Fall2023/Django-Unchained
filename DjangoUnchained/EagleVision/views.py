@@ -1,11 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .forms import StudentRegistrationForm, AdminRegistrationForm
+from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
 from .models import UserProfile, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.urls import reverse
 
 # Create your views here.
@@ -18,6 +20,16 @@ def login(request):
         'FieldTwo': 'Password',
         'Button': 'Login'
     }
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, email=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('profile')
+        else:
+            messages.success(request, ("There was an error when logging in. Plase try again..."))
+
     ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
@@ -95,6 +107,9 @@ def admin_register(request):
 
     return render(request, 'admin_register.html', {'form': form})
 
+def logout(request):
+    return render(request, 'login.html')
+
 ##when do I call this
 def correct_login(request):
     if request.user.is_authenticated:
@@ -120,3 +135,23 @@ def user_profile(request):
         'system_state': system_state,
     }
     return render(request, 'profiles/profile.html', context)
+
+
+#@login_required
+def change_state(request):
+    state_dict = {'OPEN': True, 'CLOSED': False}
+    form = ChangeStateForm()
+    user = request.user
+    state_object = SystemState.objects.get(id=1)
+    state = 'CLOSED'
+    if state_object.state:
+        state = 'OPEN'
+    if request.method == 'POST':
+        form = ChangeStateForm(request.POST)
+        if form.is_valid():
+            new_state = form.cleaned_data['state'].upper()
+            if new_state in state_dict.keys():
+                state_object.state = state_dict[new_state]
+                state_object.save()
+                return redirect('change_state')
+    return render(request, 'change_state.html', {'form' : form, 'state': state})

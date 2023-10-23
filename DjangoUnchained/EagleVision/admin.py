@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.apps import apps
 
+
 # Register your models here.
 
 def change_open_closed(desired_state):
