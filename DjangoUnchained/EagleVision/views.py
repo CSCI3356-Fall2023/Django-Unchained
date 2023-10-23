@@ -47,7 +47,7 @@ def student_register(request):
 
             user.save()
 
-            user_profile = UserProfile(user=user, user_type='student')
+            user_profile = UserProfile(user=user, user_type='student',name=form.cleaned_data['name'])
             user_profile.save()
 
             student = Student(
@@ -81,7 +81,7 @@ def admin_register(request):
             )
             user.save()
 
-            user_profile = UserProfile(user=user, user_type='admin')
+            user_profile = UserProfile(user=user, user_type='admin',name=form.cleaned_data['name'])
             user_profile.name = form.cleaned_data['name']
             user_profile.save()
 
