@@ -14,7 +14,7 @@
             </div>
             <h1>Welcome to Your User Profile</h1>
             <div class="info"> 
-                <p>Name:</p>    {{ user.userprofile.get_full_name }}
+                <p>Name:</p>    {{ name }}
                 <p>Email:</p>    {{ user.email }}
                 <p>User Type:</p>    {{ user_profile.user_type }}
             {% if user_profile.user_type == 'admin' %}
