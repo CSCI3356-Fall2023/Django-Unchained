@@ -1,26 +1,32 @@
+
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{% static 'EagleVision/profile.css' %}">
         <title>User Profile</title>
     </head>
     <body>
-        <h1>Welcome to Your User Profile</h1>
-        <p>Name:    {{ user.get_full_name }}<br>
-            Email:    {{ user.email }}<br>
-            User Type:    {{ user_profile.user_type }}<br>
-        </p>
-        {% if user_profile.user_type == 'admin' %}
-            {% if system_state %} 
-                <p>System State: {{ system_state.state }}</p>
-            {% else %}
-                <p>System State Error</p>
+        <div class="container">
+            <div class="bclogo">
+                <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+            </div>
+            <h1>Welcome to Your User Profile</h1>
+            <p>Name:    {{ user.userprofile.get_full_name }}<br>
+                Email:    {{ user.email }}<br>
+                User Type:    {{ user_profile.user_type }}<br>
+            </p>
+            {% if user_profile.user_type == 'admin' %}
+                {% if system_state %} 
+                    <p>System State: {{ system_state.state }}</p>
+                {% else %}
+                    <p>System State Error</p>
+                {% endif %}
             {% endif %}
-        {% endif %}
-        <!-- 
-            Maybe put a logout button
-            
-            <button type="button" class="btn btn-default btn-sm">
+        </div>
+        <button type="button" class="btn btn-default btn-sm">
             <span class="glyphicon glyphicon-log-out"></span> Log out
-        </button>  -->
+        </button> 
     </body>
 </html>

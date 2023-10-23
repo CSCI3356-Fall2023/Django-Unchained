@@ -29,7 +29,6 @@ def login(request):
             return redirect('profile')
         else:
             messages.error(request, ("There was an error when logging in. Plase try again..."))
-
     ## correct_login(request)
     return HttpResponse(template.render(context, request))
 

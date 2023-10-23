@@ -11,6 +11,9 @@ class UserProfile(models.Model):
         ('admin', 'Admin'),
     ]
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
+    
+    def get_full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
 # system state model
 class SystemState(models.Model):
