@@ -13,10 +13,11 @@
                 <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
             </div>
             <h1>Welcome to Your User Profile</h1>
-            <p>Name:    {{ user.userprofile.get_full_name }}<br>
-                Email:    {{ user.email }}<br>
-                User Type:    {{ user_profile.user_type }}<br>
-            </p>
+            <div class="info"> 
+                <p>Name:</p>    {{ user.userprofile.get_full_name }}
+                <p>Email:</p>    {{ user.email }}
+                <p>User Type:</p>    {{ user_profile.user_type }}
+            </div>
             {% if user_profile.user_type == 'admin' %}
                 {% if system_state %} 
                     <p>System State: {{ system_state.state }}</p>
@@ -24,9 +25,9 @@
                     <p>System State Error</p>
                 {% endif %}
             {% endif %}
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-log-out"></span> Log out
+            </button> 
         </div>
-        <button type="button" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-log-out"></span> Log out
-        </button> 
     </body>
 </html>

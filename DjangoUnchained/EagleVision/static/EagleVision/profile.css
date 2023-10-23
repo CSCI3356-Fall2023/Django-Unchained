@@ -23,6 +23,10 @@ body {
       border: red;
   }
   
+  .info > p {
+    font-weight: bold;
+  }
+
   .container > h1 {
       text-align: center;
   }
