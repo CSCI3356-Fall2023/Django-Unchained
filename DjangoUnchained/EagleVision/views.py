@@ -6,6 +6,8 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
 from .models import UserProfile, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 # Create your views here.
 
@@ -17,6 +19,16 @@ def login(request):
         'FieldTwo': 'Password',
         'Button': 'Login'
     }
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('profile')
+        else:
+            messages.success(request, ("There was an error when logging in. Plase try again..."))
+
     return HttpResponse(template.render(context, request))
 
 def forgot(request):
@@ -92,6 +104,9 @@ def admin_register(request):
         form = AdminRegistrationForm()
 
     return render(request, 'admin_register.html', {'form': form})
+
+def logout(request):
+    return render(request, 'login.html')
 
 @login_required
 def user_profile(request):
