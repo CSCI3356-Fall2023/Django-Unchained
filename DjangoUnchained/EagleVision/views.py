@@ -97,7 +97,7 @@ def admin_register(request):
     return render(request, 'admin_register.html', {'form': form})
 
 def logout(request):
-    return render(request, 'login.html')
+    return redirect(request, loader.get_template('login.html'))
 
 ##when do I call this
 def correct_login(request):
