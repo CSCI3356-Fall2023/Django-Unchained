@@ -9,9 +9,9 @@ class StudentRegistrationForm(forms.Form):
     name = forms.CharField(label="Name", max_length=255)
     department = forms.CharField(label="Department", max_length=255)
     eagle_id = forms.CharField(label="Eagle ID", max_length=8, min_length=8)
-    major_1 = forms.CharField(label="Major 1", max_length=255)
     graduation_semester = forms.ChoiceField(label="Graduation Semester", choices=Student.GRADUATION_SEMESTER)
     
+    major_1 = forms.CharField(label="Major 1", max_length=255)
     major_2 = forms.CharField(label="Major 2", max_length=255, required=False)
     major_3 = forms.CharField(label="Major 3", max_length=255, required=False)
     minor_1 = forms.CharField(label="Minor 1", max_length=255, required=False)
