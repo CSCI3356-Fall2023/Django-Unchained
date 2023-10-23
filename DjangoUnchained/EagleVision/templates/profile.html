@@ -1,7 +1,6 @@
 
 {% load static %}
 
-{% block content %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,18 +8,17 @@
     </head>
     <body>
         <h1>Welcome to your User Profile</h1>
-        <p>Name:    {{user_profile.user.get_full_name}}<br>
-            Email:    {{user_profile.user.email}}<br>
-            Username:    {{user.username}}<br>
-            User Type:    {{user_profile.user_type}}<br>
+        <p>Name:    {{ user.get_full_name }}<br>
+            Email:    {{ user.email }}<br>
+            User Type:    {{ user_profile.user_type }}<br>
         </p>
-        {% if user_profile.is_admin %}
+        {% if user_profile.user_type == 'admin' %}
             <p>You are an admin.</p>
-            {% if user_profile.is_application_open %}
-                <p>The application state is open.</p>
-            {% else %}
-                <p>The application state is closed.</p>
+            {% if system_state %} 
+                <p>System State: {{ system_state.state }}</p>
             {% endif %}
+        {% else %}
+            <p>You are a student.</p>
         {% endif %}
         <!-- 
             Maybe put a logout button
@@ -30,4 +28,3 @@
         </button>  -->
     </body>
 </html>
-{% endblock content %}

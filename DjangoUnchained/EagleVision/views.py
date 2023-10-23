@@ -4,7 +4,8 @@ from .forms import StudentRegistrationForm, AdminRegistrationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import UserProfile, Student, Admin
+from .models import UserProfile, Student, Admin, SystemState
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -36,10 +37,10 @@ def student_register(request):
         form = StudentRegistrationForm(request.POST)
         if form.is_valid():
             user = User(
-    username=form.cleaned_data['email'],
-    email=form.cleaned_data['email'],
-    password=make_password(form.cleaned_data['password'])
-)
+                username=form.cleaned_data['email'],
+                email=form.cleaned_data['email'],
+                password=make_password(form.cleaned_data['password'])
+            )
 
             user.save()
 
@@ -71,10 +72,10 @@ def admin_register(request):
         form = AdminRegistrationForm(request.POST)
         if form.is_valid():
             user = User(
-    username=form.cleaned_data['email'], 
-    email=form.cleaned_data['email'],
-    password=make_password(form.cleaned_data['password'])
-)
+                username=form.cleaned_data['email'], 
+                email=form.cleaned_data['email'],
+                password=make_password(form.cleaned_data['password'])
+            )
             user.save()
 
             user_profile = UserProfile(user=user, user_type='admin')
@@ -92,9 +93,20 @@ def admin_register(request):
 
     return render(request, 'admin_register.html', {'form': form})
 
+@login_required
 def user_profile(request):
-    user_profile = UserProfile.objects.get(user=request.user)
+    user = request.user
+    try:
+        user_profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        user_profile = None
+    try:
+        system_state = SystemState.objects.latest('updated_at')
+    except SystemState.DoesNotExist:
+        system_state = None
     context = {
-        'user_profile': user_profile
+        'user': user,
+        'user_profile': user_profile,
+        'system_state': system_state,
     }
     return render(request, 'profiles/profile.html', context)
