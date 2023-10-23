@@ -1,0 +1,33 @@
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Profile</title>
+    </head>
+    <body>
+        <h1>Welcome to your User Profile</h1>
+        <p>Name:    {{user_profile.user.get_full_name}}<br>
+            Email:    {{user_profile.user.email}}<br>
+            Username:    {{user.username}}<br>
+            User Type:    {{user_profile.user_type}}<br>
+        </p>
+        {% if user_profile.is_admin %}
+            <p>You are an admin.</p>
+            {% if user_profile.is_application_open %}
+                <p>The application state is open.</p>
+            {% else %}
+                <p>The application state is closed.</p>
+            {% endif %}
+        {% endif %}
+        <!-- 
+            Maybe put a logout button
+            
+            <button type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>  -->
+    </body>
+</html>
+{% endblock content %}

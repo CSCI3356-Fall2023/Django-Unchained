@@ -52,6 +52,6 @@ class AdminRegistrationForm(forms.Form):
         
 
         return cleaned_data
-
+    
 
   

@@ -91,3 +91,10 @@ def admin_register(request):
         form = AdminRegistrationForm()
 
     return render(request, 'admin_register.html', {'form': form})
+
+def user_profile(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    context = {
+        'user_profile': user_profile
+    }
+    return render(request, 'profiles/profile.html', context)
