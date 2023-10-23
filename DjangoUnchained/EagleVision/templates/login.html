@@ -23,16 +23,18 @@
             <input type="email" class="fields" /><br>
             <label for="password">{{ FieldTwo }}</label><br>
             <input type="password" class="fields" />
-        </div>
+        </form>
         <div class="selectors"> 
             <div class="Login-Button">
-                <button class="confirm" href="">{{ Button }}</button>
+                <button class="confirm" href="{% url '{{ Redirect }}'%}">{{ Button }}</button><br>
             </div>
             <div class="form-row" display: none>
-                <div class="signup">
+                <span class="signup">
                     Don't have an account? <a href="{% url 'register'%}" target="_blank">Sign up</a>
-                </div>
-                <a class="forgot-password" href="{% url 'forgotPassword'%}">Forgot Password?</a>
+                </span>
+                <span class="forgot">
+                    <a class="forgot-password" href="{% url 'forgotPassword'%}">Forgot Password?</a>
+                </span>
             </div>
         </div>
     </div>

@@ -45,16 +45,35 @@ label {
     font-size: 26px;
     font-weight: 400;
     padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .confirm {
-    width: 20%;
     font-family: Rubik, sans-serif;
     font-size: 26px;
     font-weight: 400;
-    color: #000;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    background-color: #D9D9D9;
+    color: #FFFFFF;
+    margin: 25px auto;
+    background-color: #3D0F00;
     padding: 10px;
+    width: 40%;
+    border-radius: 15px;
+}
+.selectors {
+    font-family: Rubik, sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin: auto;
+    width: 100%;
+}
+.Login-Button {
+    margin: auto;
+    width: 90%;
+    display: flex;
+}
+.form-row {
+    display: flex;
+    width: 100%;
+    justify-content:space-between;
 }
