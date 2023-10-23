@@ -32,16 +32,6 @@ def login(request):
     ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
-def forgot(request):
-    template = loader.get_template('login.html')
-    context = {
-        'Title': 'Reset Password', 
-        'FieldOne': 'Email',
-        'FieldTwo': 'New Password',
-        'Button': 'Confirm'
-    }
-    return HttpResponse(template.render(context, request))
-
 def register(request):
     return render(request, 'identity_selection.html')
 
