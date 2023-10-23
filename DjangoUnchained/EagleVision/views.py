@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm
 from django.contrib.auth.models import User
@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
 from .models import UserProfile, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # Create your views here.
 
@@ -17,6 +18,7 @@ def login(request):
         'FieldTwo': 'Password',
         'Button': 'Login'
     }
+    ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
 def forgot(request):
@@ -92,6 +94,14 @@ def admin_register(request):
         form = AdminRegistrationForm()
 
     return render(request, 'admin_register.html', {'form': form})
+
+##when do I call this
+def correct_login(request):
+    if request.user.is_authenticated:
+        redir_url = reverse('profile')
+    else:
+        redir_url = reverse('login')
+    return HttpResponseRedirect(redir_url)
 
 @login_required
 def user_profile(request):
