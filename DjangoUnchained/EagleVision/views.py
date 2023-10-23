@@ -32,27 +32,6 @@ def login(request):
     ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
-def login2(request):
-    template = loader.get_template('login.html')
-    context = {
-        'Title': 'Sign into your Account', 
-        'FieldOne': 'Email',
-        'FieldTwo': 'Password',
-        'Button': 'Login'
-    }
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, email=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('profile')
-        else:
-            messages.error(request, ("There was an error when logging in. Plase try again..."))
-
-    ## correct_login(request)
-    return HttpResponse(template.render(context, request))
-
 def forgot(request):
     template = loader.get_template('login.html')
     context = {
