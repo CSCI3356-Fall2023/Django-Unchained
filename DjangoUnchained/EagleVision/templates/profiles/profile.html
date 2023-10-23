@@ -1,24 +1,20 @@
-
-{% load static %}
-
 <!DOCTYPE html>
 <html>
     <head>
         <title>User Profile</title>
     </head>
     <body>
-        <h1>Welcome to your User Profile</h1>
+        <h1>Welcome to Your User Profile</h1>
         <p>Name:    {{ user.get_full_name }}<br>
             Email:    {{ user.email }}<br>
             User Type:    {{ user_profile.user_type }}<br>
         </p>
         {% if user_profile.user_type == 'admin' %}
-            <p>You are an admin.</p>
             {% if system_state %} 
                 <p>System State: {{ system_state.state }}</p>
+            {% else %}
+                <p>System State Error</p>
             {% endif %}
-        {% else %}
-            <p>You are a student.</p>
         {% endif %}
         <!-- 
             Maybe put a logout button
