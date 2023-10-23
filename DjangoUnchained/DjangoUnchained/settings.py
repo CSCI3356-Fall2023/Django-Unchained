@@ -126,3 +126,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 OPEN_CLOSED = 'OPEN'
 
 LOGIN_REDIRECT_URL = '/profile/'
+

@@ -18,22 +18,23 @@
             <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
             <div class="title">{{ Title }}</div>
         </div>
-        <form class="form-container">
+        <form class="form-container" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
             <label for="email">{{ FieldOne }}</label><br>
-            <input type="email" class="fields" /><br>
+            <input type="email" class="fields" name="username" required><br>
             <label for="password">{{ FieldTwo }}</label><br>
-            <input type="password" class="fields" />
-        </div>
-        <div class="selectors"> 
-            <div class="Login-Button">
-                <button class="confirm" href="">{{ Button }}</button>
-            </div>
-            <div class="form-row" display: none>
-                <div class="signup">
-                    Don't have an account? <a href="{% url 'register'%}" target="_blank">Sign up</a>
+            <input type="password" class="fields" name="password" required>
+            <div class="selectors"> 
+                <div class="Login-Button">
+                    <button type="submit" class="confirm" href="">{{ Button }}</button>
                 </div>
-                <a class="forgot-password" href="{% url 'forgotPassword'%}">Forgot Password?</a>
+                <div class="form-row" display: none>
+                    <div class="signup">
+                        Don't have an account? <a href="{% url 'register' %}" target="_blank">Sign up</a>
+                    </div>
+                    <a class="forgot-password" href="{% url 'forgotPassword' %}">Forgot Password?</a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </html>
