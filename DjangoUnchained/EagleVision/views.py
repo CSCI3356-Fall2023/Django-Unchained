@@ -136,8 +136,12 @@ def user_profile(request):
     return render(request, 'profiles/profile.html', context)
 
 
-#@login_required
+@login_required
 def change_state(request):
+    try:
+        Admin.objects.get(email=request.user)
+    except:
+        return redirect('profile')
     state_dict = {'OPEN': True, 'CLOSED': False}
     form = ChangeStateForm()
     user = request.user
