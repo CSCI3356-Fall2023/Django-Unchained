@@ -52,6 +52,9 @@ class AdminRegistrationForm(forms.Form):
         
 
         return cleaned_data
+
+class ChangeStateForm(forms.Form):
+    state = forms.CharField(label = 'open or closed?')
     
 
   

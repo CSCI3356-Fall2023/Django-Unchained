@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin open_closed</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/adminRegister.css' %}">
+</head>
+
+<body>
+    <div class="bclogo">
+        <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+    </div>
+
+    <div class="form-container">
+        <h1>Registration is {{ state }}, type open or closed to change state</h1>
+        <form action="{% url 'change_state' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+        </form>
+    </div>
+</body>
+</html>

@@ -14,12 +14,7 @@ class UserProfile(models.Model):
 
 # system state model
 class SystemState(models.Model):
-     
-     STATE_CHOICES = [
-        ('open', 'Open'),
-        ('closed', 'Closed'),
-    ]
-     state = models.CharField(max_length=10, choices=STATE_CHOICES)
+     state = models.BooleanField()
      updated_at = models.DateTimeField(auto_now=True)
 
 # common abstract class
@@ -53,8 +48,10 @@ class Student(Person):
 
     ]
     graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
+    
 # admin class which inherits from person
 class Admin(Person):
-    
-    pass
+    name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    department = models.CharField(max_length=255)
 
