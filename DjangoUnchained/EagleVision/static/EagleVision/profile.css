@@ -30,5 +30,18 @@ body {
   .container > h1 {
       text-align: center;
   }
+
+  .logout {
+    margin-top: 2em;
+    background-color: #6D0000;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+  }
+  
+  .logout:hover {
+    background-color: #4d0000;
+  }
   
   
