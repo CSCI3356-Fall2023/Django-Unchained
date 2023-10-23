@@ -165,5 +165,5 @@ def change_state(request):
             if new_state in state_dict.keys():
                 state_object.state = state_dict[new_state]
                 state_object.save()
-                return redirect('change_state')
+                return redirect('profile')
     return render(request, 'change_state.html', {'form' : form, 'state': state})

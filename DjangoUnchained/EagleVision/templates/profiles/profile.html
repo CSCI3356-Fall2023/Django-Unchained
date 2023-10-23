@@ -28,6 +28,7 @@
                 {% else %}
                     Error
                 {% endif %}
+                <br><a href="{% url 'change_state' %}"> Change State </a>
             {% endif %}
             </div>
             <a href="{% url 'logout' %}">
