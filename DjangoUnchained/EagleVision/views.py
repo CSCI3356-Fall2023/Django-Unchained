@@ -32,16 +32,6 @@ def login(request):
     ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
-def forgot(request):
-    template = loader.get_template('login.html')
-    context = {
-        'Title': 'Reset Password', 
-        'FieldOne': 'Email',
-        'FieldTwo': 'New Password',
-        'Button': 'Confirm'
-    }
-    return HttpResponse(template.render(context, request))
-
 def register(request):
     return render(request, 'identity_selection.html')
 
@@ -92,6 +82,7 @@ def admin_register(request):
             user.save()
 
             user_profile = UserProfile(user=user, user_type='admin')
+            user_profile.name = form.cleaned_data['name']
             user_profile.save()
 
             admin_instance = Admin(
@@ -107,7 +98,7 @@ def admin_register(request):
     return render(request, 'admin_register.html', {'form': form})
 
 def logout(request):
-    return render(request, 'login.html')
+    return redirect(request, loader.get_template('login.html'))
 
 ##when do I call this
 def correct_login(request):
@@ -129,6 +120,7 @@ def user_profile(request):
     except SystemState.DoesNotExist:
         system_state = None
     context = {
+        'name': user_profile.name,
         'user': user,
         'user_profile': user_profile,
         'system_state': system_state,
