@@ -92,6 +92,7 @@ def admin_register(request):
             user.save()
 
             user_profile = UserProfile(user=user, user_type='admin')
+            user_profile.name = form.cleaned_data['name']
             user_profile.save()
 
             admin_instance = Admin(
@@ -129,6 +130,7 @@ def user_profile(request):
     except SystemState.DoesNotExist:
         system_state = None
     context = {
+        'name': user_profile.name,
         'user': user,
         'user_profile': user_profile,
         'system_state': system_state,

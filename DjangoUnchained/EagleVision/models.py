@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # user profile model
 class UserProfile(models.Model):
+    name = models.CharField(max_length=100, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     USER_TYPE_CHOICES = [
         ('student', 'Student'),
