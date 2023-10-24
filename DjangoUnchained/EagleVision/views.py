@@ -29,7 +29,6 @@ def login(request):
             return redirect('profile')
         else:
             messages.error(request, ("There was an error when logging in. Plase try again..."))
-    ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
 def register(request):
@@ -117,7 +116,6 @@ def logout(request):
     ## correct_login(request)
     return HttpResponse(template.render(context, request))
 
-##when do I call this
 def correct_login(request):
     if request.user.is_authenticated:
         redir_url = reverse('profile')
