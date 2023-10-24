@@ -61,7 +61,7 @@ label {
     font-weight: 400;
     color: #FFFFFF;
     margin: 25px auto;
-    background-color: #3D0F00;
+    background-color: #6D0000;
     padding: 10px 20px;
     width: 40%;
     border-radius: 15px;
@@ -70,7 +70,7 @@ label {
 }
 
 .confirm:hover {
-    background-color: #660202;
+    background-color: #4D0000;
 }
 
 .selectors {
