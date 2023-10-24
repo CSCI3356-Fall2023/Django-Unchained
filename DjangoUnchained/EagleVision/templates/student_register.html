@@ -15,7 +15,7 @@
     <form action="{% url 'student_register' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Sign Up" class="submit-button">
+        <input type="submit" value="Sign Up" class="submit-button" href="{% url 'login'%}">
     </form>
 </div>
 </body>

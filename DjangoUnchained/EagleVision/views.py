@@ -60,10 +60,9 @@ def student_register(request):
                 minor_1=form.cleaned_data['minor_1'],
                 minor_2=form.cleaned_data['minor_2'],
                 graduation_semester=form.cleaned_data['graduation_semester']
-                
             )
             student.save()
-            return redirect(reverse('login'))  
+            return redirect('logout')
     else:
         form = StudentRegistrationForm()
 
@@ -90,7 +89,8 @@ def admin_register(request):
                 department=form.cleaned_data['department'],
             )
             admin_instance.save()
-            return redirect(reverse('login'))  
+            
+            return redirect('logout')
     else:
         form = AdminRegistrationForm()
 
