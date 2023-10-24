@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Landing Page </title>
+        <link rel="stylesheet" href="{% static 'EagleVision/loginStyle.css' %}">
+    </head>
+    <div class="sub-container"> 
+        <div class="bclogo">
+            <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="320" height="180">
+            <div class="title">{{ Title }}</div>
+        </div>
+        <form class="form-container">
+            <label for="email">{{ FieldOne }}</label><br>
+            <input type="email" class="fields" /><br>
+            <label for="password">{{ FieldTwo }}</label><br>
+            <input type="password" class="fields" />
+        </div>
+        <div class="selectors"> 
+            <div class="Login-Button">
+                <button class="confirm" href="{% url 'signIn' %}">{{ Button }}</button>
+            </div>
+            <div class="form-row" display: none>
+                <div class="signup">
+                    Don't have an account? <a href="{% url 'signUp'%}" target="_blank">Sign up</a>
+                </div>
+                <a class="forgot-password" href="{% url 'forgotPassword'%}">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</html>

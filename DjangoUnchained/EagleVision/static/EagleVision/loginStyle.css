@@ -1,6 +1,7 @@
 body {
     background-color: #6D0000;
 }
+
 .sub-container {
     border-radius: 50px;
     background-color: #fff;
@@ -11,6 +12,7 @@ body {
     padding: 19px 20px 40px;
     flex-direction: column;
 }
+
 .bclogo {
     display: grid;
     place-items: center;
@@ -19,6 +21,7 @@ body {
     width: 50%;
     border: red;
 }
+
 .title {
     color: #000;
     font-family: Rubik, sans-serif;
@@ -28,6 +31,7 @@ body {
     margin: auto;
     width: 50%;
 }
+
 label {
     color: #000;
     font-family: Rubik, sans-serif;
@@ -35,6 +39,7 @@ label {
     font-weight: 400;
     text-align: left;
 }
+
 .fields {
     float:left;
     overflow:hidden;
@@ -42,38 +47,55 @@ label {
     color: #000;
     background-color: #D9D9D9;
     font-family: Rubik, sans-serif;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 400;
-    padding: 20px;
-    border-radius: 15px;
+    padding: 10px;
+    border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 .confirm {
     font-family: Rubik, sans-serif;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 400;
     color: #FFFFFF;
     margin: 25px auto;
     background-color: #3D0F00;
-    padding: 10px;
+    padding: 10px 20px;
     width: 40%;
     border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.confirm:hover {
+    background-color: #660202;
+}
+
 .selectors {
     font-family: Rubik, sans-serif;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 400;
     margin: auto;
     width: 100%;
+    padding: 10px;
 }
+
 .Login-Button {
     margin: auto;
     width: 90%;
     display: flex;
 }
+
 .form-row {
     display: flex;
     width: 100%;
     justify-content:space-between;
+    flex-wrap: wrap;
+}
+
+.form-row label,
+.form-row .fields {
+    flex: 0 1 calc(50% - 10px);
 }

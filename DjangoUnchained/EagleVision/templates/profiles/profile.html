@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <div class="bclogo">
-                <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+                <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="320" height="180">
             </div>
             <h1>Welcome to Your User Profile</h1>
             <div class="info"> 
@@ -28,12 +28,13 @@
                 {% else %}
                     Error
                 {% endif %}
-                <br><a href="{% url 'change_state' %}"> Change State </a>
+                <br>
+                <a href="{% url 'change_state' %}" class="change-state-button">Change State</a>
             {% endif %}
             </div>
-            <a href="{% url 'logout' %}">
+            <a href="{% url 'logout' %}" class="logout-button">
                 <span class="glyphicon glyphicon-log-out"></span> LOG OUT
-            </a> 
+            </a>
         </div>
     </body>
 </html>
