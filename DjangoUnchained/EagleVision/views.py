@@ -29,7 +29,16 @@ def login(request):
             return redirect('profile')
         else:
             messages.error(request, ("There was an error when logging in. Plase try again..."))
-    ## correct_login(request)
+    return HttpResponse(template.render(context, request))
+
+def forgot(request):
+    template = loader.get_template('login.html')
+    context = {
+        'Title': 'Reset Password', 
+        'FieldOne': 'Email',
+        'FieldTwo': 'New Password',
+        'Button': 'Confirm'
+    }
     return HttpResponse(template.render(context, request))
 
 def register(request):
@@ -98,7 +107,7 @@ def admin_register(request):
     return render(request, 'admin_register.html', {'form': form})
 
 def logout(request):
-    return redirect(request, loader.get_template('login.html'))
+    return render(request, 'login.html')
 
 ##when do I call this
 def correct_login(request):

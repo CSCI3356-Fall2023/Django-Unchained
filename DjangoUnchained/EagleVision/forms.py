@@ -20,7 +20,10 @@ class StudentRegistrationForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
+        email = self.cleaned_data.get('email')
 
+        if email[-6:] != 'bc.edu':
+            self.add_error('email', 'Only Boston College emails are allowed to sign up.')
         if password and confirm_password and password != confirm_password:
             self.add_error('confirm_password', "The two password fields must match.")
 
@@ -43,6 +46,10 @@ class AdminRegistrationForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
+        email = cleaned_data.get('email')
+
+        if email[-6:] != 'bc.edu':
+            self.add_error('email', 'Only Boston College emails are allowed to sign up.')        
 
         if password and confirm_password and password != confirm_password:
             self.add_error('confirm_password', "The two password fields must match.")
