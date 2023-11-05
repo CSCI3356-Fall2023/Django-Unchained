@@ -30,9 +30,10 @@
                 {% endif %}
             {% endif %}
             </div>
-            <button type="submit" class="logout" href="{% url 'logout' %}">
-                <span class="glyphicon glyphicon-log-out"></span> LOG OUT
-            </button> 
+                <button type="submit" onclick="location.href='{% url 'logout' %}'" class="logout">
+                    <span class="glyphicon glyphicon-log-out"></span> LOG OUT
+                </button> 
+            </div>
         </div>
     </body>
 </html>
