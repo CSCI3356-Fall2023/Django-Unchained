@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
 from .models import UserProfile, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 
@@ -106,7 +106,8 @@ def admin_register(request):
 
     return render(request, 'admin_register.html', {'form': form})
 
-def logout(request):
+def logout_view(request):
+    logout(request)
     return redirect('login')
 
 ##when do I call this
