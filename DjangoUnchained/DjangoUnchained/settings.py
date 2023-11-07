@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
 
-AUTH_USER_MODEL = 'project.CustomUser'
+AUTH_USER_MODEL = 'EagleVision.Person'
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
