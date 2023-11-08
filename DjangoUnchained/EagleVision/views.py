@@ -12,7 +12,9 @@ from django.urls import reverse
 from django.contrib.auth import login as auth_login
 
 # Create your views here.
-
+def home_view(request):
+    return redirect('login')
+    
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
@@ -125,7 +127,13 @@ def change_state(request):
     state_dict = {'OPEN': True, 'CLOSED': False}
     form = ChangeStateForm()
     user = request.user
-    state_object = SystemState.objects.get(id=1)
+    try:
+        state_object = SystemState.objects.get(id=1)
+    except:
+        state_object = SystemState()
+        state_object.state = True
+        state_object.save()
+        state_object = SystemState.objects.get(id=1)
     state = 'CLOSED'
     if state_object.state:
         state = 'OPEN'
