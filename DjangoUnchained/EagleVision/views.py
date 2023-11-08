@@ -12,7 +12,9 @@ from django.urls import reverse
 from django.contrib.auth import login as auth_login
 
 # Create your views here.
-
+def home_view(request):
+    return redirect('login')
+    
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
