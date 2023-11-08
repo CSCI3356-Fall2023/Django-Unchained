@@ -9,28 +9,28 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
+from django.contrib.auth import login as auth_login
 
 # Create your views here.
 
 def login(request):
     template = loader.get_template('login.html')
     context = {
-        'Title': 'Sign into your Account', 
+        'Title': 'Sign into your Account',
         'FieldOne': 'Email',
         'FieldTwo': 'Password',
         'Button': 'Login'
     }
     if request.method == "POST":
-        username = request.POST['username']
+        email = request.POST['email']  
         password = request.POST['password']
-        user = authenticate(request, email=username, password=password)
+        user = authenticate(request, email=email, password=password) 
         if user is not None:
             login(request, user)
             return redirect('profile')
         else:
-            messages.error(request, ("There was an error when logging in. Plase try again..."))
+            messages.error(request, ("There was an error when logging in. Please try again..."))
     return HttpResponse(template.render(context, request))
-
 def forgot(request):
     template = loader.get_template('login.html')
     context = {
@@ -48,20 +48,10 @@ def student_register(request):
     if request.method == 'POST':
         form = StudentRegistrationForm(request.POST)
         if form.is_valid():
-            user = User(
-                username=form.cleaned_data['email'],
+                student = Student.objects.create_user(
                 email=form.cleaned_data['email'],
-                password=make_password(form.cleaned_data['password'])
-            )
-
-            user.save()
-
-            user_profile = UserProfile(user=user, user_type='student')
-            user_profile.save()
-
-            student = Student(
+                password=form.cleaned_data['password'],
                 name=form.cleaned_data['name'],
-                email=form.cleaned_data['email'],
                 department=form.cleaned_data['department'],
                 eagle_id=form.cleaned_data['eagle_id'],
                 major_1=form.cleaned_data['major_1'],
@@ -70,10 +60,12 @@ def student_register(request):
                 minor_1=form.cleaned_data['minor_1'],
                 minor_2=form.cleaned_data['minor_2'],
                 graduation_semester=form.cleaned_data['graduation_semester']
-                
             )
-            student.save()
-            return redirect('login')  
+
+                return redirect('login')  
+
+
+           
     else:
         form = StudentRegistrationForm()
 
@@ -119,20 +111,37 @@ def correct_login(request):
     return HttpResponseRedirect(redir_url)
 
 @login_required
+# def user_profile(request):
+#     user = request.user
+#     try:
+#         user_profile = UserProfile.objects.get(user=user)
+#     except UserProfile.DoesNotExist:
+#         user_profile = None
+#     try:
+#         system_state = SystemState.objects.latest('updated_at')
+#     except SystemState.DoesNotExist:
+#         system_state = None
+#     context = {
+#         'name': user_profile.name,
+#         'user': user,
+#         'user_profile': user_profile,
+#         'system_state': system_state,
+#     }
+#     return render(request, 'profiles/profile.html', context)
+
+@login_required
 def user_profile(request):
     user = request.user
-    try:
-        user_profile = UserProfile.objects.get(user=user)
-    except UserProfile.DoesNotExist:
-        user_profile = None
+    # Since `Person` is the custom user model, `user` is actually a `Person` instance
+
     try:
         system_state = SystemState.objects.latest('updated_at')
     except SystemState.DoesNotExist:
         system_state = None
+
+    # The context passes the user object directly, which has name, email, etc.
     context = {
-        'name': user_profile.name,
         'user': user,
-        'user_profile': user_profile,
         'system_state': system_state,
     }
     return render(request, 'profiles/profile.html', context)

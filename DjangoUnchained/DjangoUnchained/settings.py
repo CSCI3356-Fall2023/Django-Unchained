@@ -15,6 +15,10 @@ from dotenv import find_dotenv, load_dotenv
 import os
 
 AUTH_USER_MODEL = 'EagleVision.Person'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
 SITE_ID = 1
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -70,6 +74,7 @@ SOCIALACCOUNT_PROVIDERS = {
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'EagleVision.backends.EmailBackend',
 )
 
 MIDDLEWARE = [
