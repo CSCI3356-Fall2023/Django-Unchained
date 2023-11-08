@@ -1,3 +1,83 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# Create your models here.
+from django.conf import settings
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self.create_user(email, password, **extra_fields)
+
+class Person(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, blank=True)
+    department = models.CharField(max_length=255, blank=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, null=True)
+    USER_TYPE_CHOICES = [
+        ('student', 'Student'),
+        ('admin', 'Admin'),
+    ]
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
+
+    def get_full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
+class SystemState(models.Model):
+    state = models.BooleanField()
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Student(Person):
+    major_1 = models.CharField(max_length=255, blank=True, null=True)
+    major_2 = models.CharField(max_length=255, blank=True, null=True)
+    major_3 = models.CharField(max_length=255, blank=True, null=True)
+    minor_1 = models.CharField(max_length=255, blank=True, null=True)
+    minor_2 = models.CharField(max_length=255, blank=True, null=True)
+    eagle_id = models.CharField(max_length=50, unique=True)
+    GRADUATION_SEMESTER = [
+        ('Spring2024', 'Spring 2024'),
+        ('Fall2024', 'Fall 2024'),
+        ('Spring2025', 'Spring 2025'),
+        ('Fall2025', 'Fall 2025'),
+        ('Spring2026', 'Spring 2026'),
+        ('Fall2026', 'Fall 2026'),
+        ('Spring2027', 'Spring 2027'),
+        ('Fall2027', 'Fall 2027'),
+
+    
+    ]
+    graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
+
+class Admin(Person):
+   
+    pass
+
+  

@@ -1,0 +1,39 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'EagleVision/profile.css' %}">
+        <title>User Profile</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="bclogo">
+                <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+            </div>
+            <h1>Welcome to Your User Profile</h1>
+            <div class="info"> 
+                <p>Name:</p>    {{ name }}
+                <p>Email:</p>    {{ user.email }}
+                <p>User Type:</p>    {{ user_profile.user_type }}
+            {% if user_profile.user_type == 'admin' %}
+                <p>System State: </p>
+                {% if system_state %} 
+                    {% if system_state.state == True%} 
+                        Open
+                    {% else %}
+                        Closed
+                    {% endif %}
+                {% else %}
+                    Error
+                {% endif %}
+            {% endif %}
+            </div>
+                <button type="submit" onclick="location.href='{% url 'logout' %}'" class="logout">
+                    <span class="glyphicon glyphicon-log-out"></span> LOG OUT
+                </button> 
+            </div>
+        </div>
+    </body>
+</html>

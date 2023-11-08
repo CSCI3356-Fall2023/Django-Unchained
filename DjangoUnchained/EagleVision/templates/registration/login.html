@@ -26,17 +26,11 @@
             <input type="password" class="fields" name="password" required>
             <div class="selectors"> 
                 <div class="Login-Button">
-                    <button type="submit" class="confirm" href="{% url 'correctlogin'%}">{{ Button }}</button>
+                    <button type="submit" class="confirm" href="">{{ Button }}</button>
                 </div>
                 <div class="form-row" display: none>
                     <div class="signup">
                         Don't have an account? <a href="{% url 'register' %}" target="_blank">Sign up</a>
-                    </div>
-                {% load socialaccount%}
-                </div>
-                <div class="form-row" display: none>
-                    <div class="google">
-                        <a href="{% provider_login_url 'google' %}?next=/" target="_blank">Login with Google</a>
                     </div>
                 </div>
             </div>
