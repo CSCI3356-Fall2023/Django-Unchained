@@ -13,24 +13,24 @@ from django.contrib.auth import login as auth_login
 
 # Create your views here.
 
-def login(request):
-    template = loader.get_template('login.html')
-    context = {
-        'Title': 'Sign into your Account',
-        'FieldOne': 'Email',
-        'FieldTwo': 'Password',
-        'Button': 'Login'
-    }
+def login_view(request):
     if request.method == "POST":
-        email = request.POST['email']  
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password) 
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(email=email, password=password)  
+
         if user is not None:
-            login(request, user)
-            return redirect('profile')
+            if user.is_active:
+                auth_login(request, user)  
+                return redirect('profile')
+            else:
+                messages.error(request, "Your account is inactive.")
         else:
-            messages.error(request, ("There was an error when logging in. Please try again..."))
-    return HttpResponse(template.render(context, request))
+            messages.error(request, "Invalid credentials.")
+
+   
+    return render(request, 'login.html', {})
+
 def forgot(request):
     template = loader.get_template('login.html')
     context = {
@@ -75,23 +75,13 @@ def admin_register(request):
     if request.method == 'POST':
         form = AdminRegistrationForm(request.POST)
         if form.is_valid():
-            user = User(
-                username=form.cleaned_data['email'], 
+            admin_instance = Admin.objects.create_superuser( 
                 email=form.cleaned_data['email'],
-                password=make_password(form.cleaned_data['password'])
-            )
-            user.save()
-
-            user_profile = UserProfile(user=user, user_type='admin')
-            user_profile.name = form.cleaned_data['name']
-            user_profile.save()
-
-            admin_instance = Admin(
-                name=form.cleaned_data['name'],
-                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password'],
                 department=form.cleaned_data['department'],
+                name = form.cleaned_data['name'],
+                is_staff=True,
             )
-            admin_instance.save()
             return redirect('login')  
     else:
         form = AdminRegistrationForm()
@@ -110,36 +100,15 @@ def correct_login(request):
         redir_url = reverse('login')
     return HttpResponseRedirect(redir_url)
 
-@login_required
-# def user_profile(request):
-#     user = request.user
-#     try:
-#         user_profile = UserProfile.objects.get(user=user)
-#     except UserProfile.DoesNotExist:
-#         user_profile = None
-#     try:
-#         system_state = SystemState.objects.latest('updated_at')
-#     except SystemState.DoesNotExist:
-#         system_state = None
-#     context = {
-#         'name': user_profile.name,
-#         'user': user,
-#         'user_profile': user_profile,
-#         'system_state': system_state,
-#     }
-#     return render(request, 'profiles/profile.html', context)
 
 @login_required
 def user_profile(request):
     user = request.user
-    # Since `Person` is the custom user model, `user` is actually a `Person` instance
-
     try:
         system_state = SystemState.objects.latest('updated_at')
     except SystemState.DoesNotExist:
         system_state = None
 
-    # The context passes the user object directly, which has name, email, etc.
     context = {
         'user': user,
         'system_state': system_state,
