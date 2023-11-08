@@ -61,12 +61,16 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google'
 ]
 
+#SOCIALACCOUNT_LOGIN_ON_GET=True
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'APP': {
-            'client_id': '159123941533-972leu77ipdva2jn60hki4r5j0qquh3d.apps.googleusercontent.com',
-            'secret': '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',
-            'key': '',
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
         }
     },
 }
@@ -164,4 +168,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 OPEN_CLOSED = 'OPEN'
 
 LOGIN_REDIRECT_URL = '/profile/'
-
+LOGOUT_REDIRECT_URL = '/'
