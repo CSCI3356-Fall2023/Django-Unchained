@@ -4,7 +4,7 @@ from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateFo
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import Student, Admin, SystemState, Course
+from .models import Person, Student, Admin, SystemState, Course
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
