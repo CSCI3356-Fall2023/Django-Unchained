@@ -33,9 +33,15 @@
                     <p>User Type:</p> Student
                 {% endif %}
             </div>
-                <button type="submit" onclick="location.href='{% url 'logout' %}'" class="logout">
-                    <span class="glyphicon glyphicon-log-out"></span> LOG OUT
-                </button> 
+            <button type="submit" class="logout" id="logout-button">
+                <span class="glyphicon glyphicon-log-out"></span> LOG OUT
+            </button>
+            
+            <script>
+                document.getElementById('logout-button').addEventListener('click', function() {
+                    window.location.href = "{% url 'logout' %}";
+                });
+            </script>
             </div>
         </div>
     </body>

@@ -20,13 +20,13 @@
         </div>
         <form class="form-container" method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <label for="email">{{ FieldOne }}</label><br>
+            <label for="email">Email{{ FieldOne }}</label><br>
             <input type="email" class="fields" name="username" required><br>
-            <label for="password">{{ FieldTwo }}</label><br>
+            <label for="password">Password{{ FieldTwo }}</label><br>
             <input type="password" class="fields" name="password" required>
             <div class="selectors"> 
                 <div class="Login-Button">
-                    <button type="submit" class="confirm" href="">{{ Button }}</button>
+                    <button type="submit" class="confirm" href="">Login{{ Button }}</button>
                 </div>
                 <div class="form-row" display: none>
                     <div class="signup">
