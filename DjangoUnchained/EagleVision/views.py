@@ -233,7 +233,7 @@ def admin_extra_info(request):
 def index(request):
     return render(
         request,
-        "login.html",
+        "registration/login.html",
         context={
             "session": request.session.get("user"),
             "pretty": json.dumps(request.session.get("user"), indent=4),

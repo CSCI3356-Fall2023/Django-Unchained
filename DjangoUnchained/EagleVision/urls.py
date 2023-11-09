@@ -2,9 +2,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.login_view, name='home'), 
+    path("", views.index, name="index"),
     path('logout/', views.logout_view, name='logout'),
-    path('correctlogin/', views.login_view, name='correctlogin'), 
     # path('correctlogin/', views.login_view, name='correctlogin'), 
     path('register/', views.register, name='register'),
     path('register/student/', views.student_register, name='student_register'),
@@ -14,7 +13,6 @@ urlpatterns = [
     path('student/extra_info/', views.student_extra_info, name='student_extra_info'),
     path('admin/extra_info/', views.admin_extra_info, name='admin_extra_info'),
     path('role_selection/', views.role_selection, name='role_selection'),
-    path("", views.index, name="index"),
     path("login", views.login, name="login"),
     path("logout", views.logout, name="logout"),
     path("callback", views.callback, name="callback"),
