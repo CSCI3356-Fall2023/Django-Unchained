@@ -14,12 +14,14 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
 
+
 AUTH_USER_MODEL = 'EagleVision.Person'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 SITE_ID = 1
+
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
@@ -54,28 +56,28 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'EagleVision',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
+    
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': '159123941533-972leu77ipdva2jn60hki4r5j0qquh3d.apps.googleusercontent.com',
-            'secret': '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',
-            'key': '',
-            'redirect_uris': ['http://127.0.0.1:8000/account/google/login/callback/'],
-        }
-    },
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'APP': {
+#             'client_id': '159123941533-972leu77ipdva2jn60hki4r5j0qquh3d.apps.googleusercontent.com',
+#             'secret': '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',
+#             'key': '',
+#             'redirect_uris': ['http://127.0.0.1:8000/'],
+#         }
+#     },
+# }
 
 AUTHENTICATION_BACKENDS = (
-    'allauth.account.auth_backends.AuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
     'EagleVision.backends.EmailBackend',
+    'authlib.backends.EmailBackend',
 )
 
 MIDDLEWARE = [
@@ -86,7 +88,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'DjangoUnchained.urls'
@@ -159,10 +160,4 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-OPEN_CLOSED = 'OPEN'
-
-LOGIN_REDIRECT_URL = '/profile/'
 

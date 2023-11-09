@@ -11,8 +11,11 @@
     </div>
     <div class="container">
         <h2>Select Your Identity</h2>
-        <a href="{% url 'student_register' %}" class="button student-button">I'm a Student</a>
-        <a href="{% url 'admin_register' %}" class="button admin-button">I'm an Admin</a>
+        <form action="{% url 'role_selection' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="role" value="student" class="button student-button">I'm a Student</button>
+            <button type="submit" name="role" value="admin" class="button admin-button">I'm an Admin</button>
+        </form>
     </div>
 </body>
 </html>
