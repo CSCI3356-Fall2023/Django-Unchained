@@ -86,12 +86,8 @@ class Admin(Person):
         self.is_superuser = True
         self.save()
 
-
-
-
-  
 class Course(models.Model):
-    course_id = models.CharField(max_length=255, unique=True)
+    course_id = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     description = models.TextField()
 

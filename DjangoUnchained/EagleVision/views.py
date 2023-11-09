@@ -4,7 +4,7 @@ from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateFo
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import UserProfile, Student, Admin, SystemState
+from .models import Student, Admin, SystemState, Course
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -24,10 +24,6 @@ oauth.register(
     client_secret=settings.AUTH0_CLIENT_SECRET,
     server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
-    
-
-
-
 
 
 # Create your views here.
@@ -191,13 +187,6 @@ def change_state(request):
                 return redirect('change_state')
     return render(request, 'change_state.html', {'form' : form, 'state': state})
 
-#def display_courses():
-    
-
-
-
-
-
 def role_selection(request):
     if request.method == 'POST':
         role = request.POST.get('role')
@@ -210,12 +199,6 @@ def role_selection(request):
                 return redirect('admin_extra_info')
     return render(request, 'identity_selection.html')
 
-
-
-
-
-
-
 def student_extra_info(request):
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
@@ -226,8 +209,6 @@ def student_extra_info(request):
         form = ExtraInfoForm_student()
 
     return render(request, 'student_extra_info.html', {'form': form})
-
-
 
 def admin_extra_info(request):
     if request.method == 'POST':
@@ -240,8 +221,6 @@ def admin_extra_info(request):
 
     return render(request, 'admin_extra_info.html', {'form': form})
 
-
-
 def index(request):
     return render(
         request,
@@ -251,3 +230,13 @@ def index(request):
             "pretty": json.dumps(request.session.get("user"), indent=4),
         },
     )
+
+def api_endpoint(request):
+    response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?personId=90000001&termId=kuali.atp.FA2023-2024')
+    data_list = []
+    for entry in response.json():
+        offering = entry['activityOffering']
+        new_course = Course(course_id=offering['id'], title=offering['name'], description=offering['descr']['plain'])
+        new_course.save()
+        data_list.append(new_course)
+    return render(request, 'course_selection.html', {'courses': data_list})
