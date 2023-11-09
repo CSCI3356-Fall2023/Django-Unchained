@@ -64,11 +64,10 @@ def callback(request):
         user = Person.objects.get(email=email)
         if not user.is_extra_info_filled_out():
             return redirect('role_selection')
-        else:
-            auth_login(request, user)
-            return redirect('profile')
+def course_selection(request):
+    return redirect('courseselect')
+        
 
-    return (request, 'login.html')
 def forgot(request):
     template = loader.get_template('login.html')
     context = {

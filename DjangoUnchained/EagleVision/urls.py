@@ -18,4 +18,5 @@ urlpatterns = [
     path("callback", views.callback, name="callback"),
     
 
+    path('courseselection/', views.course_selection, name='courseselect')
 ]
