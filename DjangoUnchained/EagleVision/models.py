@@ -4,15 +4,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email,name,password=None, **extra_fields):
         if not email:
             raise ValueError('The Email must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
+        user = self.model(email=email, name=name,**extra_fields)
         user.save(using=self._db)
         return user
-
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -25,32 +23,29 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class Person(AbstractBaseUser, PermissionsMixin):
+    USER_TYPE_CHOICES = [
+        ('student', 'Student'),
+        ('admin', 'Admin'),
+    ]
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=255, default=email)
     name = models.CharField(max_length=255, blank=True)
     department = models.CharField(max_length=255, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_extra_info_filled_out = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, blank=True)
 
     objects = CustomUserManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
+    def is_extra_info_filled_out(self):
+        return bool(self.is_active)
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, null=True)
-    USER_TYPE_CHOICES = [
-        ('student', 'Student'),
-        ('admin', 'Admin'),
-    ]
-    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
 
-    def get_full_name(self):
-        return f"{self.user.first_name} {self.user.last_name}"
 
 class SystemState(models.Model):
     state = models.BooleanField()
@@ -71,15 +66,28 @@ class Student(Person):
         ('Spring2026', 'Spring 2026'),
         ('Fall2026', 'Fall 2026'),
         ('Spring2027', 'Spring 2027'),
-        ('Fall2027', 'Fall 2027'),
-
-    
+        ('Fall2027', 'Fall 2027'),    
     ]
     graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
+    def update_extra_info(self, **kwargs):
+        for field, value in kwargs.items():
+            setattr(self, field, value)
+        self.extra_info_filled_out = True  
+        self.is_active = True
+        self.save()
 
 class Admin(Person):
-   
-    pass
+    def update_extra_info(self, **kwargs):
+        for field, value in kwargs.items():
+            setattr(self, field, value)
+        self.extra_info_filled_out = True 
+        self.is_staff = True 
+        self.is_active = True
+        self.is_superuser = True
+        self.save()
+
+
+
 
   
 class Course(models.Model):

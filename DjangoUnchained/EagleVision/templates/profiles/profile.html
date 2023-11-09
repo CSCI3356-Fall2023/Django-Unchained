@@ -33,15 +33,11 @@
                     <p>User Type:</p> Student
                 {% endif %}
             </div>
-            <button type="submit" class="logout" id="logout-button">
-                <span class="glyphicon glyphicon-log-out"></span> LOG OUT
-            </button>
-            
-            <script>
-                document.getElementById('logout-button').addEventListener('click', function() {
-                    window.location.href = "{% url 'logout' %}";
-                });
-            </script>
+            <div class="courses">
+                <a href="#">Courses</a>
+            </div>
+            <div class="logout">
+                <a href="{% url 'logout' %}">Logout</a>
             </div>
         </div>
     </body>
