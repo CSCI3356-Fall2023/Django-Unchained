@@ -66,9 +66,7 @@ class Student(Person):
         ('Spring2026', 'Spring 2026'),
         ('Fall2026', 'Fall 2026'),
         ('Spring2027', 'Spring 2027'),
-        ('Fall2027', 'Fall 2027'),
-
-    
+        ('Fall2027', 'Fall 2027'),    
     ]
     graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
     def update_extra_info(self, **kwargs):
@@ -88,6 +86,10 @@ class Admin(Person):
         self.is_superuser = True
         self.save()
 
+class Course(models.Model):
+    course_id = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
 
-
-
+    def __str__(self):
+        return self.title

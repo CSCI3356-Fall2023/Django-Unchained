@@ -1,14 +1,17 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import Person, Student, Admin, SystemState
+from .models import Student, Admin, SystemState, Course
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import login as auth_login
+from django.views.decorators.http import require_http_methods
+import requests
 from django.conf import settings
 from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
@@ -26,7 +29,6 @@ oauth.register(
     },
     server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
-
 
 
 # Create your views here.
@@ -84,8 +86,27 @@ def callback(request):
 
 
 def course_selection(request):
-    return redirect('courseselect')
+    return redirect('course_selection')
         
+    
+def login_view(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(email=email, password=password)  
+
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                user.authenticate()
+                return redirect('profile')
+            else:
+                messages.error(request, "Your account is inactive.")
+        else:
+            messages.error(request, "Invalid credentials.")
+
+   
+    return render(request, 'login.html', {})
 
 def forgot(request):
     template = loader.get_template('login.html')
@@ -119,9 +140,6 @@ def student_register(request):
             )
 
                 return redirect('login')  
-
-
-           
     else:
         form = StudentRegistrationForm()
 
@@ -201,10 +219,6 @@ def change_state(request):
                 return redirect('change_state')
     return render(request, 'change_state.html', {'form' : form, 'state': state})
 
-
-
-
-
 def role_selection(request):
     if request.method == 'POST':
         role = request.POST.get('role')
@@ -230,8 +244,6 @@ def student_extra_info(request):
 
     return render(request, 'student_extra_info.html', {'form': form})
 
-
-
 def admin_extra_info(request):
     if request.method == 'POST':
         form = ExtraInfoForm_admin(request.POST)
@@ -243,12 +255,10 @@ def admin_extra_info(request):
 
     return render(request, 'admin_extra_info.html', {'form': form})
 
-
-
 def index(request):
     return render(
         request,
-        "login.html",
+        "registration/login.html",
         context={
             "session": request.session.get("user"),
             "pretty": json.dumps(request.session.get("user"), indent=4),
@@ -268,3 +278,12 @@ def logout(request):
             quote_via=quote_plus,
         ),
     )
+def api_endpoint(request):
+    response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?personId=90000001&termId=kuali.atp.FA2023-2024')
+    data_list = []
+    for entry in response.json():
+        offering = entry['activityOffering']
+        new_course = Course(course_id=offering['id'], title=offering['name'], description=offering['descr']['plain'])
+        new_course.save()
+        data_list.append(new_course)
+    return render(request, 'course_selection.html', {'courses': data_list})

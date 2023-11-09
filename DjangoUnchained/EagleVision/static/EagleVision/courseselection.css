@@ -1,0 +1,9 @@
+.box {
+    background-color: #fff;
+}
+body {
+    background-color:  #6D0000;
+    font-family: Rubik, sans-serif;
+    justify-content: center;
+    display: flex
+}
