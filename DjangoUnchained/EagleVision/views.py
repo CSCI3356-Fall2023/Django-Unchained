@@ -15,6 +15,10 @@ from django.contrib.auth import login as auth_login
 def home_view(request):
     return redirect('login')
     
+def course_selection(request):
+    return redirect('courseselect')
+        
+    
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
