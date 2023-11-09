@@ -3,42 +3,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Login </title>
+        <title>Login</title>
         <link rel="stylesheet" href="{% static 'EagleVision/loginStyle.css' %}">
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
         </ul>
         {% endif %}
     </head>
-    <div class="sub-container"> 
-        <div class="bclogo">
-            <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
-            <div class="title">{{ Title }}</div>
-        </div>
-        <form class="form-container" method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <label for="email">Email{{ FieldOne }}</label><br>
-            <input type="email" class="fields" name="username" required><br>
-            <label for="password">Password{{ FieldTwo }}</label><br>
-            <input type="password" class="fields" name="password" required>
-            <div class="selectors"> 
-                <div class="Login-Button">
-                    <button type="submit" class="confirm" href="">Login{{ Button }}</button>
-                </div>
-                <div class="form-row" display: none>
-                    <div class="signup">
-                        Don't have an account? <a href="{% url 'register' %}" target="_blank">Sign up</a>
-                    </div>
-                </div>
-                <div class="form-row" display: none>
-                    <div class="google">
-                        <a href="{% url 'login' %}" target="_blank">Login with Google</a>
-                    </div>
-                </div>
+    <body>
+        <div class="login-container"> 
+            <div class="bclogo">
+                <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo">
+                <div class="title">{{ Title }}</div>
             </div>
-        </form>
-    </div>
+            <a href="{% url 'login' %}" class="google-login-button">Login with Google</a>
+        </div>
+    </body>
 </html>
