@@ -6,25 +6,26 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
 from .models import Person, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.conf import settings
 from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
+from urllib.parse import quote_plus
+
 
 oauth = OAuth()
 oauth.register(
-    name='auth0',
+    "auth0",
     client_id=settings.AUTH0_CLIENT_ID,
     client_secret=settings.AUTH0_CLIENT_SECRET,
+    client_kwargs={
+        "scope": "openid profile email",
+    },
     server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
-    
-
-
 
 
 
@@ -40,30 +41,48 @@ def login(request):
 
 
 
+
+
+
 def callback(request):
     token = oauth.auth0.authorize_access_token(request)
-    request.session["user"] = token
-    user = oauth.auth0.parse_id_token(request.session["user"])
-    email = user['email']
-    name = user['name']
-    user_exists = Person.objects.filter(email=email).exists()
+    userinfo = token.get('userinfo')
+    email = userinfo.get("email")
+    name = userinfo.get("name")
 
     if not email.endswith('@bc.edu'):
         messages.error(request, "Only Boston College emails are allowed to sign up.")
         return redirect('login')
-    
-    if not user_exists:
+
+    try:
+        user = Person.objects.get(email=email)
+        # Check if user type is set and whether additional info is required
+        if user.user_type:
+            if not user.is_active or not user.is_extra_info_filled_out():
+                if user.user_type == 'student':
+                    return redirect('student_extra_info')
+                elif user.user_type == 'admin':
+                    return redirect('admin_extra_info')
+            else:
+                auth_login(request, user)
+                return redirect('profile')
+        else:
+         
+            return redirect('role_selection')
+
+    except Person.DoesNotExist:
         new_user = Person.objects.create_user(
             email=email,
             name=name,
-            password=None,
             is_active=False
         )
+        new_user.backend = 'django.contrib.auth.backends.ModelBackend'
+        auth_login(request, new_user)
         return redirect('role_selection')
-    else:
-        user = Person.objects.get(email=email)
-        if not user.is_extra_info_filled_out():
-            return redirect('role_selection')
+
+    return redirect('index')
+
+
 def course_selection(request):
     return redirect('courseselect')
         
@@ -138,7 +157,7 @@ def correct_login(request):
     return HttpResponseRedirect(redir_url)
 
 
-@login_required
+
 def user_profile(request):
     user = request.user
     try:
@@ -191,16 +210,12 @@ def role_selection(request):
         role = request.POST.get('role')
         if role in ['student', 'admin']:
             request.user.user_type = role
-            request.user.save(update_fields=['user_type'])
+            request.user.save() 
             if role == 'student':
                 return redirect('student_extra_info')
             elif role == 'admin':
                 return redirect('admin_extra_info')
     return render(request, 'identity_selection.html')
-
-
-
-
 
 
 
@@ -238,4 +253,18 @@ def index(request):
             "session": request.session.get("user"),
             "pretty": json.dumps(request.session.get("user"), indent=4),
         },
+    )
+
+def logout(request):
+    request.session.clear()
+
+    return redirect(
+        f"https://{settings.AUTH0_DOMAIN}/v2/logout?"
+        + urlencode(
+            {
+                "returnTo": request.build_absolute_uri(reverse("index")),
+                "client_id": settings.AUTH0_CLIENT_ID,
+            },
+            quote_via=quote_plus,
+        ),
     )

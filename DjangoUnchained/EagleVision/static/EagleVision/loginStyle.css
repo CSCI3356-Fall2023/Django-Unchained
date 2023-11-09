@@ -77,3 +77,31 @@ label {
     width: 100%;
     justify-content:space-between;
 }
+
+
+.login-container {
+    text-align: center; 
+    padding: 20px;
+}
+
+.bclogo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.google-login-button {
+    display: inline-block;
+    background-color: #db4437; 
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.google-login-button:hover, .google-login-button:focus {
+    background-color: #c1351d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

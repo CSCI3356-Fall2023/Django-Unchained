@@ -13,10 +13,8 @@ urlpatterns = [
     path('admin/extra_info/', views.admin_extra_info, name='admin_extra_info'),
     path('role_selection/', views.role_selection, name='role_selection'),
     path("", views.index, name="index"),
-    path("login", views.login, name="login"),
+    path('login', views.login,name="login"),
     path("logout", views.logout, name="logout"),
     path("callback", views.callback, name="callback"),
-    
-
     path('courseselection/', views.course_selection, name='courseselect')
 ]

@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'EagleVision',
+    'sslserver',
     
 ]
 
@@ -75,9 +76,9 @@ INSTALLED_APPS = [
 # }
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
     'EagleVision.backends.EmailBackend',
     'authlib.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
 
 MIDDLEWARE = [
