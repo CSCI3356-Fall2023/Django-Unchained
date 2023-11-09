@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Complete Info</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/studentRegister.css' %}">
+</head>
+<body>
+    <div class="bclogo">
+        <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+    </div>
+    <div class="form-container">
+    <h1>Student Complete Info</h1>
+    <form action="{% url 'student_extra_info' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Complete" class="submit-button">
+    </form>
+</div>
+</body>
+</html>
+
+
