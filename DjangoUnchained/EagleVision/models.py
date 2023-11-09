@@ -69,23 +69,9 @@ class Student(Person):
         ('Fall2027', 'Fall 2027'),    
     ]
     graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
-    def update_extra_info(self, **kwargs):
-        for field, value in kwargs.items():
-            setattr(self, field, value)
-        self.extra_info_filled_out = True  
-        self.is_active = True
-        self.save()
-
+   
 class Admin(Person):
-    def update_extra_info(self, **kwargs):
-        for field, value in kwargs.items():
-            setattr(self, field, value)
-        self.extra_info_filled_out = True 
-        self.is_staff = True 
-        self.is_active = True
-        self.is_superuser = True
-        self.save()
-
+    pass
 class Course(models.Model):
     course_id = models.CharField(max_length=255)
     title = models.CharField(max_length=255)

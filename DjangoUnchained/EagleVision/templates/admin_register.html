@@ -13,7 +13,7 @@
 
     <div class="form-container">
         <h1>Admin Sign Up</h1>
-        <form action="{% url 'admin_register' %}" method="post">
+        <form action =  method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Sign Up" class="submit-button">

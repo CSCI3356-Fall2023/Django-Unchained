@@ -17,7 +17,7 @@ from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
 from urllib.parse import quote_plus
-
+from .models import Person
 
 oauth = OAuth()
 oauth.register(
@@ -58,18 +58,21 @@ def callback(request):
 
     try:
         user = Person.objects.get(email=email)
-        # Check if user type is set and whether additional info is required
+        
         if user.user_type:
             if not user.is_active or not user.is_extra_info_filled_out():
                 if user.user_type == 'student':
+                    request.session["email"] = email
                     return redirect('student_extra_info')
                 elif user.user_type == 'admin':
+                    request.session["email"] = email
                     return redirect('admin_extra_info')
             else:
                 auth_login(request, user)
+                request.session["email"] = email
                 return redirect('profile')
         else:
-         
+            request.session["email"] = email
             return redirect('role_selection')
 
     except Person.DoesNotExist:
@@ -78,8 +81,8 @@ def callback(request):
             name=name,
             is_active=False
         )
-        new_user.backend = 'django.contrib.auth.backends.ModelBackend'
         auth_login(request, new_user)
+        request.session["email"] = email
         return redirect('role_selection')
 
     return redirect('index')
@@ -89,90 +92,82 @@ def course_selection(request):
     return redirect('course_selection')
         
     
-def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = authenticate(email=email, password=password)  
+# def login_view(request):
+#     if request.method == "POST":
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         user = authenticate(email=email, password=password)  
 
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)
-                user.authenticate()
-                return redirect('profile')
-            else:
-                messages.error(request, "Your account is inactive.")
-        else:
-            messages.error(request, "Invalid credentials.")
+#         if user is not None:
+#             if user.is_active:
+#                 auth_login(request, user)
+#                 user.authenticate()
+#                 return redirect('profile')
+#             else:
+#                 messages.error(request, "Your account is inactive.")
+#         else:
+#             messages.error(request, "Invalid credentials.")
 
    
-    return render(request, 'login.html', {})
+#     return render(request, 'login.html', {})
 
-def forgot(request):
-    template = loader.get_template('login.html')
-    context = {
-        'Title': 'Reset Password', 
-        'FieldOne': 'Email',
-        'FieldTwo': 'New Password',
-        'Button': 'Confirm'
-    }
-    return HttpResponse(template.render(context, request))
+# def forgot(request):
+#     template = loader.get_template('login.html')
+#     context = {
+#         'Title': 'Reset Password', 
+#         'FieldOne': 'Email',
+#         'FieldTwo': 'New Password',
+#         'Button': 'Confirm'
+#     }
+#     return HttpResponse(template.render(context, request))
 
-def register(request):
-    return render(request, 'identity_selection.html')
+# def register(request):
+#     return render(request, 'identity_selection.html')
 
-def student_register(request):
-    if request.method == 'POST':
-        form = StudentRegistrationForm(request.POST)
-        if form.is_valid():
-                student = Student.objects.create_user(
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
-                name=form.cleaned_data['name'],
-                department=form.cleaned_data['department'],
-                eagle_id=form.cleaned_data['eagle_id'],
-                major_1=form.cleaned_data['major_1'],
-                major_2=form.cleaned_data['major_2'],
-                major_3=form.cleaned_data['major_3'],
-                minor_1=form.cleaned_data['minor_1'],
-                minor_2=form.cleaned_data['minor_2'],
-                graduation_semester=form.cleaned_data['graduation_semester']
-            )
+# def student_register(request):
+    # if request.method == 'POST':
+    #     form = StudentRegistrationForm(request.POST)
+    #     if form.is_valid():
+    #             student = Student.objects.create_user(
+    #             email=form.cleaned_data['email'],
+    #             password=form.cleaned_data['password'],
+    #             name=form.cleaned_data['name'],
+    #             department=form.cleaned_data['department'],
+    #             eagle_id=form.cleaned_data['eagle_id'],
+    #             major_1=form.cleaned_data['major_1'],
+    #             major_2=form.cleaned_data['major_2'],
+    #             major_3=form.cleaned_data['major_3'],
+    #             minor_1=form.cleaned_data['minor_1'],
+    #             minor_2=form.cleaned_data['minor_2'],
+    #             graduation_semester=form.cleaned_data['graduation_semester']
+    #         )
 
-                return redirect('login')  
-    else:
-        form = StudentRegistrationForm()
+    #             return redirect('login')  
+    # else:
+    #     form = StudentRegistrationForm()
 
-    return render(request, 'student_register.html', {'form': form})
+    # return render(request, 'student_register.html', {'form': form})
 
-def admin_register(request):
-    if request.method == 'POST':
-        form = AdminRegistrationForm(request.POST)
-        if form.is_valid():
-            admin_instance = Admin.objects.create_superuser( 
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
-                department=form.cleaned_data['department'],
-                name = form.cleaned_data['name'],
-                is_staff=True,
-            )
-            return redirect('login')  
-    else:
-        form = AdminRegistrationForm()
+# def admin_register(request):
+    # if request.method == 'POST':
+    #     form = AdminRegistrationForm(request.POST)
+    #     if form.is_valid():
+    #         admin_instance = Admin.objects.create_superuser( 
+    #             email=form.cleaned_data['email'],
+    #             password=form.cleaned_data['password'],
+    #             department=form.cleaned_data['department'],
+    #             name = form.cleaned_data['name'],
+    #             is_staff=True,
+    #         )
+    #         return redirect('login')  
+    # else:
+    #     form = AdminRegistrationForm()
 
-    return render(request, 'admin_register.html', {'form': form})
+    # return render(request, 'admin_register.html', {'form': form})
 
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-##when do I call this
-def correct_login(request):
-    if request.user.is_authenticated:
-        redir_url = reverse('profile')
-    else:
-        redir_url = reverse('login')
-    return HttpResponseRedirect(redir_url)
 
 
 
@@ -220,35 +215,58 @@ def change_state(request):
     return render(request, 'change_state.html', {'form' : form, 'state': state})
 
 def role_selection(request):
+    email = request.session.get('email')
+    user = Person.objects.get(email=email)
     if request.method == 'POST':
         role = request.POST.get('role')
         if role in ['student', 'admin']:
-            request.user.user_type = role
-            request.user.save() 
+            user.user_type = role
+            user.save() 
             if role == 'student':
+                request.session["email"] = email
                 return redirect('student_extra_info')
             elif role == 'admin':
+                request.session["email"] = email
                 return redirect('admin_extra_info')
     return render(request, 'identity_selection.html')
 
 
 
 def student_extra_info(request):
+    email = request.session.get('email')
+    user = Person.objects.get(email=email)
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
         if form.is_valid():
-            request.user.student.update_extra_info(**form.cleaned_data)
+            user.department = form.cleaned_data.get('department')
+            user.major_1 = form.cleaned_data.get('major_1')
+            user.major_2 = form.cleaned_data.get('major_2')
+            user.major_3 = form.cleaned_data.get('major_3')
+            user.minor_1 = form.cleaned_data.get('minor_1')
+            user.minor_2 = form.cleaned_data.get('minor_2')
+            user.eagle_id = form.cleaned_data.get('eagle_id')
+            user.graduation_semester = form.cleaned_data.get('graduation_semester')
+            user.extra_info_filled_out = True
+            user.is_active = True
+            user.save()
             return redirect('profile')  
+             
     else:
         form = ExtraInfoForm_student()
 
     return render(request, 'student_extra_info.html', {'form': form})
 
 def admin_extra_info(request):
+    email = request.session.get('email')
+    user = Person.objects.get(email=email)
     if request.method == 'POST':
         form = ExtraInfoForm_admin(request.POST)
         if form.is_valid():
-            request.user.admin.update_extra_info(**form.cleaned_data)
+            user.department = form.cleaned_data.get('department')
+            user.extra_info_filled_out = True
+            user.is_staff = True
+            user.is_active = True
+            user.save()
             return redirect('profile') 
     else:
         form = ExtraInfoForm_admin()
@@ -278,6 +296,7 @@ def logout(request):
             quote_via=quote_plus,
         ),
     )
+
 def api_endpoint(request):
     response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?personId=90000001&termId=kuali.atp.FA2023-2024')
     data_list = []

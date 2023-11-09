@@ -76,10 +76,8 @@ INSTALLED_APPS = [
 # }
 
 AUTHENTICATION_BACKENDS = (
-    'EagleVision.backends.EmailBackend',
     'authlib.backends.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend'
-)
+ )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +87,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'allauth.account.middleware.AccountMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'DjangoUnchained.urls'

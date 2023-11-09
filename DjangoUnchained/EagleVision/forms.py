@@ -88,7 +88,7 @@ class ExtraInfoForm_student(forms.Form):
 
 
 class ExtraInfoForm_admin(forms.Form):
-    name = forms.CharField(label="Name", max_length=255)
+    
     department = forms.CharField(label="Department", max_length=255)
 
     def clean(self):
