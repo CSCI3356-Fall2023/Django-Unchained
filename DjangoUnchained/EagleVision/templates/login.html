@@ -8,7 +8,7 @@
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }}</li>
             {% endfor %}
         </ul>
         {% endif %}
@@ -20,18 +20,19 @@
         </div>
         <form class="form-container" method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <label for="email">Email{{ FieldOne }}</label><br>
-            <input type="email" class="fields" name="username" required><br>
-            <label for="password">Password{{ FieldTwo }}</label><br>
+            <label for="email">{{ FieldOne }}</label><br>
+            <input type="email" class="fields" name="email" required><br>
+            <label for="password">{{ FieldTwo }}</label><br>
             <input type="password" class="fields" name="password" required>
             <div class="selectors"> 
                 <div class="Login-Button">
-                    <button type="submit" class="confirm" href="">Login{{ Button }}</button>
+                    <form class="form-container" method="post" action="{% url 'login' %}">
                 </div>
                 <div class="form-row" display: none>
                     <div class="signup">
                         Don't have an account? <a href="{% url 'register' %}" target="_blank">Sign up</a>
                     </div>
+                {% load %}
                 </div>
                 <div class="form-row" display: none>
                     <div class="google">

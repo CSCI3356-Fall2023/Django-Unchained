@@ -1,41 +1,72 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm
+from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import UserProfile, Student, Admin, SystemState
+from .models import Person, Student, Admin, SystemState
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import login as auth_login
+from django.conf import settings
+from authlib.integrations.django_client import OAuth
+from urllib.parse import urlencode
+import json
+
+oauth = OAuth()
+oauth.register(
+    name='auth0',
+    client_id=settings.AUTH0_CLIENT_ID,
+    client_secret=settings.AUTH0_CLIENT_SECRET,
+    server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
+)
+    
+
+
+
+
 
 # Create your views here.
 def home_view(request):
     return redirect('login')
+
+
+def login(request):
+    return oauth.auth0.authorize_redirect(
+        request, request.build_absolute_uri(reverse("callback"))
+    )
+
+
+
+def callback(request):
+    token = oauth.auth0.authorize_access_token(request)
+    request.session["user"] = token
+    user = oauth.auth0.parse_id_token(request.session["user"])
+    email = user['email']
+    name = user['name']
+    user_exists = Person.objects.filter(email=email).exists()
+
+    if not email.endswith('@bc.edu'):
+        messages.error(request, "Only Boston College emails are allowed to sign up.")
+        return redirect('login')
     
+    if not user_exists:
+        new_user = Person.objects.create_user(
+            email=email,
+            name=name,
+            password=None,
+            is_active=False
+        )
+        return redirect('role_selection')
+    else:
+        user = Person.objects.get(email=email)
+        if not user.is_extra_info_filled_out():
+            return redirect('role_selection')
 def course_selection(request):
     return redirect('courseselect')
         
-    
-def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = authenticate(email=email, password=password)  
-
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)  
-                return redirect('profile')
-            else:
-                messages.error(request, "Your account is inactive.")
-        else:
-            messages.error(request, "Invalid credentials.")
-
-   
-    return render(request, 'registration/login.html', {})
 
 def forgot(request):
     template = loader.get_template('login.html')
@@ -150,3 +181,61 @@ def change_state(request):
                 state_object.save()
                 return redirect('change_state')
     return render(request, 'change_state.html', {'form' : form, 'state': state})
+
+
+
+
+
+def role_selection(request):
+    if request.method == 'POST':
+        role = request.POST.get('role')
+        if role in ['student', 'admin']:
+            request.user.user_type = role
+            request.user.save(update_fields=['user_type'])
+            if role == 'student':
+                return redirect('student_extra_info')
+            elif role == 'admin':
+                return redirect('admin_extra_info')
+    return render(request, 'identity_selection.html')
+
+
+
+
+
+
+
+def student_extra_info(request):
+    if request.method == 'POST':
+        form = ExtraInfoForm_student(request.POST)
+        if form.is_valid():
+            request.user.student.update_extra_info(**form.cleaned_data)
+            return redirect('profile')  
+    else:
+        form = ExtraInfoForm_student()
+
+    return render(request, 'student_extra_info.html', {'form': form})
+
+
+
+def admin_extra_info(request):
+    if request.method == 'POST':
+        form = ExtraInfoForm_admin(request.POST)
+        if form.is_valid():
+            request.user.admin.update_extra_info(**form.cleaned_data)
+            return redirect('profile') 
+    else:
+        form = ExtraInfoForm_admin()
+
+    return render(request, 'admin_extra_info.html', {'form': form})
+
+
+
+def index(request):
+    return render(
+        request,
+        "login.html",
+        context={
+            "session": request.session.get("user"),
+            "pretty": json.dumps(request.session.get("user"), indent=4),
+        },
+    )
