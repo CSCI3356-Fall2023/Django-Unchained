@@ -65,7 +65,7 @@ def callback(request):
         if not user.is_extra_info_filled_out():
             return redirect('role_selection')
 def course_selection(request):
-    return redirect('courseselect')
+    return redirect('course_selection')
         
 
 def forgot(request):
