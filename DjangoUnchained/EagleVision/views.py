@@ -1,15 +1,17 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import UserProfile, Student, Admin, SystemState
+from .models import UserProfile, Student, Admin, SystemState, Course
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import login as auth_login
+from django.views.decorators.http import require_http_methods
+import requests
 
 # Create your views here.
 def home_view(request):
@@ -27,7 +29,8 @@ def login_view(request):
 
         if user is not None:
             if user.is_active:
-                auth_login(request, user)  
+                auth_login(request, user)
+                user.authenticate()
                 return redirect('profile')
             else:
                 messages.error(request, "Your account is inactive.")
@@ -150,3 +153,14 @@ def change_state(request):
                 state_object.save()
                 return redirect('change_state')
     return render(request, 'change_state.html', {'form' : form, 'state': state})
+
+def api_endpoint(request):
+    response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?personId=90000001&termId=kuali.atp.FA2023-2024')
+    response_list = response.json()
+    data_list = []
+    for offering in response_list:
+        course = offering['activityOffering']
+        new_course = Course(course_id=course['id'], title=course['name'], description=course['descr'])
+        new_course.save()
+        data_list.append(new_course)
+    return JsonResponse(data_list, safe=False) 

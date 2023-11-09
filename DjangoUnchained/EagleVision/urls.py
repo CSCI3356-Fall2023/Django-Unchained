@@ -11,5 +11,6 @@ urlpatterns = [
     path('register/admin/', views.admin_register, name='admin_register'),
     path('profile/', views.user_profile, name='profile'),
     path('change_state/', views.change_state, name='change_state'),
-    path('courseselection/', views.course_selection, name='courseselect')
+    path('courseselection/', views.course_selection, name='courseselect'),
+    path('api/', views.api_endpoint, name='api')
 ]
