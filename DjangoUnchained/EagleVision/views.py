@@ -65,9 +65,6 @@ def student_register(request):
             )
 
                 return redirect('login')  
-
-
-           
     else:
         form = StudentRegistrationForm()
 
@@ -93,15 +90,6 @@ def admin_register(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-##when do I call this
-def correct_login(request):
-    if request.user.is_authenticated:
-        redir_url = reverse('profile')
-    else:
-        redir_url = reverse('login')
-    return HttpResponseRedirect(redir_url)
-
 
 @login_required
 def user_profile(request):
@@ -146,3 +134,6 @@ def change_state(request):
                 state_object.save()
                 return redirect('change_state')
     return render(request, 'change_state.html', {'form' : form, 'state': state})
+
+#def display_courses():
+    

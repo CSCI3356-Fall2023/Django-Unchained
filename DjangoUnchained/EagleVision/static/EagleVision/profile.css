@@ -1,51 +1,61 @@
 
 body {
-    background-color: #6D0000;
-  }
-  .container {
-      border-radius: 50px;
-      background-color: #fff;
-      display: flex;
-      margin: auto;
-      width: 100%;
-      max-width: 1139px;
-      padding: 19px 20px 40px;
-      flex-direction: column;
-      align-self: center;
-      margin-top: 5em;
-  }
-  .bclogo {
-      display: grid;
-      place-items: center;
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%;
-      border: red;
-  }
-  
-  .info > p {
-    font-weight: bold;
-  }
-
-  .container > h1 {
-      text-align: center;
-  }
-
-  .logout {
-    margin-top: 2em;
-    background-color: #6D0000;
-    color: white;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 2em;
-    border: none;
-    padding: 0.75em;
-    width: 50%;
+  background-color: #6D0000;
+  font-family: Rubik, sans-serif;
+}
+.container {
+    border-radius: 50px;
+    background-color: #fff;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    max-width: 1139px;
+    padding: 19px 20px 40px;
+    flex-direction: column;
     align-self: center;
-  }
-  
-  .logout:hover {
-    background-color: #4d0000;
-  }
-  
-  
+    margin-top: 5em;
+}
+.bclogo {
+    display: grid;
+    place-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: red;
+}
+
+.info > p {
+  font-weight: bold;
+}
+
+.container > h1 {
+    text-align: center;
+}
+
+.logout, .courses {
+display: flex;
+justify-content: center;
+align-items:center;
+margin-left:auto;
+margin-right:auto;
+margin-top:2em;
+
+}
+
+a{
+  background-color: #6D0000;
+  color: white;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.75em;
+  border: none;
+  padding: .5em 1.5em .5em 1em;
+  width: 50%;
+  text-decoration: none;
+  align-self: center;
+  text-align:center;
+}
+
+a:hover {
+  background-color: #4d0000;
+}
