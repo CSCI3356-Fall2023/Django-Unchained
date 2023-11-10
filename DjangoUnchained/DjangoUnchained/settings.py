@@ -60,20 +60,7 @@ INSTALLED_APPS = [
     
 ]
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'APP': {
-#             'client_id': '159123941533-972leu77ipdva2jn60hki4r5j0qquh3d.apps.googleusercontent.com',
-#             'secret': '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',
-#             'key': '',
-#             'redirect_uris': ['http://127.0.0.1:8000/'],
-#         }
-#     },
-# }
+
 
 AUTHENTICATION_BACKENDS = (
     'authlib.backends.EmailBackend',
