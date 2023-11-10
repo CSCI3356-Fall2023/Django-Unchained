@@ -17,7 +17,8 @@ from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
 from urllib.parse import quote_plus
-from .models import Person
+from .models import Person, SystemState
+from django.shortcuts import get_object_or_404
 
 oauth = OAuth()
 oauth.register(
@@ -89,7 +90,7 @@ def callback(request):
 
 
 def course_selection(request):
-    return redirect('course_selection')
+    return redirect('courseselect')
         
     
 # def login_view(request):
@@ -171,48 +172,48 @@ def logout_view(request):
 
 
 
+@login_required
 def user_profile(request):
     user = request.user
-    try:
-        system_state = SystemState.objects.latest('updated_at')
-    except SystemState.DoesNotExist:
-        system_state = None
+    system_state = get_object_or_404(SystemState, pk=1)
+
+    state = 'Open' if system_state.state else 'Closed'
 
     context = {
         'user': user,
         'system_state': system_state,
+        'state': state,
     }
     return render(request, 'profiles/profile.html', context)
-
 
 @login_required
 def change_state(request):
     try:
-        Admin.objects.get(email=request.user)
-    except:
-        return redirect('profile')
-    state_dict = {'OPEN': True, 'CLOSED': False}
-    form = ChangeStateForm()
-    user = request.user
-    try:
-        state_object = SystemState.objects.get(id=1)
-    except:
-        state_object = SystemState()
-        state_object.state = True
-        state_object.save()
-        state_object = SystemState.objects.get(id=1)
-    state = 'CLOSED'
-    if state_object.state:
-        state = 'OPEN'
+        current_state = SystemState.objects.latest('updated_at')
+    except SystemState.DoesNotExist:
+        current_state = None
+
     if request.method == 'POST':
         form = ChangeStateForm(request.POST)
+
         if form.is_valid():
-            new_state = form.cleaned_data['state'].upper()
-            if new_state in state_dict.keys():
-                state_object.state = state_dict[new_state]
-                state_object.save()
-                return redirect('change_state')
-    return render(request, 'change_state.html', {'form' : form, 'state': state})
+            new_state_str = form.cleaned_data['state']
+            new_state = True if new_state_str == 'Open' else False
+
+            if current_state:
+                current_state.state = new_state
+                current_state.save()
+            else:
+                SystemState.objects.create(state=new_state)
+
+            return redirect('profile')
+    else:
+        initial_state = current_state.state if current_state else ''
+        form = ChangeStateForm(initial={'state': initial_state})
+
+    context = {'form': form, 'state': current_state.state if current_state else ''}
+    print("Current State:", current_state)
+    return render(request, 'change_state.html', context)
 
 def role_selection(request):
     email = request.session.get('email')

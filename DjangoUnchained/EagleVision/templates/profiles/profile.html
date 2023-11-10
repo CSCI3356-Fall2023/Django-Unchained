@@ -18,6 +18,7 @@
                 <p>Email:</p>    {{ user.email }}
                 <p>Department:</p>    {{ user.department }}
                 {% if user.is_staff %}
+                
                     <p>User Type:</p> Admin
                     <p>System State:</p>
                     {% if system_state %}
@@ -29,6 +30,14 @@
                     {% else %}
                         Error
                     {% endif %}
+                    <br>
+                    <div class="system-state">
+                        <form method="post" action="{% url 'change_state' %}" style="margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit">Change State</button>
+                        </form>
+                    </div>
+
                 {% else %}
                     <p>User Type:</p> Student
                 {% endif %}
