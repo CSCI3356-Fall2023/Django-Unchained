@@ -63,6 +63,14 @@ class AdminRegistrationForm(forms.Form):
 class ChangeStateForm(forms.Form):
     state = forms.CharField(label = 'open or closed?')
 
+    def clean_state(self):
+        data = self.cleaned_data['state'].lower()
+        
+        if data not in ['open', 'closed']:
+            raise forms.ValidationError("Invalid state. Please enter 'Open' or 'Closed'.")
+        
+        return data
+
 
 class ExtraInfoForm_student(forms.Form):
     department = forms.CharField(label="Department", max_length=255)

@@ -12,7 +12,7 @@
     </div>
 
     <div class="form-container">
-        <h1>Registration is {{ state }}, type open or closed to change state</h1>
+        <h1>Registration is {{ current_state }}, type open or closed to change state</h1>
         <form action="{% url 'change_state' %}" method="post">
             {% csrf_token %}
             {{ form }}
