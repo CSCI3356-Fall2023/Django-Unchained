@@ -65,10 +65,10 @@ class ChangeStateForm(forms.Form):
 
     def clean_state(self):
         data = self.cleaned_data['state'].lower()
-        
+
         if data not in ['open', 'closed']:
-            raise forms.ValidationError("Invalid state. Please enter 'Open' or 'Closed'.")
-        
+            raise forms.ValidationError("Invalid state. Please enter 'open' or 'closed' (case-insensitive).")
+
         return data
 
 

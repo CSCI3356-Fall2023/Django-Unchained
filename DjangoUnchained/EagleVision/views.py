@@ -177,16 +177,17 @@ def logout_view(request):
 @login_required
 def user_profile(request):
     user = request.user
-    system_state = get_object_or_404(SystemState, pk=1)
-
-    state = 'Open' if system_state.state else 'Closed'
+    try:
+        system_state = SystemState.objects.get(id=1)  
+    except SystemState.DoesNotExist:
+        system_state = None  
 
     context = {
         'user': user,
         'system_state': system_state,
-        'state': state,
     }
     return render(request, 'profiles/profile.html', context)
+
 
 @login_required
 def change_state(request):
@@ -200,7 +201,8 @@ def change_state(request):
 
         if form.is_valid():
             new_state_str = form.cleaned_data['state']
-            new_state = True if new_state_str == 'Open' else False
+            new_state = True if new_state_str.lower() == 'open' else False
+
 
             if current_state:
                 current_state.state = new_state
@@ -213,7 +215,7 @@ def change_state(request):
         initial_state = current_state.state if current_state else ''
         form = ChangeStateForm(initial={'state': initial_state})
 
-    context = {'form': form, 'state': current_state.state if current_state else ''}
+    context = {'form': form, 'current_state': current_state.state if current_state else ''}
     print("Current State:", current_state)
     return render(request, 'change_state.html', context)
 
