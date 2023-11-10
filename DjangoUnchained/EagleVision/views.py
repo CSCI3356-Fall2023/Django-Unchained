@@ -89,7 +89,7 @@ def callback(request):
 
 
 def course_selection(request):
-    return redirect('course_selection')
+    return redirect('courseselect')
         
     
 # def login_view(request):
