@@ -11,8 +11,8 @@
         <ul>
         {% for course in courses %}
             <div class="course-list">
-            {% if course is not None %}
-                <li><strong>{{ course.title }}</strong> <br><br> {{ course.description }}</li><br>
+            {% if course.title %}
+                <li class="course"><p class="course-title">{{ course.title }}<hr></p> {{ course.description }}</li><br>
             {% endif %}
         {% endfor %}
             </div>

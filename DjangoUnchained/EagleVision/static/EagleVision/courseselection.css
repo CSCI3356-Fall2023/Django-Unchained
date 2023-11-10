@@ -17,18 +17,27 @@ body {
     flex-wrap: wrap;
     padding: 0;
     list-style: none;
+    justify-content: center;
+    margin:0;
 }
 
-.container > h1 {
+.box h1 {
     text-align: center;
 }
 
 .course {
-    border: 1px solid #ccc;
+    width: calc(33.33% - 20px);
+    border: 2px solid #ddd; 
+    border-radius: 10px;
     padding: 15px;
-    margin: 10px;
+    margin: 10px auto;
     flex: 1 0 calc(33.33% - 20px);
     box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.course-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
