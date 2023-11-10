@@ -19,6 +19,10 @@ body {
     list-style: none;
 }
 
+.container > h1 {
+    text-align: center;
+}
+
 .course {
     border: 1px solid #ccc;
     padding: 15px;
