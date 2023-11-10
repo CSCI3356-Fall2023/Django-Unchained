@@ -299,10 +299,11 @@ def logout(request):
 
 def api_endpoint(request):
     response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?personId=90000001&termId=kuali.atp.FA2023-2024')
-    data_list = []
-    for entry in response.json():
-        offering = entry['activityOffering']
-        new_course = Course(course_id=offering['id'], title=offering['name'], description=offering['descr']['plain'])
-        new_course.save()
-        data_list.append(new_course)
+    data_list = [response.status_code]
+    if response.status_code == 200:
+        for entry in response.json():
+            offering = entry['activityOffering']
+            new_course = Course(course_id=offering['id'], title=offering['name'], description=offering['descr']['plain'])
+            new_course.save()
+            data_list.append(new_course)
     return render(request, 'course_selection.html', {'courses': data_list})

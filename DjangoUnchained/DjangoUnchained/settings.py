@@ -77,6 +77,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = (
     'authlib.backends.EmailBackend',
+    'authlib.backends'
  )
 
 MIDDLEWARE = [

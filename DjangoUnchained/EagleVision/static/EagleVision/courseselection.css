@@ -1,9 +1,33 @@
-.box {
-    background-color: #fff;
-}
 body {
-    background-color:  #6D0000;
-    font-family: Rubik, sans-serif;
-    justify-content: center;
-    display: flex
+    background-color: #6D0000;
+    font-family: 'Rubik', sans-serif;
 }
+
+.container {
+    border-radius: 20px;
+    background-color: #fff;
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+    margin-top: 5em;
+}
+
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.course {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+    flex: 1 0 calc(33.33% - 20px);
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-list ul {
+    list-style: none;
+}
+

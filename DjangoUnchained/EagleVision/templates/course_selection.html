@@ -10,8 +10,12 @@
         <h1> Course Selections</h1>
         <ul>
         {% for course in courses %}
-            <li>{{ course.title }} - {{ course.description }}</li>
+            <div class="course-list">
+            {% if course is not None %}
+                <li>{{ course.title }} <br> This would be the description {{ course.description }}</li>
+            {% endif %}
         {% endfor %}
+            </div>
         </ul>
     </div>
 </body>
