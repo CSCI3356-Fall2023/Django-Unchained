@@ -3,7 +3,7 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
-.container {
+.box {
     border-radius: 20px;
     background-color: #fff;
     margin: auto;
@@ -16,6 +16,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
+    list-style: none;
 }
 
 .course {
@@ -25,9 +26,5 @@ body {
     flex: 1 0 calc(33.33% - 20px);
     box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.course-list ul {
-    list-style: none;
 }
 

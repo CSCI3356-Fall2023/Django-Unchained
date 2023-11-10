@@ -17,8 +17,10 @@ from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
 from urllib.parse import quote_plus
-from .models import Person, SystemState
+from .models import Person, SystemState, Course
 from django.shortcuts import get_object_or_404
+from django.utils.html import escape
+from bs4 import BeautifulSoup
 
 oauth = OAuth()
 oauth.register(
@@ -299,12 +301,15 @@ def logout(request):
     )
 
 def api_endpoint(request):
-    response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?personId=90000001&termId=kuali.atp.FA2023-2024')
+    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
     data_list = [response.status_code]
     if response.status_code == 200:
         for entry in response.json():
-            offering = entry['activityOffering']
-            new_course = Course(course_id=offering['id'], title=offering['name'], description=offering['descr']['plain'])
+            offering = entry['courseOffering']
+            description_html = offering['descr']['plain']
+            soup = BeautifulSoup(description_html, 'html.parser')
+            description_text = soup.get_text(separator=' ')
+            new_course = Course(course_id=offering['id'], title=offering['name'], description=description_text)
             new_course.save()
             data_list.append(new_course)
     return render(request, 'course_selection.html', {'courses': data_list})

@@ -72,6 +72,7 @@ class Student(Person):
    
 class Admin(Person):
     pass
+
 class Course(models.Model):
     course_id = models.CharField(max_length=255)
     title = models.CharField(max_length=255)

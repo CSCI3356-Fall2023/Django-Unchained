@@ -12,7 +12,7 @@
         {% for course in courses %}
             <div class="course-list">
             {% if course is not None %}
-                <li>{{ course.title }} <br> This would be the description {{ course.description }}</li>
+                <li><strong>{{ course.title }}</strong> <br><br> {{ course.description }}</li><br>
             {% endif %}
         {% endfor %}
             </div>
