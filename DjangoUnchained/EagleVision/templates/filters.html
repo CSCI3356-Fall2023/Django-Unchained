@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Filtering</title>
+    <link rel="stylesheet" href="{% static 'EagleVision\filters.css' %}">
+</head>
+{% comment %} Use getCourseOfferingsByCode for major,
+              getEffectiveCourseOfferingsOnDate for date,
+              getCourseOfferingsByTerm for term. 
+              Put a filter for times in the courses page. 
+            {% endcomment %}
+<body>
+    <form>
+        <div class="box m-2 w-90 h-90"> 
+            <h1> Course Course Filters</h1>
+            <div class="term m-2 w-33"> 
+                <ul>
+                    <div class="list">
+                        <li><input type="radio" name="term"><label>Fall</label></li><br>
+                        <li><input type="radio" name="term"><label>Spring</label></li><br>
+                        <li><input type="radio" name="term"><label>Summer</label></li><br>
+                    </div>
+                </ul>
+            </div>
+            <div class="majors m-2 w33"> 
+
+            </div>
+            <div class="date m-2 w-33"> 
+
+            </div>
+        </div>
+    </form>
+</body>
+</html>
