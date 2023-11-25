@@ -77,6 +77,8 @@ class Course(models.Model):
     course_id = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     description = models.TextField()
+    date = models.CharField(max_length=255, default = '01/01/2023')
+    requisite = models.CharField(max_length=255, default = 'none')
 
     def __str__(self):
         return self.title

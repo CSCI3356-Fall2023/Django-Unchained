@@ -7,16 +7,18 @@
 </head>
 <body>
     <div class="box m-2 w-90 h-90"> 
-        <h1> Course Selections</h1>
-        <ul>
-        {% for course in courses %}
-            <div class="course-list">
-            {% if course.title %}
-                <li class="course"><p class="course-title">{{ course.title }}<hr></p> {{ course.description }}</li><br>
-            {% endif %}
-        {% endfor %}
-            </div>
-        </ul>
+        <h1>Course Selections</h1>
+            {% for course in courses %}
+                <div class="course-list">
+                    {% if course.title %}
+                        <div class="course">
+                            <p class="course-title">{{ course.title }}<hr></p>
+                            <p>{{ course.date }}<hr></p>
+                            <p>{{ course.description }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
     </div>
 </body>
 </html>

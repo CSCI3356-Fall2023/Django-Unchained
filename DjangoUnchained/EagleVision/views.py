@@ -308,10 +308,18 @@ def api_endpoint(request):
     if response.status_code == 200:
         for entry in response.json():
             offering = entry['courseOffering']
+            term = entry['term']
+            requisite_ids = entry.get('courseOffering', {}).get('requisiteIds', [])
+            req = []
+            for id in requisite_ids:
+                if id == offering['id']:
+                    req.append(offering['name'])
+            #'requisiteIds' is not the same as 'id' of requisites. Still exploring...#
             description_html = offering['descr']['plain']
+            date_text = term['descr']['plain']
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
-            new_course = Course(course_id=offering['id'], title=offering['name'], description=description_text)
+            new_course = Course(course_id=offering['id'], title=offering['name'], description=description_text, date = date_text)
             new_course.save()
             data_list.append(new_course)
     return render(request, 'course_selection.html', {'courses': data_list})
