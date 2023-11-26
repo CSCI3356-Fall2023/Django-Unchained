@@ -20,5 +20,7 @@ urlpatterns = [
     path("callback", views.callback, name="callback"),
     path('courseselection/', views.course_selection, name='courseselect'),
     path('search_results/', views.search_results, name='search_results'),
+    path('filter/', views.filter, name="filter"),
+    path('filerRequest/', views.filterRequest, name="filterRequest")
     #path('courses/', views.display_courses, name='display_courses'),
 ]

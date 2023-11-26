@@ -377,3 +377,8 @@ def search_results(request):
         return render(request, 'search_results.html', {'filtered_courses': filtered_courses})
 
     return HttpResponseRedirect(reverse('course_selection'))
+
+def filter(request):
+    return render(request, "filters.html")
+def filterRequest(request):
+    return render(request, "filters.html")

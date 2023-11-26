@@ -13,7 +13,7 @@
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
         </form>
-        
+            <div class="filter"> <a href="{% url 'filter'%}"> Filter </a> </div>
             {% for course in courses %}
                 <div class="course-list">
                     {% if course.title %}
