@@ -18,6 +18,7 @@ urlpatterns = [
     path('login', views.login,name="login"),
     path("logout", views.logout, name="logout"),
     path("callback", views.callback, name="callback"),
-    path('courseselection/', views.course_selection, name='courseselect')
+    path('courseselection/', views.course_selection, name='courseselect'),
+    path('search_results/', views.search_results, name='search_results'),
     #path('courses/', views.display_courses, name='display_courses'),
 ]

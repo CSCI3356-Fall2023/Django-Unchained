@@ -21,6 +21,7 @@ from .models import Person, SystemState, Course
 from django.shortcuts import get_object_or_404
 from django.utils.html import escape
 from bs4 import BeautifulSoup
+from django.db.models import Count
 
 oauth = OAuth()
 oauth.register(
@@ -323,3 +324,17 @@ def api_endpoint(request):
             new_course.save()
             data_list.append(new_course)
     return render(request, 'course_selection.html', {'courses': data_list})
+
+
+def search_results(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_query', '')
+        courses = Course.objects.filter(title__icontains=search_query)
+        distinct_courses = {}
+        for course in courses:
+            distinct_courses[course.title] = course
+        filtered_courses = list(distinct_courses.values())
+
+        return render(request, 'search_results.html', {'filtered_courses': filtered_courses})
+
+    return HttpResponseRedirect(reverse('course_selection'))

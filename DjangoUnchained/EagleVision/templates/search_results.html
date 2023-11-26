@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{% static 'EagleVision\courseselection.css' %}">
+    <style>
+        .search-results-container {
+            height: 400px; 
+            overflow-y: auto; 
+            border: 1px solid #ccc; 
+            padding: 10px; /* Adjust padding as needed */
+        }
+
+        /* Define styles for individual search result items */
+        .search-result-item {
+            border: 2px solid #ddd; 
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px auto;
+            flex: 1 0 calc(33.33% - 20px);
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+    </style>
+</head>
+<body>
+    <div class="box m-2 w-90 h-90">
+        <h1>Search Results</h1>
+        
+
+        <div class="search-results-container">
+            {% if filtered_courses %}
+                {% for course in filtered_courses %}
+                    <div class="search-result-item">
+                        <p>{{ course.title }}<hr></p>
+                        <p>Date: {{ course.date }}<hr></p>
+                        <p>Description: {{ course.description }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No results found.</p>
+            {% endif %}
+        </div>
+        
+    </div>
+</body>
+</html>
