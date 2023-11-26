@@ -320,9 +320,48 @@ def api_endpoint(request):
             date_text = term['descr']['plain']
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
-            new_course = Course(course_id=offering['id'], title=offering['name'], description=description_text, date = date_text)
-            new_course.save()
-            data_list.append(new_course)
+            new_response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
+            course_info = {}
+
+            for new_entry in new_response.json():
+                if isinstance(new_entry, str):
+                    continue
+
+                activity = new_entry.get('activityOffering')
+
+                if activity:
+                    course_id = offering['id']
+                    instructors = activity.get('instructors', [])
+                    schedule_names = new_entry.get('scheduleNames', [])
+                    if course_id in course_info:
+                        course_info[course_id]['schedules'].extend(schedule_names)
+                        course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
+                    else:
+                        course_info[course_id] = {
+                            'schedules': schedule_names,
+                            'instructors': [instructor.get('personName', '') for instructor in instructors]
+                        }
+
+
+            for course_id, info in course_info.items():
+                upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
+                upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
+                unique_sche = list(set(upper_sche))
+                unique_instr = list(set(upper_instr))
+
+                schedules_str = ', '.join(sorted(unique_sche))
+                instructors_str = ', '.join(sorted(unique_instr))
+                
+                new_course = Course(
+                    course_id=course_id,
+                    title=offering['name'],
+                    description=description_text,
+                    date=date_text,
+                    schedule=schedules_str,
+                    instructor=instructors_str
+                )
+                new_course.save()
+                data_list.append(new_course)
     return render(request, 'course_selection.html', {'courses': data_list})
 
 

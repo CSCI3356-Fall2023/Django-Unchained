@@ -78,6 +78,8 @@ class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     date = models.CharField(max_length=255, default = '01/01/2023')
+    schedule = models.CharField(max_length=255, default = 'none')
+    instructor = models.CharField(max_length=255, default = 'none')
     requisite = models.CharField(max_length=255, default = 'none')
 
     def __str__(self):

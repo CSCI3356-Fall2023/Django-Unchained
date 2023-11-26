@@ -7,10 +7,10 @@
 </head>
 <body>
     <div class="box m-2 w-90 h-90"> 
-        <h1>Course Selections</h1>
-
+        <h1>Courses</h1>
+        
         <form action="{% url 'search_results' %}" method="GET">
-            <input type="text" name="search_query" placeholder="Search for courses...">
+            <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
         </form>
         
@@ -19,7 +19,9 @@
                     {% if course.title %}
                         <div class="course">
                             <p class="course-title">{{ course.title }}<hr></p>
-                            <p>Date: {{ course.date }}<hr></p>
+                            <p>Schedule: {{ course.schedule }}</p>
+                            <p>Date: {{ course.date }}</p>
+                            <p>Instructor: {{ course.instructor }}<hr></p>
                             <p>Description: {{ course.description }}</p>
                         </div>
                     {% endif %}
