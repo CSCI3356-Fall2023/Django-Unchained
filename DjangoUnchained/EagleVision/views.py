@@ -301,6 +301,9 @@ def api_endpoint(request):
                 )
                 new_course.save()
                 data_list.append(new_course)
+    for block in Course.objects.all():
+        if Course.objects.filter(course_id=block.course_id).count() > 1:
+            block.delete()
     return render(request, 'course_selection.html', {'courses': data_list})
 
 
