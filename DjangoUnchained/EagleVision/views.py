@@ -4,7 +4,7 @@ from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateFo
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import Person, Student, Admin, SystemState, Course
+from .models import Person, Student, Admin, SystemState, Course, Watchlist
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
@@ -22,6 +22,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.html import escape
 from bs4 import BeautifulSoup
 from django.db.models import Count
+from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 
 oauth = OAuth()
@@ -92,83 +93,19 @@ def callback(request):
 
     return redirect('index')
 
-
+@login_required
 def course_selection(request):
-    return redirect('courseselect')
-        
+    user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
+    all_courses = Course.objects.all()
+    print("User's Watchlist Course IDs:", user_watchlist_course_ids)
+    context = {
+        'courses': all_courses,
+        'user_watchlist_ids': user_watchlist_course_ids,
+    }
+    return render(request, 'course_selection.html', context)
+
     
-# def login_view(request):
-#     if request.method == "POST":
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-#         user = authenticate(email=email, password=password)  
 
-#         if user is not None:
-#             if user.is_active:
-#                 auth_login(request, user)
-#                 user.authenticate()
-#                 return redirect('profile')
-#             else:
-#                 messages.error(request, "Your account is inactive.")
-#         else:
-#             messages.error(request, "Invalid credentials.")
-
-   
-#     return render(request, 'login.html', {})
-
-# def forgot(request):
-#     template = loader.get_template('login.html')
-#     context = {
-#         'Title': 'Reset Password', 
-#         'FieldOne': 'Email',
-#         'FieldTwo': 'New Password',
-#         'Button': 'Confirm'
-#     }
-#     return HttpResponse(template.render(context, request))
-
-# def register(request):
-#     return render(request, 'identity_selection.html')
-
-# def student_register(request):
-    # if request.method == 'POST':
-    #     form = StudentRegistrationForm(request.POST)
-    #     if form.is_valid():
-    #             student = Student.objects.create_user(
-    #             email=form.cleaned_data['email'],
-    #             password=form.cleaned_data['password'],
-    #             name=form.cleaned_data['name'],
-    #             department=form.cleaned_data['department'],
-    #             eagle_id=form.cleaned_data['eagle_id'],
-    #             major_1=form.cleaned_data['major_1'],
-    #             major_2=form.cleaned_data['major_2'],
-    #             major_3=form.cleaned_data['major_3'],
-    #             minor_1=form.cleaned_data['minor_1'],
-    #             minor_2=form.cleaned_data['minor_2'],
-    #             graduation_semester=form.cleaned_data['graduation_semester']
-    #         )
-
-    #             return redirect('login')  
-    # else:
-    #     form = StudentRegistrationForm()
-
-    # return render(request, 'student_register.html', {'form': form})
-
-# def admin_register(request):
-    # if request.method == 'POST':
-    #     form = AdminRegistrationForm(request.POST)
-    #     if form.is_valid():
-    #         admin_instance = Admin.objects.create_superuser( 
-    #             email=form.cleaned_data['email'],
-    #             password=form.cleaned_data['password'],
-    #             department=form.cleaned_data['department'],
-    #             name = form.cleaned_data['name'],
-    #             is_staff=True,
-    #         )
-    #         return redirect('login')  
-    # else:
-    #     form = AdminRegistrationForm()
-
-    # return render(request, 'admin_register.html', {'form': form})
 
 def logout_view(request):
     logout(request)
@@ -399,3 +336,41 @@ def filter(request):
 def filterRequest(request):
     if request.method() == "GET":
         semester = request.GET.get()
+    return render(request, "search_results.html")
+
+@login_required
+def watchlist(request):
+    user_watchlist_courses = Course.objects.filter(watchlist__user=request.user)
+
+    context = {
+        'user': request.user,
+        'watchlist_courses': user_watchlist_courses,
+    }
+    return render(request, "watchlist.html", context)
+
+
+@login_required
+@require_http_methods(["POST"])
+def add_to_watchlist(request):
+    course_id = request.POST.get('course_id')
+    course = get_object_or_404(Course, pk=course_id)
+
+   
+    watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
+
+    if created:
+        messages.success(request, "Course added to watchlist successfully.")
+    else:
+        messages.info(request, "This course is already in your watchlist.")
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+@require_http_methods(["POST"])
+def remove_from_watchlist(request):
+    course_id = request.POST.get('course_id')
+    course = get_object_or_404(Course, pk=course_id)
+    Watchlist.objects.filter(user=request.user, course=course).delete()
+    
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

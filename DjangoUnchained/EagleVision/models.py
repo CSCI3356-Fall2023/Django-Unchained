@@ -83,6 +83,13 @@ class Course(models.Model):
     requisite = models.CharField(max_length=255, default = 'none')
     department = models.CharField(max_length=255, default = 'none')
     time_slot = models.CharField(max_length=255, default = 'none')
-    
+
     def __str__(self):
         return self.title
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(Person, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['user', 'course']
