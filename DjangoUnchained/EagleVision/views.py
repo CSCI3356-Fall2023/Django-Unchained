@@ -281,8 +281,7 @@ def api_endpoint(request):
                             'instructors': [instructor.get('personName', '') for instructor in instructors]
                         }
 
-
-        for course_id, info in course_info.items():
+            for course_id, info in course_info.items():
                 upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
                 upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
                 unique_sche = list(set(upper_sche))
@@ -290,7 +289,7 @@ def api_endpoint(request):
 
                 schedules_str = ', '.join(sorted(unique_sche))
                 instructors_str = '; '.join(sorted(unique_instr))
-                
+
                 new_course = Course(
                     course_id=course_id,
                     title=offering['name'],
@@ -337,89 +336,11 @@ def filter(request):
     context['form'] = CourseFilterForm()
     return render(request, "filters.html", context)
     # return render(request, "filters.html", {'TIME_SLOTS': TIME_SLOTS})
+
+
+## we need to delete this later
 def filterRequest(request):
-    if request.method == "GET":
-        time = request.GET.get('time_slot', '')
-        days = request.GET.get('days', '')
-        major = request.GET.get('subject_area', '')
-        # add courses from the new major using the api
-        if major:
-            #response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + f'{major}')
-            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
-            data_list = [response.status_code]
-            if response.status_code == 200:
-                for entry in response.json():
-                    offering = entry['courseOffering']
-                    term = entry['term']
-                    requisite_ids = entry.get('courseOffering', {}).get('requisiteIds', [])
-                    req = []
-                    for id in requisite_ids:
-                        if id == offering['id']:
-                            req.append(offering['name'])
-                    description_html = offering['descr']['plain']
-                    date_text = term['descr']['plain']
-                    soup = BeautifulSoup(description_html, 'html.parser')
-                    description_text = soup.get_text(separator=' ')
-                    description_html = offering['descr']['plain']
-            date_text = term['descr']['plain']
-            soup = BeautifulSoup(description_html, 'html.parser')
-            description_text = soup.get_text(separator=' ')
-            new_response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + f'{major}')
-            course_info = {}
-
-            for new_entry in new_response.json():
-                if isinstance(new_entry, str):
-                    continue
-
-                activity = new_entry.get('activityOffering')
-
-                if activity:
-                    course_id = offering['id']
-                    instructors = activity.get('instructors', [])
-                    schedule_names = new_entry.get('scheduleNames', [])
-                    if course_id in course_info:
-                        course_info[course_id]['schedules'].extend(schedule_names)
-                        course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
-                    else:
-                        course_info[course_id] = {
-                            'schedules': schedule_names,
-                            'instructors': [instructor.get('personName', '') for instructor in instructors]
-                        }
-
-
-            for course_id, info in course_info.items():
-                upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
-                upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
-                unique_sche = list(set(upper_sche))
-                unique_instr = list(set(upper_instr))
-
-                schedules_str = ', '.join(sorted(unique_sche))
-                instructors_str = ', '.join(sorted(unique_instr))
-                
-                new_course = Course(
-                    course_id=course_id,
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                    schedule=schedules_str,
-                    instructor=instructors_str, 
-                    department = major
-                )
-                new_course.save()
-                data_list.append(new_course)
-            print(data_list)
-            filteredCourseList = []
-            for course in data_list:
-                if course == 200:
-                    continue
-                if course.getDepartment() == major:
-                    filteredCourseList.append(course)
-            return render(request, 'course_selection.html', {'courses': filteredCourseList})
-        else: 
-            return api_endpoint(request)
-            
-    
-    return render(request, "search_results.html")
+    return 0;
 
 @login_required
 def watchlist(request):
@@ -461,7 +382,6 @@ def remove_from_watchlist(request):
 def section_api_endpoint(request, courseName):
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + courseName[0:-1])
     data = {}
-    i=1
     CourseJSON = response.json()
     id = CourseJSON[0]['courseOffering']['id']
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
