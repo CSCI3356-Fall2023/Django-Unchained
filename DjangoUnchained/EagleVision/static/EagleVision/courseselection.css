@@ -1,5 +1,5 @@
 body {
-    background-color: #6D0000;
+    background-color: #370000;
     font-family: 'Rubik', sans-serif;
 }
 
@@ -128,4 +128,22 @@ button:disabled, .added-to-watchlist {
 
 .watch {
     float: left;
+}
+
+.nav-menu {
+    background-color: #370000; 
+    display: flex;
+    justify-content: left; 
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu a {
+    display: block;
+    color: white;
+    text-align: left;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    transition: background-color 0.3s;
 }

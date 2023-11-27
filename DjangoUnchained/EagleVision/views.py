@@ -109,10 +109,7 @@ def callback(request):
 
 @login_required
 def course_selection(request):
-    
-    user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
-
-    
+    user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)    
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
     data_list = []
     if response.status_code == 200:
