@@ -86,3 +86,9 @@ class Course(models.Model):
     
     def __str__(self):
         return self.title
+    def getDepartment(self):
+        return self.department
+    def getSchedule(self):
+        return self.schedule
+    def getTimeSlot(self):
+        return self.time_slot

@@ -11,33 +11,33 @@
               Put a filter for times in the courses page. 
             {% endcomment %}
 <body>
-    <form action="{% url 'filterRequest' %}" method="GET">
-        <div class="box"> 
+    <form method="GET" action="{% url 'filterRequest' %}">
+        <h1> Filters </h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Filter </button>
+    </form>
+        {% comment %} <div class="box"> 
             <h1> Course Course Filters</h1>
             <div class="filterBlock m-2 w-33"> 
                 <h3>Term</h3>
-                <ul>
-                    <div class="list">
-                        <li><input type="radio" name="term" value="Fall"><label>Fall</label></li><br>
-                        <li><input type="radio" name="term" value="Spring"><label>Spring</label></li><br>
-                        <li><input type="radio" name="term" value="Summer"><label>Summer</label></li><br>
-                    </div>
-                </ul>
+                <select name='term' class="list">
+                    <option value="Fall">Fall</option>
+                    <option value="Spring">Spring</option>
+                    <option value="Summer">Summer</option>
+                </select>
             </div>
             <div class="filterBlock m-2 w33"> 
-                <ul>
-                    <h3>School</h3>
-                    <div class="list">
-                        <li><input type="radio" name="school" value="Carroll School of Management"><label>CSOM</label></li><br>
-                        <li><input type="radio" name="school" value="Lynch School of Education and Human Development"><label>LSEHD</label></li><br>
-                        <li><input type="radio" name="school" value="Morrissey College of Arts and Sciences"><label>MCAS</label></li><br>
-                        <li><input type="radio" name="school" value="Woods College of Advancing Studies"><label>WCAS</label></li><br>
-                        <li><input type="radio" name="school" value="Boston College Law School"><label>LAW</label></li><br>
-                        <li><input type="radio" name="school" value="Connell School of Nursing"><label>CSON</label></li><br>
-                        <li><input type="radio" name="school" value="School of Social Work"><label>SSW</label></li><br>
-                        <li><input type="radio" name="school" value="School of Theology and Ministry">STM<label></label></li><br>
-                    </div>
-                </ul>
+                <h3>School</h3>
+                <select name='school' class="list"></select>
+                <li><input type="radio" name="school" value="Carroll School of Management"><label>CSOM</label></li><br>
+                <li><input type="radio" name="school" value="Lynch School of Education and Human Development"><label>LSEHD</label></li><br>
+                <li><input type="radio" name="school" value="Morrissey College of Arts and Sciences"><label>MCAS</label></li><br>
+                <li><input type="radio" name="school" value="Woods College of Advancing Studies"><label>WCAS</label></li><br>
+                <li><input type="radio" name="school" value="Boston College Law School"><label>LAW</label></li><br>
+                <li><input type="radio" name="school" value="Connell School of Nursing"><label>CSON</label></li><br>
+                <li><input type="radio" name="school" value="School of Social Work"><label>SSW</label></li><br>
+                <li><input type="radio" name="school" value="School of Theology and Ministry">STM<label></label></li><br>
             </div>
             <div class="filterBlock m-2 w-33"> 
                 <h3>Days</h3>
@@ -61,10 +61,6 @@
                     {% endfor %}
                 </div>
             </ul>
-        </div>
-        <div class="submit">
-            <a href="{% url 'filterRequest' %}"> Search </a>
-        </div>
-    </form>
+        </div>{% endcomment %}
 </body>
 </html>

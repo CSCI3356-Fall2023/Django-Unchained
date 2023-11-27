@@ -153,42 +153,59 @@ class CourseFilterForm(forms.Form):
         ('department', 'Department'),
         ('instructor', 'Instructor'),
     )
-        
-       
+    DAYS = (
+        ('M', 'Monday'), 
+        ('T', 'Tuesday'), 
+        ('W', 'Wednesday'), 
+        ('TH', 'Thursday'), 
+        ('F', 'Friday'), 
+        ('M+W', 'Monday and Wednesday'), 
+        ('M+W+F', 'Monday, Wednesday, and Friday'), 
+        ('T+TH', 'Tuesday and Thursday')
+    )   
+    MAJORS = (
+        ('CSCI', 'CSCI'), 
+        ('MATH', 'MATH'), 
+        ('CHEM', 'CHEM'), 
+        ('BIOL', 'BIOL')
+    )
 
 
 
     
 
-    time_slot = forms.ChoiceField(choices=TIME_SLOTS, required=False)
-    title = forms.CharField(max_length=255, required=False)
-    days = forms.CharField(max_length=255, required=False)
-    session = forms.CharField(max_length=255, required=False)
-    subject_area = forms.CharField(max_length=255, required=False)
-    school = forms.ChoiceField(choices=SCHOOL, required=False)
-    credits = forms.CharField(max_length=255, required=False)
-    fulfill_requirements = forms.CharField(max_length=255, required=False)
-    instructor = forms.CharField(max_length=255, required=False)
-    delivery_method = forms.CharField(max_length=255, required=False)
-    course_level = forms.CharField(max_length=255, required=False)
-    registration_permissions = forms.CharField(max_length=255, required=False)
-    open_seats = forms.CharField(max_length=255, required=False)
+    time_slot = forms.ChoiceField(choices=TIME_SLOTS, required=False,
+                                    widget=forms.widgets.RadioSelect, label="time")
+    #title = forms.CharField(max_length=255, required=False)
+    days = forms.MultipleChoiceField(choices=DAYS, required=False, label="days")
+    #session = forms.CharField(max_length=255, required=False)
+    subject_area = forms.ChoiceField(choices=MAJORS, required=False, 
+                                     widget=forms.widgets.RadioSelect, label="major")
+    #school = forms.ChoiceField(choices=SCHOOL, required=False, 
+                               #widget=forms.widgets.RadioSelect)
+    #credits = forms.CharField(max_length=255, required=False)
+    #fulfill_requirements = forms.CharField(max_length=255, required=False)
+    #instructor = forms.CharField(max_length=255, required=False)
+    #delivery_method = forms.CharField(max_length=255, required=False)
+    #course_level = forms.CharField(max_length=255, required=False)
+    #registration_permissions = forms.CharField(max_length=255, required=False)
+    #open_seats = forms.CharField(max_length=255, required=False)
 
     def clean(self):
         cleaned_data = super().clean()
         if cleaned_data.get("time_slot") == '':
             cleaned_data.pop("time_slot")
-        if cleaned_data.get("title") == '':
-            cleaned_data.pop("title")
+        """ if cleaned_data.get("title") == '':
+            cleaned_data.pop("title") """
         if cleaned_data.get("days") == '':
             cleaned_data.pop("days")
-        if cleaned_data.get("session") == '':
-            cleaned_data.pop("session")
+        """ if cleaned_data.get("session") == '':
+            cleaned_data.pop("session") """
         if cleaned_data.get("subject_area") == '':
-            cleaned_data.pop("subject_area")
-        if cleaned_data.get("school") == '':
-            cleaned_data.pop("school")
-        if cleaned_data.get("credits") == '':
+            cleaned_data.pop("subject_area") 
+        """ if cleaned_data.get("school") == '':
+            cleaned_data.pop("school") """
+        """ if cleaned_data.get("credits") == '':
             cleaned_data.pop("credits")
         if cleaned_data.get("fulfill_requirements") == '':
             cleaned_data.pop("fulfill_requirements")
@@ -201,7 +218,7 @@ class CourseFilterForm(forms.Form):
         if cleaned_data.get("registration_permissions") == '':
             cleaned_data.pop("registration_permissions")
         if cleaned_data.get("open_seats") == '':
-            cleaned_data.pop("open_seats")
+            cleaned_data.pop("open_seats") """
         
         return cleaned_data
 
