@@ -479,6 +479,7 @@ def section_api_endpoint(request, courseName):
                                 currentSeats=current, 
                                 maxSeats=max, 
                                 location=locale)
-            data[i] = course
-            i+=1
-    return render(request, 'section_selection.html', context=data)
+            course.save()
+    queryset = Section.objects.all()
+    context = {'data': queryset}
+    return render(request, 'section_selection.html', context)

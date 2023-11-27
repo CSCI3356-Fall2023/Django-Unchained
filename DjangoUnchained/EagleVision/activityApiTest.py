@@ -19,4 +19,4 @@ def findActivities(courseName):
             print(f"INSTR: {';'.join(sorted(instructors))}, TITLE: {title},  {currentSeats}/{maxSeats}")
     
 
-findActivities('CSCI1101 ')
+findActivities('CSCI4961 ')
