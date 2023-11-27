@@ -480,8 +480,13 @@ def section_api_endpoint(request, courseName):
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=courseID)
-            if course not in Section.objects.all(): 
-                course.save()
-    queryset = Section.objects.filter(courseid=courseID)
+            course.save()
+    
+    # Deletes the duplicate objects after they're added
+    
+    for block in Section.objects.all():
+        if Section.objects.filter(location=block.location).count() > 1:
+            block.delete()
+    queryset = Section.objects.all()
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
