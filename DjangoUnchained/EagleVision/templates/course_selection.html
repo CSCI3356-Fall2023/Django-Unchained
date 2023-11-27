@@ -4,16 +4,18 @@
 <head>
     <title>Course Selections</title>
     <link rel="stylesheet" href="{% static 'EagleVision\courseselection.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="box m-2 w-90 h-90"> 
         <h1>Courses</h1>
         
-        <form action="{% url 'search_results' %}" method="GET">
+        <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
+            <a href="{% url 'filter' %}" class="filter-icon"><i class="fas fa-filter"></i></a>
         </form>
-            <div class="filter"> <a href="{% url 'filter'%}"> Filter </a> </div>
+        
             {% for course in courses %}
             <div class="course-list">
                 {% if course.title %}

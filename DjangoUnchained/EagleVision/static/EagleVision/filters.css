@@ -1,19 +1,12 @@
-.list {
-    height: 200px;
-    overflow: hidden;
-    overflow-y: scroll;
-}
-
 body {
     background-color: #f0f0f0; 
     font-family: 'Rubik', sans-serif;
     color: black; 
     margin: 0;
     padding: 0;
-  }
-  
+}
 
-  .container {
+.container {
     border-radius: 25px; 
     background-color: #fff;
     display: flex;
@@ -25,63 +18,70 @@ body {
     padding: 15px; 
     margin-top: 2em; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  
-  .filterBlock {
+}
+
+.filterBlock {
     width: 100%;
-    margin-bottom: 10px; 
-  }
-  
- 
-  .filterBlock ul {
+    margin-bottom: 20px; 
+}
+
+.filterBlock ul {
     list-style-type: none;
     padding-left: 0; 
-  }
+}
 
-  .filterBlock li {
-    margin-bottom: 5px; 
-  }
-  
- 
-  .filterBlock input[type='radio'], .filterBlock input[type='checkbox'] {
-    margin-right: 5px; 
-  }
-  
- 
-  .filterBlock label {
+.filterBlock li {
+    margin-bottom: 10px; 
+}
+
+.filterBlock input[type='radio'], .filterBlock input[type='checkbox'] {
+    margin-right: 10px; 
+}
+
+.filterBlock label {
     cursor: pointer;
-    font-size: 0.9em; /* Smaller font size */
-  }
-  
- 
-  .submit a {
+    font-size: 1em; 
+    display: inline-block;
+}
+
+.list {
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
+button[type='submit'] {
     background-color: #6D0000;
     color: white;
     border-radius: 20px; 
     font-weight: bold;
-    font-size: 1.5em; 
+    font-size: 1em; 
     border: none;
-    padding: 0.5em 1em; 
+    padding: 10px 20px;
     text-decoration: none;
     text-align: center;
-    display: inline-block;
-    width: 40%; 
-  }
-  
-  .submit a:hover {
+    display: block; 
+    margin: 0 auto; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type='submit']:hover {
     background-color: #4d0000;
-  }
-  
-  
-  @media (max-width: 600px) {
+}
+
+@media (max-width: 600px) {
     .container {
-      width: 80%;
+        width: 80%;
     }
-  
-    .submit a {
-      width: 60%; 
-      font-size: 1.2em; 
+
+    button[type='submit'] {
+        width: 60%; 
+        font-size: 1em; 
     }
-  }
-  
+}

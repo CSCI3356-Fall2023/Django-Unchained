@@ -25,6 +25,7 @@ from django.db.models import Count
 from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from .forms import CourseFilterForm
+from django.core.paginator import Paginator
 
 oauth = OAuth()
 oauth.register(
@@ -97,15 +98,18 @@ def callback(request):
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
+    
     all_courses = Course.objects.all()
-    print("User's Watchlist Course IDs:", user_watchlist_course_ids)
+    
+   
+
     context = {
-        'courses': all_courses,
+        'all_courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
+
     return render(request, 'course_selection.html', context)
 
-    
 
 
 def logout_view(request):
