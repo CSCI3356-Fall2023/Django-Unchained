@@ -244,7 +244,7 @@ def logout(request):
 
 def api_endpoint(request):
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
-    data_list = [response.status_code]
+    data_list = []
     if response.status_code == 200:
         for entry in response.json():
             offering = entry['courseOffering']
@@ -281,6 +281,7 @@ def api_endpoint(request):
                             'instructors': [instructor.get('personName', '') for instructor in instructors]
                         }
 
+
             for course_id, info in course_info.items():
                 upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
                 upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
@@ -288,8 +289,8 @@ def api_endpoint(request):
                 unique_instr = list(set(upper_instr))
 
                 schedules_str = ', '.join(sorted(unique_sche))
-                instructors_str = '; '.join(sorted(unique_instr))
-
+                instructors_str = ', '.join(sorted(unique_instr))
+                
                 new_course = Course(
                     course_id=course_id,
                     title=offering['name'],
@@ -383,8 +384,8 @@ def section_api_endpoint(request, courseName):
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + courseName[0:-1])
     data = {}
     CourseJSON = response.json()
-    id = CourseJSON[0]['courseOffering']['id']
-    registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
+    courseID = CourseJSON[0]['courseOffering']['id']
+    registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []
@@ -398,8 +399,10 @@ def section_api_endpoint(request, courseName):
                                 title=name, 
                                 currentSeats=current, 
                                 maxSeats=max, 
-                                location=locale)
-            course.save()
-    queryset = Section.objects.all()
+                                location=locale, 
+                                courseid=courseID)
+            if course not in Section.objects.all(): 
+                course.save()
+    queryset = Section.objects.filter(courseid=courseID)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
