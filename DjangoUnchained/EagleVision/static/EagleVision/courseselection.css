@@ -1,5 +1,5 @@
 body {
-    background-color: #6D0000;
+    background-color: #370000;
     font-family: 'Rubik', sans-serif;
 }
 
@@ -120,7 +120,7 @@ button:disabled, .added-to-watchlist {
 
 
 .nav-menu {
-    background-color: #6D0000; 
+    background-color: #370000; 
     display: flex;
     justify-content: left; 
     padding: 0;

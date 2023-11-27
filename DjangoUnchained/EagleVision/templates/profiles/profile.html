@@ -10,12 +10,15 @@
     <body>
         <div class="dashboard">
             <aside class="sidebar">
+                <div class="profile">
+                    <img src="{% static 'images/user-avatar.png' %}" alt="User Avatar" class="avatar">
+                    <h2>{{ user.name }}</h2> 
+                </div>
                 <nav class="nav-menu">
-                    <a href="#">Home</a>
+                    <a href="{% url 'profile' %}">Home</a>
                     <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
                     <a href="#">Export Schedule</a>
                     <a href="{% url 'courseselect' %}">Search Courses</a>
-                    <a href="{% url 'profile' %}">Profile</a>
                 </nav>
             </aside>
             <main class="main-content">
@@ -53,7 +56,6 @@
                         {% else %}
                             <h3>User Type:</h3> Student
                         {% endif %}
-
                     </div>
                     <div class="logout">
                         <a href="{% url 'logout' %}">Logout</a>
