@@ -17,9 +17,10 @@
             {% for course in courses %}
             <div class="course-list">
                 {% if course.title %}
-                        <a href="{% url 'section_selection' course.title|truncatechars:9 %}">
                             <div class="course">
-                                <p class="course-title">{{ course.title }}<hr></p>
+                                <div class="course-title">
+                                    <a href="{% url 'section_selection' course.title|truncatechars:9 %}">{{ course.title }}<hr></a>
+                                </div>
                                 <p>Schedule: {{ course.schedule }}</p>
                                 <p>Date: {{ course.date }}</p>
                                 <p>Instructor: {{ course.instructor }}<hr></p>
@@ -35,7 +36,6 @@
                                     </form>
                                 {% endif %}
                             </div>
-                        </a>
                     {% endif %}
                 {% endfor %}
             </div>
