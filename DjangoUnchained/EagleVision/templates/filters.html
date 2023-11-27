@@ -15,6 +15,7 @@
         <div class="box m-2 w-90 h-90"> 
             <h1> Course Course Filters</h1>
             <div class="filterBlock m-2 w-33"> 
+                <h3>Term</h3>
                 <ul>
                     <div class="list">
                         <li><input type="radio" name="term"><label>Fall</label></li><br>
@@ -25,6 +26,7 @@
             </div>
             <div class="filterBlock m-2 w33"> 
                 <ul>
+                    <h3>Major</h3>
                     <div class="list">
                         <li><input type="radio" name="major"><label>AADS</label></li><br>
                         <li><input type="radio" name="major"><label>CSCI</label></li><br>
@@ -37,6 +39,7 @@
                 </ul>
             </div>
             <div class="filterBlock m-2 w-33"> 
+                <h3>Days</h3>
                 <ul>
                     <div class="list">
                         <li><input type="checkbox" name="date"><label>M</label></li><br>
@@ -47,6 +50,16 @@
                     </div>
                 </ul>
             </div>
+        </div>
+        <div class="filterBlock m-2 w-33">
+            <h3>Time</h3>
+            <ul>
+                <div class="list">
+                    {% for slot_value, slot_display in TIME_SLOTS %}
+                        <li><input type="checkbox" name="time_slot" value="{{ slot_value }}"><label>{{ slot_display }}</label></li><br>
+                    {% endfor %}
+                </div>
+            </ul>
         </div>
         <div class="submit">
             <a href="{% url 'filterRequest' %}"> Search </a>

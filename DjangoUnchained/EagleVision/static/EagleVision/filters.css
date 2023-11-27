@@ -1,5 +1,87 @@
 .list {
-    height: 400px;
+    height: 200px;
     overflow: hidden;
     overflow-y: scroll;
 }
+
+body {
+    background-color: #f0f0f0; 
+    font-family: 'Rubik', sans-serif;
+    color: black; 
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  .container {
+    border-radius: 25px; 
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 60%; 
+    max-width: 600px; 
+    padding: 15px; 
+    margin-top: 2em; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  
+  .filterBlock {
+    width: 100%;
+    margin-bottom: 10px; 
+  }
+  
+ 
+  .filterBlock ul {
+    list-style-type: none;
+    padding-left: 0; 
+  }
+
+  .filterBlock li {
+    margin-bottom: 5px; 
+  }
+  
+ 
+  .filterBlock input[type='radio'], .filterBlock input[type='checkbox'] {
+    margin-right: 5px; 
+  }
+  
+ 
+  .filterBlock label {
+    cursor: pointer;
+    font-size: 0.9em; /* Smaller font size */
+  }
+  
+ 
+  .submit a {
+    background-color: #6D0000;
+    color: white;
+    border-radius: 20px; 
+    font-weight: bold;
+    font-size: 1.5em; 
+    border: none;
+    padding: 0.5em 1em; 
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    width: 40%; 
+  }
+  
+  .submit a:hover {
+    background-color: #4d0000;
+  }
+  
+  
+  @media (max-width: 600px) {
+    .container {
+      width: 80%;
+    }
+  
+    .submit a {
+      width: 60%; 
+      font-size: 1.2em; 
+    }
+  }
+  

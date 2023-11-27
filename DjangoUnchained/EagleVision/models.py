@@ -81,6 +81,8 @@ class Course(models.Model):
     schedule = models.CharField(max_length=255, default = 'none')
     instructor = models.CharField(max_length=255, default = 'none')
     requisite = models.CharField(max_length=255, default = 'none')
-
+    department = models.CharField(max_length=255, default = 'none')
+    time_slot = models.CharField(max_length=255, default = 'none')
+    
     def __str__(self):
         return self.title

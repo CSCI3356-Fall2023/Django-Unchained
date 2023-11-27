@@ -22,6 +22,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.html import escape
 from bs4 import BeautifulSoup
 from django.db.models import Count
+from .constants import TIME_SLOTS
 
 oauth = OAuth()
 oauth.register(
@@ -368,7 +369,22 @@ def api_endpoint(request):
 def search_results(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_query', '')
+        term = request.GET.get('term', '')
+        major = request.GET.get('major', '')
+        days = request.GET.getlist('date')  
+        time_slots = request.GET.getlist('time_slot')
+
         courses = Course.objects.filter(title__icontains=search_query)
+
+      
+        if term:
+            courses = courses.filter(term__icontains=term)
+        if major:
+            courses = courses.filter(major__icontains=major)
+        if days:
+            courses = courses.filter(days__in=days)  
+        if time_slots:
+            courses = courses.filter(time_slot__in=time_slots)  
         distinct_courses = {}
         for course in courses:
             distinct_courses[course.title] = course
@@ -379,6 +395,6 @@ def search_results(request):
     return HttpResponseRedirect(reverse('course_selection'))
 
 def filter(request):
-    return render(request, "filters.html")
+    return render(request, "filters.html", {'TIME_SLOTS': TIME_SLOTS})
 def filterRequest(request):
     return render(request, "filters.html")
