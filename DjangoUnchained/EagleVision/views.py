@@ -397,4 +397,5 @@ def search_results(request):
 def filter(request):
     return render(request, "filters.html", {'TIME_SLOTS': TIME_SLOTS})
 def filterRequest(request):
-    return render(request, "filters.html")
+    if request.method() == "GET":
+        semester = request.GET.get()
