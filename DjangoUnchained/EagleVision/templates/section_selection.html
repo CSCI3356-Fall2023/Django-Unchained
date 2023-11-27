@@ -13,7 +13,7 @@
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
         </form>
-            <div class="filter"> <a href="{% url 'filter'%}"> Filter </a> </div>
+        <div class="filter"> <a href="{% url 'filter'%}"> Filter </a> </div>
             {% for section in data %}
             <div class="course-list">
                     <div class="course">
@@ -21,19 +21,19 @@
                         <p>Schedule: {{ section.location }}</p>
                         <p>Instructor: {{ section.instructor }}<hr></p>
                         <p>Seats: {{ section.currentSeats }}/{{ section.maxSeats }}</p>
+        
+                    {% if course.id in user_watchlist_ids %}
+                    <button disabled class="added-to-watchlist">Added</button>
+                    {% else %}
+                        <form action="{% url 'add_to_watchlist' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="course_id" value="{{ course.id }}">
+                            <button type="submit">Add to Watchlist</button>
+                        </form>
+                    {% endif %}
                     </div>
-                    {% comment %} {% for activity in courses %}
-                        {% if course.id in user_watchlist_ids %}
-                        <button disabled class="added-to-watchlist">Added</button>
-                        {% else %}
-                            <form action="{% url 'add_to_watchlist' %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="course_id" value="{{ course.id }}">
-                                <button type="submit">Add to Watchlist</button>
-                            </form>
-                        {% endif %} {% endcomment %}
-                </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
         </div>
     </body>
 </html>

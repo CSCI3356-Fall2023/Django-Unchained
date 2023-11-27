@@ -320,8 +320,6 @@ def search_results(request):
         time_slots = request.GET.getlist('time_slot')
 
         courses = Course.objects.filter(title__icontains=search_query)
-
-      
         if term:
             courses = courses.filter(term__icontains=term)
         if major:
@@ -392,8 +390,10 @@ def section_api_endpoint(request, courseName):
     data = {}
     CourseJSON = response.json()
     courseID = CourseJSON[0]['courseOffering']['id']
+    print(courseID)
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
     for entry in registrationGroupResponse:
+
         for section in entry['activityOfferings']:
             instructors = []
             for instructor in section['activityOffering']['instructors']:
