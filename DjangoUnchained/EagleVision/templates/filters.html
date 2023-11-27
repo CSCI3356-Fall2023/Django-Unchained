@@ -11,46 +11,34 @@
               Put a filter for times in the courses page. 
             {% endcomment %}
 <body>
-    <form>
-        <div class="box m-2 w-90 h-90"> 
+    <form action="{% url 'filterRequest' %}" method="GET">
+        <div class="box"> 
             <h1> Course Course Filters</h1>
-            <div class="filterBlock m-2 w-33"> 
-                <ul>
-                    <div class="list">
-                        <li><input type="radio" name="term"><label>Fall</label></li><br>
-                        <li><input type="radio" name="term"><label>Spring</label></li><br>
-                        <li><input type="radio" name="term"><label>Summer</label></li><br>
-                    </div>
+            <div class="row">
+                <ul class="col">
+                    <li><input type="radio" name="term"><label>Fall</label></li><br>
+                    <li><input type="radio" name="term"><label>Spring</label></li><br>
+                    <li><input type="radio" name="term"><label>Summer</label></li><br>
                 </ul>
-            </div>
-            <div class="filterBlock m-2 w33"> 
-                <ul>
-                    <div class="list">
-                        <li><input type="radio" name="major"><label>AADS</label></li><br>
-                        <li><input type="radio" name="major"><label>CSCI</label></li><br>
-                        <li><input type="radio" name="major"><label>MATH</label></li><br>
-                        <li><input type="radio" name="major"><label>BIOL</label></li><br>
-                        <li><input type="radio" name="major"><label>CHEM</label></li><br>
-                        <li><input type="radio" name="major"><label>ENVS</label></li><br>
-                        <li><input type="radio" name="major"><label>PHIL</label></li><br>
-                    </div>
-                </ul>
-            </div>
-            <div class="filterBlock m-2 w-33"> 
-                <ul>
-                    <div class="list">
-                        <li><input type="checkbox" name="date"><label>M</label></li><br>
-                        <li><input type="checkbox" name="date"><label>T</label></li><br>
-                        <li><input type="checkbox" name="date"><label>W</label></li><br>
-                        <li><input type="checkbox" name="date"><label>TH</label></li><br>
-                        <li><input type="checkbox" name="date"><label>F</label></li><br>
-                    </div>
+                <ul class="col">
+                    <li><input type="radio" name="major"><label>AADS</label></li><br>
+                    <li><input type="radio" name="major"><label>CSCI</label></li><br>
+                    <li><input type="radio" name="major"><label>MATH</label></li><br>
+                    <li><input type="radio" name="major"><label>BIOL</label></li><br>
+                    <li><input type="radio" name="major"><label>CHEM</label></li><br>
+                    <li><input type="radio" name="major"><label>ENVS</label></li><br>
+                    <li><input type="radio" name="major"><label>PHIL</label></li><br>
+                </ul> 
+                <ul class="col">
+                    <li><input type="checkbox" name="date"><label>M</label></li><br>
+                    <li><input type="checkbox" name="date"><label>T</label></li><br>
+                    <li><input type="checkbox" name="date"><label>W</label></li><br>
+                    <li><input type="checkbox" name="date"><label>TH</label></li><br>
+                    <li><input type="checkbox" name="date"><label>F</label></li><br>
                 </ul>
             </div>
         </div>
-        <div class="submit">
-            <a href="{% url 'filterRequest' %}"> Search </a>
-        </div>
+        <button type="submit"> Filter </button>
     </form>
 </body>
 </html>
