@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{% static 'EagleVision\courseselection.css' %}">
 </head>
 <body>
+    <nav class="nav-menu">
+        <a href="{% url 'profile'%}">Home</a>
+        <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+        <a href =" {% url 'courseselect' %}">Search Courses</a>
+    </nav>
     <div class="box m-2 w-90 h-90"> 
         <h1>Sections</h1>
         
