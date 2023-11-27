@@ -8,49 +8,58 @@
         <title>User Profile</title>
     </head>
     <body>
-        <div class="container">
-            <div class="bclogo">
-                <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
-            </div>
-            <h1>Welcome to Your User Profile</h1>
-            <div class="info">
-                <p>Name:</p>    {{ user.name }}
-                <p>Email:</p>    {{ user.email }}
-                <p>Department:</p>    {{ user.department }}
-                {% if user.is_staff %}
-                
-                    <p>User Type:</p> Admin
-                    <p>System State:</p>
-                    {% if system_state %}
-                        {% if system_state.state %}
-                            Open
-                        {% else %}
-                            Closed
-                        {% endif %}
-                    {% else %}
-                        Error
-                    {% endif %}
-                    <br>
-                    <div class="system-state">
-                        <form method="post" action="{% url 'change_state' %}" style="margin-top: 10px;">
-                            {% csrf_token %}
-                            <button type="submit">Change State</button>
-                        </form>
+        <div class="dashboard">
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <a href="#">Home</a>
+                    <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+                    <a href="#">Export Schedule</a>
+                    <a href="{% url 'courseselect' %}">Search Courses</a>
+                    <a href="{% url 'profile' %}">Profile</a>
+                </nav>
+            </aside>
+            <main class="main-content">
+                <div class="container">
+                    <div class="bclogo">
+                        <img src="{% static 'EagleVision/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
                     </div>
+                    <h1>Welcome to Your User Profile</h1>
+                    <div class="info">
+                        <p><h3>Name:</h3>    {{ user.name }} </p>
+                            <h3>Email:</h3>    {{ user.email }}
+                            <h3>Department:</h3>    {{ user.department }}
+    
+                        {% if user.is_staff %}
+                        
+                            <h3>User Type:</h3> Admin
+                            <h3>System State:</h3>
+                            {% if system_state %}
+                                {% if system_state.state %}
+                                    Open
+                                {% else %}
+                                    Closed
+                                {% endif %}
+                            {% else %}
+                                Error
+                            {% endif %}
+                            <br>
+                            <div class="system-state">
+                                <form method="post" action="{% url 'change_state' %}" style="margin-top: 10px;">
+                                    {% csrf_token %}
+                                    <button type="submit">Change State</button>
+                                </form>
+                            </div>
 
-                {% else %}
-                    <p>User Type:</p> Student
-                {% endif %}
-            </div>
-            <div class="courses">
-                <a href="{% url 'courseselect' %}">Courses</a>
-            </div>
-            <div class="watchlist">
-                <a href="{% url 'watchlist' %}">WatchList</a>
-            </div>
-            <div class="logout">
-                <a href="{% url 'logout' %}">Logout</a>
-            </div>
+                        {% else %}
+                            <h3>User Type:</h3> Student
+                        {% endif %}
+
+                    </div>
+                    <div class="logout">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+            </main>
         </div>
     </body>
 </html>

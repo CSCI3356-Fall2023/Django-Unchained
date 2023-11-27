@@ -1,38 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-body {
-  background-color: #6D0000;
-  font-family: Rubik, sans-serif;
+body, html {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
 }
-.container {
-    border-radius: 50px;
-    background-color: #fff;
-    display: flex;
-    margin: auto;
-    width: 100%;
-    max-width: 1139px;
-    padding: 19px 20px 40px;
-    flex-direction: column;
-    align-self: center;
-    margin-top: 5em;
-}
+
 .bclogo {
-    display: grid;
-    place-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    border: red;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border: red;
 }
 
-.info > p {
-  font-weight: bold;
+h3, #text {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.dashboard {
+  display: flex;
+  height: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #370000; 
+  color: white;
+  padding: 20px;
+}
+
+.nav-menu {
+  list-style-type: none;
+}
+
+.nav-menu a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-menu a:hover, .nav-menu a.active {
+  background-color: #520000; 
+}
+
+.main-content {
+  flex-grow: 1;
+  background-color: #f9f9f9; 
+  padding: 20px;
+  margin-left: 1em;
 }
 
 .container > h1 {
     text-align: center;
 }
 
-.logout, .courses, .watchlist {
+.logout {
 display: flex;
 justify-content: center;
 align-items:center;
@@ -42,7 +74,7 @@ margin-top:2em;
 text-align: center;
 }
 
-a{
+.logout > a{
   background-color: #6D0000;
   color: white;
   border-radius: 25px;
@@ -55,6 +87,6 @@ a{
   text-align:center;
 }
 
-a:hover {
+.logout > a:hover {
   background-color: #4d0000;
 }
