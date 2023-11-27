@@ -4,7 +4,7 @@ from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateFo
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect,render
-from .models import Person, Student, Admin, SystemState, Course, Watchlist
+from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
@@ -289,7 +289,7 @@ def api_endpoint(request):
                 unique_instr = list(set(upper_instr))
 
                 schedules_str = ', '.join(sorted(unique_sche))
-                instructors_str = ', '.join(sorted(unique_instr))
+                instructors_str = '; '.join(sorted(unique_instr))
                 
                 new_course = Course(
                     course_id=course_id,
@@ -345,7 +345,7 @@ def filterRequest(request):
         # add courses from the new major using the api
         if major:
             #response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + f'{major}')
-            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=ENGL2170')
+            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
             data_list = [response.status_code]
             if response.status_code == 200:
                 for entry in response.json():
@@ -457,3 +457,28 @@ def remove_from_watchlist(request):
     
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def section_api_endpoint(request, courseName):
+    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + courseName[0:-1])
+    data = {}
+    i=1
+    CourseJSON = response.json()
+    id = CourseJSON[0]['courseOffering']['id']
+    registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
+    for entry in registrationGroupResponse:
+        for section in entry['activityOfferings']:
+            instructors = []
+            for instructor in section['activityOffering']['instructors']:
+                instructors.append(instructor['personName'])
+            current = section['activitySeatCount']['used']
+            max = section['activitySeatCount']['total']
+            name = section['activityOffering']['formatOfferingName']
+            locale = section['scheduleNames'][0]
+            course = Section(instructor=';'.join(sorted(instructors)),
+                                title=name, 
+                                currentSeats=current, 
+                                maxSeats=max, 
+                                location=locale)
+            data[i] = course
+            i+=1
+    return render(request, 'section_selection.html', context=data)

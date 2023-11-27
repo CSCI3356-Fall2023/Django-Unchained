@@ -99,3 +99,10 @@ class Watchlist(models.Model):
 
     class Meta:
         unique_together = ['user', 'course']
+
+class Section(models.Model):
+    instructor = models.CharField(max_length=255, default='')
+    title = models.CharField(max_length=255, default='')
+    location = models.CharField(max_length=255, default='')
+    currentSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
+    maxSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
