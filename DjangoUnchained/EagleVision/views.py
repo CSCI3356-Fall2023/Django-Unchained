@@ -98,19 +98,13 @@ def callback(request):
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
-    
     all_courses = Course.objects.all()
-    
-   
-
+    print("User's Watchlist Course IDs:", user_watchlist_course_ids)
     context = {
-        'all_courses': all_courses,
+        'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
-
     return render(request, 'course_selection.html', context)
-
-
 
 def logout_view(request):
     logout(request)
