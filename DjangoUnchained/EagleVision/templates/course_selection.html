@@ -9,7 +9,7 @@
 <body>
     <div class="box m-2 w-90 h-90"> 
         <h1>Courses</h1>
-        
+        <a href="{% url 'watchlist' %}" class="watchlist-button">Go to Watchlist</a>
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
