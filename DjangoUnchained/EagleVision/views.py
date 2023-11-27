@@ -454,20 +454,19 @@ def remove_from_watchlist(request):
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-def section_api_endpoint(request, courseName):
-    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + courseName[0:-1])
-    data = {}
-    CourseJSON = response.json()
-    courseID = CourseJSON[0]['courseOffering']['id']
+def section_api_endpoint(request, title):
+    getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
+    courseID = getID[0]['courseOffering']['id']
     print(courseID)
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
     for entry in registrationGroupResponse:
-
         for section in entry['activityOfferings']:
             instructors = []
             for instructor in section['activityOffering']['instructors']:
                 instructors.append(instructor['personName'])
+            print(instructors)
             current = section['activitySeatCount']['used']
+            print(current)
             max = section['activitySeatCount']['total']
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
@@ -477,13 +476,13 @@ def section_api_endpoint(request, courseName):
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=courseID)
+            for courses in Section.objects.all():
+                if courses.location == course.location and courses.courseid == course.courseid:
+                    courses.delete()
             course.save()
     
     # Deletes the duplicate objects after they're added
     
-    for block in Section.objects.all():
-        if Section.objects.filter(location=block.location).count() > 1:
-            block.delete()
-    queryset = Section.objects.all()
+    queryset = Section.objects.filter(courseid=courseID)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)

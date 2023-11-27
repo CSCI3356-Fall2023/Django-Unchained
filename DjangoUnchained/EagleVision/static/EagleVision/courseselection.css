@@ -117,3 +117,15 @@ button:disabled, .added-to-watchlist {
 .filter-icon:hover {
     color: #550000;
 }
+
+.inline {
+    display: inline-flex
+}
+
+.section {
+    float: right;
+}
+
+.watch {
+    float: left;
+}
