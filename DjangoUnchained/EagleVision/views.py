@@ -499,3 +499,9 @@ def admin_report(request):
         'filtered_courses': filtered_courses,
     }
     return render(request, 'admin_report.html', context)
+
+def detailed_report(request, course_id):
+    context = {
+        'selected_course': course_id,
+    }
+    return render(request, 'detailed_report.html', context)
