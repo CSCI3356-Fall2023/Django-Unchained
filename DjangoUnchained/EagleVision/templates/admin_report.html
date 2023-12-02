@@ -43,6 +43,7 @@
                         {% for course in filtered_courses %}
                             <div class="course">
                                 <h3>{{ course.title }}</h3>
+                                <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
                                 <form action="{% url 'detailed_report' course.title %}" method="post" class="inline section"> 
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{ course.title }}">

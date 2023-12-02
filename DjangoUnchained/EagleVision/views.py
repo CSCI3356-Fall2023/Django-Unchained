@@ -25,6 +25,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from .forms import CourseFilterForm
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import user_passes_test
 
 oauth = OAuth()
 oauth.register(
@@ -483,11 +484,18 @@ def section_api_endpoint(request, title):
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
 
+def is_admin(user):
+    return user.is_authenticated and user.is_staff
+
+@user_passes_test(is_admin)
 def admin_report(request):
     selected_department = request.GET.get('department')
     selected_course = request.GET.get('course')
 
     filtered_courses = Course.objects.all()
+    filtered_courses = filtered_courses.annotate(
+        num_students_on_watch=Count('watchlist')
+    )
 
     if selected_department:
         filtered_courses = filtered_courses.filter(department=selected_department)
