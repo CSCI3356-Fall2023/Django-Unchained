@@ -10,11 +10,10 @@
         <h1>Detailed Report</h1>
         <div class="courses">
             <h3>Students Watching {{ course.title }}</h3>
-                {% for watchlist_entry in watchlist_entries %}
-                        <p>Name: {{ user_info.name }}</p>
-                        <p>Email: {{ user_info.email }}</p>
-                        <p>School: {{ user_info.school }}</p>
-                        <p>Graduation: {{ user_info.graduation }}</p>
+                {% for student in students %}
+                        <p>Name: {{ student.user.name }}</p>
+                        <p>Email: {{ student.user.email }}</p>
+                        <p>School: {{ student.user.department }}</p>
                 {% empty %}
                     <p>No students watching this course.</p>
                 {% endfor %}

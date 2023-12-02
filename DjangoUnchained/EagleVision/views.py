@@ -489,22 +489,20 @@ def is_admin(user):
 
 @user_passes_test(is_admin)
 def admin_report(request):
-    selected_department = request.GET.get('department')
+    departments = Course.objects.values_list('department', flat=True).distinct()
+    courses = Course.objects.values_list('course_id', 'title').distinct()
     selected_course = request.GET.get('course')
 
     filtered_courses = Course.objects.all()
-    filtered_courses = filtered_courses.annotate(
-        num_students_on_watch=Count('watchlist')
-    )
-
-    if selected_department:
-        filtered_courses = filtered_courses.filter(department=selected_department)
 
     if selected_course:
         filtered_courses = filtered_courses.filter(course_id=selected_course)
 
     context = {
         'filtered_courses': filtered_courses,
+        'departments': departments,
+        'courses': courses,
+        'selected_course': selected_course,
     }
     return render(request, 'admin_report.html', context)
 

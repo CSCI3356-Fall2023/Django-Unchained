@@ -22,17 +22,11 @@
                 <h1>Admin Report</h1>
                 <div class="courses">
                     <form method="GET" action="{% url 'admin_report' %}">
-                        <select name="department">
-                            <option value="">All Departments</option>
-                            {% for department in departments %}
-                                <option value="{{ department.id }}">{{ department.name }}</option>
-                            {% endfor %}
-                        </select>
-                
+                    
                         <select name="course">
                             <option value="">All Courses</option>
-                            {% for course in courses %}
-                                <option value="{{ course.id }}">{{ course.title }}</option>
+                            {% for id, title in courses %}
+                                <option value="{{ id }}">{{ title }}</option>
                             {% endfor %}
                         </select>
                     
