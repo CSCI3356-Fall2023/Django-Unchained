@@ -3,7 +3,7 @@ from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -17,8 +17,7 @@ from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
 from urllib.parse import quote_plus
-from .models import Person, SystemState, Course
-from django.shortcuts import get_object_or_404
+from .models import Person, SystemState, Course, Watchlist
 from django.utils.html import escape
 from bs4 import BeautifulSoup
 from django.db.models import Count
@@ -483,3 +482,20 @@ def section_api_endpoint(request, title):
     queryset = Section.objects.filter(courseid=courseID)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
+
+def admin_report(request):
+    selected_department = request.GET.get('department')
+    selected_course = request.GET.get('course')
+
+    filtered_courses = Course.objects.all()
+
+    if selected_department:
+        filtered_courses = filtered_courses.filter(department=selected_department)
+
+    if selected_course:
+        filtered_courses = filtered_courses.filter(course_id=selected_course)
+
+    context = {
+        'filtered_courses': filtered_courses,
+    }
+    return render(request, 'admin_report.html', context)
