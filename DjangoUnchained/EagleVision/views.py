@@ -508,8 +508,12 @@ def admin_report(request):
     }
     return render(request, 'admin_report.html', context)
 
-def detailed_report(request, course_id):
+def detailed_report(request):
+    #Still need to work
+    course = Course.objects.all()
+
     context = {
-        'selected_course': course_id,
+        'course': course,
     }
+
     return render(request, 'detailed_report.html', context)

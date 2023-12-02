@@ -1,11 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Detailed Report</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
 </head>
-
 <body>
-    
+    <div class="box m-2 w-90 h-90">
+        <h1>Detailed Report</h1>
+        <div class="courses">
+            <h3>Students Watching {{ course.title }}</h3>
+                {% for watchlist_entry in watchlist_entries %}
+                        <p>Name: {{ user_info.name }}</p>
+                        <p>Email: {{ user_info.email }}</p>
+                        <p>School: {{ user_info.school }}</p>
+                        <p>Graduation: {{ user_info.graduation }}</p>
+                {% empty %}
+                    <p>No students watching this course.</p>
+                {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
