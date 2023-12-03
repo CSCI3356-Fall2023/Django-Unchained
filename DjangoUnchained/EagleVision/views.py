@@ -1,15 +1,14 @@
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
-from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin
+from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect,render, get_object_or_404
 from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth import login as auth_login
 from django.views.decorators.http import require_http_methods
 import requests
 from django.conf import settings
@@ -17,15 +16,14 @@ from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
 from urllib.parse import quote_plus
-from .models import Person, SystemState, Course
-from django.shortcuts import get_object_or_404
 from django.utils.html import escape
 from bs4 import BeautifulSoup
 from django.db.models import Count
 from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
-from .forms import CourseFilterForm
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 oauth = OAuth()
 oauth.register(
@@ -48,10 +46,6 @@ def login(request):
     return oauth.auth0.authorize_redirect(
         request, request.build_absolute_uri(reverse("callback"))
     )
-
-
-
-
 
 
 def callback(request):
@@ -176,13 +170,9 @@ def course_selection(request):
 
     return render(request, 'course_selection.html', context)
 
-
-
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-
 
 @login_required
 def user_profile(request):
@@ -244,8 +234,6 @@ def role_selection(request):
                 request.session["email"] = email
                 return redirect('admin_extra_info')
     return render(request, 'identity_selection.html')
-
-
 
 def student_extra_info(request):
     email = request.session.get('email')
@@ -431,7 +419,6 @@ def add_to_watchlist(request):
     course_id = request.POST.get('course_id')
     course = get_object_or_404(Course, pk=course_id)
 
-   
     watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
 
     if created:
@@ -448,10 +435,10 @@ def remove_from_watchlist(request):
     course = get_object_or_404(Course, pk=course_id)
     Watchlist.objects.filter(user=request.user, course=course).delete()
     
-    
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def section_api_endpoint(request, title):
+    recipient_email = request.session.get('email', 'recipient@example.com')
     getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
     courseID = getID[0]['courseOffering']['id']
     print(courseID)
@@ -467,6 +454,14 @@ def section_api_endpoint(request, title):
             max = section['activitySeatCount']['total']
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
+
+            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
+                # Send email notification
+                subject = f'Seats Available for {title}'
+                message = f'There are {max - current} available seats for {title}.'
+                ##html_message = render_to_string('email_notification_template.html', {'message': message})
+                send_email(recipient_email, subject, message)
+
             course = Section(instructor=';'.join(sorted(instructors)),
                                 title=name, 
                                 currentSeats=current, 
@@ -483,3 +478,12 @@ def section_api_endpoint(request, title):
     queryset = Section.objects.filter(courseid=courseID)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
+
+def send_email(recipient, subject, message):
+    send_mail(
+        subject,
+        message,
+        'stoeva@bc.edu',  # Replace with a sender email address
+        [recipient],
+        fail_silently=False,
+    )
