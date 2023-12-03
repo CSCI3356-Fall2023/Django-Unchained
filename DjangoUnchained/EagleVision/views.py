@@ -3,7 +3,7 @@ from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import redirect,render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
 from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -22,6 +22,7 @@ from django.db.models import Count
 from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
@@ -478,6 +479,38 @@ def section_api_endpoint(request, title):
     queryset = Section.objects.filter(courseid=courseID)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
+
+def is_admin(user):
+    return user.is_authenticated and user.is_staff
+
+@user_passes_test(is_admin)
+def admin_report(request):
+    departments = Course.objects.values_list('department', flat=True).distinct()
+    courses = Course.objects.values_list('course_id', 'title').distinct()
+    selected_course = request.GET.get('course')
+
+    filtered_courses = Course.objects.all()
+
+    if selected_course:
+        filtered_courses = filtered_courses.filter(course_id=selected_course)
+
+    context = {
+        'filtered_courses': filtered_courses,
+        'departments': departments,
+        'courses': courses,
+        'selected_course': selected_course,
+    }
+    return render(request, 'admin_report.html', context)
+
+def detailed_report(request):
+    #Still need to work
+    course = Course.objects.all()
+
+    context = {
+        'course': course,
+    }
+
+    return render(request, 'detailed_report.html', context)
 
 def send_email(recipient, subject, message):
     send_mail(

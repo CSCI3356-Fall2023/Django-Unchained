@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detailed Report</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
+</head>
+<body>
+    <div class="box m-2 w-90 h-90">
+        <h1>Detailed Report</h1>
+        <div class="courses">
+            <h3>Students Watching {{ course.title }}</h3>
+                {% for student in students %}
+                        <p>Name: {{ student.user.name }}</p>
+                        <p>Email: {{ student.user.email }}</p>
+                        <p>School: {{ student.user.department }}</p>
+                {% empty %}
+                    <p>No students watching this course.</p>
+                {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

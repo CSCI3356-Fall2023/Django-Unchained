@@ -21,4 +21,6 @@ urlpatterns = [
     path('add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist'),
     path('remove_from_watchlist/', views.remove_from_watchlist, name='remove_from_watchlist'),
     path('section_selection/<str:title>', views.section_api_endpoint, name='section_selection'),
+    path('admin/report/', views.admin_report, name='admin_report'),
+    path('admin/report/detailed/', views.detailed_report, name='detailed_report'),
 ]
