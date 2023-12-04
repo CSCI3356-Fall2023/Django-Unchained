@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Report</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <a href="{% url 'profile'%}">Home</a>
+                <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+                <a href="#">Export Schedule</a>
+                <a href="{% url 'courseselect' %}">Search Courses</a>
+                <a href="{% url 'admin_report' %}">Admin Report</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="box m-2 w-90 h-90"> 
+                <h1>Admin Report</h1>
+                <div class="courses">
+                    <form method="GET" action="{% url 'admin_report' %}">
+                    
+                        <select name="course">
+                            <option value="">All Courses</option>
+                            {% for id, title in courses %}
+                                <option value="{{ id }}">{{ title }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <button type="submit">Filter</button>
+                    </form>
+                
+                    <div class="course-list">
+                        {% for course in filtered_courses %}
+                            <div class="course">
+                                <h3>{{ course.title }}</h3>
+                                <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
+                                <form action="{% url 'detailed_report' %}" method="get" class="inline section">
+                                    <button type="submit">View Details</button>
+                                </form>
+                            </div>
+                        {% empty %}
+                            <p>No courses found.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
