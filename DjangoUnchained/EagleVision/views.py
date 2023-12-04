@@ -92,16 +92,7 @@ def callback(request):
 
     return redirect('index')
 
-# @login_required
-# def course_selection(request):
-#     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
-#     all_courses = Course.objects.all()
-#     print("User's Watchlist Course IDs:", user_watchlist_course_ids)
-#     context = {
-#         'courses': all_courses,
-#         'user_watchlist_ids': user_watchlist_course_ids,
-#     }
-#     return render(request, 'course_selection.html', context)
+
 
 
 @login_required
@@ -191,35 +182,6 @@ def user_profile(request):
     }
     return render(request, 'profiles/profile.html', context)
 
-# @login_required
-# def change_state(request):
-#     try:
-#         current_state = SystemState.objects.latest('updated_at')
-#     except SystemState.DoesNotExist:
-#         current_state = None
-
-#     if request.method == 'POST':
-#         form = ChangeStateForm(request.POST)
-
-#         if form.is_valid():
-#             new_state_str = form.cleaned_data['state']
-#             new_state = True if new_state_str.lower() == 'open' else False
-
-
-#             if current_state:
-#                 current_state.state = new_state
-#                 current_state.save()
-#             else:
-#                 SystemState.objects.create(state=new_state)
-
-#             return redirect('profile')
-#     else:
-#         initial_state = current_state.state if current_state else ''
-#         form = ChangeStateForm(initial={'state': initial_state})
-
-#     context = {'form': form, 'current_state': current_state.state if current_state else ''}
-#     print("Current State:", current_state)
-#     return render(request, 'change_state.html', context)
 
 
 def role_selection(request):
