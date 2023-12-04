@@ -1,0 +1,286 @@
+<html>
+<head>
+<title>WaitlistPersonService</title>
+<style type="text/css">
+
+table#serviceMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#serviceMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#serviceMetaTable td#serviceName {
+border:1px solid #000000;
+width:85%;
+}
+table#serviceMetaTable td#serviceVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#serviceMetaTable td#serviceVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.methodTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.methodTable td.d {
+border:1px solid #000000;
+}
+
+table.methodTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+
+table.methodTable td.methodName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:center;
+width:85%;
+font-weight:bold;
+font-style:italic;
+}
+
+table.methodTable td.methodDesc {
+border:1px solid #000000;
+width:85%;
+}
+
+table.methodTable td.methodParamType {
+border:1px solid #000000;
+width:21%;
+font-style:italic;
+}
+table.methodTable td.methodParamName {
+border:1px solid #000000;
+width:21%;
+}
+table.methodTable td.methodParamDesc {
+border:1px solid #000000;
+width:43%;
+}
+table.methodTable td.methodReturnType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+
+table.methodTable td.methodReturnDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.methodErrors {
+border:1px solid #000000;
+width:85%;
+}
+
+
+table.methodTable td.methodErrorType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+table.methodTable td.methodErrorDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.capabilityDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.usecaseDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EagleApps API</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>WaitlistPersonService</h1>
+<table id="serviceMetaTable">
+<tr>
+<th class=h>Key</th>
+<td id=serviceName colspan=2>WaitlistPerson</td>
+</tr>
+<tr>
+<th class=h>Version</th>
+<td id=serviceVersion colspan=2>3.3.0-SNAPSHOT</td>
+</tr>
+<tr>
+<th class=h>Included Services</th>
+<td id=serviceVersion colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<th class=h>Java Package</th>
+<td id=serviceVersion colspan=2>edu.bc.eagleapps.api.waitlist</td>
+</tr>
+</table>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+&nbsp;
+</div>
+</div>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="ListOfOperations"></a>Operations</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<table>
+<tr><td valign=top><li><a href="#WaitlistPerson-getWaitlistPerson">getWaitlistPerson</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#WaitlistPerson-getWaitlistPersonByPrincipal">getWaitlistPersonByPrincipal</a></li></td>
+<td>
+</td>
+</tr>
+</ul>
+</table>
+</div>
+</div>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="MainMessageStructures"></a>Main Entities</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<li><a href="WaitlistPersonInfo.html">WaitlistPersonInfo</a></li></ul>
+<p>
+<a name="WaitlistPerson-getWaitlistPerson"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getWaitlistPerson</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets a WaitlistPerson for a given person id</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">of the student</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>information about the caller of the service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="WaitlistPersonInfo.html">WaitlistPersonInfo</a>
+</td><td class="methodReturnDesc">a list of WaitlistPersons associated with the given starting node<br>or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">startingNodeId or contextInfo is<br>missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">person id does not exist</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="WaitlistPerson-getWaitlistPersonByPrincipal"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getWaitlistPersonByPrincipal</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a single WaitlistPerson by principal Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">principalId</td>
+<td class="methodParamDesc">the identifier for the WaitlistPerson to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>information about the caller of the service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="WaitlistPersonInfo.html">WaitlistPersonInfo</a>
+</td><td class="methodReturnDesc">the WaitlistPerson personid</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">waitlistPersonId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">waitlistPersonId or contextInfo is<br>missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<html>
+<head>
+<title>WaitlistPersonInfo</title>
+<style type="text/css">
+
+table#structureMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#structureMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#structureMetaTable td#structureName {
+border:1px solid #000000;
+width:85%;
+}
+table#structureMetaTable td#structureVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td.structureReferences {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td#structureVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.structTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.structTable td.d {
+border:1px solid #000000;
+}
+
+table.structTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+}
+
+table.structTable td.structSName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:left;
+vertical-align:top;
+font-weight:bold;
+font-style:italic;
+
+}
+
+table.structTable td.structLName {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structType {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+font-style:italic;
+
+}
+
+table.structTable td.structDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structOpt {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structReq {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+
+table.structTable td.structCard {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structAttr {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structElem {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structStatus {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+
+}
+
+table.structTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EalgeApps API</a>&nbsp;<a href="#fields">Fields</a>&nbsp;<a href="#jsonStructure">JSON</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>WaitlistPersonInfo</h1>
+<table id="structureMetaTable">
+<tr>
+<th class=h>Name</th>
+<td id=structureName colspan=2>WaitlistPersonInfo</td>
+</tr>
+<tr>
+<th rowspan=3 class=h>Usage</th>
+<td id="structureVersion" colspan=2><a href="WaitlistPersonService.html">WaitlistPersonService</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="WaitlistPersonService.html#WaitlistPerson-getWaitlistPerson">getWaitlistPerson</a>
+<a href="WaitlistPersonService.html#WaitlistPerson-getWaitlistPersonByPrincipal">getWaitlistPersonByPrincipal</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2></td></tr>
+<tr>
+<th rowspan=2 class=h>References</th>
+<td id="structureReferences1"  class="structureReferences" colspan=2>&nbsp;
+</td></tr>
+<tr>
+<td id="structureReferences2" class="structureReferences" colspan=2><a href="OfferingInstructorInfo.html">OfferingInstructorInfo</a>
+<a href="PersonAffiliation.html">PersonAffiliation</a>
+<a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+<a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+<a href="PersonNameInfo.html">PersonNameInfo</a>
+<a href="PersonIdentifierInfo.html">PersonIdentifierInfo</a>
+<a href="PersonBioDemographicsInfo.html">PersonBioDemographicsInfo</a>
+<a href="PersonAffiliationInfo.html">PersonAffiliationInfo</a>
+<a href="ActivityOfferingDisplayInfo.html">ActivityOfferingDisplayInfo</a>
+<a href="OrgPersonRelationInfo.html">OrgPersonRelationInfo</a>
+<a href="OrgTreeInfo.html">OrgTreeInfo</a>
+</td></tr>
+<th class=h>Type</th>
+<td id=structureVersion colspan=2>Complex</td>
+</tr>
+</table>
+<h2>Description</h2>
+Waitlist User is an aggregate of a person and the related info
+<h2><a name="fields"></a>Fields</h2>
+<a href="#TopOfPage">Top</a>
+<table class="structTable">
+<tr>
+<th class="h">ShortName</th>
+<th class="h">Name</th>
+<th class="h">Type</th>
+<th class="h">Description</th>
+<th class="h">Required?</th>
+<th class="h">Read only?</th>
+<th class="h">Lookup</th>
+<th class="h">Implementation Notes</th>
+</tr>
+<tr>
+<td class="structSName">person</td>
+<td class="structLName">Context</td>
+<td class="structType"><a href="PersonInfo.html">PersonInfo</a>
+</td><td class="structDesc">Person</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">activeTerms</td>
+<td class="structLName">Active Terms</td>
+<td class="structType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="structDesc">Active terms for this user</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">affiliations</td>
+<td class="structLName">Affiliations</td>
+<td class="structType"><a href="WaitlistPersonAffiliationInfo.html">WaitlistPersonAffiliationInfoList</a>
+</td><td class="structDesc">Affiliations for the person</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">authorizedDepartments</td>
+<td class="structLName">authorized Departments</td>
+<td class="structType"><a href="OrgInfo.html">OrgInfoList</a>
+</td><td class="structDesc">Authorized Departments for the person</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+</table>
+<h2><a name="jsonStructure"></a>JSON Structure</h2>
+<a href="#TopOfPage">Top</a>
+<pre>
+{
+    "person" :  {
+        "id" : "id",
+        "typeKey" : "XXXX",
+        "stateKey" : "XXXX",
+        "name" : "XXXX",
+        "descr" :  {
+            "plain" : "XXXX",
+            "formatted" : "XXXX"
+            },
+        "pictureDocumentId" : "id",
+        "meta" :  {
+            "versionInd" : "XXXX",
+            "createTime" : "YYYY-MM-DD",
+            "createId" : "id",
+            "updateTime" : "YYYY-MM-DD",
+            "updateId" : "id"
+            },
+        "attributes" : [ {
+            "id" : "id",
+            "key" : "XXXX",
+            "value" : "XXXX"
+            },
+            ...]
+        },
+    "activeTerms" : [ {
+        "id" : "id",
+        "typeKey" : "XXXX",
+        "stateKey" : "XXXX",
+        "name" : "XXXX",
+        "descr" :  {
+            "plain" : "XXXX",
+            "formatted" : "XXXX"
+            },
+        "code" : "XXXX",
+        "startDate" : "YYYY-MM-DD",
+        "endDate" : "YYYY-MM-DD",
+        "adminOrgId" : "id",
+        "meta" :  {
+            "versionInd" : "XXXX",
+            "createTime" : "YYYY-MM-DD",
+            "createId" : "id",
+            "updateTime" : "YYYY-MM-DD",
+            "updateId" : "id"
+            },
+        "attributes" : [ {
+            "id" : "id",
+            "key" : "XXXX",
+            "value" : "XXXX"
+            },
+            ...]
+        },
+        ...],
+    "affiliations" : [ {
+        "personAffiliation" :  {
+            "personId" : "id",
+            "organizationId" : "id",
+            "id" : "id",
+            "typeKey" : "XXXX",
+            "type" : "XXXX",
+            "stateKey" : "XXXX",
+            "state" : "XXXX",
+            "effectiveDate" : "YYYY-MM-DD",
+            "expirationDate" : "YYYY-MM-DD",
+            "attributes" : [ {
+                "id" : "id",
+                "key" : "XXXX",
+                "value" : "XXXX"
+                },
+                ...],
+            "meta" :  {
+                "versionInd" : "XXXX",
+                "createTime" : "YYYY-MM-DD",
+                "createId" : "id",
+                "updateTime" : "YYYY-MM-DD",
+                "updateId" : "id"
+                },
+            "name" : "XXXX",
+            "descr" :  {
+                "plain" : "XXXX",
+                "formatted" : "XXXX"
+                }
+            },
+        "type" :  {
+            "key" : "XXXX",
+            "effectiveDate" : "YYYY-MM-DD",
+            "expirationDate" : "YYYY-MM-DD",
+            "name" : "XXXX",
+            "descr" :  {
+                "plain" : "XXXX",
+                "formatted" : "XXXX"
+                },
+            "refObjectUri" : "XXXX",
+            "serviceUri" : "XXXX",
+            "meta" :  {
+                "versionInd" : "XXXX",
+                "createTime" : "YYYY-MM-DD",
+                "createId" : "id",
+                "updateTime" : "YYYY-MM-DD",
+                "updateId" : "id"
+                },
+            "attributes" : [ {
+                "id" : "id",
+                "key" : "XXXX",
+                "value" : "XXXX"
+                },
+                ...]
+            }
+        },
+        ...],
+    "authorizedDepartments" : [ {
+        "id" : "id",
+        "typeKey" : "XXXX",
+        "stateKey" : "XXXX",
+        "effectiveDate" : "YYYY-MM-DD",
+        "expirationDate" : "YYYY-MM-DD",
+        "shortName" : "XXXX",
+        "longName" : "XXXX",
+        "sortName" : "XXXX",
+        "longDescr" :  {
+            "plain" : "XXXX",
+            "formatted" : "XXXX"
+            },
+        "shortDescr" :  {
+            "plain" : "XXXX",
+            "formatted" : "XXXX"
+            },
+        "orgCodes" : [ {
+            "id" : "id",
+            "value" : "XXXX",
+            "typeKey" : "XXXX",
+            "stateKey" : "XXXX",
+            "descr" :  {
+                "plain" : "XXXX",
+                "formatted" : "XXXX"
+                },
+            "meta" :  {
+                "versionInd" : "XXXX",
+                "createTime" : "YYYY-MM-DD",
+                "createId" : "id",
+                "updateTime" : "YYYY-MM-DD",
+                "updateId" : "id"
+                },
+            "attributes" : [ {
+                "id" : "id",
+                "key" : "XXXX",
+                "value" : "XXXX"
+                },
+                ...]
+            },
+            ...],
+        "meta" :  {
+            "versionInd" : "XXXX",
+            "createTime" : "YYYY-MM-DD",
+            "createId" : "id",
+            "updateTime" : "YYYY-MM-DD",
+            "updateId" : "id"
+            },
+        "attributes" : [ {
+            "id" : "id",
+            "key" : "XXXX",
+            "value" : "XXXX"
+            },
+            ...]
+        },
+        ...]
+}</pre>
+
+</body>
+</html>

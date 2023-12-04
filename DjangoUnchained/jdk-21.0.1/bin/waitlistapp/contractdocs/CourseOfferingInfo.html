@@ -1,0 +1,628 @@
+<html>
+<head>
+<title>CourseOfferingInfo</title>
+<style type="text/css">
+
+table#structureMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#structureMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#structureMetaTable td#structureName {
+border:1px solid #000000;
+width:85%;
+}
+table#structureMetaTable td#structureVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td.structureReferences {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td#structureVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.structTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.structTable td.d {
+border:1px solid #000000;
+}
+
+table.structTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+}
+
+table.structTable td.structSName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:left;
+vertical-align:top;
+font-weight:bold;
+font-style:italic;
+
+}
+
+table.structTable td.structLName {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structType {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+font-style:italic;
+
+}
+
+table.structTable td.structDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structOpt {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structReq {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+
+table.structTable td.structCard {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structAttr {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structElem {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structStatus {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+
+}
+
+table.structTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EalgeApps API</a>&nbsp;<a href="#fields">Fields</a>&nbsp;<a href="#jsonStructure">JSON</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>CourseOfferingInfo</h1>
+<table id="structureMetaTable">
+<tr>
+<th class=h>Name</th>
+<td id=structureName colspan=2>CourseOfferingInfo</td>
+</tr>
+<tr>
+<th rowspan=3 class=h>Usage</th>
+<td id="structureVersion" colspan=2><a href="WaitlistCourseOfferingService.html">WaitlistCourseOfferingService</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="CourseOfferingService.html#CourseOffering-getCourseOffering">getCourseOffering</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByIds">getCourseOfferingsByIds</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByCourse">getCourseOfferingsByCourse</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByCourseOnDate">getEffectiveCourseOfferingsByCourseOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByCourseAndTerm">getCourseOfferingsByCourseAndTerm</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByCourseAndTermOnDate">getEffectiveCourseOfferingsByCourseAndTermOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByCode">getCourseOfferingsByCode</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByCodeOnDate">getEffectiveCourseOfferingsByCodeOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByCodeAndTerm">getCourseOfferingsByCodeAndTerm</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByCodeAndTermOnDate">getEffectiveCourseOfferingsByCodeAndTermOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsOnDate">getEffectiveCourseOfferingsOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByInstructorAndTerm">getCourseOfferingsByInstructorAndTerm</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByInstructorAndTermOnDate">getEffectiveCourseOfferingsByInstructorAndTermOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByTerm">getCourseOfferingsByTerm</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByTermOnDate">getEffectiveCourseOfferingsByTermOnDate</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByInstructor">getCourseOfferingsByInstructor</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByTermWithNonPrimaryCrosslisting">getCourseOfferingsByTermWithNonPrimaryCrosslisting</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByTermWithNonPrimaryCrosslisting">getEffectiveCourseOfferingsByTermWithNonPrimaryCrosslisting</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByTermAndSubjectAreaWithNonPrimaryCrosslisting">getCourseOfferingsByTermAndSubjectAreaWithNonPrimaryCrosslisting</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByTermAndSubjectAreaWithNonPrimaryCrosslisting">getEffectiveCourseOfferingsByTermAndSubjectAreaWithNonPrimaryCrosslisting</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByTermAndUnitsDeploymentOrgWithNonPrimaryCrosslisting">getCourseOfferingsByTermAndUnitsDeploymentOrgWithNonPrimaryCrosslisting</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByTermAndUnitsDeploymentOrgWithNonPrimaryCrosslisting">getEffectiveCourseOfferingsByTermAndUnitsDeploymentOrgWithNonPrimaryCrosslisting</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByTermWithNonPrimaryCrosslistingInSubjectArea">getCourseOfferingsByTermWithNonPrimaryCrosslistingInSubjectArea</a>
+<a href="CourseOfferingService.html#CourseOffering-getEffectiveCourseOfferingsByTermWithNonPrimaryCrosslistingInSubjectArea">getEffectiveCourseOfferingsByTermWithNonPrimaryCrosslistingInSubjectArea</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByRequisite">getCourseOfferingsByRequisite</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingsByCoRequisite">getCourseOfferingsByCoRequisite</a>
+<a href="CourseOfferingService.html#CourseOffering-searchForCourseOfferings">searchForCourseOfferings</a>
+<a href="CourseOfferingService.html#CourseOffering-validateCourseOffering">validateCourseOffering</a>
+<a href="CourseOfferingService.html#CourseOffering-createCourseOffering">createCourseOffering</a>
+<a href="CourseOfferingService.html#CourseOffering-updateCourseOffering">updateCourseOffering</a>
+<a href="CourseOfferingService.html#CourseOffering-updateCourseOfferingFromCanonical">updateCourseOfferingFromCanonical</a>
+<a href="CourseOfferingService.html#CourseOffering-validateCourseOfferingFromCanonical">validateCourseOfferingFromCanonical</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="WaitlistCourseOfferingInfo.html">WaitlistCourseOfferingInfo</a>
+</td></tr>
+<tr>
+<th rowspan=2 class=h>References</th>
+<td id="structureReferences1"  class="structureReferences" colspan=2>&nbsp;
+</td></tr>
+<tr>
+<td id="structureReferences2" class="structureReferences" colspan=2><a href="ActivityOffering.html">ActivityOffering</a>
+<a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+<a href="FormatOfferingInfo.html">FormatOfferingInfo</a>
+<a href="ActivityOfferingInfo.html">ActivityOfferingInfo</a>
+<a href="CourseOfferingCrossListingInfo.html">CourseOfferingCrossListingInfo</a>
+</td></tr>
+<th class=h>Type</th>
+<td id=structureVersion colspan=2>Complex</td>
+</tr>
+</table>
+<h2>Description</h2>
+
+<h2><a name="fields"></a>Fields</h2>
+<a href="#TopOfPage">Top</a>
+<table class="structTable">
+<tr>
+<th class="h">ShortName</th>
+<th class="h">Name</th>
+<th class="h">Type</th>
+<th class="h">Description</th>
+<th class="h">Required?</th>
+<th class="h">Read only?</th>
+<th class="h">Lookup</th>
+<th class="h">Implementation Notes</th>
+</tr>
+<tr>
+<td class="structSName">id</td>
+<td class="structLName">Unique Id</td>
+<td class="structType">String</td>
+<td class="structDesc">The system assigned unique id to identify this Entity.<br>Could be implemented as as sequence number or as a UUID.<br><br>Attempts to set this value on creates should result in a ReadOnlyException being thrown<br><br>An Id:<br>    1. An id is used when the actual value is unimportant and can therefore be a large hex value for example<br>    2. An id value might be 23b9ca9bd203df902<br>    3. An Id is never intended to be used directly by an end user.<br>    4. Ids are assumed to be of different values in different KS implementations<br>    5. Id values are generated by the service implementation if not supplied<br>    6. Id values are never expected to be used in Configuration or Application code</td>
+<td class="structOpt">Required on updates</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">typeKey</td>
+<td class="structLName">Type Key</td>
+<td class="structType">String</td>
+<td class="structDesc">A unique identifier for the type of this object.</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">Read only</td>
+<td class="structCard"><a href="TypeInfo.html">TypeInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">stateKey</td>
+<td class="structLName">State Key</td>
+<td class="structType">String</td>
+<td class="structDesc">A unique identifier for the state of this object.</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="StateInfo.html">StateInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">effectiveDate</td>
+<td class="structLName">Effective Date</td>
+<td class="structType">Date</td>
+<td class="structDesc">Date/time this object became effective. Must be less than or<br>equal to the expirationDate specified.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">expirationDate</td>
+<td class="structLName">Expiration Date</td>
+<td class="structType">Date</td>
+<td class="structDesc">Date/time this relationship is no longer effective. Must be<br>greater than or equal to the effectiveDate specified.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">name</td>
+<td class="structLName">Name</td>
+<td class="structType">String</td>
+<td class="structDesc">A display name for this entity.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">descr</td>
+<td class="structLName">Description</td>
+<td class="structType"><a href="RichTextInfo.html">RichTextInfo</a>
+</td><td class="structDesc">A description of the entity.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">courseId</td>
+<td class="structLName">Course Id</td>
+<td class="structType">String</td>
+<td class="structDesc">A unique identifier assigned to all approved courses that exist in the<br>catalog This is not updatable once initialized.</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">Read only</td>
+<td class="structCard"><a href="CourseInfo.html">CourseInfo</a></td>
+<td class="commentsDesc">this maps the the version dependent id as the offering must point<br>to one and only one version of the course. Maps to cluId in Lui.</td>
+</tr>
+<tr>
+<td class="structSName">termId</td>
+<td class="structLName">Term Id</td>
+<td class="structType">String</td>
+<td class="structDesc">Academic term of course offering</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">Read only on updates</td>
+<td class="structCard"><a href="TermInfo.html">TermInfo</a></td>
+<td class="commentsDesc">set during the #createCourseOffering and then maps to the aptKey on<br>the Lui</td>
+</tr>
+<tr>
+<td class="structSName">courseCode</td>
+<td class="structLName">Course Code</td>
+<td class="structType">String</td>
+<td class="structDesc">Identifies the number of a course as reflected in the course catalog.<br>This typically must be unique across all courses offered during that<br>term. If the user wants to create two separate offerings for the same<br>course they must modify this code to make it unique. For example: An<br>on-line offering of the course might have an "O" appended to it to<br>distinguish it from the face to face offering, i.e. ENG101 and ENG101O<br>Initially copied from the course catalog but then, depending on the<br>configuration it may be updatable. Often this field is configured so that<br>it is not not directly updatable but rather is calculated from it's two<br>constituent parts, the subject area and the course number suffix. For<br>example: Subject Area = "ENG" and Suffix = "101" then code = "ENG101"<br><br>This field is differentiated from the Couurse Offering Code in that the<br>Course Offering Code can updated while the Course Code always indicates<br>the official canonical code.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">copy of the official canonical course code</td>
+</tr>
+<tr>
+<td class="structSName">courseOfferingCode</td>
+<td class="structLName">Course Offering Code</td>
+<td class="structType">String</td>
+<td class="structDesc">Identifies the number of a course as reflected in the course catalog.<br>This typically must be unique across all courses offered during that<br>term. If the user wants to create two separate offerings for the same<br>course they must modify this code to make it unique. For example: An<br>on-line offering of the course might have an "O" appended to it to<br>distinguish it from the face to face offering, i.e. ENG101 and ENG101O<br>Initially copied from the course catalog but then, depending on the<br>configuration it may be updatable. Often this field is configured so that<br>it is not not directly updatable but rather is calculated from it's two<br>constituent parts, the subject area and the course number suffix. For<br>example: Subject Area = "ENG" and Suffix = "101" then code = "ENG101"</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">initialially this is copied from the course catalog code but then<br>is subsequently stored in the lui as lui.officialIdentifier.code</td>
+</tr>
+<tr>
+<td class="structSName">subjectAreaId</td>
+<td class="structLName">Subject Area Id</td>
+<td class="structType">String</td>
+<td class="structDesc">Identifies the department and/subject code of the course as reflected in<br>the course catalog. Initially copied from the course catalog but then,<br>depending on the configuration it may be updatable. In most<br>configurations this should not be updatable. Often used in the<br>calculation of the courseCode</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="OrgInfo.html">OrgInfo</a></td>
+<td class="commentsDesc">initially copied from the canonical course but then stored in the<br>Lui as lui.officialIdentifier.division</td>
+</tr>
+<tr>
+<td class="structSName">courseNumberSuffix</td>
+<td class="structLName">Course Number Suffix</td>
+<td class="structType">String</td>
+<td class="structDesc">A suffix of the course number as reflected in the college catalog. This<br>is the "number" portion of the course code. Initially copied from the<br>course catalog but then, depending on the configuration it may be<br>updatable. This field is often configured to be updatable but the updates<br>typically simply append something like an "O" for on-line to it to<br>differentiate multiple course offerings for the same course. Often used<br>in the calculation of the courseCode.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">initially copied from the canonical course but then stored in the<br>Lui as lui.officialIdentifier.suffixCode</td>
+</tr>
+<tr>
+<td class="structSName">courseOfferingTitle</td>
+<td class="structLName">Course Title</td>
+<td class="structType">String</td>
+<td class="structDesc">Name of the course used in the college catalog. Initially copied from the<br>course catalog but then, depending on the configuration it may be<br>updatable. For regular courses this is not generally allowed to be<br>updated on the offering, but for special topics courses this is often<br>overridden to capture the particular topic being taught offered this<br>term. Note: the configuration of the validation for titles is typically<br>restricted to exclude line breaks. This may have to be loosened as some<br>schools may want the particular topic to appear on a 2nd line. For<br>example: SPECIAL TOPICS: AN EXPLORATION OF DEEP SPACE ARTIFACTS l</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">initially copied from the canonical course but then stored in the<br>Lui as lui.officialIdentifier.longName</td>
+</tr>
+<tr>
+<td class="structSName">isHonorsOffering</td>
+<td class="structLName">Is Honors Offering</td>
+<td class="structType">Boolean</td>
+<td class="structDesc">Indicates that the entire course offering is an Honors Course ??? Is this<br>an enrollment restriction rule or a flag or both?</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">store in a generic lui luCodes type of field?</td>
+</tr>
+<tr>
+<td class="structSName">maximumEnrollment</td>
+<td class="structLName">Maximum Enrollment</td>
+<td class="structType">Integer</td>
+<td class="structDesc">Total maximum number of "seats" or enrollment slots that can be filled<br>for the offering. Calculated based on sum of all the maximum seats of<br>primary activity type offerings.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">minimumEnrollment</td>
+<td class="structLName">Minimum Enrollment</td>
+<td class="structType">Integer</td>
+<td class="structDesc">Total minimum number of seats that must be filled for the offering not to<br>be canceled. Calculated based on sum of all the minimum seats of primary<br>activity type offerings</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">maps to Lui.minimumEnrollment</td>
+</tr>
+<tr>
+<td class="structSName">gradingOptionId</td>
+<td class="structLName">Grading Option Id</td>
+<td class="structType">String</td>
+<td class="structDesc">The options/scales that indicate the allowable grades within a grading<br>scheme that can be awarded. Typically, the values here are constrained by<br>the values on the canonical course. If the value is set here then the Clu<br>must have a grading option set on the canonical activity. For example: an<br>id might point to Pass/Fail or Letter Graded option.<br>============== Deprecated ===============</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="ResultValuesGroupInfo.html">ResultValuesGroupInfo</a></td>
+<td class="commentsDesc">Lui.resultOptionIds of type ???</td>
+</tr>
+<tr>
+<td class="structSName">studentRegistrationGradingOptionIds</td>
+<td class="structLName">Student Registration Grading Option Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">The options/scales that indicate the allowable grades within a grading<br>scheme in which an eligible student can register. This list of options<br>includes the Grading Option Id plus any additional grading schemes, such<br>as P/F or Audit.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="ResultValuesGroupInfo.html">ResultValuesGroupInfo</a></td>
+<td class="commentsDesc">Lui.resultOptionIds of type ???</td>
+</tr>
+<tr>
+<td class="structSName">creditOptionId</td>
+<td class="structLName">Credit Option Id</td>
+<td class="structType">String</td>
+<td class="structDesc">Type of credit of course offering. This field is initially copied from<br>the canonical course but then, depending on configuration, it may be<br>updated. TODO: figure out which of the credit options will be copied down<br>because the canonical has more than one! Often it is just a fixed single<br>value but a ResultValuesGroup could contain a range (with increments) or<br>even a discrete list of possible credit values.<br>============== Deprecated ===============</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="ResultValuesGroupInfo.html">ResultValuesGroupInfo</a></td>
+<td class="commentsDesc">Lui.resultOptionIds returns a list of resultOptions. Filter option<br>with credit type and that should give the resultValueGroup.</td>
+</tr>
+<tr>
+<td class="structSName">instructors</td>
+<td class="structLName">Instructors</td>
+<td class="structType"><a href="OfferingInstructorInfo.html">OfferingInstructorInfoList</a>
+</td><td class="structDesc">Instructors for this course offering TODO: find out if the canonical<br>instructors should be copied down</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">These are derived from Lui Person relations with instructor type</td>
+</tr>
+<tr>
+<td class="structSName">unitsDeploymentOrgIds</td>
+<td class="structLName">Units Deployment</td>
+<td class="structType">StringList</td>
+<td class="structDesc">Organization(s) that is responsible for administering the course delivery<br>- and all associated logistics - of the course Initially copied from the<br>canonical course then, depending on the configuration, updated This is<br>typically an academic department but could be for example the extended<br>studies office that is responsible for delivering the course even though<br>it's content is managed by an academic department.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="OrgInfo.html">OrgInfo</a></td>
+<td class="commentsDesc">initalized from canonical course units deployment but then stored<br>in lui.unitsDeployment</td>
+</tr>
+<tr>
+<td class="structSName">requisiteIds</td>
+<td class="structLName">Requisite Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">The curriculum Pre-Requisites for this CousreOffering.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><b>TODO: add @lookup tag to contract</b></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">coRequisiteIds</td>
+<td class="structLName">CoRequisite Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">The curriculum Co-Requisites for this CousreOffering.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><b>TODO: add @lookup tag to contract</b></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">restrictionIds</td>
+<td class="structLName">Restriction Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">Other Restrictions for registration.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><b>TODO: add @lookup tag to contract</b></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">campusLocations</td>
+<td class="structLName">Campus Locations</td>
+<td class="structType">StringList</td>
+<td class="structDesc">Places where this Course offering is offered.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">isEvaluated</td>
+<td class="structLName">Is Evaluated</td>
+<td class="structType">Boolean</td>
+<td class="structDesc">Indicates whether the course offering has an evaluation.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">courseOfferingUrl</td>
+<td class="structLName">Course Offering URL</td>
+<td class="structType">String</td>
+<td class="structDesc">Gets the Course Offering URL.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">gradeRosterDefinitionId</td>
+<td class="structLName">Grade Roster Definition</td>
+<td class="structType">String</td>
+<td class="structDesc">Key indicating the Roster Definition.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><b>TODO: add @lookup tag to contract</b></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">gradingOptionIds</td>
+<td class="structLName">Grading Option Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">The options/scales that indicate the allowable grades within a grading<br>scheme that can be awarded. Typically, the values here are constrained by<br>the values on the canonical course. If the value is set here then the Clu<br>must have a grading option set on the canonical activity. For example: an<br>id might point to Pass/Fail or Letter Graded option.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="ResultValuesGroupInfo.html">ResultValuesGroupInfo</a></td>
+<td class="commentsDesc">Lui.resultOptionIds of type ???</td>
+</tr>
+<tr>
+<td class="structSName">creditOptionIds</td>
+<td class="structLName">Credit Option Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">Type of credit of course offering. This field is initially copied from<br>the canonical course but then, depending on configuration, it may be<br>updated. TODO: figure out which of the credit options will be copied down<br>because the canonical has more than one! Often it is just a fixed single<br>value but a ResultValuesGroup could contain a range (with increments) or<br>even a discrete list of possible credit values.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="ResultValuesGroupInfo.html">ResultValuesGroupInfo</a></td>
+<td class="commentsDesc">Lui.resultOptionIds returns a list of resultOptions. Filter option<br>with credit type and that should give the resultValueGroup.</td>
+</tr>
+<tr>
+<td class="structSName">meta</td>
+<td class="structLName">Meta</td>
+<td class="structType"><a href="MetaInfo.html">MetaInfo</a>
+</td><td class="structDesc">Create and last update info for the structure. This is optional<br>and treated as read only since the data is set by the internals<br>of the service during maintenance operations.<br><br>Contains audit trail information about the creation and last<br>update of this object Also contains the version ind used for<br>optimistic locking.<br><br>Attempts to set or update should result in a ReadOnlyException<br>being thrown.</td>
+<td class="structOpt">Required on updates</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">attributes</td>
+<td class="structLName">Dynamic Attributes</td>
+<td class="structType"><a href="AttributeInfo.html">AttributeInfoList</a>
+</td><td class="structDesc">List of dynamic attributes, each holding a key-value pair that<br>can be configured to hold additional information for an<br>implementing institution.<br><br>Note: the key may be repeated more than once to simulate a list<br>of values.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+</table>
+<h2><a name="jsonStructure"></a>JSON Structure</h2>
+<a href="#TopOfPage">Top</a>
+<pre>
+{
+    "id" : "id",
+    "typeKey" : "XXXX",
+    "stateKey" : "XXXX",
+    "effectiveDate" : "YYYY-MM-DD",
+    "expirationDate" : "YYYY-MM-DD",
+    "name" : "XXXX",
+    "descr" :  {
+        "plain" : "XXXX",
+        "formatted" : "XXXX"
+        },
+    "courseId" : "id",
+    "termId" : "id",
+    "courseCode" : "XXXX",
+    "courseOfferingCode" : "XXXX",
+    "subjectAreaId" : "id",
+    "courseNumberSuffix" : "XXXX",
+    "courseOfferingTitle" : "XXXX",
+    "isHonorsOffering" : true,
+    "maximumEnrollment" : 999,
+    "minimumEnrollment" : 999,
+    "gradingOptionId" : "id",
+    "studentRegistrationGradingOptionIds" : ["id", ...],
+    "creditOptionId" : "id",
+    "instructors" : [ {
+        "id" : "id",
+        "typeKey" : "XXXX",
+        "stateKey" : "XXXX",
+        "personId" : "id",
+        "personName" : "XXXX",
+        "percentageEffort" : "percentageEffort",
+        "meta" :  {
+            "versionInd" : "XXXX",
+            "createTime" : "YYYY-MM-DD",
+            "createId" : "id",
+            "updateTime" : "YYYY-MM-DD",
+            "updateId" : "id"
+            },
+        "attributes" : [ {
+            "id" : "id",
+            "key" : "XXXX",
+            "value" : "XXXX"
+            },
+            ...]
+        },
+        ...],
+    "unitsDeploymentOrgIds" : ["id", ...],
+    "requisiteIds" : ["id", ...],
+    "coRequisiteIds" : ["id", ...],
+    "restrictionIds" : ["id", ...],
+    "campusLocations" : ["XXXX", ...],
+    "isEvaluated" : true,
+    "courseOfferingUrl" : "XXXX",
+    "gradeRosterDefinitionId" : "id",
+    "gradingOptionIds" : ["id", ...],
+    "creditOptionIds" : ["id", ...],
+    "meta" :  {
+        "versionInd" : "XXXX",
+        "createTime" : "YYYY-MM-DD",
+        "createId" : "id",
+        "updateTime" : "YYYY-MM-DD",
+        "updateId" : "id"
+        },
+    "attributes" : [ {
+        "id" : "id",
+        "key" : "XXXX",
+        "value" : "XXXX"
+        },
+        ...]
+}</pre>
+
+</body>
+</html>

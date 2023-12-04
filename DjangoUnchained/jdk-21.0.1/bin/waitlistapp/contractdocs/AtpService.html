@@ -1,0 +1,4920 @@
+<html>
+<head>
+<title>AtpService</title>
+<style type="text/css">
+
+table#serviceMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#serviceMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#serviceMetaTable td#serviceName {
+border:1px solid #000000;
+width:85%;
+}
+table#serviceMetaTable td#serviceVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#serviceMetaTable td#serviceVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.methodTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.methodTable td.d {
+border:1px solid #000000;
+}
+
+table.methodTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+
+table.methodTable td.methodName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:center;
+width:85%;
+font-weight:bold;
+font-style:italic;
+}
+
+table.methodTable td.methodDesc {
+border:1px solid #000000;
+width:85%;
+}
+
+table.methodTable td.methodParamType {
+border:1px solid #000000;
+width:21%;
+font-style:italic;
+}
+table.methodTable td.methodParamName {
+border:1px solid #000000;
+width:21%;
+}
+table.methodTable td.methodParamDesc {
+border:1px solid #000000;
+width:43%;
+}
+table.methodTable td.methodReturnType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+
+table.methodTable td.methodReturnDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.methodErrors {
+border:1px solid #000000;
+width:85%;
+}
+
+
+table.methodTable td.methodErrorType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+table.methodTable td.methodErrorDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.capabilityDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.usecaseDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EagleApps API</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>AtpService</h1>
+<table id="serviceMetaTable">
+<tr>
+<th class=h>Key</th>
+<td id=serviceName colspan=2>Atp</td>
+</tr>
+<tr>
+<th class=h>Version</th>
+<td id=serviceVersion colspan=2>3.3.0-SNAPSHOT</td>
+</tr>
+<tr>
+<th class=h>Included Services</th>
+<td id=serviceVersion colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<th class=h>Java Package</th>
+<td id=serviceVersion colspan=2>org.kuali.student.r2.core.atp.service</td>
+</tr>
+</table>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+Academic Time Period Service Description and Assumptions. This<br>service supports the management of Academic Time Periods and their<br>associated Milestones. The intent is to provide a flexible but<br>structured way to define the various time frames that are used<br>throughout the definition, offering and scheduling of Learning<br>Units.
+</div>
+</div>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="ListOfOperations"></a>Operations</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<table>
+<tr><td valign=top><li><a href="#Atp-getAtp">getAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByIds">getAtpsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpIdsByType">getAtpIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByType">getAtpsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpIdsByParentType">getAtpIdsByParentType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByParentType">getAtpsByParentType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByCode">getAtpsByCode</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByDate">getAtpsByDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByDateAndType">getAtpsByDateAndType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByDates">getAtpsByDates</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByDatesAndType">getAtpsByDatesAndType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByStartDateRange">getAtpsByStartDateRange</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByStartDateRangeAndType">getAtpsByStartDateRangeAndType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getNextAtpsForTypes">getNextAtpsForTypes</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getPreviousAtpsForTypes">getPreviousAtpsForTypes</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsByDateAndTypes">getAtpsByDateAndTypes</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpsForMilestone">getAtpsForMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtps">getAtps</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-searchForAtpIds">searchForAtpIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-searchForAtps">searchForAtps</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-validateAtp">validateAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-createAtp">createAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-updateAtp">updateAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-validateChangeAtpState">validateChangeAtpState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-changeAtpState">changeAtpState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-deleteAtp">deleteAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelation">getAtpAtpRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByIds">getAtpAtpRelationsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationIdsByType">getAtpAtpRelationIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByType">getAtpAtpRelationsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationIdsByParentType">getAtpAtpRelationIdsByParentType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByParentType">getAtpAtpRelationsByParentType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByAtp">getAtpAtpRelationsByAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsByAtpOnDate">getEffectiveAtpAtpRelationsByAtpOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByTypeAndAtp">getAtpAtpRelationsByTypeAndAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsByTypeAndAtpOnDate">getEffectiveAtpAtpRelationsByTypeAndAtpOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByRelatedAtp">getAtpAtpRelationsByRelatedAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsByRelatedAtpOnDate">getEffectiveAtpAtpRelationsByRelatedAtpOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByTypeAndRelatedAtp">getAtpAtpRelationsByTypeAndRelatedAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsByTypeAndRelatedAtpOnDate">getEffectiveAtpAtpRelationsByTypeAndRelatedAtpOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByAtpAndRelatedAtp">getAtpAtpRelationsByAtpAndRelatedAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsByAtpAndRelatedAtpOnDate">getEffectiveAtpAtpRelationsByAtpAndRelatedAtpOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByTypeAndAtpAndRelatedAtp">getAtpAtpRelationsByTypeAndAtpAndRelatedAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsByTypeAndAtpAndRelatedAtpOnDate">getEffectiveAtpAtpRelationsByTypeAndAtpAndRelatedAtpOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getEffectiveAtpAtpRelationsOnDate">getEffectiveAtpAtpRelationsOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelations">getAtpAtpRelations</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpAtpRelationsByAtps">getAtpAtpRelationsByAtps</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-searchForAtpAtpRelationIds">searchForAtpAtpRelationIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-searchForAtpAtpRelations">searchForAtpAtpRelations</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-validateAtpAtpRelation">validateAtpAtpRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-createAtpAtpRelation">createAtpAtpRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-updateAtpAtpRelation">updateAtpAtpRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-validateChangeAtpAtpRelationState">validateChangeAtpAtpRelationState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-changeAtpAtpRelationState">changeAtpAtpRelationState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-deleteAtpAtpRelation">deleteAtpAtpRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestone">getMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesByIds">getMilestonesByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestoneIdsByType">getMilestoneIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesByType">getMilestonesByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestoneIdsByParentType">getMilestoneIdsByParentType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesByParentType">getMilestonesByParentType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesByDates">getMilestonesByDates</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesByDatesForAtp">getMilestonesByDatesForAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesByTypeForAtp">getMilestonesByTypeForAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestones">getMilestones</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getImpactedMilestones">getImpactedMilestones</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-searchForMilestoneIds">searchForMilestoneIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-searchForMilestones">searchForMilestones</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-validateMilestone">validateMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-createMilestone">createMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-updateMilestone">updateMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-validateChangeMilestoneState">validateChangeMilestoneState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-changeMilestoneState">changeMilestoneState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-deleteMilestone">deleteMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-calculateMilestone">calculateMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestoneIdsForAtp">getMilestoneIdsForAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getMilestonesForAtp">getMilestonesForAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-getAtpIdsForMilestone">getAtpIdsForMilestone</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-addMilestoneToAtp">addMilestoneToAtp</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Atp-removeMilestoneFromAtp">removeMilestoneFromAtp</a></li></td>
+<td>
+</td>
+</tr>
+</ul>
+</table>
+</div>
+</div>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="MainMessageStructures"></a>Main Entities</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<li><a href="AtpInfo.html">AtpInfo</a></li><li><a href="ContextInfo.html">ContextInfo</a></li><li><a href="QueryByCriteria.html">QueryByCriteria</a></li><li><a href="ValidationResultInfo.html">ValidationResultInfo</a></li><li><a href="StatusInfo.html">StatusInfo</a></li><li><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a></li><li><a href="MilestoneInfo.html">MilestoneInfo</a></li></ul>
+<p>
+<a name="Atp-getAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a single Academic Time Period by ATP id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier of the Academic Time Period to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfo</a>
+</td><td class="methodReturnDesc">the Academic Time Period requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods from a list of ATP<br>Ids. The returned list may be in any order and if duplicate Ids<br>are supplied, a unique set may or may not be returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">atpIds</td>
+<td class="methodParamDesc">a list of ATP Ids</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of ATPs</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">an atpId in the list not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpIds, an id in atpIds, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods by ATP Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">an identifier for the ATP type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Period Ids matching atpTypeKey or an<br>        empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpTypeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods of the specified type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">a Atp type to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Atps or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpTypeKey or contextInfo is missing or<br>null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpIdsByParentType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpIdsByParentType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all Academic Time Period Ids by given Type and any<br>"descendant" of the given Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">a Atp type to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Atp Ids or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">parentAtpTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByParentType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByParentType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all Academic Time Periods by given Type and any<br>"descendant" of the given Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">a Atp type to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Atps or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">parentAtpTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByCode"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByCode</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets a list of ATPs by Code. This method is intended to facilitate a<br>lookup of ATPs via the partial entry of it's code. It is envisioned for<br>example to be suitable for a type-ahead lookup. Therefore the<br>implementation of this method should select all info objects whose code<br>"starts with" the specified input code up to the length of the input. The<br>comparison should (generally) ignore the case of the two codes being<br>compared. This is because most coding schemes do not (and should not)<br>distinguish between upper and lower case. The consumer should NOT also<br>not be expected to specify any wildcard characters. Further if they do<br>specify a "common" wildcard character such as * or % then those<br>characters should not be treated as a wildcard in the comparison.<br>Therefore "ENGL" would match "ENGLISH" but "ENGL%" should not match<br>"ENGLISH". Specifying an empty string should return an empty list. Some<br>implementations for performance reasons may also return an empty list for<br>one or two or some other minimum number of characters. The implementation<br>may also decide to return a smaller limited set of items if the actual<br>number of matches is deemed too large. If the implementation does limit<br>the results it should always return all the objects who's code fully<br>matches the input text. This is to make sure this method can also be used<br>to reliably fetch an object by it's full code.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">code</td>
+<td class="methodParamDesc">an ATP Code</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of ATPs with the given ATP Code</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">code or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods where the supplied<br>date falls within the start and end date of the ATP inclusive<br>of the date.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Periods that contain the<br>        supplied date</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByDateAndType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByDateAndType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods where the supplied<br>date falls within the start and end date of the ATP, inclusive<br>of the date, and whose type matches the specified ATP type.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">an identifier for an ATP Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Periods of the ATP Type that<br>        contain the supplied date</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date, atpTypeKey, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByDates"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByDates</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods that are totally<br>contained within the supplied dates. The entire ATP falls<br>within the supplied dates inclusive of the dates.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">startDate</td>
+<td class="methodParamDesc">start date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">endDate</td>
+<td class="methodParamDesc">end date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Periods within the supplied<br>        dates</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid or<br>        the startDate is greater than the endDate</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">startDate, endDate, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByDatesAndType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByDatesAndType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves the list of Academic Time Periods that are totally<br>contained within the supplied dates and whose type matches the<br>supplied ATP type.  The entire ATP falls within the supplied<br>dates inclusive of the dates.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">startDate</td>
+<td class="methodParamDesc">start date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">endDate</td>
+<td class="methodParamDesc">end date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">an identifier for an ATP Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Periods of the supplied ATP<br>        Type within the supplied dates</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid or<br>        startDate is greater than endDate</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">startDate, endDate,<br>        atpTypeKey, or conetxtInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByStartDateRange"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByStartDateRange</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods whose start dates<br>fall within the supplied date range, inclusive of the start and<br>end dates on the supplied range.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">dateRangeStart</td>
+<td class="methodParamDesc">start date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">dateRangeEnd</td>
+<td class="methodParamDesc">end date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Periods with start dates within<br>        the supplied dates</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid or<br>        startDate is greater than endDate</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">datRangeStart, dateRangeEnd,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByStartDateRangeAndType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByStartDateRangeAndType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves the list of Academic Time Periods whose start dates<br>fall within the supplied date range, inclusive of the start and<br>end dates on the range and whose type matches the specified ATP<br>Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">dateRangeStart</td>
+<td class="methodParamDesc">start date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">dateRangeEnd</td>
+<td class="methodParamDesc">end date of range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">an identifier for an ATP Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Academic Time Periods with start dates within<br>        the supplied dates and of the given ATP Type</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid or<br>        dateRangeStart is greater than dateRangeEnd</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">dateRangeStart, dateRangeEnd,<br>        atpTypeKey, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getNextAtpsForTypes"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getNextAtpsForTypes</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves the list of Academic Time Periods whose starts after the end of<br>the specified ATP that also has a type that matches one of the supplied<br>types.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">atpTypeKeys</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getPreviousAtpsForTypes"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getPreviousAtpsForTypes</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves the list of Academic Time Periods whose Calculates the first<br>atp that immediately precedes, i.e. ends before the start of the<br>specified atp that also has a type that matches one of the supplied<br>types.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">atpTypeKeys</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsByDateAndTypes"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsByDateAndTypes</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Academic Time Periods where the supplied date falls<br>within the start and end date of the ATP, inclusive of the date, and<br>whose type matches one of the specified ATP types.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">atpTypeKeys</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpsForMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpsForMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of ATPs for a specified Milestone</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">an identifier for a Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of ATPs for the Milestone or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtps"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtps</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of all Academic Time Periods.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">a list of Atps or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or<br>null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-searchForAtpIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForAtpIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Academic Time Period Ids that meet the given<br>search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">list of ATP identifiers matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-searchForAtps"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForAtps</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Academic Time Periods that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfoList</a>
+</td><td class="methodReturnDesc">list of ATPs matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-validateAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates an Academic Time Period. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current object and its directly contained sub-objects<br>or expanded to perform all tests related to this ATP. If an<br>identifier is present for the ATP (and/or one of its contained<br>sub-objects) and a record is found for that identifier, the<br>validation checks if the ATP can be shifted to the new<br>values. If a an identifier is not present or a record does not<br>exist, the validation checks if the ATP with the given data can<br>be created.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier for the validation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">the identifier for the ATP Type to be<br>       validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="AtpInfo.html">AtpInfo</a>
+</td><td class="methodParamName">atpInfo</td>
+<td class="methodParamDesc">the identifier for the ATP to be validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">a list of validation results or an empty list if<br>        validation succeeded</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey or atpTypeKey<br>        is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">atpInfo or contextInfo is not<br>        valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey, atpTypeKey<br>        atpInfo, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-createAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new Academic Time Period. The ATP Type and Meta<br>information may not be set in the supplied data object.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpTypeKey</td>
+<td class="methodParamDesc">the type of the atp</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="AtpInfo.html">AtpInfo</a>
+</td><td class="methodParamName">atpInfo</td>
+<td class="methodParamDesc">the data with which to create the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfo</a>
+</td><td class="methodReturnDesc">the new ATP</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">atpInfo or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, atpTypeKey, atpInfo,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-updateAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing Academic Time Period. The ATP id, Type, and<br>Meta information may not be changed.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP to be updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="AtpInfo.html">AtpInfo</a>
+</td><td class="methodParamName">atpInfo</td>
+<td class="methodParamDesc">the new data for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpInfo.html">AtpInfo</a>
+</td><td class="methodReturnDesc">the updated ATP</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">atpInfo or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, atpInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">an optimistic locking failure<br>        or the action was attempted on an out of date version</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-validateChangeAtpState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateChangeAtpState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validate Change state of an ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the atpId and locale<br>information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">the status of the operation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, or contextInfo is missing or<br>null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authentication failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-changeAtpState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeAtpState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Change the state of an ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the atpId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authentication failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-deleteAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing Academic Time Period.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">the status of the operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a single AtpAtpRelation by AtpAtpRelation Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationId</td>
+<td class="methodParamDesc">the identifier for the AtpAtpRelation<br>       to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+</td><td class="methodReturnDesc">the AtpAtpRelation requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpAtpRelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations from a list of<br>AtpAtpRelation Ids.  The returned list may be in any order and<br>if duplicate Ids are supplied, a unique set may or may not be<br>returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">atpAtpRelationIds</td>
+<td class="methodParamDesc">a list of AtpAtpRelation identifiers</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">an atpAtpRelationId in the list<br>        not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationIds, an<br>        atpAtpRelationId in the atpAtpRelationIds, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelation Ids by AtpAtpRelation Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">an identifier for an<br>       AtpAtpRelation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelation identifiers matching<br>        atpAtpRelationTypeKey or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations by AtpAtpRelation Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">an identifier for an<br>       AtpAtpRelation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelation matching atpAtpRelationTypeKey<br>        or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationIdsByParentType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationIdsByParentType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelation Ids by AtpAtpRelation Type<br>and include descednants of the given type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">an identifier for an<br>       AtpAtpRelation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelation identifiers matching<br>        atpAtpRelationTypeKey or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByParentType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByParentType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations by AtpAtpRelation Type and<br>include descendants of the given type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">an identifier for an<br>       AtpAtpRelation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelation matching atpAtpRelationTypeKey<br>        or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations to the given ATP. An<br>AtpAtpRelation is directional and this matches only the main<br>Atp.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsByAtpOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsByAtpOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations to the given ATP where the given<br>date is within the effective date range inclusive. An<br>AtpAtpRelation is directional and this matches only the main<br>Atp.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, date, or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByTypeAndAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByTypeAndAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations of the specified<br>AtpAtpRelationType for an ATP. (these parameters are<br>backwards).</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for an<br>       AtpAtpRelationType</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations of the specified<br>        AtpAtpRelationType for the given ATP or an empty list<br>        if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is notvalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, atpAtpRelationTypeKey, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsByTypeAndAtpOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsByTypeAndAtpOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations of the specified<br>AtpATpRelationType and to the given ATP where the given date is<br>within the effective date range inclusive. An AtpAtpRelation is<br>directional and this matches only the main Atp.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for an<br>       AtpAtpRelationType</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, atpAtpRelationTypeKey,<br>        date, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByRelatedAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByRelatedAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations to the related ATP. An<br>AtpAtpRelation is directional and this matches only the related<br>Atp.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">relatedAtpId or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsByRelatedAtpOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsByRelatedAtpOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations to the related ATP where the<br>given date is within the effective date range inclusive. An<br>AtpAtpRelation is directional and this matches only the related<br>Atp.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">relatedAtpId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByTypeAndRelatedAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByTypeAndRelatedAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations of the specified<br>AtpAtpRelationType for a related ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for an<br>       AtpAtpRelationType</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations of the specified<br>        AtpAtpRelationType for the given ATP or an empty list<br>        if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is notvalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">relatedAtpId,<br>        atpAtpRelationTypeKey, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsByTypeAndRelatedAtpOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsByTypeAndRelatedAtpOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations of the specified<br>AtpATpRelationType and to the related ATP where the given date<br>is within the effective date range inclusive. An AtpAtpRelation<br>is directional and this matches only the related Atp.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for an<br>       AtpAtpRelationType</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty<br>        list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">relatedAtpId,<br>        atpAtpRelationTypeKey, date, or contextInfo is missing<br>        or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByAtpAndRelatedAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByAtpAndRelatedAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations to the ATP and related ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, relatedAtpId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsByAtpAndRelatedAtpOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsByAtpAndRelatedAtpOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations to the ATP and related ATP where<br>the given date is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, relatedAtpId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByTypeAndAtpAndRelatedAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByTypeAndAtpAndRelatedAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations of the specified<br>AtpAtpRelationType for an ATP and related ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for an<br>       AtpAtpRelationType</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations of the specified<br>        AtpAtpRelationType for the given ATP or an empty list<br>        if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is notvalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, relatedAtpId,<br>        atpAtpRelationTypeKey, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsByTypeAndAtpAndRelatedAtpOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsByTypeAndAtpAndRelatedAtpOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of AtpAtpRelations of the specified<br>AtpAtpRelationType for an ATP and related ATP where the given<br>date is in the effective date range inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=5>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">the identifier for the related ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for an<br>       AtpAtpRelationType</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations of the specified<br>        AtpAtpRelationType for the given ATP or an empty list<br>        if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is notvalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, relatedAtpId,<br>        atpAtpRelationTypeKey, date, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getEffectiveAtpAtpRelationsOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAtpAtpRelationsOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelationswhere the given date is within the<br>effective date range inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations to the given ATP or an empty<br>        list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date, or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelations"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelations</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpAtpRelationsByAtps"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpAtpRelationsByAtps</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all AtpAtpRelations between the given ATPs.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for the ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations between the given ATPs or an empty list<br>        if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, atpPeerId, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred<br>TODO: remove this method</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-searchForAtpAtpRelationIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForAtpAtpRelationIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for AtpAtpRelations that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelation identifiers matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-searchForAtpAtpRelations"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForAtpAtpRelations</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for AtpAtpRelations that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of AtpAtpRelations matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-validateAtpAtpRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateAtpAtpRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates an AtpAtpRelation. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current AtpAtpRelation and its directly contained<br>sub-objects or expanded to perform all tests related to this<br>AtpAtpRelation. If an identifier is present for the<br>AtpAtpRelation (and/or one of its contained sub-objects) and a<br>record is found for that identifier, the validation checks if<br>the AtpAtpRelation can be shifted to the new values. If an<br>identifier is not present or a record cannot be found for the<br>identifier, the validation checks if the object with the given<br>data can be created.</td>
+</tr>
+<tr>
+<th class=h rowspan=6>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier for the validation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">the identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpPeerId</td>
+<td class="methodParamDesc">a the identifier for the ATP peer</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the<br>       AtpAtpRelation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+</td><td class="methodParamName">atpAtpRelationInfo</td>
+<td class="methodParamDesc">the AtpAtpRelation to be validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">a list of validation results or an empty list if<br>        validation succeeded</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey, atpId,<br>        atpPeerId, or atpAtpRelationTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey, atpId,<br>        atpPeerId, atpAtpRelationTypeKey, atpAtpRelationInfo,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-createAtpAtpRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createAtpAtpRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new AtpAtpRelation. The AtpAtpRelation Id, Type, ATP<br>Ids, and Meta information may not be set in the supplied data.</td>
+</tr>
+<tr>
+<th class=h rowspan=5>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">a peer of the relationship</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedAtpId</td>
+<td class="methodParamDesc">a peer of the relationship</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationTypeKey</td>
+<td class="methodParamDesc">type of relationship between the<br>       two</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+</td><td class="methodParamName">atpAtpRelationInfo</td>
+<td class="methodParamDesc">the relationship to be created</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+</td><td class="methodReturnDesc">the new AtpAtpRelation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpId, atpPeerId, or<br>        atpAtpRelationTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, atpPeerId,<br>        atpAtpRelationTypeKey, atpAtpRelationInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-updateAtpAtpRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateAtpAtpRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an ATP Milestone Relationship. The AtpAtpRelation Id,<br>Type, ATP Ids, and Meta information may not be changed.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationId</td>
+<td class="methodParamDesc">the identifier for the AtpAtpRelation<br>       updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+</td><td class="methodParamName">atpAtpRelationInfo</td>
+<td class="methodParamDesc">the new data for the AtpAtpRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+</td><td class="methodReturnDesc">the updated AtpAtpRelation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpAtpRelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationId,<br>        atpAtpRelationInfo, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">optimistic locking failure or<br>        the action was attempted on an out of date version</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-validateChangeAtpAtpRelationState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateChangeAtpAtpRelationState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validate Change state of an AtpAtpRelation.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationId</td>
+<td class="methodParamDesc">the identifier for the AtpAtpRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the atpId and locale<br>information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">the status of the operation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpAtpRelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelatiobId, or contextInfo is<br>missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authentication failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-changeAtpAtpRelationState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeAtpAtpRelationState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Change the state of an AtpAtpRelation.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationId</td>
+<td class="methodParamDesc">the identifier for the AtpAtpRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the atpId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpAtpRelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelatiobId, or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authentication failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-deleteAtpAtpRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteAtpAtpRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing AtpAtpRelation.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpAtpRelationId</td>
+<td class="methodParamDesc">the identifier for the AtpAtpRelation<br>       to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">status of the delete operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">atpAtprelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpAtpRelationId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a single Milestone by a Milestone Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">the identifier for the Milestone to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodReturnDesc">the Milestone requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones from a list of Milestone<br>Ids. The returned list may be in any order and if duplicate Ids<br>are supplied, a unique set may or may not be returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">milestoneIds</td>
+<td class="methodParamDesc">a list of Milestone identifiers</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a milestoneId in the list was not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneIds, an Id in the<br>        milestoneIds, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestoneIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestoneIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestone Ids by Milestone Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneTypeKey</td>
+<td class="methodParamDesc">an identifier for a Milestone Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Milestone identifiers matching milestoneTypeKey or an<br>        empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneTypeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones by Milestone Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneTypeKey</td>
+<td class="methodParamDesc">an identifier for a Milestone Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestone matching milestoneTypeKey or an<br>        empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneTypeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestoneIdsByParentType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestoneIdsByParentType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestone Ids by Milestone Type including<br>any descendants of the given type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneTypeKey</td>
+<td class="methodParamDesc">an identifier for a Milestone Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Milestone identifiers matching milestoneTypeKey or an<br>        empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneTypeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesByParentType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesByParentType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones by Milestone Type including any<br>descendants of the given type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneTypeKey</td>
+<td class="methodParamDesc">an identifier for a Milestone Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestone matching milestoneTypeKey or an<br>        empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneTypeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesByDates"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesByDates</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones that fall within a specified set<br>of dates inclusive of the dates.<br><br>If the milestone is a date range then it should be selected if<br>it overlaps any part of the specified start and end dates.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">startDate</td>
+<td class="methodParamDesc">start of date range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">endDate</td>
+<td class="methodParamDesc">end of date range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones that fall within this set of dates</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid or startDate<br>        is greater than endDate</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">startDate, endDate, or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesByDatesForAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesByDatesForAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones for a specified Academic Time<br>Period that fall within a specified set of dates inclusive of<br>the dates.<br><br>If the milestone is a date range then it should be selected if<br>it overlaps any part of the specified start and end dates.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">an identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">startDate</td>
+<td class="methodParamDesc">start of date range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">endDate</td>
+<td class="methodParamDesc">end of date range</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones for the ATP in the specified date range or<br>        an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid or<br>        startDate is greater than end date</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, startDate, endDate, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesByTypeForAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesByTypeForAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones of a specified Milestone Type<br>for an Acdemic Time Period.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">an identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneTypeKey</td>
+<td class="methodParamDesc">an identifier for a Milestone Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones of the Milestone Type for the ATP or an<br>        empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId, milsetoneTypeKey, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestones"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestones</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of all Milestones.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getImpactedMilestones"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getImpactedMilestones</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets a list of Milestones impacted by a change to a given<br>Milestone. A milestone can be a "relative" milsetone where its<br>dates are calculated from another milestone. The calculation<br>itself is a rule attched to the Milestone Type.<br><br>This method queries to see what other Milestones use the given<br>Milestone as an anchor.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">an identifier for a Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones impacted by the given Milestone</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-searchForMilestoneIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForMilestoneIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Milestones that meet the given search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Milestone identifiers matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-searchForMilestones"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForMilestones</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Milestones that meet the given search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-validateMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a Milestone. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current Milestone and its directly contained<br>sub-objects or expanded to perform all tests related to this<br>object. If an identifier is present for the Milestone (and/or<br>one of its contained sub-obejcts) and a record is found for<br>that identifier, the validation checks if the Milestone can be<br>shifted to the new values. If an identifier is not present or a<br>record does not exist, the validation checks if the object with<br>the given data can be created.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier for the validation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodParamName">milestoneInfo</td>
+<td class="methodParamDesc">the milestone to be validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">a list of validation results or an empty list if<br>        validation succeeded</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey or<br>        milestoneTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">milestoneInfo or contextInfo<br>        is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey,<br>        milestoneTypeKey, milestoneInfo, or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-createMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Create a new Milestone. The Milestone Id, Type, and Meta<br>information may not be set in the supplied data object.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneTypeKey</td>
+<td class="methodParamDesc">identifies the type of this milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodParamName">milestoneInfo</td>
+<td class="methodParamDesc">the data with which to create the Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodReturnDesc">the new Milestone</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">milestoneInfo or contextInfo<br>        is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneTypeKey,<br>        milestoneInfo, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-updateMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing Milestone. The Milestone Id, Type, and Meta<br>information may not be changed.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">the identifier for the Milestone to be updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodParamName">milestoneInfo</td>
+<td class="methodParamDesc">the new data for the Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodReturnDesc">the updated Milestone</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">milestoneInfo or contextInfo<br>        is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId, milestoneInfo,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">an optimistic locking failure<br>        or the action was attempted on an out of date version</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-validateChangeMilestoneState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateChangeMilestoneState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validate Change state of a Milestone.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">the identifier for the Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the milestoneId and locale<br>information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">the validation result</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId, or contextInfo is missing<br>or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authentication failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-changeMilestoneState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeMilestoneState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Change the state of a Milestone.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">the identifier for the Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the milestoneId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId, or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authentication failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-deleteMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing Milestone.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">the identifier for the Milestone to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">status of the delete operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-calculateMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">calculateMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Calculates the dates in the Milestone based on a rule attached<br>to the Milestone Type. If there is no rule available for the<br>Type of the given Milestone, then no changes to the Milestone<br>occur.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">an identifier for a Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfo</a>
+</td><td class="methodReturnDesc">the Milestone with the calculated dates</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestoneIdsForAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestoneIdsForAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestone Ids for a specified Academic Time<br>Period.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">an identifier for an Academic Time Period</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Milestone Ids for the ATP or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getMilestonesForAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getMilestonesForAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Milestones for a specified Academic Time<br>Period.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">an identifier for an Academic Time Period</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="MilestoneInfo.html">MilestoneInfoList</a>
+</td><td class="methodReturnDesc">a list of Milestones for the ATP or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">atpId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-getAtpIdsForMilestone"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAtpIdsForMilestone</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of ATP Ids to which the given Milestone is mapped.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">an identifier for a Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of Atp Ids or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-addMilestoneToAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">addMilestoneToAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Adds a Milestone to an ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">an identifier for a Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">an identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">status of the mapping operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>AlreadyExistsException</td>
+<td class="methodErrorDesc">milestoneId is already related to atpId</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId or atpId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valud</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId, atpId, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Atp-removeMilestoneFromAtp"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">removeMilestoneFromAtp</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Removes a Milestone from an ATP.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">milestoneId</td>
+<td class="methodParamDesc">an identifier for a Milestone</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">atpId</td>
+<td class="methodParamDesc">an identifier for an ATP</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">status of the unmapping operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">milestoneId or atpId is not found<br>        or milestoneId is not related to atpId</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valud</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">milestoneId, atpId, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+
+</body>
+</html>

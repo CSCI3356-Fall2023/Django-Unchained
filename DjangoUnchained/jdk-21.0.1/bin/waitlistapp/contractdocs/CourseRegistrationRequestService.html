@@ -1,0 +1,3095 @@
+<html>
+<head>
+<title>CourseRegistrationRequestService</title>
+<style type="text/css">
+
+table#serviceMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#serviceMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#serviceMetaTable td#serviceName {
+border:1px solid #000000;
+width:85%;
+}
+table#serviceMetaTable td#serviceVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#serviceMetaTable td#serviceVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.methodTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.methodTable td.d {
+border:1px solid #000000;
+}
+
+table.methodTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+
+table.methodTable td.methodName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:center;
+width:85%;
+font-weight:bold;
+font-style:italic;
+}
+
+table.methodTable td.methodDesc {
+border:1px solid #000000;
+width:85%;
+}
+
+table.methodTable td.methodParamType {
+border:1px solid #000000;
+width:21%;
+font-style:italic;
+}
+table.methodTable td.methodParamName {
+border:1px solid #000000;
+width:21%;
+}
+table.methodTable td.methodParamDesc {
+border:1px solid #000000;
+width:43%;
+}
+table.methodTable td.methodReturnType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+
+table.methodTable td.methodReturnDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.methodErrors {
+border:1px solid #000000;
+width:85%;
+}
+
+
+table.methodTable td.methodErrorType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+table.methodTable td.methodErrorDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.capabilityDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.usecaseDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EagleApps API</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>CourseRegistrationRequestService</h1>
+<table id="serviceMetaTable">
+<tr>
+<th class=h>Key</th>
+<td id=serviceName colspan=2>CourseRegistrationRequest</td>
+</tr>
+<tr>
+<th class=h>Version</th>
+<td id=serviceVersion colspan=2>3.3.0-SNAPSHOT</td>
+</tr>
+<tr>
+<th class=h>Included Services</th>
+<td id=serviceVersion colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<th class=h>Java Package</th>
+<td id=serviceVersion colspan=2>org.kuali.student.enrollment.courseregistration.service</td>
+</tr>
+</table>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+The Course Registration Service is a Class II service supporting<br>the process of registering a student in course(s) for a term. The<br>service provides operations for creating and validating<br>registration requests, registering for a course, and dropping a<br>course. <br><br>This service supports the concept of registration cart in the<br>application and all of the transactional requests for registration<br>are made through this service. As part of negotiating the student's<br>registration, operations are provided to manage related exceptions<br>and holds related to registration.
+</div>
+</div>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="ListOfOperations"></a>Operations</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<table>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequest">getRegistrationRequest</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByIds">getRegistrationRequestsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestIdsByType">getRegistrationRequestIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByType">getRegistrationRequestsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByRequestor">getRegistrationRequestsByRequestor</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByRequestorOnDate">getEffectiveRegistrationRequestsByRequestorOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByTerm">getRegistrationRequestsByTerm</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByTermOnDate">getEffectiveRegistrationRequestsByTermOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByRequestorAndTerm">getRegistrationRequestsByRequestorAndTerm</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByRequestorAndTermOnDate">getEffectiveRegistrationRequestsByRequestorAndTermOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsOnDate">getEffectiveRegistrationRequestsOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByItemStudentIds">getRegistrationRequestsByItemStudentIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentIdsOnDate">getEffectiveRegistrationRequestsByItemStudentIdsOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByItemStudentIdsAndTerm">getRegistrationRequestsByItemStudentIdsAndTerm</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentIdsAndTermOnDate">getEffectiveRegistrationRequestsByItemStudentIdsAndTermOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByItemStudentPopulationId">getRegistrationRequestsByItemStudentPopulationId</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentPopulationIdOnDate">getEffectiveRegistrationRequestsByItemStudentPopulationIdOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestsByItemStudentPopulationIdAndTerm">getRegistrationRequestsByItemStudentPopulationIdAndTerm</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentPopulationIdAndTermOnDate">getEffectiveRegistrationRequestsByItemStudentPopulationIdAndTermOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequests">getRegistrationRequests</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-searchForRegistrationRequestIds">searchForRegistrationRequestIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-searchForRegistrationRequests">searchForRegistrationRequests</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-validateRegistrationRequest">validateRegistrationRequest</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-createRegistrationRequest">createRegistrationRequest</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-updateRegistrationRequest">updateRegistrationRequest</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-changeRegistrationRequestState">changeRegistrationRequestState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-deleteRegistrationRequest">deleteRegistrationRequest</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItem">getRegistrationRequestItem</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByIds">getRegistrationRequestItemsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemIdsByType">getRegistrationRequestItemIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByType">getRegistrationRequestItemsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByRegistrationRequest">getRegistrationRequestItemsByRegistrationRequest</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByRegistrationRequestOnDate">getEffectiveRegistrationRequestItemsByRegistrationRequestOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByResultingRegistration">getRegistrationRequestItemsByResultingRegistration</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByStudent">getRegistrationRequestItemsByStudent</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByStudentOnDate">getEffectiveRegistrationRequestItemsByStudentOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByPreferredRegistrationGroup">getRegistrationRequestItemsByPreferredRegistrationGroup</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByPreferredRegistrationGroupOnDate">getEffectiveRegistrationRequestItemsByPreferredRegistrationGroupOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItemsByRegistrationRequestAndStudent">getRegistrationRequestItemsByRegistrationRequestAndStudent</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByRegistrationRequestAndStudentOnDate">getEffectiveRegistrationRequestItemsByRegistrationRequestAndStudentOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getEffectiveRegistrationRequestItemsOnDate">getEffectiveRegistrationRequestItemsOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-getRegistrationRequestItems">getRegistrationRequestItems</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-searchForRegistrationRequestItemIds">searchForRegistrationRequestItemIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-searchForRegistrationRequestItems">searchForRegistrationRequestItems</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-validateRegistrationRequestItem">validateRegistrationRequestItem</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-createRegistrationRequestItem">createRegistrationRequestItem</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-updateRegistrationRequestItem">updateRegistrationRequestItem</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-changeRegistrationRequestItemState">changeRegistrationRequestItemState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#CourseRegistrationRequest-deleteRegistrationRequestItem">deleteRegistrationRequestItem</a></li></td>
+<td>
+</td>
+</tr>
+</ul>
+</table>
+</div>
+</div>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="MainMessageStructures"></a>Main Entities</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<li><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a></li><li><a href="ContextInfo.html">ContextInfo</a></li><li><a href="QueryByCriteria.html">QueryByCriteria</a></li><li><a href="ValidationResultInfo.html">ValidationResultInfo</a></li><li><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a></li></ul>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequest"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequest</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a RegistrationRequest.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">a unique Id of a RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+</td><td class="methodReturnDesc">a RegistrationRequest</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests corresponding to the<br>given list of RegistrationRequest Ids.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">registrationRequestIds</td>
+<td class="methodParamDesc">list of RegistrationRequests to<br>       be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a registrationRequestId in list not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequest Ids of the specified type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequest type to<br>       be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequest Ids or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests of the specified type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequest type to<br>       be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByRequestor"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByRequestor</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests by requestor.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">personId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByRequestorOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByRequestorOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequests by requestor<br>where the given date is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">personId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByTerm"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByTerm</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests by Term.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">the Id of a Term.</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">termId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByTermOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByTermOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequests by<br>Term where the given date is between<br>the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">the Id of a Term</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">termId,<br>        date, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByRequestorAndTerm"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByRequestorAndTerm</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests by requestor and term.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">the Id of a Term</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">personId, termId, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByRequestorAndTermOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByRequestorAndTermOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequests by Requestor<br>and Term where the given date is between the effective dates<br>inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">the Id of a Term</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">personId, termId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequests where the<br>given date is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByItemStudentIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByItemStudentIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given list of Person Ids.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">itemStudentIds</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentIdsOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByItemStudentIdsOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given list of Person Ids and where the given date is between the effective<br>dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">itemStudentIds</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByItemStudentIdsAndTerm"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByItemStudentIdsAndTerm</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given list of Person Ids and Term.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">itemStudentIds</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentIdsAndTermOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByItemStudentIdsAndTermOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given list of Person Ids and Term and where the given date is between the<br>effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">itemStudentIds</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByItemStudentPopulationId"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByItemStudentPopulationId</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given Population Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">itemStudentPopulationId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentPopulationIdOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByItemStudentPopulationIdOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given Population Id and where the given date is between the<br>effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">itemStudentPopulationId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestsByItemStudentPopulationIdAndTerm"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestsByItemStudentPopulationIdAndTerm</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given Population Id and Term Id</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">itemStudentPopulationId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestsByItemStudentPopulationIdAndTermOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestsByItemStudentPopulationIdAndTermOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequests about students corresponding to the<br>given Population Id and Term Id</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">itemStudentPopulationId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequests"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequests</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all RegistrationRequests.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-searchForRegistrationRequestIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForRegistrationRequestIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for RegistrationRequests based on the criteria and<br>returns a list of RegistrationRequest identifiers which match<br>the search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">list of RegistrationRequest Ids</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-searchForRegistrationRequests"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForRegistrationRequests</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for RegistrationRequests based on the criteria and<br>returns a list of RegistrationRequests which match the search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfoList</a>
+</td><td class="methodReturnDesc">list of RegistrationRequests</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-validateRegistrationRequest"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateRegistrationRequest</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a RegistrationRequest. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current object and its directly contained sub-objects<br>or expanded to perform all tests related to this object. If an<br>identifier is present for the RegistrationRequest and a record<br>is found for that identifier, the validation checks if the<br>RegistrationRequest can be shifted to the new values. If a<br>record cannot be found for the identifier, it is assumed that<br>the record does not exist and as such, the checks performed<br>will be much shallower, typically mimicking those performed by<br>setting the validationType to the current object. This is a<br>slightly different pattern from the standard validation as the<br>caller provides the identifier in the create statement instead<br>of the server assigning an identifier.</td>
+</tr>
+<tr>
+<th class=h rowspan=6>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier of the extent of<br>       validation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">the Id of a Term</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequest Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+</td><td class="methodParamName">registrationRequestInfo</td>
+<td class="methodParamDesc">the RegistrationRequest information<br>       to be tested</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">Results from performing the validation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey, personId,<br>        termId, or registrationRequestTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationRequestInfo<br>        or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey, personId,<br>        termId, registrationRequestTypeKey,<br>        registrationRequestInfo, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-createRegistrationRequest"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createRegistrationRequest</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new RegistrationRequest.</td>
+</tr>
+<tr>
+<th class=h rowspan=5>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequest Type<br>       key</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">the Id of a Person requesting</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">the Id of a Term</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+</td><td class="methodParamName">registrationRequestInfo</td>
+<td class="methodParamDesc">the details of<br>       RegistrationRequest to be created</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+</td><td class="methodReturnDesc">the RegistrationRequest just created</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">one or more values invalid<br>        for this operation</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">personId, termId,<br>        registrationRequestTypeKey does not exist or is not<br>        supported</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationRequestInfo<br>        or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">personId, termId,<br>        registrationRequestTypeKey, registrationRequestInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-updateRegistrationRequest"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateRegistrationRequest</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing RegistrationRequest.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of RegistrationRequest to<br>       be updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+</td><td class="methodParamName">registrationRequestInfo</td>
+<td class="methodParamDesc">the details of updates to<br>       RegistrationRequest being updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+</td><td class="methodReturnDesc">the details of RegistrationRequest just updated</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">One or more values invalid<br>        for this operation</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationRequestInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId,<br>        registrationRequestInfo, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">The action was attempted on an out<br>        of date version.</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-changeRegistrationRequestState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeRegistrationRequestState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Change the state of a RegistrationRequest.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the identifier for the<br>       RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">the status of the operation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-deleteRegistrationRequest"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteRegistrationRequest</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing RegistrationRequest.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of the RegistrationRequest<br>       to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItem"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItem</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a RegistrationRequestItem.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemId</td>
+<td class="methodParamDesc">a unique Id of a<br>       RegistrationRequestItem</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+</td><td class="methodReturnDesc">a RegistrationRequestItem</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestItemId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems corresponding to<br>the given list of RegistrationRequestItem Ids.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">registrationRequestItemIds</td>
+<td class="methodParamDesc">list of<br>       RegistrationRequestItems to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a registrationRequestItemId in<br>        list not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemId or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItem Ids of the<br>specified type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequestItem<br>       type to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItem Ids or an empty list<br>        if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems of the specified<br>type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequestItem<br>       type to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByRegistrationRequest"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByRegistrationRequest</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems by RegistrationRequest.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of a RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByRegistrationRequestOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestItemsByRegistrationRequestOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequestItems by<br>RegistrationRequest where the given date is between the<br>effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of a RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByResultingRegistration"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByResultingRegistration</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems by<br>ResultingRegistration.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationId</td>
+<td class="methodParamDesc">Resulting Registration Id</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationId or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByStudent"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByStudent</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems by Student.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">personId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">personId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByStudentOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestItemsByStudentOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequestItems by<br>Student where the given date is between the effective dates<br>inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">studentId</td>
+<td class="methodParamDesc">the Id of a Student</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">studentId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByPreferredRegistrationGroup"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByPreferredRegistrationGroup</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems by RegistrationGroup.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">preferredRegistrationGroupId</td>
+<td class="methodParamDesc">the Id of a RegistrationGroup</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">preferredRegistrationGroupId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByPreferredRegistrationGroupOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestItemsByPreferredRegistrationGroupOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequestItems by<br>RegistrationGroup where the given date is between the effective dates<br>inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">preferredRegistrationGroupId</td>
+<td class="methodParamDesc">the Id of a RegistrationGroup</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">preferredRegistrationGroupId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItemsByRegistrationRequestAndStudent"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItemsByRegistrationRequestAndStudent</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationRequestItems by<br>RegistrationRequest and Student.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of a RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">studentId</td>
+<td class="methodParamDesc">the Id of a Student</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId,<br>        studentId, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestItemsByRegistrationRequestAndStudentOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestItemsByRegistrationRequestAndStudentOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequestItems by<br>RegistrationRequest and Student where the given date is<br>between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of a RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">studentId</td>
+<td class="methodParamDesc">???</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId,<br>        studentId, date, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getEffectiveRegistrationRequestItemsOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRegistrationRequestItemsOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of effective RegistrationRequestItemswhere the<br>given date is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date, or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-getRegistrationRequestItems"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationRequestItems</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all RegistrationRequestItems.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationRequestItems</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-searchForRegistrationRequestItemIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForRegistrationRequestItemIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for RegistrationRequestItems based on the criteria and<br>returns a list of RegistrationRequestItem identifiers which<br>match the search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">list of RegistrationRequestItem Ids</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-searchForRegistrationRequestItems"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForRegistrationRequestItems</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for RegistrationRequestItems based on the criteria and<br>returns a list of RegistrationRequestItems which match the search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfoList</a>
+</td><td class="methodReturnDesc">list of RegistrationRequestItems</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-validateRegistrationRequestItem"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateRegistrationRequestItem</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a RegistrationRequestItem. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current object and its directly contained sub-objects<br>or expanded to perform all tests related to this object. If an<br>identifier is present for the RegistrationRequestItem and a<br>record is found for that identifier, the validation checks if<br>the RegistrationRequestItem can be shifted to the new<br>values. If a record cannot be found for the identifier, it is<br>assumed that the record does not exist and as such, the checks<br>performed will be much shallower, typically mimicking those<br>performed by setting the validationType to the current<br>object. This is a slightly different pattern from the standard<br>validation as the caller provides the identifier in the create<br>statement instead of the server assigning an identifier.</td>
+</tr>
+<tr>
+<th class=h rowspan=6>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier of the extent of<br>       validation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of the RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">studentId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequestItem Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+</td><td class="methodParamName">registrationRequestItemInfo</td>
+<td class="methodParamDesc">the RegistrationRequestItem<br>       information to be tested</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">Results from performing the validation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey,<br>        registrationRequestId, studentId, or<br>        registrationRequestItemTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemInfo<br>        or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey,<br>        registrationRequestId, studentId,<br>        registrationRequestItemTypeKey,<br>        registrationRequestItemInfo, or contextInfo is missing<br>        or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-createRegistrationRequestItem"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createRegistrationRequestItem</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new RegistrationRequestItem.</td>
+</tr>
+<tr>
+<th class=h rowspan=5>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestId</td>
+<td class="methodParamDesc">the Id of the RegistrationRequest</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">studentId</td>
+<td class="methodParamDesc">the Id of a Person</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemTypeKey</td>
+<td class="methodParamDesc">a RegistrationRequestItem<br>       Type key</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+</td><td class="methodParamName">registrationRequestItemInfo</td>
+<td class="methodParamDesc">the details of<br>       RegistrationRequestItem to be created</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+</td><td class="methodReturnDesc">the RegistrationRequestItem just created</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">one or more values invalid<br>        for this operation</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestId, studentId,<br>        registrationRequestItemTypeKey does not exist or is not<br>        supported</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemInfo<br>        or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestId,<br>        studentId, registrationRequestItemTypeKey,<br>        registrationRequestItemInfo, or contextInfo is missing<br>        or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-updateRegistrationRequestItem"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateRegistrationRequestItem</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing RegistrationRequestItem.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemId</td>
+<td class="methodParamDesc">the Id of<br>       RegistrationRequestItem to be updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+</td><td class="methodParamName">registrationRequestItemInfo</td>
+<td class="methodParamDesc">the details of updates to<br>       RegistrationRequestItem being updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+</td><td class="methodReturnDesc">the details of RegistrationRequestItem just updated</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">One or more values invalid<br>        for this operation</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestItemId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemId,<br>        registrationRequestItemInfo, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete<br>        registrationRequest</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">The action was attempted on an out<br>        of date version.</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-changeRegistrationRequestItemState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeRegistrationRequestItemState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Change the state of a RegistrationRequestItem.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemId</td>
+<td class="methodParamDesc">the identifier for the<br>       RegistrationRequestItem</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">the status of the operation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestItemId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemId, or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="CourseRegistrationRequest-deleteRegistrationRequestItem"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteRegistrationRequestItem</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing RegistrationRequestItem.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationRequestItemId</td>
+<td class="methodParamDesc">the Id of the<br>       RegistrationRequestItem to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationRequestItemId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationRequestItemId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+
+</body>
+</html>

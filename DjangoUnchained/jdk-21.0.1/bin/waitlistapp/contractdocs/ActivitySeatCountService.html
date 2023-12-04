@@ -1,0 +1,1130 @@
+<html>
+<head>
+<title>ActivitySeatCountService</title>
+<style type="text/css">
+
+table#serviceMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#serviceMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#serviceMetaTable td#serviceName {
+border:1px solid #000000;
+width:85%;
+}
+table#serviceMetaTable td#serviceVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#serviceMetaTable td#serviceVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.methodTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.methodTable td.d {
+border:1px solid #000000;
+}
+
+table.methodTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+
+table.methodTable td.methodName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:center;
+width:85%;
+font-weight:bold;
+font-style:italic;
+}
+
+table.methodTable td.methodDesc {
+border:1px solid #000000;
+width:85%;
+}
+
+table.methodTable td.methodParamType {
+border:1px solid #000000;
+width:21%;
+font-style:italic;
+}
+table.methodTable td.methodParamName {
+border:1px solid #000000;
+width:21%;
+}
+table.methodTable td.methodParamDesc {
+border:1px solid #000000;
+width:43%;
+}
+table.methodTable td.methodReturnType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+
+table.methodTable td.methodReturnDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.methodErrors {
+border:1px solid #000000;
+width:85%;
+}
+
+
+table.methodTable td.methodErrorType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+table.methodTable td.methodErrorDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.capabilityDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.usecaseDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EagleApps API</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>ActivitySeatCountService</h1>
+<table id="serviceMetaTable">
+<tr>
+<th class=h>Key</th>
+<td id=serviceName colspan=2>ActivitySeatCount</td>
+</tr>
+<tr>
+<th class=h>Version</th>
+<td id=serviceVersion colspan=2>3.3.0-SNAPSHOT</td>
+</tr>
+<tr>
+<th class=h>Included Services</th>
+<td id=serviceVersion colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<th class=h>Java Package</th>
+<td id=serviceVersion colspan=2>org.kuali.student.enrollment.seatpool.service</td>
+</tr>
+</table>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+&nbsp;
+</div>
+</div>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="ListOfOperations"></a>Operations</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<table>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getActivitySeatCount">getActivitySeatCount</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getActivitySeatCountsByIds">getActivitySeatCountsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getActivitySeatCountIdsByType">getActivitySeatCountIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getActivitySeatCountsByType">getActivitySeatCountsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getActivitySeatCountsByActivityOffering">getActivitySeatCountsByActivityOffering</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getCurrentActivitySeatCountByActivityOfferingOnDate">getCurrentActivitySeatCountByActivityOfferingOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getCurrentActivitySeatCountsByActivityOfferingsOnDate">getCurrentActivitySeatCountsByActivityOfferingsOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getCurrentActivitySeatCountsOnDate">getCurrentActivitySeatCountsOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-getActivitySeatCounts">getActivitySeatCounts</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-searchForActivitySeatCountIds">searchForActivitySeatCountIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-searchForActivitySeatCounts">searchForActivitySeatCounts</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-validateActivitySeatCount">validateActivitySeatCount</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-createActivitySeatCount">createActivitySeatCount</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-updateActivitySeatCount">updateActivitySeatCount</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-changeActivitySeatCountState">changeActivitySeatCountState</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#ActivitySeatCount-deleteActivitySeatCount">deleteActivitySeatCount</a></li></td>
+<td>
+</td>
+</tr>
+</ul>
+</table>
+</div>
+</div>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="MainMessageStructures"></a>Main Entities</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<li><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a></li><li><a href="ContextInfo.html">ContextInfo</a></li><li><a href="QueryByCriteria.html">QueryByCriteria</a></li><li><a href="ValidationResultInfo.html">ValidationResultInfo</a></li></ul>
+<p>
+<a name="ActivitySeatCount-getActivitySeatCount"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getActivitySeatCount</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a single ActivitySeatCount by a ActivitySeatCount Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountId</td>
+<td class="methodParamDesc">the identifier for the<br>       ActivitySeatCount to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodReturnDesc">the ActivitySeatCount requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">activitySeatCountId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getActivitySeatCountsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getActivitySeatCountsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieve a list of ActivitySeatCounts from a list of<br>ActivitySeatCount Ids. The returned list may be in any order<br>and if duplicate Ids are supplied, a unique set may or may not<br>ber returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">activitySeatCountIds</td>
+<td class="methodParamDesc">a list of ActivitySeatCount identifiers</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">a list of ActivitySeatCounts</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a activitySeatCountId in the list<br>        was not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountIds, an Id in<br>        activitySeatCountIds, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getActivitySeatCountIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getActivitySeatCountIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieve a list of ActivitySeatCountIds by ActivitySeatCount<br>Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountTypeKey</td>
+<td class="methodParamDesc">an identifier for an<br>       ActivitySeatCount Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of ActivitySeatCount identifiers matching<br>        activitySeatCountTypeKey or an empty list of none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getActivitySeatCountsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getActivitySeatCountsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieve a list of ActivitySeatCounts by ActivitySeatCount<br>Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountTypeKey</td>
+<td class="methodParamDesc">an identifier for an<br>       ActivitySeatCount Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">a list of ActivitySeatCounts matching<br>        activitySeatCountTypeKey or an empty list of none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountTypeKey or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getActivitySeatCountsByActivityOffering"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getActivitySeatCountsByActivityOffering</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets a list of ActivitySeatCounts for a given ActivityOffering.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activityOfferingId</td>
+<td class="methodParamDesc">an identifier for an ActivityOffering.</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">a list of ActivitySeatCounts associated with the given<br>        Activity or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activityOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getCurrentActivitySeatCountByActivityOfferingOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getCurrentActivitySeatCountByActivityOfferingOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets the "current" ActivitySeatCount for a given Activity where<br>the given date is between the effective dates inclusive. As a<br>statistic, there should be only one at any point in time.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activityOfferingId</td>
+<td class="methodParamDesc">an identifier for an ActivityOffering</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodReturnDesc">the current ActivitySeatCount associated with the given<br>        Activity</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">activityOfferingId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activityOfferingId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getCurrentActivitySeatCountsByActivityOfferingsOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getCurrentActivitySeatCountsByActivityOfferingsOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets the "current" ActivitySeatCount for a given list of<br>Activities where the given date is between the effective dates<br>inclusive. <br><br>The returned ActivitySeatCounts will indicate to which<br>ActivityOffering they belong.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">activityOfferingIds</td>
+<td class="methodParamDesc">a list of ActivityOffering Ids</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">the current ActivitySeatCounts associated with the<br>        given Activity</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activityOfferingId, date, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getCurrentActivitySeatCountsOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getCurrentActivitySeatCountsOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets a list of "current" ActivitySeatCounts for all<br>ActivityOfferings where the given date is between the effective<br>dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">list of current ActivitySeatCounts or an empty list if<br>        none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-getActivitySeatCounts"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getActivitySeatCounts</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves all ActivitySeatCounts.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">a list of all ActivitySeatCounts</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">date or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-searchForActivitySeatCountIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForActivitySeatCountIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for ActivitySeatCounts that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of ActivitySeatCount identifiers matching the<br>        criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-searchForActivitySeatCounts"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForActivitySeatCounts</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for ActivitySeatCounts that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of the service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfoList</a>
+</td><td class="methodReturnDesc">a list of ActivitySeatCounts matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-validateActivitySeatCount"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateActivitySeatCount</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a ActivitySeatCount. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current object and its directly contained sub-objects<br>or expanded to perform all tests related to this object. If an<br>identifier is present for the ActivitySeatCount and a record is<br>found for that identifier, the validation checks if the<br>ActivitySeatCount can be shifted to the new values. If a record<br>cannot be found for the identifier, it is assumed that the<br>record does not exist and as such, the checks performed will be<br>much shallower, typically mimicking those performed by setting<br>the validationType to the current object. This is a slightly<br>different pattern from the standard validation as the caller<br>provides the identifier in the create statement instead of the<br>server assigning an identifier.</td>
+</tr>
+<tr>
+<th class=h rowspan=5>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier of the extent of<br>       validation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activityOfferingId</td>
+<td class="methodParamDesc">an ActivityOffering Id</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountTypeKey</td>
+<td class="methodParamDesc">a ActivitySeatCount Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodParamName">activitySeatCountInfo</td>
+<td class="methodParamDesc">the ActivitySeatCount information<br>       to be tested</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">Results from performing the validation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey,<br>        activityOfferingId, or activitySeatCountTypeKey is not<br>        found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">activitySeatCountInfo or contextInfo<br>        is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey,<br>        activityOfferingId, activitySeatCountTypeKey,<br>        activitySeatCountInfo, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-createActivitySeatCount"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createActivitySeatCount</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new ActivitySeatCount.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activityOfferingId</td>
+<td class="methodParamDesc">an ActivityOffering Id</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountTypeKey</td>
+<td class="methodParamDesc">a ActivitySeatCount Type key</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodParamName">activitySeatCountInfo</td>
+<td class="methodParamDesc">the details of ActivitySeatCount<br>       to be created</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodReturnDesc">the ActivitySeatCount just created</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">one or more values invalid<br>        for this operation</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">activityOfferingId not found, or<br>        activitySeatCountTypeKey does not exist or is not<br>        supported</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">activitySeatCountInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountTypeKey,<br>        activityOfferingId, activitySeatCountInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-updateActivitySeatCount"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateActivitySeatCount</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing ActivitySeatCount.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountId</td>
+<td class="methodParamDesc">the Id of ActivitySeatCount to be<br>       updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodParamName">activitySeatCountInfo</td>
+<td class="methodParamDesc">the details of updates to<br>       ActivitySeatCount being updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+</td><td class="methodReturnDesc">the details of ActivitySeatCount just updated</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">One or more values invalid<br>        for this operation</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">activitySeatCountId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">activitySeatCountInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountId,<br>        activitySeatCountInfo, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">The action was attempted on an<br>        out of date version.</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-changeActivitySeatCountState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeActivitySeatCountState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Change the state of an ActivitySeatCount.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountId</td>
+<td class="methodParamDesc">the identifier for the<br>       ActivitySeatCount</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">stateKey</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">the status of the operation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">activitySeatCountId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountId, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">an data validation failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="ActivitySeatCount-deleteActivitySeatCount"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteActivitySeatCount</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing ActivitySeatCount.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activitySeatCountId</td>
+<td class="methodParamDesc">the Id of the ActivitySeatCount to<br>       be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">activitySeatCountId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activitySeatCountId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+
+</body>
+</html>

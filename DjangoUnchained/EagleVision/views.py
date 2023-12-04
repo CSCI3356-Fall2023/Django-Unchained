@@ -152,16 +152,16 @@ def course_selection(request):
                 )
                 new_course.save()
                 data_list.append(new_course)
+    '''
     for block in Course.objects.all():
         if Course.objects.filter(course_id=block.course_id).count() > 1:
             block.delete()
-
+    '''
     all_courses = Course.objects.all()
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
-
     return render(request, 'course_selection.html', context)
 
 def logout_view(request):
@@ -379,7 +379,6 @@ def filterRequest(request):
 @login_required
 def watchlist(request):
     user_watchlist_courses = Course.objects.filter(watchlist__user=request.user)
-
     context = {
         'user': request.user,
         'watchlist_courses': user_watchlist_courses,
@@ -396,21 +395,19 @@ def add_to_watchlist(request):
             messages.error(request, "The system is currently closed. You cannot add courses to your watchlist.")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     except SystemState.DoesNotExist:
-        
         messages.error(request, "System state is not set. Please contact the administrator.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-
-   
     course_id = request.POST.get('course_id')
     course = get_object_or_404(Course, pk=course_id)
 
     watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
-
+    
     if created:
         messages.success(request, "Course added to watchlist successfully.")
     else:
         messages.info(request, "This course is already in your watchlist.")
+
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
