@@ -1,0 +1,373 @@
+<html>
+<head>
+<title>TypeInfo</title>
+<style type="text/css">
+
+table#structureMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#structureMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#structureMetaTable td#structureName {
+border:1px solid #000000;
+width:85%;
+}
+table#structureMetaTable td#structureVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td.structureReferences {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td#structureVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.structTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.structTable td.d {
+border:1px solid #000000;
+}
+
+table.structTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+}
+
+table.structTable td.structSName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:left;
+vertical-align:top;
+font-weight:bold;
+font-style:italic;
+
+}
+
+table.structTable td.structLName {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structType {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+font-style:italic;
+
+}
+
+table.structTable td.structDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structOpt {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structReq {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+
+table.structTable td.structCard {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structAttr {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structElem {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structStatus {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+
+}
+
+table.structTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EalgeApps API</a>&nbsp;<a href="#fields">Fields</a>&nbsp;<a href="#jsonStructure">JSON</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>TypeInfo</h1>
+<table id="structureMetaTable">
+<tr>
+<th class=h>Name</th>
+<td id=structureName colspan=2>TypeInfo</td>
+</tr>
+<tr>
+<th rowspan=3 class=h>Usage</th>
+<td id="structureVersion" colspan=2><a href="WaitlistPersonService.html">WaitlistPersonService</a>
+<a href=" CourseOfferingService.html"> CourseOfferingService</a>
+<a href=" TypeService.html"> TypeService</a>
+<a href=" OrganizationService.html"> OrganizationService</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="CourseOfferingService.html#CourseOffering-getCourseOfferingType">getCourseOfferingType</a>
+<a href="CourseOfferingService.html#CourseOffering-getCourseOfferingTypes">getCourseOfferingTypes</a>
+<a href="CourseOfferingService.html#CourseOffering-getInstructorTypesForCourseOfferingType">getInstructorTypesForCourseOfferingType</a>
+<a href="CourseOfferingService.html#CourseOffering-getActivityOfferingType">getActivityOfferingType</a>
+<a href="CourseOfferingService.html#CourseOffering-getActivityOfferingTypes">getActivityOfferingTypes</a>
+<a href="CourseOfferingService.html#CourseOffering-getActivityOfferingTypesForActivityType">getActivityOfferingTypesForActivityType</a>
+<a href="CourseOfferingService.html#CourseOffering-getInstructorTypesForActivityOfferingType">getInstructorTypesForActivityOfferingType</a>
+<a href="TypeService.html#Type-getType">getType</a>
+<a href="TypeService.html#Type-getTypesByKeys">getTypesByKeys</a>
+<a href="TypeService.html#Type-getTypesByRefObjectUri">getTypesByRefObjectUri</a>
+<a href="TypeService.html#Type-getEffectiveTypesByRefObjectUriOnDate">getEffectiveTypesByRefObjectUriOnDate</a>
+<a href="TypeService.html#Type-getRootTypesByRefObjectUri">getRootTypesByRefObjectUri</a>
+<a href="TypeService.html#Type-getEffectiveRootTypesByRefObjectUriOnDate">getEffectiveRootTypesByRefObjectUriOnDate</a>
+<a href="TypeService.html#Type-getTypesForGroupType">getTypesForGroupType</a>
+<a href="TypeService.html#Type-getEffectiveTypesForGroupTypeOnDate">getEffectiveTypesForGroupTypeOnDate</a>
+<a href="TypeService.html#Type-getAllowedTypesForType">getAllowedTypesForType</a>
+<a href="TypeService.html#Type-getEffectiveAllowedTypesForTypeOnDate">getEffectiveAllowedTypesForTypeOnDate</a>
+<a href="TypeService.html#Type-searchForTypes">searchForTypes</a>
+<a href="TypeService.html#Type-validateType">validateType</a>
+<a href="TypeService.html#Type-createType">createType</a>
+<a href="TypeService.html#Type-updateType">updateType</a>
+<a href="OrganizationService.html#Organization-getOrgTypes">getOrgTypes</a>
+<a href="OrganizationService.html#Organization-getOrgOrgRelationTypes">getOrgOrgRelationTypes</a>
+<a href="OrganizationService.html#Organization-getOrgOrgRelationTypesForOrgType">getOrgOrgRelationTypesForOrgType</a>
+<a href="OrganizationService.html#Organization-getOrgOrgRelationTypeForOrgType">getOrgOrgRelationTypeForOrgType</a>
+<a href="OrganizationService.html#Organization-getOrgOrgRelationTypesForOrgHierarchy">getOrgOrgRelationTypesForOrgHierarchy</a>
+<a href="OrganizationService.html#Organization-getOrgPersonRelationTypes">getOrgPersonRelationTypes</a>
+<a href="OrganizationService.html#Organization-getOrgPersonRelationTypesForOrgType">getOrgPersonRelationTypesForOrgType</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="WaitlistPersonAffiliationInfo.html">WaitlistPersonAffiliationInfo</a>
+</td></tr>
+<tr>
+<th rowspan=2 class=h>References</th>
+<td id="structureReferences1"  class="structureReferences" colspan=2>&nbsp;
+</td></tr>
+<tr>
+<td id="structureReferences2" class="structureReferences" colspan=2><a href="ContextInfo.html">ContextInfo</a>
+<a href="ActivitySeatCountInfo.html">ActivitySeatCountInfo</a>
+<a href="ActivityOffering.html">ActivityOffering</a>
+<a href="OfferingInstructorInfo.html">OfferingInstructorInfo</a>
+<a href="OrgInfo.html">OrgInfo</a>
+<a href="OrgCodeInfo.html">OrgCodeInfo</a>
+<a href="AtpInfo.html">AtpInfo</a>
+<a href="EventInfo.html">EventInfo</a>
+<a href="CourseOfferingInfo.html">CourseOfferingInfo</a>
+<a href="PersonInfo.html">PersonInfo</a>
+<a href="PersonAffiliation.html">PersonAffiliation</a>
+<a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+<a href="FormatOfferingInfo.html">FormatOfferingInfo</a>
+<a href="RegistrationRequestItemInfo.html">RegistrationRequestItemInfo</a>
+<a href="ProcessResultInfo.html">ProcessResultInfo</a>
+<a href="RegistrationRequestInfo.html">RegistrationRequestInfo</a>
+<a href="PersonNameInfo.html">PersonNameInfo</a>
+<a href="PersonIdentifierInfo.html">PersonIdentifierInfo</a>
+<a href="PersonBioDemographicsInfo.html">PersonBioDemographicsInfo</a>
+<a href="PersonAffiliationInfo.html">PersonAffiliationInfo</a>
+<a href="CourseOfferingDisplayInfo.html">CourseOfferingDisplayInfo</a>
+<a href="ActivityOfferingInfo.html">ActivityOfferingInfo</a>
+<a href="ActivityOfferingDisplayInfo.html">ActivityOfferingDisplayInfo</a>
+<a href="ScheduleDisplayInfo.html">ScheduleDisplayInfo</a>
+<a href="TimeSlotInfo.html">TimeSlotInfo</a>
+<a href="TimeAmountInfo.html">TimeAmountInfo</a>
+<a href="TimeAmount.html">TimeAmount</a>
+<a href="CourseOfferingCrossListingInfo.html">CourseOfferingCrossListingInfo</a>
+<a href="AtpAtpRelationInfo.html">AtpAtpRelationInfo</a>
+<a href="MilestoneInfo.html">MilestoneInfo</a>
+<a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+<a href="OrgHierarchyInfo.html">OrgHierarchyInfo</a>
+<a href="OrgOrgRelationInfo.html">OrgOrgRelationInfo</a>
+<a href="OrgPersonRelationInfo.html">OrgPersonRelationInfo</a>
+<a href="OrgPositionRestrictionInfo.html">OrgPositionRestrictionInfo</a>
+<a href="OrgTreeInfo.html">OrgTreeInfo</a>
+</td></tr>
+<th class=h>Type</th>
+<td id=structureVersion colspan=2>Complex</td>
+</tr>
+</table>
+<h2>Description</h2>
+Detailed Information about a Type<br><br>Types are used in Kuali Student to further refine the entity in<br>question.  For example: An organization type may be a "Department"<br>or a "College" or a "Student Group" or a "Thesis Committee".<br><br>Most of validation of the the fields on the entity should be based<br>on a combination of type and state.
+<h2><a name="fields"></a>Fields</h2>
+<a href="#TopOfPage">Top</a>
+<table class="structTable">
+<tr>
+<th class="h">ShortName</th>
+<th class="h">Name</th>
+<th class="h">Type</th>
+<th class="h">Description</th>
+<th class="h">Required?</th>
+<th class="h">Read only?</th>
+<th class="h">Lookup</th>
+<th class="h">Implementation Notes</th>
+</tr>
+<tr>
+<td class="structSName">key</td>
+<td class="structLName">Key</td>
+<td class="structType">String</td>
+<td class="structDesc">Unique key to this object. Unlike an Id this key can be<br>explicitly set by the application and is intended to be<br>"somewhat" readable by a human.<br><br>A Key:<ul><br>   <li>A Key is used when the actual value is important</li><br>   <li>A Key value might be kuali.org.School</li><br>   <li>A Key on occasion may be used or seen by an end<br>       user.</li><br>   <li>Keys are assumed to have the same values in different KS<br>       implementations</li><br>   <li>Key values are defined in configuration</li><br>   <li>Key values have significance in that they are referenced<br>       in Configuration</li><br>   <li>Key values are expected to be occasionally used in<br>       application code</li><br></ul><br><br>Once an object is created with the specified key it cannot be<br>changed. Instead the object must be deleted or in-activated and<br>a new object created with the right key.</td>
+<td class="structOpt">Required on updates</td>
+<td class="structOpt">Read only on updates</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">effectiveDate</td>
+<td class="structLName">Effective Date</td>
+<td class="structType">Date</td>
+<td class="structDesc">Date/time this object became effective. Must be less than or<br>equal to the expirationDate specified.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">expirationDate</td>
+<td class="structLName">Expiration Date</td>
+<td class="structType">Date</td>
+<td class="structDesc">Date/time this relationship is no longer effective. Must be<br>greater than or equal to the effectiveDate specified.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">name</td>
+<td class="structLName">Name</td>
+<td class="structType">String</td>
+<td class="structDesc">Friendly name of the Type.</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">descr</td>
+<td class="structLName">Description</td>
+<td class="structType"><a href="RichTextInfo.html">RichTextInfo</a>
+</td><td class="structDesc">Narrative description of the type.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">refObjectUri</td>
+<td class="structLName">Ref Object URI</td>
+<td class="structType">String</td>
+<td class="structDesc">Unique identifier for an object type. Used to identify the type<br>of object being referred to, so that the id can be resolved.<br><br>E.g http://student.kuali.org/person/wsdl/PersonInfo<br><br>The refObjectURI has three parts:<br><ol><br>   <li>http://student.kuali.org/wsdl -- which is fixed<br>   <li>person -- which should match the namespace of the service <br>                    in which the object is defined<br>   <li>PersonInfo -- which should match the java class's simple name<br></ol></td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="EntityInfo.html">EntityInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">serviceUri</td>
+<td class="structLName">Service Uri</td>
+<td class="structType">String</td>
+<td class="structDesc">Getters and Setters for ServiceUri</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">meta</td>
+<td class="structLName">Meta</td>
+<td class="structType"><a href="MetaInfo.html">MetaInfo</a>
+</td><td class="structDesc">Create and last update info for the structure. This is optional<br>and treated as read only since the data is set by the internals<br>of the service during maintenance operations.<br><br>Contains audit trail information about the creation and last<br>update of this object Also contains the version ind used for<br>optimistic locking.<br><br>Attempts to set or update should result in a ReadOnlyException<br>being thrown.</td>
+<td class="structOpt">Required on updates</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">attributes</td>
+<td class="structLName">Dynamic Attributes</td>
+<td class="structType"><a href="AttributeInfo.html">AttributeInfoList</a>
+</td><td class="structDesc">List of dynamic attributes, each holding a key-value pair that<br>can be configured to hold additional information for an<br>implementing institution.<br><br>Note: the key may be repeated more than once to simulate a list<br>of values.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+</table>
+<h2><a name="jsonStructure"></a>JSON Structure</h2>
+<a href="#TopOfPage">Top</a>
+<pre>
+{
+    "key" : "XXXX",
+    "effectiveDate" : "YYYY-MM-DD",
+    "expirationDate" : "YYYY-MM-DD",
+    "name" : "XXXX",
+    "descr" :  {
+        "plain" : "XXXX",
+        "formatted" : "XXXX"
+        },
+    "refObjectUri" : "XXXX",
+    "serviceUri" : "XXXX",
+    "meta" :  {
+        "versionInd" : "XXXX",
+        "createTime" : "YYYY-MM-DD",
+        "createId" : "id",
+        "updateTime" : "YYYY-MM-DD",
+        "updateId" : "id"
+        },
+    "attributes" : [ {
+        "id" : "id",
+        "key" : "XXXX",
+        "value" : "XXXX"
+        },
+        ...]
+}</pre>
+
+</body>
+</html>

@@ -97,9 +97,6 @@ class Watchlist(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ['user', 'course']
-
 class Section(models.Model):
     instructor = models.CharField(max_length=255, default='')
     title = models.CharField(max_length=255, default='')

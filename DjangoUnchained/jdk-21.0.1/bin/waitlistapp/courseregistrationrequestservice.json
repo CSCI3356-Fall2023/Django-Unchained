@@ -1,0 +1,180 @@
+[
+  {
+    "service": "CourseRegistrationRequestService",
+    "method": "createRegistrationRequest",
+    "parameters": [
+      "kuali.courseregistration.registrationrequest.type.self",
+      "90000000",
+      "kuali.atp.FA2023-2024",
+      {
+        "attributes": [
+          {
+            "id": null,
+            "key": "source.student.wait.list",
+            "value": "true"
+          }
+        ],
+        "meta": null,
+        "id": "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+        "typeKey": "kuali.courseregistration.registrationrequest.type.self",
+        "stateKey": "kuali.courseregistration.request.state.unsubmitted",
+        "effectiveDate": 1697035835974,
+        "expirationDate": null,
+        "name": "Waitlist request for 08 - Letter - ENGL1009",
+        "descr": null,
+        "requestorId": "90000000",
+        "termId": "kuali.atp.FA2023-2024",
+        "submittedDate": null,
+        "processResults": [],
+        "itemStudentIds": [
+          "90000000"
+        ],
+        "itemStudentPopulationId": null,
+        "type": "kuali.courseregistration.registrationrequest.type.self",
+        "state": "kuali.courseregistration.request.state.unsubmitted"
+      }
+    ]
+  }
+][
+  {
+    "service": "CourseRegistrationRequestService",
+    "method": "createRegistrationRequestItem",
+    "parameters": [
+      "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+      "90000000",
+      "kuali.courseregistration.registrationrequestitem.type.add",
+      {
+        "attributes": [],
+        "meta": null,
+        "id": null,
+        "typeKey": "kuali.courseregistration.registrationrequestitem.type.add",
+        "stateKey": "kuali.courseregistration.registrationrequestitem.state.active",
+        "effectiveDate": 1697035835974,
+        "expirationDate": null,
+        "name": "Waitlist request for 08 - Letter - ENGL1009",
+        "descr": null,
+        "registrationRequestId": "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+        "studentId": "90000000",
+        "requestedEffectiveDate": null,
+        "existingRegistrationId": null,
+        "existingActivityOfferingId": null,
+        "preferredActivityOfferingIds": [],
+        "preferredFormatOfferingIds": [],
+        "preferredRegistrationGroupIds": [
+          "4d67e930-1b51-4659-a2f9-bee4525f4ebe"
+        ],
+        "preferredCredits": [],
+        "preferredGradingOptionIds": [],
+        "processResults": [],
+        "resultingRegistrationId": null,
+        "courseWaitlistEntryId": null,
+        "processingPriority": null,
+        "lastAttendanceDate": null,
+        "notificationDate": null,
+        "type": "kuali.courseregistration.registrationrequestitem.type.add",
+        "state": "kuali.courseregistration.registrationrequestitem.state.active"
+      }
+    ]
+  }
+][
+  {
+    "service": "CourseRegistrationRequestService",
+    "method": "updateRegistrationRequest",
+    "parameters": [
+      "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+      {
+        "attributes": [
+          {
+            "id": "0e09c8e4-66fe-42ba-9871-53b2b4f3a61c",
+            "key": "source.student.wait.list",
+            "value": "true"
+          }
+        ],
+        "meta": {
+          "versionInd": "0",
+          "createTime": 1697035835975,
+          "createId": "ANONYMOUS",
+          "updateTime": 1697035835975,
+          "updateId": "ANONYMOUS"
+        },
+        "id": "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+        "typeKey": "kuali.courseregistration.registrationrequest.type.self",
+        "stateKey": "kuali.courseregistration.request.state.unsubmitted",
+        "effectiveDate": 1697035835974,
+        "expirationDate": null,
+        "name": "Waitlist request for 08 - Letter - ENGL1009",
+        "descr": {
+          "plain": "I need this course to graduate",
+          "formatted": null
+        },
+        "requestorId": "90000000",
+        "termId": "kuali.atp.FA2023-2024",
+        "submittedDate": null,
+        "processResults": [],
+        "itemStudentIds": [
+          "90000000"
+        ],
+        "itemStudentPopulationId": null,
+        "type": "kuali.courseregistration.registrationrequest.type.self",
+        "state": "kuali.courseregistration.request.state.unsubmitted"
+      }
+    ]
+  }
+][
+  {
+    "service": "CourseRegistrationRequestService",
+    "method": "updateRegistrationRequestItem",
+    "parameters": [
+      "c81ba69b-78ca-4be9-9530-5c40bbf3dd1d",
+      {
+        "attributes": [],
+        "meta": {
+          "versionInd": "0",
+          "createTime": 1697035835984,
+          "createId": "ANONYMOUS",
+          "updateTime": 1697035835984,
+          "updateId": "ANONYMOUS"
+        },
+        "id": "c81ba69b-78ca-4be9-9530-5c40bbf3dd1d",
+        "typeKey": "kuali.courseregistration.registrationrequestitem.type.add",
+        "stateKey": "kuali.courseregistration.registrationrequestitem.state.active",
+        "effectiveDate": 1697035835974,
+        "expirationDate": null,
+        "name": "Waitlist request for 08 - Letter - ENGL1009",
+        "descr": {
+          "plain": null,
+          "formatted": null
+        },
+        "registrationRequestId": "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+        "studentId": "90000000",
+        "requestedEffectiveDate": null,
+        "existingRegistrationId": null,
+        "existingActivityOfferingId": null,
+        "preferredActivityOfferingIds": [],
+        "preferredFormatOfferingIds": [],
+        "preferredRegistrationGroupIds": [
+          "4d67e930-1b51-4659-a2f9-bee4525f4ebe"
+        ],
+        "preferredCredits": [],
+        "preferredGradingOptionIds": [],
+        "processResults": [],
+        "resultingRegistrationId": null,
+        "courseWaitlistEntryId": null,
+        "processingPriority": null,
+        "lastAttendanceDate": null,
+        "notificationDate": null,
+        "type": "kuali.courseregistration.registrationrequestitem.type.add",
+        "state": "kuali.courseregistration.registrationrequestitem.state.active"
+      }
+    ]
+  }
+][
+  {
+    "service": "CourseRegistrationRequestService",
+    "method": "changeRegistrationRequestState",
+    "parameters": [
+      "7aa0fce7-7f84-4f15-9ba0-81ff43671d01",
+      "kuali.courseregistration.request.state.discarded"
+    ]
+  }
+]
