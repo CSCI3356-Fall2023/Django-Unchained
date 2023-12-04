@@ -93,8 +93,6 @@ def callback(request):
     return redirect('index')
 
 
-
-
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)    
@@ -152,9 +150,9 @@ def course_selection(request):
                 )
                 new_course.save()
                 data_list.append(new_course)
-    for block in Course.objects.all():
-        if Course.objects.filter(course_id=block.course_id).count() > 1:
-            block.delete()
+    # for block in Course.objects.all():
+    #     if Course.objects.filter(course_id=block.course_id).count() > 1:
+    #         block.delete()
 
     all_courses = Course.objects.all()
     context = {
@@ -182,6 +180,35 @@ def user_profile(request):
     }
     return render(request, 'profiles/profile.html', context)
 
+# @login_required
+# def change_state(request):
+#     try:
+#         current_state = SystemState.objects.latest('updated_at')
+#     except SystemState.DoesNotExist:
+#         current_state = None
+
+#     if request.method == 'POST':
+#         form = ChangeStateForm(request.POST)
+
+#         if form.is_valid():
+#             new_state_str = form.cleaned_data['state']
+#             new_state = True if new_state_str.lower() == 'open' else False
+
+
+#             if current_state:
+#                 current_state.state = new_state
+#                 current_state.save()
+#             else:
+#                 SystemState.objects.create(state=new_state)
+
+#             return redirect('profile')
+#     else:
+#         initial_state = current_state.state if current_state else ''
+#         form = ChangeStateForm(initial={'state': initial_state})
+
+#     context = {'form': form, 'current_state': current_state.state if current_state else ''}
+#     print("Current State:", current_state)
+#     return render(request, 'change_state.html', context)
 
 
 def role_selection(request):
@@ -365,16 +392,7 @@ def filter(request):
 
 ## we need to delete this later
 def filterRequest(request):
-    if request.method == 'GET':
-        form = CourseFilterForm(request.GET)
-        if form.is_valid():
-            time = form.cleaned_data['time_slot']
-            days = form.cleaned_data['days']
-            major = form.cleaned_data['subject_area']
-            
-    else: 
-        context = {}; context['form'] = CourseFilterForm()
-        return render(request, 'filters.html', context)
+    return 0;
 
 @login_required
 def watchlist(request):
@@ -400,11 +418,8 @@ def add_to_watchlist(request):
         messages.error(request, "System state is not set. Please contact the administrator.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-
-   
     course_id = request.POST.get('course_id')
     course = get_object_or_404(Course, pk=course_id)
-
     watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
 
     if created:
@@ -424,7 +439,7 @@ def remove_from_watchlist(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def section_api_endpoint(request, title):
-    recipient_email = request.session.get('email', 'recipient@example.com')
+    # recipient_email = request.session.get('email', 'recipient@example.com')
     getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
     courseID = getID[0]['courseOffering']['id']
     print(courseID)
@@ -441,13 +456,6 @@ def section_api_endpoint(request, title):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
-                # Send email notification
-                subject = f'Seats Available for {title}'
-                message = f'There are {max - current} available seats for {title}.'
-                ##html_message = render_to_string('email_notification_template.html', {'message': message})
-                send_email(recipient_email, subject, message)
-
             course = Section(instructor=';'.join(sorted(instructors)),
                                 title=name, 
                                 currentSeats=current, 
@@ -458,7 +466,9 @@ def section_api_endpoint(request, title):
                 if courses.location == course.location and courses.courseid == course.courseid:
                     courses.delete()
             course.save()
-    
+
+    ## Sends an email if avaible seats and course is in waitlist    
+    check_email(max, current, courseID, title, request)
     # Deletes the duplicate objects after they're added
     
     queryset = Section.objects.filter(courseid=courseID)
@@ -500,6 +510,16 @@ def admin_report(request):
     return render(request, 'admin_report.html', context)
 
 
+def check_email(max, current, courseID, title, request):
+    print(Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists())
+    recipient_email = request.session.get('email', 'recipient@example.com')
+    if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
+        # Send email notification
+        subject = f'Seats Available for {title}'
+        message = f'There are {max - current} available seats for {title}.'
+        ##html_message = render_to_string('email_notification_template.html', {'message': message})
+        send_email(recipient_email, subject, message)
+
 def send_email(recipient, subject, message):
     send_mail(
         subject,
@@ -508,6 +528,7 @@ def send_email(recipient, subject, message):
         [recipient],
         fail_silently=False,
     )
+
 @login_required
 @user_passes_test(is_admin)
 def detailed_report(request):
