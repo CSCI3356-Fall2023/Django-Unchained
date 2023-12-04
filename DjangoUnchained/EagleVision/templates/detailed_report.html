@@ -11,9 +11,9 @@
         <div class="courses">
             <h3>Students Watching {{ course.title }}</h3>
                 {% for student in students %}
-                        <p>Name: {{ student.user.name }}</p>
-                        <p>Email: {{ student.user.email }}</p>
-                        <p>School: {{ student.user.department }}</p>
+                        <p>Name: {{ student.name }}</p>
+                        <p>Email: {{ student.email }}</p>
+                        <p>School: {{ student.department }}</p>
                 {% empty %}
                     <p>No students watching this course.</p>
                 {% endfor %}
@@ -21,3 +21,4 @@
     </div>
 </body>
 </html>
+
