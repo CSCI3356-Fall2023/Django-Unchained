@@ -10,35 +10,39 @@
     <div class="dashboard">
         <aside class="sidebar">
             <nav class="nav-menu">
-                <a href="{% url 'profile'%}">Home</a>
-                <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+                <a href="{% url 'profile' %}">Home</a>
+                <a href="{% url 'watchlist' %}">My WatchList</a>
                 <a href="#">Export Schedule</a>
                 <a href="{% url 'courseselect' %}">Search Courses</a>
-                <a href="{% url 'admin_report' %}">Admin Report</a>
+                <a href="{% url 'admin_report' %}" class="active">Admin Report</a>
             </nav>
         </aside>
         <main class="main-content">
             <div class="box m-2 w-90 h-90"> 
                 <h1>Admin Report</h1>
                 <div class="courses">
-                    <form method="GET" action="{% url 'admin_report' %}">
-                    
-                        <select name="course">
-                            <option value="">All Courses</option>
-                            {% for id, title in courses %}
-                                <option value="{{ id }}">{{ title }}</option>
+                    <!-- Form for selecting a snapshot -->
+                    <form method="POST" action="{% url 'admin_report' %}">
+                        {% csrf_token %}
+                        <label for="snapshot">Select Snapshot:</label>
+                        <select id="snapshot" name="snapshot">
+                            {% for snapshot in snapshots %}
+                                <option value="{{ snapshot.id }}" {% if snapshot.id == selected_snapshot_id %}selected{% endif %}>
+                                    {{ snapshot.name }} ({{ snapshot.created_at|date:"Y-m-d" }})
+                                </option>
                             {% endfor %}
                         </select>
-                    
-                        <button type="submit">Filter</button>
+                        <button type="submit">Apply Snapshot</button>
                     </form>
-                
+
+                    <!-- List of courses -->
                     <div class="course-list">
-                        {% for course in filtered_courses %}
+                        {% for course in courses_data %}
                             <div class="course">
                                 <h3>{{ course.title }}</h3>
                                 <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
                                 <form action="{% url 'detailed_report' %}" method="get" class="inline section">
+                                    <input type="hidden" name="course_id" value="{{ course.course_id }}">
                                     <button type="submit">View Details</button>
                                 </form>
                             </div>

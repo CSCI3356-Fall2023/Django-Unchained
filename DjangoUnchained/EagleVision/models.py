@@ -107,3 +107,12 @@ class Section(models.Model):
     currentSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     maxSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     courseid = models.CharField(max_length=255, default='')
+
+
+class SystemSnapshot(models.Model):
+    name = models.CharField(max_length=255)
+    data = models.JSONField() 
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

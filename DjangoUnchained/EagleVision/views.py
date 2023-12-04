@@ -15,6 +15,7 @@ from django.conf import settings
 from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
+from .models import SystemSnapshot
 from urllib.parse import quote_plus
 from django.utils.html import escape
 from bs4 import BeautifulSoup
@@ -25,7 +26,8 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-
+import uuid
+from django.utils.timezone import now
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -189,36 +191,36 @@ def user_profile(request):
     }
     return render(request, 'profiles/profile.html', context)
 
+# @login_required
+# def change_state(request):
+#     try:
+#         current_state = SystemState.objects.latest('updated_at')
+#     except SystemState.DoesNotExist:
+#         current_state = None
 
-@login_required
-def change_state(request):
-    try:
-        current_state = SystemState.objects.latest('updated_at')
-    except SystemState.DoesNotExist:
-        current_state = None
+#     if request.method == 'POST':
+#         form = ChangeStateForm(request.POST)
 
-    if request.method == 'POST':
-        form = ChangeStateForm(request.POST)
-
-        if form.is_valid():
-            new_state_str = form.cleaned_data['state']
-            new_state = True if new_state_str.lower() == 'open' else False
+#         if form.is_valid():
+#             new_state_str = form.cleaned_data['state']
+#             new_state = True if new_state_str.lower() == 'open' else False
 
 
-            if current_state:
-                current_state.state = new_state
-                current_state.save()
-            else:
-                SystemState.objects.create(state=new_state)
+#             if current_state:
+#                 current_state.state = new_state
+#                 current_state.save()
+#             else:
+#                 SystemState.objects.create(state=new_state)
 
-            return redirect('profile')
-    else:
-        initial_state = current_state.state if current_state else ''
-        form = ChangeStateForm(initial={'state': initial_state})
+#             return redirect('profile')
+#     else:
+#         initial_state = current_state.state if current_state else ''
+#         form = ChangeStateForm(initial={'state': initial_state})
 
-    context = {'form': form, 'current_state': current_state.state if current_state else ''}
-    print("Current State:", current_state)
-    return render(request, 'change_state.html', context)
+#     context = {'form': form, 'current_state': current_state.state if current_state else ''}
+#     print("Current State:", current_state)
+#     return render(request, 'change_state.html', context)
+
 
 def role_selection(request):
     email = request.session.get('email')
@@ -417,6 +419,18 @@ def watchlist(request):
 @login_required
 @require_http_methods(["POST"])
 def add_to_watchlist(request):
+    try:
+        current_state = SystemState.objects.latest('updated_at')
+        if not current_state.state:  
+            messages.error(request, "The system is currently closed. You cannot add courses to your watchlist.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    except SystemState.DoesNotExist:
+        
+        messages.error(request, "System state is not set. Please contact the administrator.")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+   
     course_id = request.POST.get('course_id')
     course = get_object_or_404(Course, pk=course_id)
 
@@ -483,40 +497,156 @@ def section_api_endpoint(request, title):
 def is_admin(user):
     return user.is_authenticated and user.is_staff
 
+login_required
 @user_passes_test(is_admin)
 def admin_report(request):
-    departments = Course.objects.values_list('department', flat=True).distinct()
-    courses = Course.objects.values_list('course_id', 'title').distinct()
-    selected_course = request.GET.get('course')
+    snapshots = SystemSnapshot.objects.all().order_by('-created_at')
+    selected_snapshot_id = None
+    courses_data = []
 
-    filtered_courses = Course.objects.all()
+    # Handling POST 
+    if request.method == 'POST':
+        selected_snapshot_id = request.POST.get('snapshot')
+        if selected_snapshot_id:
+            return apply_snapshot(request, selected_snapshot_id)
 
-    if selected_course:
-        filtered_courses = filtered_courses.filter(course_id=selected_course)
+    # Handling GET 
+    elif request.method == 'GET':
+        selected_snapshot_id = request.GET.get('snapshot', None)
+        if selected_snapshot_id:
+            selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
+            courses_data = selected_snapshot.data['courses']
+        else:
+            courses_data = Course.objects.all().annotate(
+                num_students_on_watch=Count('watchlist')
+            )
 
     context = {
-        'filtered_courses': filtered_courses,
-        'departments': departments,
-        'courses': courses,
-        'selected_course': selected_course,
+        'snapshots': snapshots,
+        'selected_snapshot_id': selected_snapshot_id,
+        'courses_data': courses_data,
     }
     return render(request, 'admin_report.html', context)
 
-def detailed_report(request):
-    #Still need to work
-    course = Course.objects.all()
-
-    context = {
-        'course': course,
-    }
-
-    return render(request, 'detailed_report.html', context)
 
 def send_email(recipient, subject, message):
     send_mail(
         subject,
         message,
-        'stoeva@bc.edu',  # Replace with a sender email address
+        'stoeva@bc.edu',  
         [recipient],
         fail_silently=False,
     )
+@login_required
+@user_passes_test(is_admin)
+def detailed_report(request):
+    course_id = request.GET.get('course_id')
+
+    if not course_id:
+        return redirect('admin_report')
+
+    course = get_object_or_404(Course, course_id=course_id)
+    watchlist_entries = Watchlist.objects.filter(course=course)
+
+    student_details = []
+    for entry in watchlist_entries:
+        person = entry.user
+        if person.name and person.email and person.department:
+            student_info = {
+                'name': person.name,
+                'email': person.email,
+                'department': person.department,
+            }
+            student_details.append(student_info)
+
+    context = {
+        'course': course,
+        'students': student_details,
+    }
+    return render(request, 'detailed_report.html', context)
+
+@login_required
+@user_passes_test(is_admin)
+def change_state(request):
+    try:
+        current_state = SystemState.objects.latest('updated_at')
+    except SystemState.DoesNotExist:
+        current_state = None
+
+    if request.method == 'POST':
+        form = ChangeStateForm(request.POST)
+
+        if form.is_valid():
+            new_state_str = form.cleaned_data['state']
+            new_state = True if new_state_str.lower() == 'open' else False
+
+            if current_state:
+                current_state.state = new_state
+                current_state.save()
+            else:
+                SystemState.objects.create(state=new_state)
+
+            if new_state_str.lower() == 'closed':
+                capture_system_snapshot()
+
+            return redirect('profile')
+    else:
+        initial_state = current_state.state if current_state else ''
+        form = ChangeStateForm(initial={'state': initial_state})
+
+    context = {'form': form, 'current_state': current_state.state if current_state else ''}
+    return render(request, 'change_state.html', context)
+
+
+    
+def capture_system_snapshot():
+    snapshot_name = f"End of Add/Drop {now().year}"
+    
+    courses_data = []
+    for course in Course.objects.all():
+        course_info = {
+            'course_id': course.course_id,
+            'title': course.title,
+            'enrollment_count': course.watchlist_set.count(),
+            'watchers': list(course.watchlist_set.values_list('user__email', flat=True)),
+            
+        }
+        courses_data.append(course_info)
+    
+    snapshot_data = {
+        'courses': courses_data,
+    }
+    SystemSnapshot.objects.create(name=snapshot_name, data=snapshot_data)
+
+@login_required
+@user_passes_test(is_admin)
+def list_system_snapshots(request):
+    snapshots = SystemSnapshot.objects.all().order_by('-created_at')  
+    return render(request, 'list_system_snapshots.html', {'snapshots': snapshots})
+
+
+
+def view_snapshot_report(request, snapshot_id):
+    snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
+    
+    context = {
+        'snapshot': snapshot,
+        'courses': snapshot.data.get('courses', []),
+    }
+    return render(request, 'snapshot_report.html', context)
+
+
+def apply_snapshot(request, snapshot_id):
+    snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
+    snapshot_data = snapshot.data
+
+    for course_info in snapshot_data['courses']:
+        course_id = course_info['course_id']
+        course = get_object_or_404(Course, course_id=course_id)
+        course.watchlist_set.all().delete()
+
+        for user_email in course_info['watchers']:
+            user = get_object_or_404(Person, email=user_email)
+            Watchlist.objects.create(user=user, course=course)
+
+    return redirect('admin_report')
