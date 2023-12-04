@@ -401,7 +401,16 @@ def filter(request):
 
 ## we need to delete this later
 def filterRequest(request):
-    return 0;
+    if request.method == 'GET':
+        form = CourseFilterForm(request.GET)
+        if form.is_valid():
+            time = form.cleaned_data['time_slot']
+            days = form.cleaned_data['days']
+            major = form.cleaned_data['subject_area']
+            
+    else: 
+        context = {}; context['form'] = CourseFilterForm()
+        return render(request, 'filters.html', context)
 
 @login_required
 def watchlist(request):
