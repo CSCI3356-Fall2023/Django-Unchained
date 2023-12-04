@@ -92,14 +92,10 @@ def callback(request):
 
     return redirect('index')
 
-
-
-
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)    
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
-    data_list = []
     if response.status_code == 200:
         for entry in response.json():
             offering = entry['courseOffering']
@@ -109,7 +105,6 @@ def course_selection(request):
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
 
-            
             new_response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
             course_info = {}
 
@@ -131,7 +126,6 @@ def course_selection(request):
                             'instructors': [instructor.get('personName', '') for instructor in instructors]
                         }
 
-           
             for course_id, info in course_info.items():
                 upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
                 upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
@@ -140,29 +134,28 @@ def course_selection(request):
 
                 schedules_str = ', '.join(sorted(unique_sche))
                 instructors_str = ', '.join(sorted(unique_instr))
+
                 
-               
-                new_course = Course(
+                Course.objects.get_or_create(
                     course_id=course_id,
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                    schedule=schedules_str,
-                    instructor=instructors_str
+                    defaults={
+                        'title': offering['name'],
+                        'description': description_text,
+                        'date': date_text,
+                        'schedule': schedules_str,
+                        'instructor': instructors_str
+                    }
                 )
-                new_course.save()
-                data_list.append(new_course)
-    '''
-    for block in Course.objects.all():
-        if Course.objects.filter(course_id=block.course_id).count() > 1:
-            block.delete()
-    '''
+
     all_courses = Course.objects.all()
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
     return render(request, 'course_selection.html', context)
+
+
+
 
 def logout_view(request):
     logout(request)
