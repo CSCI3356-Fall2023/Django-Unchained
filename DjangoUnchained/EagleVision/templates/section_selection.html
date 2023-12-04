@@ -21,8 +21,8 @@
                         <p>Schedule: {{ section.location }}</p>
                         <p>Instructor: {{ section.instructor }}<hr></p>
                         <p>Seats: {{ section.currentSeats }}/{{ section.maxSeats }}</p>
-        
-                    {% if course.id in user_watchlist_ids %}
+                        
+                    {% comment %} {% if course.id in user_watchlist_ids %}
                     <button disabled class="added-to-watchlist">Added</button>
                     {% else %}
                         <form action="{% url 'add_to_watchlist' %}" method="post">
@@ -30,7 +30,7 @@
                             <input type="hidden" name="course_id" value="{{ course.id }}">
                             <button type="submit">Add to Watchlist</button>
                         </form>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                     </div>
             </div>
             {% endfor %}
