@@ -93,14 +93,10 @@ def callback(request):
 
     return redirect('index')
 
-
-
-
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)    
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
-    data_list = []
     if response.status_code == 200:
         for entry in response.json():
             offering = entry['courseOffering']
@@ -110,7 +106,6 @@ def course_selection(request):
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
 
-            
             new_response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
             course_info = {}
 
@@ -132,7 +127,6 @@ def course_selection(request):
                             'instructors': [instructor.get('personName', '') for instructor in instructors]
                         }
 
-           
             for course_id, info in course_info.items():
                 upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
                 upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
@@ -141,29 +135,28 @@ def course_selection(request):
 
                 schedules_str = ', '.join(sorted(unique_sche))
                 instructors_str = ', '.join(sorted(unique_instr))
+
                 
-               
-                new_course = Course(
+                Course.objects.get_or_create(
                     course_id=course_id,
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                    schedule=schedules_str,
-                    instructor=instructors_str
+                    defaults={
+                        'title': offering['name'],
+                        'description': description_text,
+                        'date': date_text,
+                        'schedule': schedules_str,
+                        'instructor': instructors_str
+                    }
                 )
-                new_course.save()
-                data_list.append(new_course)
-    '''
-    for block in Course.objects.all():
-        if Course.objects.filter(course_id=block.course_id).count() > 1:
-            block.delete()
-    '''
+
     all_courses = Course.objects.all()
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
     return render(request, 'course_selection.html', context)
+
+
+
 
 def logout_view(request):
     logout(request)
@@ -182,6 +175,37 @@ def user_profile(request):
         'system_state': system_state,
     }
     return render(request, 'profiles/profile.html', context)
+
+# @login_required
+# def change_state(request):
+#     try:
+#         current_state = SystemState.objects.latest('updated_at')
+#     except SystemState.DoesNotExist:
+#         current_state = None
+
+#     if request.method == 'POST':
+#         form = ChangeStateForm(request.POST)
+
+#         if form.is_valid():
+#             new_state_str = form.cleaned_data['state']
+#             new_state = True if new_state_str.lower() == 'open' else False
+
+
+#             if current_state:
+#                 current_state.state = new_state
+#                 current_state.save()
+#             else:
+#                 SystemState.objects.create(state=new_state)
+
+#             return redirect('profile')
+#     else:
+#         initial_state = current_state.state if current_state else ''
+#         form = ChangeStateForm(initial={'state': initial_state})
+
+#     context = {'form': form, 'current_state': current_state.state if current_state else ''}
+#     print("Current State:", current_state)
+#     return render(request, 'change_state.html', context)
+
 
 def role_selection(request):
     email = request.session.get('email')
@@ -362,16 +386,7 @@ def filter(request):
 
 ## we need to delete this later
 def filterRequest(request):
-    if request.method == 'GET':
-        form = CourseFilterForm(request.GET)
-        if form.is_valid():
-            time = form.cleaned_data['time_slot']
-            days = form.cleaned_data['days']
-            major = form.cleaned_data['subject_area']
-            
-    else: 
-        context = {}; context['form'] = CourseFilterForm()
-        return render(request, 'filters.html', context)
+    return 0;
 
 @login_required
 def watchlist(request):
@@ -397,9 +412,8 @@ def add_to_watchlist(request):
         messages.error(request, "System state is not set. Please contact the administrator.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-    course_id = request.POST.get('section_id')
-    course = Section.objects.get(section_id=course_id)
-
+    course_id = request.POST.get('course_id')
+    course = get_object_or_404(Course, pk=course_id)
     watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
     
     if created:
@@ -420,7 +434,7 @@ def remove_from_watchlist(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def section_api_endpoint(request, title):
-    recipient_email = request.session.get('email', 'recipient@example.com')
+    # recipient_email = request.session.get('email', 'recipient@example.com')
     getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
     courseID = getID[0]['courseOffering']['id']
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
@@ -435,25 +449,19 @@ def section_api_endpoint(request, title):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            '''
-            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
-                # Send email notification
-                subject = f'Seats Available for {title}'
-                message = f'There are {max - current} available seats for {title}.'
-                ##html_message = render_to_string('email_notification_template.html', {'message': message})
-                send_email(recipient_email, subject, message)
-            '''
-
-            course = Section.objects.get_or_create(section_id=identity,
-                                instructor=';'.join(sorted(instructors)),
+            course = Section(instructor=';'.join(sorted(instructors)),
                                 title=name, 
                                 currentSeats=current, 
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=courseID)
+            for courses in Section.objects.all():
+                if courses.location == course.location and courses.courseid == course.courseid:
+                    courses.delete()
+            course.save()
 
-
-    
+    ## Sends an email if avaible seats and course is in waitlist    
+    check_email(max, current, courseID, title, request)
     # Deletes the duplicate objects after they're added
     
     queryset = Section.objects.filter(courseid=courseID)
@@ -495,6 +503,15 @@ def admin_report(request):
     return render(request, 'admin_report.html', context)
 
 
+def check_email(max, current, courseID, title, request):
+    print(Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists())
+    recipient_email = request.session.get('email', 'recipient@example.com')
+    if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
+        # Send email notification
+        subject = f'Seats Available for {title}'
+        message = f'There are {max - current} available seats for {title}.'
+        send_email(recipient_email, subject, message)
+
 def send_email(recipient, subject, message):
     send_mail(
         subject,
@@ -503,6 +520,7 @@ def send_email(recipient, subject, message):
         [recipient],
         fail_silently=False,
     )
+
 @login_required
 @user_passes_test(is_admin)
 def detailed_report(request):
