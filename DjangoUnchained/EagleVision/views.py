@@ -538,6 +538,9 @@ def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     selected_snapshot_id = None
     courses_data = []
+    departments = Course.objects.values_list('department', flat=True).distinct()
+    courses = Course.objects.values_list('title', flat=True).distinct()
+    professors = Course.objects.values_list('instructor', flat=True).distinct()
 
     # Handling POST 
     if request.method == 'POST':
@@ -560,6 +563,9 @@ def admin_report(request):
         'snapshots': snapshots,
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': courses_data,
+        'departments': departments,
+        'courses': courses,
+        'professors': professors,
     }
     return render(request, 'admin_report.html', context)
 

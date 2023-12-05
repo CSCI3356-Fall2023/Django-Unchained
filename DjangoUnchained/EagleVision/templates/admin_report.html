@@ -34,6 +34,34 @@
                         </select>
                         <button type="submit">Apply Snapshot</button>
                     </form>
+                    {%comment%}<form method="GET" action="{% url 'admin_report' %}">
+                        <select name="department">
+                            <option value="">Select Department</option>
+                            <!-- Populate department options dynamically from your database -->
+                            {% for department in departments %}
+                                <option value="{{ department }}">{{ department }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <select name="course">
+                            <option value="">Select Course</option>
+                            <!-- Populate course options dynamically from your database -->
+                            {% for course in courses %}
+                                <option value="{{ course.title }}">{{ course.title }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <select name="professor">
+                            <option value="">Select Professor</option>
+                            <!-- Populate professor options dynamically from your database -->
+                            {% for professor in professors %}
+                                <option value="{{ professor }}">{{ professor }}</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <button type="submit">Apply Filters</button>
+                    </form>{%endcomment%}
+                    
 
                     <!-- List of courses -->
                     <div class="course-list">
@@ -41,6 +69,8 @@
                         <div class="course">
                             <h3>{{ course.title }}</h3>
                             <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
+                            <p>Max: {{ course.max_students_on_watch }}</p>
+                            <p>Min: {{ course.min_students_on_watch }}</p>
                             {% if selected_snapshot_id %}
                                 <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
                                     <button type="submit">View Details</button>
