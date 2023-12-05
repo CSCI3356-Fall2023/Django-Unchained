@@ -431,15 +431,6 @@ def section_api_endpoint(request, id):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            '''
-            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
-                # Send email notification
-                subject = f'Seats Available for {title}'
-                message = f'There are {max - current} available seats for {title}.'
-                ##html_message = render_to_string('email_notification_template.html', {'message': message})
-                send_email(recipient_email, subject, message)
-            '''
-
             course = Section.objects.get_or_create(section_id=identity,
                                 instructor=';'.join(sorted(instructors)),
                                 title=name, 
@@ -491,15 +482,6 @@ def admin_report(request):
     }
     return render(request, 'admin_report.html', context)
 
-
-def send_email(recipient, subject, message):
-    send_mail(
-        subject,
-        message,
-        'stoeva@bc.edu',  
-        [recipient],
-        fail_silently=False,
-    )
 @login_required
 @user_passes_test(is_admin)
 def detailed_report(request, course_id, snapshot_id):
@@ -646,14 +628,6 @@ def change_seats(request, section_id):
 
     if request.method == 'POST':
         section.change_seats()
+        set_email(section.currentSeats, section.maxSeats, section.title, section.section_id, request)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-def set_email(current, max, title, section_id, request):
-    recipient_email = request.session.get('email', 'recipient@example.com')
-    if current < max and Watchlist.objects.filter(user=request.user, section_id=section_id).exists():
-            # Send email notification
-            subject = f'Seats Available for {title}'
-            message = f'There are {max - current} available seats for {title}.'
-            ##html_message = render_to_string('email_notification_template.html', {'message': message})
-            send_email(recipient_email, subject, message)
