@@ -155,7 +155,7 @@ class CourseFilterForm(forms.Form):
     )
     DAYS = (
         ('M', 'Monday'), 
-        ('T', 'Tuesday'), 
+        ('TU', 'Tuesday'), 
         ('W', 'Wednesday'), 
         ('TH', 'Thursday'), 
         ('F', 'Friday'), 
