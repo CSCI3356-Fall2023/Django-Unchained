@@ -42,7 +42,7 @@
                             <td>{{ course.title }}</td>
                             <td>{{ course.title }}</td>
                             <td>{{ course.instructor }}</td>
-                            <td>{{ course.status }}</td>
+                            <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
                             <td>
                                 <form action="{% url 'remove_from_watchlist' %}" method="post">
                                     {% csrf_token %}
