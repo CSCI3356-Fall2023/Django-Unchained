@@ -1,0 +1,1214 @@
+<html>
+<head>
+<title>RegistrationGroupService</title>
+<style type="text/css">
+
+table#serviceMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#serviceMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#serviceMetaTable td#serviceName {
+border:1px solid #000000;
+width:85%;
+}
+table#serviceMetaTable td#serviceVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#serviceMetaTable td#serviceVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.methodTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.methodTable td.d {
+border:1px solid #000000;
+}
+
+table.methodTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+
+table.methodTable td.methodName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:center;
+width:85%;
+font-weight:bold;
+font-style:italic;
+}
+
+table.methodTable td.methodDesc {
+border:1px solid #000000;
+width:85%;
+}
+
+table.methodTable td.methodParamType {
+border:1px solid #000000;
+width:21%;
+font-style:italic;
+}
+table.methodTable td.methodParamName {
+border:1px solid #000000;
+width:21%;
+}
+table.methodTable td.methodParamDesc {
+border:1px solid #000000;
+width:43%;
+}
+table.methodTable td.methodReturnType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+
+table.methodTable td.methodReturnDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.methodErrors {
+border:1px solid #000000;
+width:85%;
+}
+
+
+table.methodTable td.methodErrorType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+table.methodTable td.methodErrorDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.capabilityDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.usecaseDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EagleApps API</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>RegistrationGroupService</h1>
+<table id="serviceMetaTable">
+<tr>
+<th class=h>Key</th>
+<td id=serviceName colspan=2>RegistrationGroup</td>
+</tr>
+<tr>
+<th class=h>Version</th>
+<td id=serviceVersion colspan=2>3.3.0-SNAPSHOT</td>
+</tr>
+<tr>
+<th class=h>Included Services</th>
+<td id=serviceVersion colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<th class=h>Java Package</th>
+<td id=serviceVersion colspan=2>org.kuali.student.enrollment.courseoffering.service</td>
+</tr>
+</table>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+&nbsp;
+</div>
+</div>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="ListOfOperations"></a>Operations</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<table>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroup">getRegistrationGroup</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByIds">getRegistrationGroupsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupIdsByType">getRegistrationGroupIdsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByType">getRegistrationGroupsByType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByTerm">getRegistrationGroupsByTerm</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByActivityOffering">getRegistrationGroupsByActivityOffering</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByFormatOffering">getRegistrationGroupsByFormatOffering</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByCourseOffering">getRegistrationGroupsByCourseOffering</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByMultiOffering">getRegistrationGroupsByMultiOffering</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroupsByBundledOffering">getRegistrationGroupsByBundledOffering</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-getRegistrationGroups">getRegistrationGroups</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-searchForRegistrationGroupIds">searchForRegistrationGroupIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-searchForRegistrationGroups">searchForRegistrationGroups</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-validateRegistrationGroup">validateRegistrationGroup</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-createRegistrationGroup">createRegistrationGroup</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-updateRegistrationGroup">updateRegistrationGroup</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-deleteRegistrationGroup">deleteRegistrationGroup</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#RegistrationGroup-changeRegistrationGroupState">changeRegistrationGroupState</a></li></td>
+<td>
+</td>
+</tr>
+</ul>
+</table>
+</div>
+</div>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="MainMessageStructures"></a>Main Entities</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<li><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a></li><li><a href="ContextInfo.html">ContextInfo</a></li><li><a href="QueryByCriteria.html">QueryByCriteria</a></li><li><a href="ValidationResultInfo.html">ValidationResultInfo</a></li></ul>
+<p>
+<a name="RegistrationGroup-getRegistrationGroup"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroup</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a single RegistrationGroup by a RegistrationGroup Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupId</td>
+<td class="methodParamDesc">the identifier for the<br>       RegistrationGroup to be retrieved</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+</td><td class="methodReturnDesc">the RegistrationGroup requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationGroupId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups from a list of<br>RegistrationGroup Ids. The returned list may be in any order<br>and if duplicate Ids are supplied, a unique set may or may not<br>be returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">registrationGroupIds</td>
+<td class="methodParamDesc">a list of RegistrationGroup<br>       identifiers</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a registrationGroupId in the list<br>        was not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupIds, an Id<br>        in the registrationGroupIds, or contextInfo is missing<br>        or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupIdsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupIdsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroup Ids by RegistrationGroup<br>Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupType</td>
+<td class="methodParamDesc">an identifier for a<br>       RegistrationGroup Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroup identifiers matching<br>        registrationGroupType or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupType or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups by RegistrationGroup<br>Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupType</td>
+<td class="methodParamDesc">an identifier for a<br>       RegistrationGroup Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching<br>        registrationGroupType or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupType or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByTerm"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByTerm</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups by termId.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">termId</td>
+<td class="methodParamDesc">an identifier for a<br>       term.</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching<br>         termId or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activityOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByActivityOffering"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByActivityOffering</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups by ActivityOffering.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">activityOfferingId</td>
+<td class="methodParamDesc">an identifier for an<br>       ActivityOffering.</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching<br>         activityOfferingId or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">activityOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByFormatOffering"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByFormatOffering</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups by FormatOffering.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">formatOfferingId</td>
+<td class="methodParamDesc">an identifier for a FormatOffering.</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching formatOfferingId<br>        or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">formatOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByCourseOffering"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByCourseOffering</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups corresponding to the<br>given CourseOffering.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">courseOfferingId</td>
+<td class="methodParamDesc">an identifier for an CourseOffering</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching courseOfferingId<br>        or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">courseOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByMultiOffering"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByMultiOffering</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups corresponding to the<br>given MultiOffering.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">multiOfferingId</td>
+<td class="methodParamDesc">an identifier for an MultiOffering</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching multiOfferingId<br>        or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">multiOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroupsByBundledOffering"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroupsByBundledOffering</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups corresponding to the<br>given BundledOffering.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">bundledOfferingId</td>
+<td class="methodParamDesc">an identifier for an BundledOffering</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching bundledOfferingId<br>        or an empty list if none found</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">bundledOfferingId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-getRegistrationGroups"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRegistrationGroups</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of RegistrationGroups.</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-searchForRegistrationGroupIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForRegistrationGroupIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for RegistrationGroups that meet the given search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroup identifiers matching the<br>        criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-searchForRegistrationGroups"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForRegistrationGroups</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for RegistrationGroups that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfoList</a>
+</td><td class="methodReturnDesc">a list of RegistrationGroups matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-validateRegistrationGroup"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateRegistrationGroup</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a RegistrationGroup. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current RegistrationGroup and its directly contained<br>sub-objects or expanded to perform all tests related to this<br>RegistrationGroup. If an identifier is present for the<br>RegistrationGroup (and/or one of its contained sub-objects) and<br>a record is found for that identifier, the validation checks if<br>the RegistrationGroup can be updated to the new values. If an<br>identifier is not present or a record does not exist, the<br>validation checks if the object with the given data can be<br>created.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationType</td>
+<td class="methodParamDesc">the identifier for the validation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupType</td>
+<td class="methodParamDesc">the identifier for the<br>       RegistrationGroup Type to be validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+</td><td class="methodParamName">registrationGroupInfo</td>
+<td class="methodParamDesc">the RegistrationGroup to be<br>       validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">a list of validation results or an empty list if<br>        validation succeeded</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey or<br>        registrationGroupType is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationGroupInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey,<br>        registrationGroupType, registrationGroupInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-createRegistrationGroup"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createRegistrationGroup</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new RegistrationGroupInfo</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupType</td>
+<td class="methodParamDesc">the identifier for the Type of<br>       RegistrationGroup to be created</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+</td><td class="methodParamName">registrationGroupInfo</td>
+<td class="methodParamDesc">the data with which to create the<br>       RegistrationGroup</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+</td><td class="methodReturnDesc">the new RegistrationGroup</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationGroupType does not<br>        exist or is not supported</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationGroupInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupType,<br>        registrationGroupInfo, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-updateRegistrationGroup"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateRegistrationGroup</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing RegistrationGroup. The RegistrationGroup<br>Id, Type, and Meta information may not be changed.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupId</td>
+<td class="methodParamDesc">the identifier for the<br>       RegistrationGroup to be updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+</td><td class="methodParamName">registrationGroupInfo</td>
+<td class="methodParamDesc">the new data for the<br>       RegistrationGroup</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="RegistrationGroupInfo.html">RegistrationGroupInfo</a>
+</td><td class="methodReturnDesc">the updated RegistrationGroup</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationGroupId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">registrationGroupInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupId,<br>        registrationGroupInfo, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at changing information<br>        designated as read only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">an optimistic locking failure<br>        or the action was attempted on an out of date version</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-deleteRegistrationGroup"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteRegistrationGroup</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing RegistrationGroup.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupId</td>
+<td class="methodParamDesc">the identifier for the<br>       RegistrationGroup to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationGroupId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="RegistrationGroup-changeRegistrationGroupState"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">changeRegistrationGroupState</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Changes the state of a RegistrationGroup.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupId</td>
+<td class="methodParamDesc">identifier for the<br>       RegistrationGroup.</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">registrationGroupState</td>
+<td class="methodParamDesc">the new state</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="void.html">void</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=6>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">registrationGroupId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">registrationGroupId,<br>        registrationGroupState or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure<br>        occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">???</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+
+</body>
+</html>

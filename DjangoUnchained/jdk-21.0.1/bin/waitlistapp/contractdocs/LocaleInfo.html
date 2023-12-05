@@ -1,0 +1,238 @@
+<html>
+<head>
+<title>LocaleInfo</title>
+<style type="text/css">
+
+table#structureMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#structureMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#structureMetaTable td#structureName {
+border:1px solid #000000;
+width:85%;
+}
+table#structureMetaTable td#structureVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td.structureReferences {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td#structureVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.structTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.structTable td.d {
+border:1px solid #000000;
+}
+
+table.structTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+}
+
+table.structTable td.structSName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:left;
+vertical-align:top;
+font-weight:bold;
+font-style:italic;
+
+}
+
+table.structTable td.structLName {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structType {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+font-style:italic;
+
+}
+
+table.structTable td.structDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structOpt {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structReq {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+
+table.structTable td.structCard {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structAttr {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structElem {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structStatus {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+
+}
+
+table.structTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EalgeApps API</a>&nbsp;<a href="#fields">Fields</a>&nbsp;<a href="#jsonStructure">JSON</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>LocaleInfo</h1>
+<table id="structureMetaTable">
+<tr>
+<th class=h>Name</th>
+<td id=structureName colspan=2>LocaleInfo</td>
+</tr>
+<tr>
+<th rowspan=3 class=h>Usage</th>
+<td id="structureVersion" colspan=2><a href="SimulatedRegistrationService.html">SimulatedRegistrationService</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2></td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="ContextInfo.html">ContextInfo</a>
+</td></tr>
+<tr>
+<th rowspan=2 class=h>References</th>
+<td id="structureReferences1"  class="structureReferences" colspan=2>&nbsp;
+</td></tr>
+<tr>
+<td id="structureReferences2" class="structureReferences" colspan=2>&nbsp;
+</td></tr>
+<th class=h>Type</th>
+<td id=structureVersion colspan=2>Complex</td>
+</tr>
+</table>
+<h2>Description</h2>
+Information about Locale for Context.
+<h2><a name="fields"></a>Fields</h2>
+<a href="#TopOfPage">Top</a>
+<table class="structTable">
+<tr>
+<th class="h">ShortName</th>
+<th class="h">Name</th>
+<th class="h">Type</th>
+<th class="h">Description</th>
+<th class="h">Required?</th>
+<th class="h">Read only?</th>
+<th class="h">Lookup</th>
+<th class="h">Implementation Notes</th>
+</tr>
+<tr>
+<td class="structSName">localeLanguage</td>
+<td class="structLName">Locale Language</td>
+<td class="structType">String</td>
+<td class="structDesc">The language portion of the locale information used in this<br>context.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">localeVariant</td>
+<td class="structLName">Locale Language Variant</td>
+<td class="structType">String</td>
+<td class="structDesc">The language variant portion of the locale information to be<br>used in this context .</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">localeRegion</td>
+<td class="structLName">Locale Region</td>
+<td class="structType">String</td>
+<td class="structDesc">The language Region portion of the locale information to be<br>used in this context.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">localeScript</td>
+<td class="structLName">Locale Script</td>
+<td class="structType">String</td>
+<td class="structDesc">The language Script to be used in this context.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+</table>
+<h2><a name="jsonStructure"></a>JSON Structure</h2>
+<a href="#TopOfPage">Top</a>
+<pre>
+{
+    "localeLanguage" : "XXXX",
+    "localeVariant" : "XXXX",
+    "localeRegion" : "XXXX",
+    "localeScript" : "XXXX"
+}</pre>
+
+</body>
+</html>

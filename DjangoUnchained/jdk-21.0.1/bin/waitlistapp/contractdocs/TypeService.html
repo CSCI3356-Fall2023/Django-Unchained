@@ -1,0 +1,2150 @@
+<html>
+<head>
+<title>TypeService</title>
+<style type="text/css">
+
+table#serviceMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#serviceMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#serviceMetaTable td#serviceName {
+border:1px solid #000000;
+width:85%;
+}
+table#serviceMetaTable td#serviceVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#serviceMetaTable td#serviceVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.methodTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.methodTable td.d {
+border:1px solid #000000;
+}
+
+table.methodTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+
+table.methodTable td.methodName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:center;
+width:85%;
+font-weight:bold;
+font-style:italic;
+}
+
+table.methodTable td.methodDesc {
+border:1px solid #000000;
+width:85%;
+}
+
+table.methodTable td.methodParamType {
+border:1px solid #000000;
+width:21%;
+font-style:italic;
+}
+table.methodTable td.methodParamName {
+border:1px solid #000000;
+width:21%;
+}
+table.methodTable td.methodParamDesc {
+border:1px solid #000000;
+width:43%;
+}
+table.methodTable td.methodReturnType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+
+table.methodTable td.methodReturnDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.methodErrors {
+border:1px solid #000000;
+width:85%;
+}
+
+
+table.methodTable td.methodErrorType {
+border:1px solid #000000;
+width:42%;
+font-style:italic;
+}
+table.methodTable td.methodErrorDesc {
+border:1px solid #000000;
+width:43%;
+}
+
+table.methodTable td.capabilityDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.usecaseDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+
+table.methodTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+}
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EagleApps API</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>TypeService</h1>
+<table id="serviceMetaTable">
+<tr>
+<th class=h>Key</th>
+<td id=serviceName colspan=2>Type</td>
+</tr>
+<tr>
+<th class=h>Version</th>
+<td id=serviceVersion colspan=2>3.3.0-SNAPSHOT</td>
+</tr>
+<tr>
+<th class=h>Included Services</th>
+<td id=serviceVersion colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<th class=h>Java Package</th>
+<td id=serviceVersion colspan=2>org.kuali.student.r2.core.class1.type.service</td>
+</tr>
+</table>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+Provide lookups of Types and TypeTypRelations as well as operations<br>for the management of the metadata associated with the types.
+</div>
+</div>
+<p>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="ListOfOperations"></a>Operations</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<table>
+<tr><td valign=top><li><a href="#Type-getType">getType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypesByKeys">getTypesByKeys</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypesByRefObjectUri">getTypesByRefObjectUri</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveTypesByRefObjectUriOnDate">getEffectiveTypesByRefObjectUriOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getRootTypesByRefObjectUri">getRootTypesByRefObjectUri</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveRootTypesByRefObjectUriOnDate">getEffectiveRootTypesByRefObjectUriOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypesForGroupType">getTypesForGroupType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveTypesForGroupTypeOnDate">getEffectiveTypesForGroupTypeOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getAllowedTypesForType">getAllowedTypesForType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveAllowedTypesForTypeOnDate">getEffectiveAllowedTypesForTypeOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-searchForTypeKeys">searchForTypeKeys</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-searchForTypes">searchForTypes</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-validateType">validateType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-createType">createType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-updateType">updateType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-deleteType">deleteType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypeTypeRelation">getTypeTypeRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypeTypeRelationsByIds">getTypeTypeRelationsByIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypeTypeRelationsByOwner">getTypeTypeRelationsByOwner</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveTypeTypeRelationsByOwnerOnDate">getEffectiveTypeTypeRelationsByOwnerOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypeTypeRelationsByOwnerAndType">getTypeTypeRelationsByOwnerAndType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveTypeTypeRelationsByOwnerAndTypeOnDate">getEffectiveTypeTypeRelationsByOwnerAndTypeOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypeTypeRelationsByRelatedType">getTypeTypeRelationsByRelatedType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveTypeTypeRelationsByRelatedTypeOnDate">getEffectiveTypeTypeRelationsByRelatedTypeOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getTypeTypeRelationsByRelatedTypeAndType">getTypeTypeRelationsByRelatedTypeAndType</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getEffectiveTypeTypeRelationsByRelatedTypeAndTypeOnDate">getEffectiveTypeTypeRelationsByRelatedTypeAndTypeOnDate</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-searchForTypeTypeRelationIds">searchForTypeTypeRelationIds</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-searchForTypeTypeRelations">searchForTypeTypeRelations</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-validateTypeTypeRelation">validateTypeTypeRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-createTypeTypeRelation">createTypeTypeRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-updateTypeTypeRelation">updateTypeTypeRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-deleteTypeTypeRelation">deleteTypeTypeRelation</a></li></td>
+<td>
+</td>
+</tr>
+<tr><td valign=top><li><a href="#Type-getRefObjectUris">getRefObjectUris</a></li></td>
+<td>
+</td>
+</tr>
+</ul>
+</table>
+</div>
+</div>
+<div class="panel" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);">
+<div class="panelHeader" style="border-bottom: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238);">
+<b><a name="MainMessageStructures"></a>Main Entities</b>
+</div><div class="panelContent" style="background-color: rgb(255, 255, 255);">
+<ul>
+<li><a href="TypeInfo.html">TypeInfo</a></li><li><a href="QueryByCriteria.html">QueryByCriteria</a></li><li><a href="ValidationResultInfo.html">ValidationResultInfo</a></li><li><a href="StatusInfo.html">StatusInfo</a></li><li><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a></li><li><a href="ContextInfo.html">ContextInfo</a></li></ul>
+<p>
+<a name="Type-getType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets the Type identified by a type Key.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeKey</td>
+<td class="methodParamDesc">Key of the type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">Context information containing the principalId<br>       and locale information about the caller of service<br>       operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfo</a>
+</td><td class="methodReturnDesc">the type requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeKey not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypesByKeys"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypesByKeys</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of Types from a list of keys. The returned<br>list may be in any order and if duplicate Ids are supplied, a<br>unique set may or may not be returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">typeKeys</td>
+<td class="methodParamDesc">a list of Type keys</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of Types</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a typeKey in list not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeKeys, a key in typeKeys,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypesByRefObjectUri"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypesByRefObjectUri</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method returns a list of Types that belong to a<br>RefObjectUri. For e.g all types for CluInfo</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">refObjectUri</td>
+<td class="methodParamDesc">a URI identifying the object <br>       e.g http://student.kuali.org/wsdl/cluService/CluInfo</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of Types associated with the referebce URI</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveTypesByRefObjectUriOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveTypesByRefObjectUriOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method returns a list of Types that belong to a<br>RefObjectUri where the given date is between the effective<br>dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">refObjectUri</td>
+<td class="methodParamDesc">a URI identifying the object<br>       e.g http://student.kuali.org/wsdl/cluService/CluInfo</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of Types associated with the reference URI</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getRootTypesByRefObjectUri"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRootTypesByRefObjectUri</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method returns a list of "root" Types that belong to a<br>RefObjectUri. Types may be grouped to form a hierarchy. This<br>method returns the Types for a reference object at the root of<br>the group hierarchy.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">refObjectUri</td>
+<td class="methodParamDesc">a URI identifying the object</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of root Types associated with the reference object Uri</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveRootTypesByRefObjectUriOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveRootTypesByRefObjectUriOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method returns a list of "root" Types that belong to a<br>RefObjectUri. Types may be grouped to form a hierarchy. This<br>method returns the Types for a reference object at the root of<br>the group hierarchy where the given date is between the<br>effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">refObjectUri</td>
+<td class="methodParamDesc">a URI identifying the object</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of "root" Types associated with the referebnce URI</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypesForGroupType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypesForGroupType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Get the list of types that are in the group defined by this<br>group type. These get the next level Types under the given Type.<br><br>This is a convenience method to retrieve TypeTypeRelations with<br>a grouping relation filtering them to see if they are active<br>and then fetching those types.<br><br>Active is defined two ways: the state must be ACTIVE and today<br>must be between the effective and expiration dates of the<br>relationship.<br><br>Note: The type itself may or may not be active but since that<br>is returned consuming program is free to filter on that object.<br><br>Should be functionally equivalent to calling the following:<br>relations = getTypeTypeRelationsForOwnerAndType (type, GROUP)<br>filterRelations (type=ACTIVE and today between effective and<br>expiration return getTypes (filteredRelations)<br><br>The relationship is captured unidirectionally from ownerType to<br>relatedType.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">groupTypeKey</td>
+<td class="methodParamDesc">typeKey used to do the grouping</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of TypeInfo objects associated with the object</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveTypesForGroupTypeOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveTypesForGroupTypeOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Get the list of types that are in the group defined by this<br>group type where the given date is between the effective<br>dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">groupTypeKey</td>
+<td class="methodParamDesc">typeKey used to do the grouping</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of Types associated with the object</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getAllowedTypesForType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getAllowedTypesForType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Get the list of Types that are allowed for another typeKey.<br><br>This is a convenience method to retrieve TypeTypeRelations with<br>allowed relation filtering them to see if they are active and<br>then fetching those types.<br><br>Active is defined two ways: the state must be ACTIVE and today<br>must be between the effective and expiration dates of the<br>relationship.<br><br>Note: The type itself may or may not be active but since that<br>is returned consuming program is free to filter on that object.<br><br>Should be functionally equivalent to calling the following:<br>relations = getTypeTypeRelationsForOwnerAndType (type, ALLOWED)<br>filterRelations (type=ACTIVE and today between effective and<br>expiration return getTypes (filteredRelations)<br><br>The relationship is captured unidirectionally from ownerType to<br>relatedType.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">Type key of the owner in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of Types</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">ownerTypeKey, or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveAllowedTypesForTypeOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveAllowedTypesForTypeOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Get the list of Types that are allowed for another typeKey <br>where the given date is between the effective<br>dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">Type key of the owner in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">a list of Types associated with the reference URI</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-searchForTypeKeys"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForTypeKeys</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Type keys that meet the given search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">list of type identifiers matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-searchForTypes"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForTypes</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Types that meet the given search criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfoList</a>
+</td><td class="methodReturnDesc">list of types matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-validateType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a Type. Depending on the value of validationType,<br>this validation could be limited to tests on just the current<br>object and its directly contained sub-objects or expanded to<br>perform all tests related to this Type. If an identifier is<br>present for the Type and a record is found for that identifier,<br>the validation checks if the Type can be shifted to the new<br>values. If a an identifier is not present or a record does not<br>exist, the validation checks if the Type with the given data<br>can be created.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier for the validation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="TypeInfo.html">TypeInfo</a>
+</td><td class="methodParamName">typeInfo</td>
+<td class="methodParamDesc">the identifier for the Type to be validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">a list of validation results or an empty list if validation<br>        succeeded</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">typeInfo or contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey, typeInfo,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-createType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new Type. The Type Key and Meta information may not<br>be set in the supplied data object.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeKey</td>
+<td class="methodParamDesc">a unique for the new Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="TypeInfo.html">TypeInfo</a>
+</td><td class="methodParamName">typeInfo</td>
+<td class="methodParamDesc">the data with which to create the Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfo</a>
+</td><td class="methodReturnDesc">the new Type</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>AlreadyExistsException</td>
+<td class="methodErrorDesc">typeKey already exists</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">typeInfo or contextInfo is<br>not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeKey, typeInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-updateType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates an existing Type. The Type Key and Meta information may<br>not be changed.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeKey</td>
+<td class="methodParamDesc">the identifier for the Type to be updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="TypeInfo.html">TypeInfo</a>
+</td><td class="methodParamName">typeInfo</td>
+<td class="methodParamDesc">the new data for the Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeInfo.html">TypeInfo</a>
+</td><td class="methodReturnDesc">the updated Type</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">typeInfo or contextInfo is<br>not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeKey, typeInfo, or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">an optimistic locking failure<br>        or the action was attempted on an out of date version</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-deleteType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing Type.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeKey</td>
+<td class="methodParamDesc">the identifier for the Type to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">the status of the operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeKey or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypeTypeRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypeTypeRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Gets the TypeTypeRelation identified by TypeTypeRelation Id.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationId</td>
+<td class="methodParamDesc">an identifier of the TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+</td><td class="methodReturnDesc">the type type relation requested</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeTypeRelationId not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypeTypeRelationsByIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypeTypeRelationsByIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Retrieves a list of TypeTypeRelations from a list of Idss. The<br>returned list may be in any order and if duplicate Ids are<br>supplied, a unique set may or may not be returned.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">StringList</a>
+</td><td class="methodParamName">typeTypeRelationIds</td>
+<td class="methodParamDesc">a list of TypeTypeRelation Ids</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of TypeTypeRelations</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">a typeTypeRelationId in the list<br>        not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationIds, a id<br>        in typeTypeRelationIds, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypeTypeRelationsByOwner"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypeTypeRelationsByOwner</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given ownerType.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">Type key of the owner in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">List of TypeTypeRelations for a given ownerType</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">invalid ownerTypeKey or<br>        typeTypeRelationTypeKey</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">missing ownerTypeKey,<br>        typeTypeRelationTypeKey, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveTypeTypeRelationsByOwnerOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveTypeTypeRelationsByOwnerOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given ownerType where the given date is between the effective<br>dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">Type key of the owner in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of TypeInfo objects associated with the object</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypeTypeRelationsByOwnerAndType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypeTypeRelationsByOwnerAndType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given ownerType and the TypeTypeRelationType.<br><br>This is the reverse of getTypeTypeRelationsByRelatedTypeAndType.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">Type key of the owner in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the Type of<br>       the TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">List of TypeTypeRelations for a given ownerType</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">invalid ownerTypeKey or<br>        typeTypeRelationTypeKey</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">missing ownerTypeKey,<br>        typeTypeRelationTypeKey, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveTypeTypeRelationsByOwnerAndTypeOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveTypeTypeRelationsByOwnerAndTypeOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given ownerType and the TypeTypeRelationType where the given date<br>is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">Type key of the owner in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the Type of<br>       the TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of TypeInfo objects associated with the object</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypeTypeRelationsByRelatedType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypeTypeRelationsByRelatedType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given relatedType.<br><br>This is the reverse of getTypeTypeRelationsByOwnerAndType.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedTypeKey</td>
+<td class="methodParamDesc">Type key of the related type in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">List of TypeTypeRelations for a given ownerType</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">invalid ownerTypeKey or<br>        typeTypeRelationTypeKey</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">missing ownerTypeKey,<br>        typeTypeRelationTypeKey, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveTypeTypeRelationsByRelatedTypeOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveTypeTypeRelationsByRelatedTypeOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given relatedTypeKey where the given date<br>is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedTypeKey</td>
+<td class="methodParamDesc">Type key of the related type in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of TypeInfo objects associated with the object</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getTypeTypeRelationsByRelatedTypeAndType"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getTypeTypeRelationsByRelatedTypeAndType</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given relatedType and the TypeTypeRelationType.<br><br>This is the reverse of getTypeTypeRelationsByOwnerAndType.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedTypeKey</td>
+<td class="methodParamDesc">Type key of the related type in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the Type of<br>       the TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">List of TypeTypeRelations for a given ownerType</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">invalid ownerTypeKey or<br>        typeTypeRelationTypeKey</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">missing ownerTypeKey,<br>        typeTypeRelationTypeKey, or contextInfo is missing or<br>        null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getEffectiveTypeTypeRelationsByRelatedTypeAndTypeOnDate"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getEffectiveTypeTypeRelationsByRelatedTypeAndTypeOnDate</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">This method retrieves all the TypeTypeRelation objects for a<br>given relatedTypeKey and the TypeTypeRelationType where the<br>given date is between the effective dates inclusive.</td>
+</tr>
+<tr>
+<th class=h rowspan=4>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedTypeKey</td>
+<td class="methodParamDesc">Type key of the related type in the relation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the Type of<br>       the TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="Date.html">Date</a>
+</td><td class="methodParamName">date</td>
+<td class="methodParamDesc">a date</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">a list of TypeInfo objects associated with the object</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">refObjectURI or contextInfo<br>        is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-searchForTypeTypeRelationIds"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForTypeTypeRelationIds</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Type type relation ids that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">list of type type relation identifiers matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-searchForTypeTypeRelations"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">searchForTypeTypeRelations</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Searches for Type Type Relations that meet the given search<br>criteria.<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="QueryByCriteria.html">QueryByCriteria</a>
+</td><td class="methodParamName">criteria</td>
+<td class="methodParamDesc">the search criteria</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfoList</a>
+</td><td class="methodReturnDesc">list of type type relations matching the criteria</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">criteria or contextInfo is<br>        missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-validateTypeTypeRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">validateTypeTypeRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Validates a TypeTypeRelation. Depending on the value of<br>validationType, this validation could be limited to tests on<br>just the current TypeTypeRelation and its directly contained<br>sub-objects or expanded to perform all tests related to this<br>TypeTypeRelation. If an identifier is present for the<br>TypeTypeRelation (and/or one of its contained sub-objects) and a<br>record is found for that identifier, the validation checks if<br>the TypeTypeRelation can be shifted to the new values. If an<br>identifier is not present or a record cannot be found for the<br>identifier, the validation checks if the object with the given<br>data can be created.</td>
+</tr>
+<tr>
+<th class=h rowspan=6>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">validationTypeKey</td>
+<td class="methodParamDesc">the identifier for the validation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeKey</td>
+<td class="methodParamDesc">the identifier for a type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typePeerKey</td>
+<td class="methodParamDesc">the identifier for the type peer</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the<br>TypeTypeRelation Type</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+</td><td class="methodParamName">typeTypeRelationInfo</td>
+<td class="methodParamDesc">the TypeTypeRelation to be validated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="ValidationResultInfo.html">ValidationResultInfoList</a>
+</td><td class="methodReturnDesc">a list of validation results or an empty list if validation<br>        succeeded</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">validationTypeKey, typeKey,<br>        typePeerKey, or typeTypeRelationTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">validationTypeKey, typeKey,<br>        typePeerKey, typeTypeRelationTypeKey, typeTypeRelationInfo,<br>        or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">authorization failure</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-createTypeTypeRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">createTypeTypeRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Creates a new TypeTypeRelation. The TypeTypeRelation Type<br>indicates the type of relation between the two peer Types.</td>
+</tr>
+<tr>
+<th class=h rowspan=5>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationTypeKey</td>
+<td class="methodParamDesc">the identifier for the new TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">ownerTypeKey</td>
+<td class="methodParamDesc">the owner of the relationship</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">relatedTypeKey</td>
+<td class="methodParamDesc">the related type in the relationship</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+</td><td class="methodParamName">typeTypeRelationInfo</td>
+<td class="methodParamDesc">the relationship to be created</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+</td><td class="methodReturnDesc">???</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=7>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeKey, typePeerKey, or<br>        typeTypeRelationTypeKey is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationInfo or contextInfo is<br>        not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationId, typeKey,<br>        typePeer, typeTypeRelationTypeKey,<br>        typeTypeRelationInfo, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read only</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-updateTypeTypeRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">updateTypeTypeRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Updates a Type Type Relationship. The TypeTypeRelation Id,<br>Type, Type Keys, and Meta information may not be changed.</td>
+</tr>
+<tr>
+<th class=h rowspan=3>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationId</td>
+<td class="methodParamDesc">the identifier for the<br>       TypeTypeRelation updated</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+</td><td class="methodParamName">typeTypeRelationInfo</td>
+<td class="methodParamDesc">the new data for the TypeTypeRelation</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and locale<br>       information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="TypeTypeRelationInfo.html">TypeTypeRelationInfo</a>
+</td><td class="methodReturnDesc">the updated TypeTypeRelation</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=8>Errors</th>
+<td class="methodErrorType" colspan=2>DataValidationErrorException</td>
+<td class="methodErrorDesc">supplied data is invalid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeTypeRelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationInfo or<br>        contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationId,<br>        typeTypeRelationInfo, or contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>ReadOnlyException</td>
+<td class="methodErrorDesc">an attempt at supplying information<br>        designated as read-only</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>VersionMismatchException</td>
+<td class="methodErrorDesc">optimistic locking failure or<br>        the action was attempted on an out of date version</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-deleteTypeTypeRelation"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">deleteTypeTypeRelation</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Deletes an existing TypeTypeRelation.</td>
+</tr>
+<tr>
+<th class=h rowspan=2>Parameters</th>
+<td class="methodParamType"><a href="String.html">String</a>
+</td><td class="methodParamName">typeTypeRelationId</td>
+<td class="methodParamDesc">the identifier for the TypeTypeRelation<br>       to be deleted</td>
+</tr>
+<tr>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="StatusInfo.html">StatusInfo</a>
+</td><td class="methodReturnDesc">status of the delete operation. This must always be true.</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=5>Errors</th>
+<td class="methodErrorType" colspan=2>DoesNotExistException</td>
+<td class="methodErrorDesc">typeTypeRelationId is not found</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">typeTypeRelationId or<br>        contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+<p>
+<a name="Type-getRefObjectUris"></a>
+<p>
+<table class="methodTable">
+<tr>
+<th class=h>Method</th>
+<th class=h colspan=3 class="methodName">getRefObjectUris</th>
+</tr>
+<tr>
+<th class=h>Description</th>
+<td colspan=3 class="methodDesc">Get a list of refObjectURI's that are known to this<br>implementation of the service.<br><br>A RefObjectURI is how objects are uniquely identified in Kuali<br>STudent.  A RefObjectURI is composed of two parts the name<br>space of the service in which the object is defined and then<br>the simple java name (no class path) of the object itself.<br><br>For example: http://student.kuali.org/wsdl/cluService/CluInfo<br>============== Deprecated ===============</td>
+</tr>
+<tr>
+<th class=h rowspan=1>Parameters</th>
+<td class="methodParamType"><a href="ContextInfo.html">ContextInfo</a>
+</td><td class="methodParamName">contextInfo</td>
+<td class="methodParamDesc">information containing the principalId and<br>       locale information about the caller of service operation</td>
+</tr>
+<tr>
+<th class=h>Return</th>
+<td colspan=2 class="methodReturnType"><a href="String.html">StringList</a>
+</td><td class="methodReturnDesc">a list of string refObjectURIs</td>
+</tr>
+</tr>
+<tr>
+<th class=h rowspan=4>Errors</th>
+<td class="methodErrorType" colspan=2>InvalidParameterException</td>
+<td class="methodErrorDesc">contextInfo is not valid</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>MissingParameterException</td>
+<td class="methodErrorDesc">contextInfo is missing or null</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>OperationFailedException</td>
+<td class="methodErrorDesc">unable to complete request</td>
+</tr>
+<tr>
+<td class="methodErrorType" colspan=2>PermissionDeniedException</td>
+<td class="methodErrorDesc">an authorization failure occurred</td>
+</tr>
+</table>
+<p>
+<a href="#TopOfPage">Top</a>
+<p>
+
+</body>
+</html>

@@ -1,0 +1,436 @@
+<html>
+<head>
+<title>EventInfo</title>
+<style type="text/css">
+
+table#structureMetaTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+table#structureMetaTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+width:15%;
+}
+table#structureMetaTable td#structureName {
+border:1px solid #000000;
+width:85%;
+}
+table#structureMetaTable td#structureVersion {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td.structureReferences {
+border:1px solid #000000;
+width:70%;
+}
+table#structureMetaTable td#structureVersionHistory {
+border:1px solid #000000;
+width:15%;
+}
+
+</style>
+<style type="text/css">
+
+table.structTable {
+border-collapse:collapse;
+border:1px solid #000000;
+width:95%;
+}
+
+table.structTable td.d {
+border:1px solid #000000;
+}
+
+table.structTable th.h {
+border:1px solid #000000;
+background-color:#eeeeee;
+}
+
+table.structTable td.structSName {
+border:1px solid #000000;
+background-color:#f2f2f2;
+color:#222222;
+text-align:left;
+vertical-align:top;
+font-weight:bold;
+font-style:italic;
+
+}
+
+table.structTable td.structLName {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structType {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+font-style:italic;
+
+}
+
+table.structTable td.structDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+table.structTable td.structOpt {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structReq {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+
+table.structTable td.structCard {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structAttr {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structElem {
+border:1px solid #000000;
+background:#ccccff;
+vertical-align:top;
+text-align: center;
+}
+
+table.structTable td.structStatus {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+text-align: center;
+
+}
+
+table.structTable td.commentsDesc {
+border:1px solid #000000;
+background:#ffffff;
+vertical-align:top;
+
+}
+
+
+</style>
+<style type="text/css">
+ul.horizontal-list { display: inline; list-style-type: none; margin: 0; }
+ul.horizontal-list li { display: inline; list-style-type: none; padding-right: 1em; }
+</style>
+</head>
+<body bgcolor="#ffffff" topmargin=0 marginheight=0>
+<a name="TopOfPage"></a>
+<ul class="horizontal-list"><li><a href="index.html">EalgeApps API</a>&nbsp;<a href="#fields">Fields</a>&nbsp;<a href="#jsonStructure">JSON</a></li><li></li><li>Version: 3.3.0-SNAPSHOT</li><li>Published: 2023-10-26 16:30 EDT</li><li>&copy; 2017 Boston College</li></ul>
+<h1>EventInfo</h1>
+<table id="structureMetaTable">
+<tr>
+<th class=h>Name</th>
+<td id=structureName colspan=2>EventInfo</td>
+</tr>
+<tr>
+<th rowspan=3 class=h>Usage</th>
+<td id="structureVersion" colspan=2><a href="WaitlistActivityOfferingService.html">WaitlistActivityOfferingService</a>
+<a href=" CalendaringEventService.html"> CalendaringEventService</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="CalendaringEventService.html#CalendaringEvent-getEvent">getEvent</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByIds">getEventsByIds</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByType">getEventsByType</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByRoom">getEventsByRoom</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsBySponsoringOrg">getEventsBySponsoringOrg</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsForDate">getEventsForDate</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsInDateRange">getEventsInDateRange</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByBackingReferenceUri">getEventsByBackingReferenceUri</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByBackingReference">getEventsByBackingReference</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByAtp">getEventsByAtp</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByAtpAndBackingReferenceUri">getEventsByAtpAndBackingReferenceUri</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEvents">getEvents</a>
+<a href="CalendaringEventService.html#CalendaringEvent-searchForEvents">searchForEvents</a>
+<a href="CalendaringEventService.html#CalendaringEvent-validateEvent">validateEvent</a>
+<a href="CalendaringEventService.html#CalendaringEvent-createEvent">createEvent</a>
+<a href="CalendaringEventService.html#CalendaringEvent-updateEvent">updateEvent</a>
+<a href="CalendaringEventService.html#CalendaringEvent-createEventsByImplicitViaEvent">createEventsByImplicitViaEvent</a>
+<a href="CalendaringEventService.html#CalendaringEvent-getEventsByImplicitViaEvent">getEventsByImplicitViaEvent</a>
+</td></tr>
+<tr>
+<td id="structureVersion" colspan=2><a href="WaitlistActivityOfferingInfo.html">WaitlistActivityOfferingInfo</a>
+</td></tr>
+<tr>
+<th rowspan=2 class=h>References</th>
+<td id="structureReferences1"  class="structureReferences" colspan=2>&nbsp;
+</td></tr>
+<tr>
+<td id="structureReferences2" class="structureReferences" colspan=2><a href="EventInfo.html">EventInfo</a>
+</td></tr>
+<th class=h>Type</th>
+<td id=structureVersion colspan=2>Complex</td>
+</tr>
+</table>
+<h2>Description</h2>
+An Event is an occurance. Events may be singlular or composite recurring<br>events based on schedules or other events.<br><br>An Event may be explicitly defined as a complex composite recurring event and<br>expanded into a set of implicit one-time events for easy consumption.<br><br>For example, an explicit recurring Event may be created with a Schedule of<br>MWF10-11 from September 1 through December 10 and blackout dates of Columbus<br>and Thanksgiving. This would result in 40 implicit Events for the scheduled<br>mondays, wednesdays, and fridays in that time period.<br><br>A typical provider does not allow creates and updates on Implicit Events<br>while allowing only explicit events to be created.<br><br>Example Types of Events are: 1. non-recurring Event 2. recurring Event 3.<br>non-recurring composite Event 4. recurring composite Event
+<h2><a name="fields"></a>Fields</h2>
+<a href="#TopOfPage">Top</a>
+<table class="structTable">
+<tr>
+<th class="h">ShortName</th>
+<th class="h">Name</th>
+<th class="h">Type</th>
+<th class="h">Description</th>
+<th class="h">Required?</th>
+<th class="h">Read only?</th>
+<th class="h">Lookup</th>
+<th class="h">Implementation Notes</th>
+</tr>
+<tr>
+<td class="structSName">id</td>
+<td class="structLName">Unique Id</td>
+<td class="structType">String</td>
+<td class="structDesc">The system assigned unique id to identify this Entity.<br>Could be implemented as as sequence number or as a UUID.<br><br>Attempts to set this value on creates should result in a ReadOnlyException being thrown<br><br>An Id:<br>    1. An id is used when the actual value is unimportant and can therefore be a large hex value for example<br>    2. An id value might be 23b9ca9bd203df902<br>    3. An Id is never intended to be used directly by an end user.<br>    4. Ids are assumed to be of different values in different KS implementations<br>    5. Id values are generated by the service implementation if not supplied<br>    6. Id values are never expected to be used in Configuration or Application code</td>
+<td class="structOpt">Required on updates</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">typeKey</td>
+<td class="structLName">Type Key</td>
+<td class="structType">String</td>
+<td class="structDesc">A unique identifier for the type of this object.</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">Read only</td>
+<td class="structCard"><a href="TypeInfo.html">TypeInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">stateKey</td>
+<td class="structLName">State Key</td>
+<td class="structType">String</td>
+<td class="structDesc">A unique identifier for the state of this object.</td>
+<td class="structOpt">Required</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="StateInfo.html">StateInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">name</td>
+<td class="structLName">Name</td>
+<td class="structType">String</td>
+<td class="structDesc">A display name for this entity.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">descr</td>
+<td class="structLName">Description</td>
+<td class="structType"><a href="RichTextInfo.html">RichTextInfo</a>
+</td><td class="structDesc">A description of the entity.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">isImplicit</td>
+<td class="structLName">Is Implicit</td>
+<td class="structType">Boolean</td>
+<td class="structDesc">Tests if this Event is implicit. Implicit Events are expanded Events<br>based on a recurring managed Event.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">explicitEventId</td>
+<td class="structLName">Explicit Event Id</td>
+<td class="structType">String</td>
+<td class="structDesc">The explicit Event for this implicit event.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="EventInfo.html">EventInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">composedEventIds</td>
+<td class="structLName">Composed Event Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">Any composed Events if this is a composite Event.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="EventInfo.html">EventInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">startDate</td>
+<td class="structLName">Start Date</td>
+<td class="structType">Date</td>
+<td class="structDesc">The start date for a non-recurring Event. If null, the start date is the<br>dawn of time.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">endDate</td>
+<td class="structLName">End Date</td>
+<td class="structType">Date</td>
+<td class="structDesc">The end date for a non-recurring Event. If null, the end date is the deep<br>freeze.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">locationDescription</td>
+<td class="structLName">Location Description</td>
+<td class="structType">String</td>
+<td class="structDesc">A location description string for this Event. Events may not occur in a<br>specific Room.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">roomId</td>
+<td class="structLName">Room Id</td>
+<td class="structType">String</td>
+<td class="structDesc">The Room Id is applicable.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="RoomInfo.html">RoomInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">scheduleIds</td>
+<td class="structLName">Schedule Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">The schedule Ids if this is a recurring Event.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="ScheduleInfo.html">ScheduleInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">sponsoringOrgIds</td>
+<td class="structLName">Sponsoring Org Ids</td>
+<td class="structType">StringList</td>
+<td class="structDesc">The sponsoring Org Ids for this Event.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="OrgInfo.html">OrgInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">backingReferenceUri</td>
+<td class="structLName">Backing Reference Uri</td>
+<td class="structType">String</td>
+<td class="structDesc">The backing reference URI</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="EntityInfo.html">EntityInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">backingReferenceId</td>
+<td class="structLName">Backing Reference Id</td>
+<td class="structType">String</td>
+<td class="structDesc">The backing reference Id</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">Any Info</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">atpId</td>
+<td class="structLName">Atp Id</td>
+<td class="structType">String</td>
+<td class="structDesc">Identifies the ATP or term or sub-term to which this event belongs, if<br>any. The dates of this event do not have to fall within the range of the<br>specified ATP. Also this ATP may or may not match the ATP on a calendar<br>to which this event may be added.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard"><a href="AtpInfo.html">AtpInfo</a></td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">meta</td>
+<td class="structLName">Meta</td>
+<td class="structType"><a href="MetaInfo.html">MetaInfo</a>
+</td><td class="structDesc">Create and last update info for the structure. This is optional<br>and treated as read only since the data is set by the internals<br>of the service during maintenance operations.<br><br>Contains audit trail information about the creation and last<br>update of this object Also contains the version ind used for<br>optimistic locking.<br><br>Attempts to set or update should result in a ReadOnlyException<br>being thrown.</td>
+<td class="structOpt">Required on updates</td>
+<td class="structOpt">Read only</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+<tr>
+<td class="structSName">attributes</td>
+<td class="structLName">Dynamic Attributes</td>
+<td class="structType"><a href="AttributeInfo.html">AttributeInfoList</a>
+</td><td class="structDesc">List of dynamic attributes, each holding a key-value pair that<br>can be configured to hold additional information for an<br>implementing institution.<br><br>Note: the key may be repeated more than once to simulate a list<br>of values.</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structOpt">&nbsp;</td>
+<td class="structCard">&nbsp;</td>
+<td class="commentsDesc">&nbsp;</td>
+</tr>
+</table>
+<h2><a name="jsonStructure"></a>JSON Structure</h2>
+<a href="#TopOfPage">Top</a>
+<pre>
+{
+    "id" : "id",
+    "typeKey" : "XXXX",
+    "stateKey" : "XXXX",
+    "name" : "XXXX",
+    "descr" :  {
+        "plain" : "XXXX",
+        "formatted" : "XXXX"
+        },
+    "isImplicit" : true,
+    "explicitEventId" : "id",
+    "composedEventIds" : ["id", ...],
+    "startDate" : "YYYY-MM-DD",
+    "endDate" : "YYYY-MM-DD",
+    "locationDescription" : "XXXX",
+    "roomId" : "id",
+    "scheduleIds" : ["id", ...],
+    "sponsoringOrgIds" : ["id", ...],
+    "backingReferenceUri" : "XXXX",
+    "backingReferenceId" : "id",
+    "atpId" : "id",
+    "meta" :  {
+        "versionInd" : "XXXX",
+        "createTime" : "YYYY-MM-DD",
+        "createId" : "id",
+        "updateTime" : "YYYY-MM-DD",
+        "updateId" : "id"
+        },
+    "attributes" : [ {
+        "id" : "id",
+        "key" : "XXXX",
+        "value" : "XXXX"
+        },
+        ...]
+}</pre>
+
+</body>
+</html>
