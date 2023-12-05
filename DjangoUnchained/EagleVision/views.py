@@ -511,7 +511,6 @@ def check_email(max, current, courseID, title, request):
         # Send email notification
         subject = f'Seats Available for {title}'
         message = f'There are {max - current} available seats for {title}.'
-        ##html_message = render_to_string('email_notification_template.html', {'message': message})
         send_email(recipient_email, subject, message)
 
 def send_email(recipient, subject, message):
