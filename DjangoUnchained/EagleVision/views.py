@@ -29,7 +29,7 @@ from django.template.loader import render_to_string
 import uuid
 from django.utils.timezone import now
 from pprint import pprint
-
+import random
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -512,13 +512,17 @@ def section_api_endpoint(request, id):
                 send_email(recipient_email, subject, message)
             '''
 
-            course = Section.objects.get_or_create(section_id=identity,
-                                instructor=';'.join(sorted(instructors)),
-                                title=name, 
-                                currentSeats=current, 
-                                maxSeats=max, 
-                                location=locale, 
-                                courseid=id)
+            Section.objects.get_or_create(
+                section_id=identity,
+                defaults={
+                    'instructor': ', '.join(instructors),
+                    'title': name,
+                    'location': locale,
+                    'currentSeats': current,
+                    'maxSeats': max,
+                    'courseid': id
+                }
+            )
 
 
     
@@ -722,13 +726,14 @@ def apply_snapshot(request, snapshot_id):
     }
 
     return render(request, 'admin_report.html', context)
+
+
+@require_http_methods(["POST"])
 def change_seats(request, section_id):
     section = get_object_or_404(Section, section_id=section_id)
-
-    if request.method == 'POST':
-        section.change_seats()
-
+    section.change_seats()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 def set_email(current, max, title, section_id, request):
     recipient_email = request.session.get('email', 'recipient@example.com')

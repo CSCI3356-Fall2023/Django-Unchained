@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import random
+import logging
 
 from django.conf import settings
 
@@ -97,7 +98,7 @@ class Course(models.Model):
         return self.time_slot
 
 class Section(models.Model):
-    section_id = models.CharField(max_length=255, default='')
+    section_id = models.CharField(max_length=255, unique=True, default='')
     instructor = models.CharField(max_length=255, default='')
     title = models.CharField(max_length=255, default='')
     location = models.CharField(max_length=255, default='')
@@ -106,7 +107,7 @@ class Section(models.Model):
     courseid = models.CharField(max_length=255, default='')
 
     def change_seats(self):
-        self.currentSeats = random.randint(0, int(self.maxSeats))
+        self.currentSeats = random.randint(0, min(int(self.maxSeats),999))
         self.save()
 
 class Watchlist(models.Model):
