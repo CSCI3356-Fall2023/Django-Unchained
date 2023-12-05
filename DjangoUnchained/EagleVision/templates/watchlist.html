@@ -39,14 +39,14 @@
                     <tbody>
                         {% for course in watchlist_courses %}
                         <tr>
-                            <td>{{ course.section }}</td>
+                            <td>{{ course.title }}</td>
                             <td>{{ course.title }}</td>
                             <td>{{ course.instructor }}</td>
                             <td>{{ course.status }}</td>
                             <td>
                                 <form action="{% url 'remove_from_watchlist' %}" method="post">
                                     {% csrf_token %}
-                                    <input type="hidden" name="course_id" value="{{ course.id }}">
+                                    <input type="hidden" name="section_id" value="{{ course.id }}">
                                     <button type="submit">Remove</button>
                                 </form>
                             </td>
