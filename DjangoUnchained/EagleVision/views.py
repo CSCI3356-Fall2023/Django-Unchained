@@ -29,6 +29,7 @@ from django.template.loader import render_to_string
 import uuid
 from django.utils.timezone import now
 from pprint import pprint
+
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -100,7 +101,6 @@ def callback(request):
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)    
     response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
-    data_list = []
     if response.status_code == 200:
         for entry in response.json():
             offering = entry['courseOffering']
@@ -110,7 +110,6 @@ def course_selection(request):
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
 
-            
             new_response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
             course_info = {}
 
@@ -132,7 +131,6 @@ def course_selection(request):
                             'instructors': [instructor.get('personName', '') for instructor in instructors]
                         }
 
-           
             for course_id, info in course_info.items():
                 upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
                 upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
@@ -141,29 +139,26 @@ def course_selection(request):
 
                 schedules_str = ', '.join(sorted(unique_sche))
                 instructors_str = ', '.join(sorted(unique_instr))
+
                 
-               
-                new_course = Course(
+                Course.objects.get_or_create(
                     course_id=course_id,
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                    schedule=schedules_str,
-                    instructor=instructors_str
+                    defaults={
+                        'title': offering['name'],
+                        'description': description_text,
+                        'date': date_text,
+                        'schedule': schedules_str,
+                        'instructor': instructors_str
+                    }
                 )
-                new_course.save()
-                data_list.append(new_course)
-    '''
-    for block in Course.objects.all():
-        if Course.objects.filter(course_id=block.course_id).count() > 1:
-            block.delete()
-    '''
+
     all_courses = Course.objects.all()
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
     return render(request, 'course_selection.html', context)
+
 
 def logout_view(request):
     logout(request)
@@ -448,17 +443,20 @@ def filterRequest(request):
         context['form'] = CourseFilterForm()
         return render(request, "filters.html", context)
 
+
 @login_required
 def watchlist(request):
-    user_watchlist_courses = Watchlist.objects.filter(user=request.user)
-    sections = [thing.course for thing in user_watchlist_courses]
-    seats = [str(section.currentSeats) + '/' + str(section.maxSeats) for section in sections]
+    user_watchlist_courses = Watchlist.objects.filter(user=request.user).select_related('section')
+    sections = [entry.section for entry in user_watchlist_courses]
+    seats_info = [{'course_title': section.title, 'current_seats': section.currentSeats, 'max_seats': section.maxSeats} for section in sections]
+    
     context = {
         'user': request.user,
         'watchlist_courses': sections,
-        'seats': seats
+        'seats_info': seats_info
     }
     return render(request, "watchlist.html", context)
+
 
 @login_required
 @require_http_methods(["POST"])
@@ -472,11 +470,10 @@ def add_to_watchlist(request):
         messages.error(request, "System state is not set. Please contact the administrator.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-    course_id = request.POST.get('section_id')
-    course = Section.objects.get(section_id=course_id)
-
-    watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
-    
+    section_id = request.POST.get('section_id')
+    section = Section.objects.get(section_id=section_id)
+    course = Course.objects.get(course_id=section.courseid)
+    watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, section=section, course=course)
     if created:
         messages.success(request, "Course added to watchlist successfully.")
     else:
@@ -489,8 +486,8 @@ def add_to_watchlist(request):
 @require_http_methods(["POST"])
 def remove_from_watchlist(request):
     section_id = request.POST.get('section_id')
-    course = get_object_or_404(Section,pk=section_id)    
-    Watchlist.objects.filter(user=request.user, course=course).delete()
+    section = get_object_or_404(Section, pk=section_id)    
+    Watchlist.objects.filter(user=request.user, section=section).delete()
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -534,11 +531,9 @@ def section_api_endpoint(request, title):
     queryset = Section.objects.filter(courseid=courseID)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
-
 def is_admin(user):
     return user.is_authenticated and user.is_staff
-
-login_required
+@login_required
 @user_passes_test(is_admin)
 def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
