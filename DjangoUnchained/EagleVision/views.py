@@ -19,7 +19,7 @@ from .models import SystemSnapshot
 from urllib.parse import quote_plus
 from django.utils.html import escape
 from bs4 import BeautifulSoup
-from django.db.models import Count
+from django.db.models import Count, Max, Min
 from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from django.core.paginator import Paginator
@@ -538,6 +538,9 @@ def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     selected_snapshot_id = None
     courses_data = []
+    departments = Course.objects.values_list('department', flat=True).distinct()
+    courses = Course.objects.values_list('title', flat=True).distinct()
+    professors = Course.objects.values_list('instructor', flat=True).distinct()
 
     # Handling POST 
     if request.method == 'POST':
@@ -554,12 +557,18 @@ def admin_report(request):
         else:
             courses_data = Course.objects.all().annotate(
                 num_students_on_watch=Count('watchlist')
+            ).annotate(
+                max_students_watch=Max('watchlist__user_id'),
+                min_students_watch=Min('watchlist__user_id'),
             )
 
     context = {
         'snapshots': snapshots,
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': courses_data,
+        'departments': departments,
+        'courses': courses,
+        'professors': professors,
     }
     return render(request, 'admin_report.html', context)
 
