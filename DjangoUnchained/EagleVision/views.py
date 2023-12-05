@@ -690,7 +690,7 @@ def apply_snapshot(request, snapshot_id):
     return redirect('admin_report')
 
 def change_seats(request, section_id):
-    section = get_object_or_404(Section, pk=section_id)
+    section = get_object_or_404(Section, section_id=section_id)
 
     if request.method == 'POST':
         section.change_seats()

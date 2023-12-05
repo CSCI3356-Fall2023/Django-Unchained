@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/report/', views.admin_report, name='admin_report'),
     path('admin/report/detailed/', views.detailed_report, name='detailed_report'),
     path('system_snapshots/', views.list_system_snapshots, name='list_system_snapshots'),
-    path('change_seats/<int:section_id>/', views.change_seats, name='change_seats'),
+    path('change_seats/<uuid:section_id>/', views.change_seats, name='change_seats'),
 ]
