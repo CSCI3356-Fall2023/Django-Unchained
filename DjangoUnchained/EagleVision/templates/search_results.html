@@ -42,6 +42,12 @@
                         <p>Date: {{ course.date }}</p>
                         <p>Instructor: {{ course.instructor }}<hr></p>
                         <p>Description: {{ course.description }}</p>
+
+                        <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
+                            {% csrf_token %}
+                            <input type="hidden" name="course_id" value="{{ course.title }}">
+                            <button type="submit"> See Sections </button>
+                        </form>
                     </div>
                 {% endfor %}
             {% else %}
