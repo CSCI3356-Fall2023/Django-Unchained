@@ -33,7 +33,7 @@
                     {% else %}
                         <form action="{% url 'add_to_watchlist' %}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="section_id" value="{{ section.section_id }}">
+                            <input type="hidden" name="section_id" value="{{ section.id }}">
                             <button type="submit">Add to Watchlist</button>
                         </form>
                     {% endif %}
