@@ -491,11 +491,9 @@ def remove_from_watchlist(request):
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-def section_api_endpoint(request, title):
+def section_api_endpoint(request, id):
     recipient_email = request.session.get('email', 'recipient@example.com')
-    getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
-    courseID = getID[0]['courseOffering']['id']
-    registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
+    registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []
@@ -515,13 +513,13 @@ def section_api_endpoint(request, title):
                                 currentSeats=current, 
                                 maxSeats=max, 
                                 location=locale, 
-                                courseid=courseID)
+                                courseid=id)
     
         #set_email(current, max, title, identity, request)
     
     # Deletes the duplicate objects after they're added
     
-    queryset = Section.objects.filter(courseid=courseID)
+    queryset = Section.objects.filter(courseid=id)
     context = {'data': queryset}
     return render(request, 'section_selection.html', context)
 def is_admin(user):
