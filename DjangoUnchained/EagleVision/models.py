@@ -84,6 +84,8 @@ class Course(models.Model):
     requisite = models.CharField(max_length=255, default = 'none')
     department = models.CharField(max_length=255, default = 'none')
     courseIdentifier = models.CharField(max_length=255, default="none")
+    max_students_on_watch = models.IntegerField(default=0)
+    min_students_on_watch = models.IntegerField(default=0)
     
     def __str__(self):
         return self.title
