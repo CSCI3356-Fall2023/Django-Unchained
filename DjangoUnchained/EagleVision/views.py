@@ -19,7 +19,7 @@ from .models import SystemSnapshot
 from urllib.parse import quote_plus
 from django.utils.html import escape
 from bs4 import BeautifulSoup
-from django.db.models import Count
+from django.db.models import Count, Max, Min
 from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from django.core.paginator import Paginator
@@ -29,7 +29,7 @@ from django.template.loader import render_to_string
 import uuid
 from django.utils.timezone import now
 from pprint import pprint
-
+import random
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -503,22 +503,17 @@ def section_api_endpoint(request, id):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            '''
-            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
-                # Send email notification
-                subject = f'Seats Available for {title}'
-                message = f'There are {max - current} available seats for {title}.'
-                ##html_message = render_to_string('email_notification_template.html', {'message': message})
-                send_email(recipient_email, subject, message)
-            '''
-
-            course = Section.objects.get_or_create(section_id=identity,
-                                instructor=';'.join(sorted(instructors)),
-                                title=name, 
-                                currentSeats=current, 
-                                maxSeats=max, 
-                                location=locale, 
-                                courseid=id)
+            Section.objects.get_or_create(
+                section_id=identity,
+                defaults={
+                    'instructor': ', '.join(instructors),
+                    'title': name,
+                    'location': locale,
+                    'currentSeats': current,
+                    'maxSeats': max,
+                    'courseid': id
+                }
+            )
 
 
     
@@ -538,6 +533,9 @@ def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     selected_snapshot_id = None
     courses_data = []
+    departments = Course.objects.values_list('department', flat=True).distinct()
+    courses = Course.objects.values_list('title', flat=True).distinct()
+    professors = Course.objects.values_list('instructor', flat=True).distinct()
 
     # Handling POST 
     if request.method == 'POST':
@@ -554,24 +552,21 @@ def admin_report(request):
         else:
             courses_data = Course.objects.all().annotate(
                 num_students_on_watch=Count('watchlist')
+            ).annotate(
+                max_students_watch=Max('watchlist__user_id'),
+                min_students_watch=Min('watchlist__user_id'),
             )
 
     context = {
         'snapshots': snapshots,
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': courses_data,
+        'departments': departments,
+        'courses': courses,
+        'professors': professors,
     }
     return render(request, 'admin_report.html', context)
 
-
-def send_email(recipient, subject, message):
-    send_mail(
-        subject,
-        message,
-        'stoeva@bc.edu',  
-        [recipient],
-        fail_silently=False,
-    )
 @login_required
 @user_passes_test(is_admin)
 def detailed_report(request, course_id, snapshot_id):
@@ -713,19 +708,10 @@ def apply_snapshot(request, snapshot_id):
     }
 
     return render(request, 'admin_report.html', context)
+
+
+@require_http_methods(["POST"])
 def change_seats(request, section_id):
     section = get_object_or_404(Section, section_id=section_id)
-
-    if request.method == 'POST':
-        section.change_seats()
-
+    section.change_seats()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-def set_email(current, max, title, section_id, request):
-    recipient_email = request.session.get('email', 'recipient@example.com')
-    if current < max and Watchlist.objects.filter(user=request.user, section_id=section_id).exists():
-            # Send email notification
-            subject = f'Seats Available for {title}'
-            message = f'There are {max - current} available seats for {title}.'
-            ##html_message = render_to_string('email_notification_template.html', {'message': message})
-            send_email(recipient_email, subject, message)
