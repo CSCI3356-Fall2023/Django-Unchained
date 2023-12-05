@@ -162,6 +162,7 @@ def course_selection(request):
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
+        'messages': messages.get_messages(request),
     }
     return render(request, 'course_selection.html', context)
 
