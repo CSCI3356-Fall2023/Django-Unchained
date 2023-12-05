@@ -31,7 +31,6 @@
                         <p>Instructor: {{ course.instructor }}<hr></p>
                         <p>Description: {{ course.description }}</p>
                         
-                        <form action="{% url 'section_selection' course.title %}" method="post" class="inline section"> 
                         <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
                             {% csrf_token %}
                             <input type="hidden" name="course_id" value="{{ course.title }}">

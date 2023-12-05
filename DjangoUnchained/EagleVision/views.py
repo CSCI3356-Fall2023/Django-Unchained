@@ -452,7 +452,7 @@ def section_api_endpoint(request, id):
     
     # Deletes the duplicate objects after they're added
     
-    queryset = Section.objects.filter(courseid=courseID)
+    queryset = Section.objects.filter(courseid=id)
     context = {
             'data': queryset,
             'user_watchlist_section_ids': user_watchlist_section_ids,
