@@ -156,6 +156,7 @@ def course_selection(request):
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
+        'messages': messages.get_messages(request),
     }
     return render(request, 'course_selection.html', context)
 
@@ -351,7 +352,9 @@ def search_results(request):
 
 def filter(request):
     context = {}
-    context['form'] = CourseFilterForm()
+    context['form'] = CourseFilterForm(initial={'time_slot': 'Early Morning (00:00-09:59)', 
+                                                'days': 'Monday', 
+                                                'subject_area': 'CSCI'})
     return render(request, "filters.html", context)
     # return render(request, "filters.html", {'TIME_SLOTS': TIME_SLOTS})
 
@@ -361,12 +364,84 @@ def filterRequest(request):
         form = CourseFilterForm(request.GET)
         if form.is_valid():
             time = form.cleaned_data['time_slot']
-            days = form.cleaned_data['days']
+            day = form.cleaned_data['days']
             major = form.cleaned_data['subject_area']
-            
-    else: 
-        context = {}; context['form'] = CourseFilterForm()
-        return render(request, 'filters.html', context)
+            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + major)
+            data_list = []
+            if response.status_code == 200:
+                for course in response.json():
+                    offering = course['courseOffering']
+                    term = course['term']
+                    requisite_ids = course.get('courseOffering', {}).get('requisiteIds', [])
+                    req = []
+                    for id in requisite_ids:
+                        if id == offering['id']:
+                            req.append(offering['name'])
+                    desc = offering['descr']['plain']
+                    date = term['descr']['plain']
+                    soup = BeautifulSoup(desc, 'html.parser')
+                    desc_text = soup.get_text(separator=' ')
+                    sections = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
+                    course_info = {}
+                    
+                    for act in sections.json():
+                        if isinstance(act, str):
+                            continue
+                        activity = act['activityOffering']
+                        if activity:
+                            course_id = offering['id']
+                            instructors = activity.get('instructors', [])
+                            schedule = act.get('scheduleNames', [])
+                            if course_id in course_info:
+                                course_info[course_id]['schedules'].extend(schedule)
+                                course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
+                            else:
+                                course_info[course_id] = {
+                                    'schedules': schedule, 
+                                    'instructors': [instructor.get('person', '') for instructor in instructors]
+                                }
+                    
+                    for course_id, info in course_info.items():
+                        upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
+                        upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
+                        unique_sche = list(set(upper_sche))
+                        unique_instr = list(set(upper_instr))
+                        schedules_str = ', '.join(sorted(unique_sche))
+                        instructors_str = ', '.join(sorted(unique_instr))
+                        new_course = Course(
+                            course_id=course_id, 
+                            title=offering['name'], 
+                            description=desc_text, 
+                            date=date, 
+                            schedule=schedules_str, 
+                            instructor=instructors_str)
+                        new_course.save()
+                        data_list.append(new_course)
+        for block in Course.objects.all():
+            if Course.objects.filter(course_id=block.course_id).count() > 1:
+                block.delete()
+        
+        courses = Course.objects.all()
+        
+        if major:
+            courses = courses.filter(title__icontains=major)
+        if day:
+            for days in day:
+                courses = courses.filter(schedule__icontains=days)
+        if time:
+            courses = courses.filter(schedule__in=time)
+        distinct = {}
+        for c in courses:
+            distinct[c.title] = c
+        print(distinct)
+        filteredCourses = list(distinct.values())
+        return render(request, "search_results.html", {'filtered_courses': filteredCourses})
+    else:
+        context = {}
+        context['form'] = CourseFilterForm(initial={'time_slot': 'Early Morning (00:00-09:59)', 
+                                            'days': 'Monday', 
+                                            'subject_area': 'CSCI'})
+        return render(request, "filters.html", context)
 
 
 @login_required
@@ -433,15 +508,8 @@ def section_api_endpoint(request, title):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            '''
-            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
-                # Send email notification
-                subject = f'Seats Available for {title}'
-                message = f'There are {max - current} available seats for {title}.'
-                ##html_message = render_to_string('email_notification_template.html', {'message': message})
-                send_email(recipient_email, subject, message)
-            '''
-
+            #current = change_seats(max, current)
+        
             course = Section.objects.get_or_create(section_id=identity,
                                 instructor=';'.join(sorted(instructors)),
                                 title=name, 
@@ -449,8 +517,8 @@ def section_api_endpoint(request, title):
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=courseID)
-
-
+    
+        #set_email(current, max, title, identity, request)
     
     # Deletes the duplicate objects after they're added
     
@@ -493,6 +561,14 @@ def admin_report(request):
     }
     return render(request, 'admin_report.html', context)
 
+def set_email(current, max, title, section_id, request):
+    recipient_email = request.session.get('email', 'recipient@example.com')
+    if current < max and Watchlist.objects.filter(user=request.user, section_id=section_id).exists():
+            # Send email notification
+            subject = f'Seats Available for {title}'
+            message = f'There are {max - current} available seats for {title}.'
+            ##html_message = render_to_string('email_notification_template.html', {'message': message})
+            send_email(recipient_email, subject, message)
 
 def send_email(recipient, subject, message):
     send_mail(
@@ -502,6 +578,7 @@ def send_email(recipient, subject, message):
         [recipient],
         fail_silently=False,
     )
+
 @login_required
 @user_passes_test(is_admin)
 def detailed_report(request, course_id, snapshot_id):
@@ -643,3 +720,11 @@ def apply_snapshot(request, snapshot_id):
     }
 
     return render(request, 'admin_report.html', context)
+
+def change_seats(request, section_id):
+    section = get_object_or_404(Section, pk=section_id)
+
+    if request.method == 'POST':
+        section.change_seats()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

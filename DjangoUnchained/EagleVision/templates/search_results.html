@@ -28,7 +28,7 @@
     <div class="box m-2 w-90 h-90">
         <h1>Search Results</h1>
         <div>
-            <a href="{% url 'api' %}">Back</a>
+            <a href="{% url 'courseselect' %}">Back</a>
         </div>
 
         <div class="search-results-container">
@@ -36,7 +36,7 @@
                 {% for course in filtered_courses %}
                     <div class="search-result-item">
                         <div class="course-title">
-                            <a href="{% url 'section_selection' course.title|truncatechars:9 %}">{{ course.title }}<hr></a>
+                            <p>{{ course.title }}<hr></p>
                         </div>
                         <p>Schedule: {{ course.schedule }}</p>
                         <p>Date: {{ course.date }}</p>

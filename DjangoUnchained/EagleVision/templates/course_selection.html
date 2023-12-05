@@ -31,11 +31,11 @@
                         <p>Instructor: {{ course.instructor }}<hr></p>
                         <p>Description: {{ course.description }}</p>
                         
-                        <form action="{% url 'section_selection' course.title %}" method="post" class="inline section"> 
+                        {% comment %} <form action="{% url 'section_selection' course.title %}" method="post" class="inline section"> 
                             {% csrf_token %}
                             <input type="hidden" name="course_id" value="{{ course.title }}">
                             <button type="submit"> See Sections </button>
-                        </form>
+                        </form> {% endcomment %}
                     </div>
                 {% endif %}
             </div>
