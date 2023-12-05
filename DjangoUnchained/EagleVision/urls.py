@@ -22,7 +22,7 @@ urlpatterns = [
     path('remove_from_watchlist/', views.remove_from_watchlist, name='remove_from_watchlist'),
     path('section_selection/<str:title>', views.section_api_endpoint, name='section_selection'),
     path('admin/report/', views.admin_report, name='admin_report'),
-    path('admin/report/detailed/', views.detailed_report, name='detailed_report'),
+    path('admin/report/detailed/<str:course_id>/<int:snapshot_id>/', views.detailed_report, name='detailed_report'),
     path('system_snapshots/', views.list_system_snapshots, name='list_system_snapshots'),
 
 

@@ -15,7 +15,15 @@
             <ul>
                 {% for course in snapshot.data.courses %}
                     <li>{{ course.title }} - Enrolled: {{ course.enrollment_count }}</li>
-                {% endfor %}
+                    <ul>
+                        {% for section in course.sections %}
+                            <li>{{ section.title }} - Enrolled: {{ section.enrollment_count }}</li>
+                            <ul>
+                                {% for student in section.watchers%}
+                                    <li>{{ student.name}} {{ student.email }}</li>
+                                {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
             </ul>
         </div>
     {% empty %}
