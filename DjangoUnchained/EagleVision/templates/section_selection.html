@@ -13,6 +13,11 @@
         <a href =" {% url 'courseselect' %}">Search Courses</a>
     </nav>
     <div class="box m-2 w-90 h-90"> 
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
         <h1>Sections</h1>
         
         <form action="{% url 'search_results' %}" method="GET">
@@ -35,6 +40,12 @@
                             {% csrf_token %}
                             <input type="hidden" name="section_id" value="{{ section.section_id }}">
                             <button type="submit">Add to Watchlist</button>
+                        </form>
+                    {% endif %}
+                    {% if user.is_staff %}
+                        <form method="post" action="{% url 'change_seats' section_id=section.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="seats">Randomly Change Seats</button>
                         </form>
                     {% endif %}
                     </div>

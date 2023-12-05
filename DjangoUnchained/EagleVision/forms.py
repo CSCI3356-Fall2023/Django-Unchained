@@ -104,8 +104,6 @@ class ExtraInfoForm_admin(forms.Form):
         if Admin.objects.filter(email=cleaned_data.get("email")).exists():
             self.add_error('email', "This email is already registered.")
         return cleaned_data
-    
-
 
 class CourseFilterForm(forms.Form):
     TIME_SLOTS = (
