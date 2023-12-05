@@ -74,7 +74,7 @@ class Admin(Person):
     pass
 
 class Course(models.Model):
-    course_id = models.CharField(max_length=255)
+    course_id = models.CharField(max_length=255,unique =True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     date = models.CharField(max_length=255, default = '01/01/2023')
@@ -104,7 +104,9 @@ class Section(models.Model):
 
 class Watchlist(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE)
-    course = models.ForeignKey(Section, on_delete=models.CASCADE)
+    section= models.ForeignKey(Section, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
 
 class SystemSnapshot(models.Model):
     name = models.CharField(max_length=255)
