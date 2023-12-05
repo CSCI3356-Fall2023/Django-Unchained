@@ -29,6 +29,7 @@ from django.template.loader import render_to_string
 import uuid
 from django.utils.timezone import now
 from pprint import pprint
+
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -435,15 +436,8 @@ def section_api_endpoint(request, title):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            '''
-            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
-                # Send email notification
-                subject = f'Seats Available for {title}'
-                message = f'There are {max - current} available seats for {title}.'
-                ##html_message = render_to_string('email_notification_template.html', {'message': message})
-                send_email(recipient_email, subject, message)
-            '''
-
+            #current = change_seats(max, current)
+        
             course = Section.objects.get_or_create(section_id=identity,
                                 instructor=';'.join(sorted(instructors)),
                                 title=name, 
@@ -451,8 +445,8 @@ def section_api_endpoint(request, title):
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=courseID)
-
-
+    
+        #set_email(current, max, title, identity, request)
     
     # Deletes the duplicate objects after they're added
     
@@ -494,6 +488,14 @@ def admin_report(request):
     }
     return render(request, 'admin_report.html', context)
 
+def set_email(current, max, title, section_id, request):
+    recipient_email = request.session.get('email', 'recipient@example.com')
+    if current < max and Watchlist.objects.filter(user=request.user, section_id=section_id).exists():
+            # Send email notification
+            subject = f'Seats Available for {title}'
+            message = f'There are {max - current} available seats for {title}.'
+            ##html_message = render_to_string('email_notification_template.html', {'message': message})
+            send_email(recipient_email, subject, message)
 
 def send_email(recipient, subject, message):
     send_mail(
@@ -503,6 +505,7 @@ def send_email(recipient, subject, message):
         [recipient],
         fail_silently=False,
     )
+
 @login_required
 @user_passes_test(is_admin)
 def detailed_report(request):
@@ -616,3 +619,11 @@ def apply_snapshot(request, snapshot_id):
             Watchlist.objects.create(user=user, course=course)
 
     return redirect('admin_report')
+
+def change_seats(request, section_id):
+    section = get_object_or_404(Section, pk=section_id)
+
+    if request.method == 'POST':
+        section.change_seats()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

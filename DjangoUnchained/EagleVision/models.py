@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import random
 
 from django.conf import settings
 
@@ -101,6 +102,10 @@ class Section(models.Model):
     currentSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     maxSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     courseid = models.CharField(max_length=255, default='')
+
+    def change_seats(self):
+        self.currentSeats = random.randint(0, int(self.maxSeats))
+        self.save()
 
 class Watchlist(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE)

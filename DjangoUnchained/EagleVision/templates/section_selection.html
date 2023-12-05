@@ -37,6 +37,12 @@
                             <button type="submit">Add to Watchlist</button>
                         </form>
                     {% endif %}
+                    {% if user.is_staff %}
+                        <form method="post" action="{% url 'change_seats' section_id=section.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="seats">Randomly Change Seats</button>
+                        </form>
+                    {% endif %}
                     </div>
             </div>
             {% endfor %}
