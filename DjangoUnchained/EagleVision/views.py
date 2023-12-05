@@ -493,6 +493,7 @@ def remove_from_watchlist(request):
 
 def section_api_endpoint(request, title):
     recipient_email = request.session.get('email', 'recipient@example.com')
+    user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
     getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
     courseID = getID[0]['courseOffering']['id']
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
@@ -522,7 +523,10 @@ def section_api_endpoint(request, title):
     # Deletes the duplicate objects after they're added
     
     queryset = Section.objects.filter(courseid=courseID)
-    context = {'data': queryset}
+    context = {
+            'data': queryset,
+            'user_watchlist_section_ids': user_watchlist_section_ids,
+        }
     return render(request, 'section_selection.html', context)
 def is_admin(user):
     return user.is_authenticated and user.is_staff
@@ -577,31 +581,26 @@ def send_email(recipient, subject, message):
 
 @login_required
 @user_passes_test(is_admin)
-def detailed_report(request):
-    course_id = request.GET.get('course_id')
+def detailed_report(request, course_id, snapshot_id):
 
-    if not course_id:
+    if not course_id or not snapshot_id:
         return redirect('admin_report')
 
-    course = get_object_or_404(Course, course_id=course_id)
-    watchlist_entries = Watchlist.objects.filter(course=course)
+    snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
+    snapshot_data = snapshot.data
 
-    student_details = []
-    for entry in watchlist_entries:
-        person = entry.user
-        if person.name and person.email and person.department:
-            student_info = {
-                'name': person.name,
-                'email': person.email,
-                'department': person.department,
-            }
-            student_details.append(student_info)
+    course_info = next((course for course in snapshot_data.get('courses', []) if course['course_id'] == course_id), None)
+    if not course_info:
+        return redirect('admin_report')
+
+    sections_data = course_info.get('sections', [])
 
     context = {
-        'course': course,
-        'students': student_details,
+        'course': course_info,
+        'sections_data': sections_data,
     }
     return render(request, 'detailed_report.html', context)
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -637,24 +636,45 @@ def change_state(request):
 
 
     
+from django.utils.timezone import now
+
 def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
-    
+
     courses_data = []
     for course in Course.objects.all():
-        course_info = {
+        # Filter sections directly based on the course
+        sections = Section.objects.filter(courseid=course.course_id)
+
+        sections_data = []
+        for section in sections:
+            # Use select_related to optimize database queries
+            watchers = Watchlist.objects.filter(section=section).select_related('user')
+            watchers_data = [{
+                'name': watcher.user.name,
+                'email': watcher.user.email,
+                'department': watcher.user.department,
+            } for watcher in watchers]
+
+            section_data = {
+                'section_title': section.title,
+                'section_id': section.section_id,
+                'watchers': watchers_data,
+            }
+            sections_data.append(section_data)
+
+        course_data = {
             'course_id': course.course_id,
             'title': course.title,
-            'enrollment_count': course.watchlist_set.count(),
-            'watchers': list(course.watchlist_set.values_list('user__email', flat=True)),
-            
+            'sections': sections_data,
         }
-        courses_data.append(course_info)
-    
-    snapshot_data = {
-        'courses': courses_data,
-    }
+        courses_data.append(course_data)
+
+    snapshot_data = {'courses': courses_data}
     SystemSnapshot.objects.create(name=snapshot_name, data=snapshot_data)
+
+
+    
 
 @login_required
 @user_passes_test(is_admin)
@@ -674,20 +694,32 @@ def view_snapshot_report(request, snapshot_id):
     return render(request, 'snapshot_report.html', context)
 
 
+@login_required
+@user_passes_test(is_admin)
 def apply_snapshot(request, snapshot_id):
     snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
     snapshot_data = snapshot.data
 
-    for course_info in snapshot_data['courses']:
-        course_id = course_info['course_id']
-        course = get_object_or_404(Course, course_id=course_id)
-        course.watchlist_set.all().delete()
+    courses_data = []
+    for course_info in snapshot_data.get('courses', []):
+        total_watchers = 0
+        for section_info in course_info.get('sections', []):
+            total_watchers += len(section_info.get('watchers', []))  
 
-        for user_email in course_info['watchers']:
-            user = get_object_or_404(Person, email=user_email)
-            Watchlist.objects.create(user=user, course=course)
+        course_data = {
+            'course_id': course_info.get('course_id'),
+            'title': course_info.get('title'),
+            'num_students_on_watch': total_watchers,  
+        }
+        courses_data.append(course_data)
 
-    return redirect('admin_report')
+    context = {
+        'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
+        'selected_snapshot_id': snapshot_id,
+        'courses_data': courses_data,
+    }
+
+    return render(request, 'admin_report.html', context)
 
 def change_seats(request, section_id):
     section = get_object_or_404(Section, section_id=section_id)
