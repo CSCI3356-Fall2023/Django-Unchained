@@ -43,9 +43,9 @@
                         </form>
                     {% endif %}
                     {% if user.is_staff %}
-                        <form method="post" action="{% url 'change_seats' section_id=section.id %}">
+                        <form method="post" action="{% url 'change_seats' section_id=section.section_id %}">
                             {% csrf_token %}
-                            <button type="submit" name="seats">Randomly Change Seats</button>
+                            <button type="submit" name="seats">Change Seats</button>
                         </form>
                     {% endif %}
                     </div>
