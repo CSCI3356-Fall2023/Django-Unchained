@@ -43,10 +43,10 @@
                         </form>
                     {% endif %}
                     {% if user.is_staff %}
-                        <form method="post" action="{% url 'change_seats' section_id=section.section_id %}">
-                            {% csrf_token %}
-                            <button type="submit" name="seats">Change Seats</button>
-                        </form>
+                       <form action="{% url 'change_seats' section.section_id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Change Seats</button>
+</form>
                     {% endif %}
                     </div>
             </div>

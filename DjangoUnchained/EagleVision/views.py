@@ -19,7 +19,7 @@ from .models import SystemSnapshot
 from urllib.parse import quote_plus
 from django.utils.html import escape
 from bs4 import BeautifulSoup
-from django.db.models import Count
+from django.db.models import Count, Max, Min
 from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from django.core.paginator import Paginator
@@ -29,7 +29,7 @@ from django.template.loader import render_to_string
 import uuid
 from django.utils.timezone import now
 from pprint import pprint
-
+import random
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -363,10 +363,82 @@ def filterRequest(request):
             time = form.cleaned_data['time_slot']
             days = form.cleaned_data['days']
             major = form.cleaned_data['subject_area']
-            
-    else: 
-        context = {}; context['form'] = CourseFilterForm()
-        return render(request, 'filters.html', context)
+            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + major)
+            data_list = []
+            if response.status_code == 200:
+                for course in response.json():
+                    offering = course['courseOffering']
+                    term = course['term']
+                    requisite_ids = course.get('courseOffering', {}).get('requisiteIds', [])
+                    req = []
+                    for id in requisite_ids:
+                        if id == offering['id']:
+                            req.append(offering['name'])
+                    desc = offering['descr']['plain']
+                    date = term['descr']['plain']
+                    soup = BeautifulSoup(desc, 'html.parser')
+                    desc_text = soup.get_text(separator=' ')
+                    sections = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
+                    course_info = {}
+
+                    for act in sections.json():
+                        if isinstance(act, str):
+                            continue
+                        activity = act['activityOffering']
+                        if activity:
+                            course_id = offering['id']
+                            instructors = activity.get('instructors', [])
+                            schedule = act.get('scheduleNames', [])
+                            if course_id in course_info:
+                                course_info[course_id]['schedules'].extend(schedule)
+                                course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
+                            else:
+                                course_info[course_id] = {
+                                    'schedules': schedule, 
+                                    'instructors': [instructor.get('person', '') for instructor in instructors]
+                                }
+
+                    for course_id, info in course_info.items():
+                        upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
+                        upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
+                        unique_sche = list(set(upper_sche))
+                        unique_instr = list(set(upper_instr))
+                        schedules_str = ', '.join(sorted(unique_sche))
+                        instructors_str = ', '.join(sorted(unique_instr))
+                        new_course = Course(
+                            course_id=course_id, 
+                            title=offering['name'], 
+                            description=desc_text, 
+                            date=date, 
+                            schedule=schedules_str, 
+                            instructor=instructors_str)
+                        new_course.save()
+                        data_list.append(new_course)
+            for block in Course.objects.all():
+                if Course.objects.filter(course_id=block.course_id).count() > 1:
+                    block.delete()
+
+            courses = Course.objects.all()
+
+            if major:
+                courses = courses.filter(title__icontains=major)
+            if days:
+                for day in days:
+                    courses = courses.filter(schedule__icontains=day)
+            if time:
+                courses = courses.filter(schedule__in=time)
+            distinct = {}
+            for c in courses:
+                distinct[c.title] = c
+            print(distinct)
+            filteredCourses = list(distinct.values())
+            return render(request, "search_results.html", {'filtered_courses': filteredCourses})
+    else:
+        context = {}
+        context['form'] = CourseFilterForm(initial={'time_slot': 'Early Morning (00:00-09:59)', 
+                                            'days': 'Monday', 
+                                            'subject_area': 'CSCI'})
+        return render(request, "filters.html", context)
 
 
 @login_required
@@ -431,13 +503,17 @@ def section_api_endpoint(request, id):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            course = Section.objects.get_or_create(section_id=identity,
-                                instructor=';'.join(sorted(instructors)),
-                                title=name, 
-                                currentSeats=current, 
-                                maxSeats=max, 
-                                location=locale, 
-                                courseid=id)
+            Section.objects.get_or_create(
+                section_id=identity,
+                defaults={
+                    'instructor': ', '.join(instructors),
+                    'title': name,
+                    'location': locale,
+                    'currentSeats': current,
+                    'maxSeats': max,
+                    'courseid': id
+                }
+            )
 
 
     
@@ -457,6 +533,9 @@ def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     selected_snapshot_id = None
     courses_data = []
+    departments = Course.objects.values_list('department', flat=True).distinct()
+    courses = Course.objects.values_list('title', flat=True).distinct()
+    professors = Course.objects.values_list('instructor', flat=True).distinct()
 
     # Handling POST 
     if request.method == 'POST':
@@ -473,12 +552,18 @@ def admin_report(request):
         else:
             courses_data = Course.objects.all().annotate(
                 num_students_on_watch=Count('watchlist')
+            ).annotate(
+                max_students_watch=Max('watchlist__user_id'),
+                min_students_watch=Min('watchlist__user_id'),
             )
 
     context = {
         'snapshots': snapshots,
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': courses_data,
+        'departments': departments,
+        'courses': courses,
+        'professors': professors,
     }
     return render(request, 'admin_report.html', context)
 
@@ -623,11 +708,10 @@ def apply_snapshot(request, snapshot_id):
     }
 
     return render(request, 'admin_report.html', context)
+
+
+@require_http_methods(["POST"])
 def change_seats(request, section_id):
     section = get_object_or_404(Section, section_id=section_id)
-
-    if request.method == 'POST':
-        section.change_seats()
-        set_email(section.currentSeats, section.maxSeats, section.title, section.section_id, request)
-
+    section.change_seats()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
