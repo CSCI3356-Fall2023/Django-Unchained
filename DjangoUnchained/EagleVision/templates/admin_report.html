@@ -38,17 +38,19 @@
                     <!-- List of courses -->
                     <div class="course-list">
                         {% for course in courses_data %}
-                            <div class="course">
-                                <h3>{{ course.title }}</h3>
-                                <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
-                                <form action="{% url 'detailed_report' %}" method="get" class="inline section">
-                                    <input type="hidden" name="course_id" value="{{ course.course_id }}">
+                        <div class="course">
+                            <h3>{{ course.title }}</h3>
+                            <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
+                            {% if selected_snapshot_id %}
+                                <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
                                     <button type="submit">View Details</button>
                                 </form>
-                            </div>
-                        {% empty %}
-                            <p>No courses found.</p>
-                        {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% empty %}
+                        <p>No courses found.</p>
+                    {% endfor %}
+                    
                     </div>
                 </div>
             </div>

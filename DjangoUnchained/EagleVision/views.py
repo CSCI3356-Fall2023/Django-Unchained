@@ -156,7 +156,6 @@ def course_selection(request):
     context = {
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
-        'messages': messages.get_messages(request),
     }
     return render(request, 'course_selection.html', context)
 
@@ -352,9 +351,7 @@ def search_results(request):
 
 def filter(request):
     context = {}
-    context['form'] = CourseFilterForm(initial={'time_slot': 'Early Morning (00:00-09:59)', 
-                                                'days': 'Monday', 
-                                                'subject_area': 'CSCI'})
+    context['form'] = CourseFilterForm()
     return render(request, "filters.html", context)
     # return render(request, "filters.html", {'TIME_SLOTS': TIME_SLOTS})
 
@@ -364,84 +361,12 @@ def filterRequest(request):
         form = CourseFilterForm(request.GET)
         if form.is_valid():
             time = form.cleaned_data['time_slot']
-            day = form.cleaned_data['days']
+            days = form.cleaned_data['days']
             major = form.cleaned_data['subject_area']
-            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + major)
-            data_list = []
-            if response.status_code == 200:
-                for course in response.json():
-                    offering = course['courseOffering']
-                    term = course['term']
-                    requisite_ids = course.get('courseOffering', {}).get('requisiteIds', [])
-                    req = []
-                    for id in requisite_ids:
-                        if id == offering['id']:
-                            req.append(offering['name'])
-                    desc = offering['descr']['plain']
-                    date = term['descr']['plain']
-                    soup = BeautifulSoup(desc, 'html.parser')
-                    desc_text = soup.get_text(separator=' ')
-                    sections = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
-                    course_info = {}
-                    
-                    for act in sections.json():
-                        if isinstance(act, str):
-                            continue
-                        activity = act['activityOffering']
-                        if activity:
-                            course_id = offering['id']
-                            instructors = activity.get('instructors', [])
-                            schedule = act.get('scheduleNames', [])
-                            if course_id in course_info:
-                                course_info[course_id]['schedules'].extend(schedule)
-                                course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
-                            else:
-                                course_info[course_id] = {
-                                    'schedules': schedule, 
-                                    'instructors': [instructor.get('person', '') for instructor in instructors]
-                                }
-                    
-                    for course_id, info in course_info.items():
-                        upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
-                        upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
-                        unique_sche = list(set(upper_sche))
-                        unique_instr = list(set(upper_instr))
-                        schedules_str = ', '.join(sorted(unique_sche))
-                        instructors_str = ', '.join(sorted(unique_instr))
-                        new_course = Course(
-                            course_id=course_id, 
-                            title=offering['name'], 
-                            description=desc_text, 
-                            date=date, 
-                            schedule=schedules_str, 
-                            instructor=instructors_str)
-                        new_course.save()
-                        data_list.append(new_course)
-        for block in Course.objects.all():
-            if Course.objects.filter(course_id=block.course_id).count() > 1:
-                block.delete()
-        
-        courses = Course.objects.all()
-        
-        if major:
-            courses = courses.filter(title__icontains=major)
-        if day:
-            for days in day:
-                courses = courses.filter(schedule__icontains=days)
-        if time:
-            courses = courses.filter(schedule__in=time)
-        distinct = {}
-        for c in courses:
-            distinct[c.title] = c
-        print(distinct)
-        filteredCourses = list(distinct.values())
-        return render(request, "search_results.html", {'filtered_courses': filteredCourses})
-    else:
-        context = {}
-        context['form'] = CourseFilterForm(initial={'time_slot': 'Early Morning (00:00-09:59)', 
-                                            'days': 'Monday', 
-                                            'subject_area': 'CSCI'})
-        return render(request, "filters.html", context)
+            
+    else: 
+        context = {}; context['form'] = CourseFilterForm()
+        return render(request, 'filters.html', context)
 
 
 @login_required
@@ -493,6 +418,7 @@ def remove_from_watchlist(request):
 
 def section_api_endpoint(request, id):
     recipient_email = request.session.get('email', 'recipient@example.com')
+    user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
@@ -505,8 +431,15 @@ def section_api_endpoint(request, id):
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
 
-            #current = change_seats(max, current)
-        
+            '''
+            if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
+                # Send email notification
+                subject = f'Seats Available for {title}'
+                message = f'There are {max - current} available seats for {title}.'
+                ##html_message = render_to_string('email_notification_template.html', {'message': message})
+                send_email(recipient_email, subject, message)
+            '''
+
             course = Section.objects.get_or_create(section_id=identity,
                                 instructor=';'.join(sorted(instructors)),
                                 title=name, 
@@ -514,13 +447,16 @@ def section_api_endpoint(request, id):
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=id)
-    
-        #set_email(current, max, title, identity, request)
+
+
     
     # Deletes the duplicate objects after they're added
     
-    queryset = Section.objects.filter(courseid=id)
-    context = {'data': queryset}
+    queryset = Section.objects.filter(courseid=courseID)
+    context = {
+            'data': queryset,
+            'user_watchlist_section_ids': user_watchlist_section_ids,
+        }
     return render(request, 'section_selection.html', context)
 def is_admin(user):
     return user.is_authenticated and user.is_staff
@@ -555,14 +491,6 @@ def admin_report(request):
     }
     return render(request, 'admin_report.html', context)
 
-def set_email(current, max, title, section_id, request):
-    recipient_email = request.session.get('email', 'recipient@example.com')
-    if current < max and Watchlist.objects.filter(user=request.user, section_id=section_id).exists():
-            # Send email notification
-            subject = f'Seats Available for {title}'
-            message = f'There are {max - current} available seats for {title}.'
-            ##html_message = render_to_string('email_notification_template.html', {'message': message})
-            send_email(recipient_email, subject, message)
 
 def send_email(recipient, subject, message):
     send_mail(
@@ -572,34 +500,28 @@ def send_email(recipient, subject, message):
         [recipient],
         fail_silently=False,
     )
-
 @login_required
 @user_passes_test(is_admin)
-def detailed_report(request):
-    course_id = request.GET.get('course_id')
+def detailed_report(request, course_id, snapshot_id):
 
-    if not course_id:
+    if not course_id or not snapshot_id:
         return redirect('admin_report')
 
-    course = get_object_or_404(Course, course_id=course_id)
-    watchlist_entries = Watchlist.objects.filter(course=course)
+    snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
+    snapshot_data = snapshot.data
 
-    student_details = []
-    for entry in watchlist_entries:
-        person = entry.user
-        if person.name and person.email and person.department:
-            student_info = {
-                'name': person.name,
-                'email': person.email,
-                'department': person.department,
-            }
-            student_details.append(student_info)
+    course_info = next((course for course in snapshot_data.get('courses', []) if course['course_id'] == course_id), None)
+    if not course_info:
+        return redirect('admin_report')
+
+    sections_data = course_info.get('sections', [])
 
     context = {
-        'course': course,
-        'students': student_details,
+        'course': course_info,
+        'sections_data': sections_data,
     }
     return render(request, 'detailed_report.html', context)
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -635,24 +557,45 @@ def change_state(request):
 
 
     
+from django.utils.timezone import now
+
 def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
-    
+
     courses_data = []
     for course in Course.objects.all():
-        course_info = {
+        # Filter sections directly based on the course
+        sections = Section.objects.filter(courseid=course.course_id)
+
+        sections_data = []
+        for section in sections:
+            # Use select_related to optimize database queries
+            watchers = Watchlist.objects.filter(section=section).select_related('user')
+            watchers_data = [{
+                'name': watcher.user.name,
+                'email': watcher.user.email,
+                'department': watcher.user.department,
+            } for watcher in watchers]
+
+            section_data = {
+                'section_title': section.title,
+                'section_id': section.section_id,
+                'watchers': watchers_data,
+            }
+            sections_data.append(section_data)
+
+        course_data = {
             'course_id': course.course_id,
             'title': course.title,
-            'enrollment_count': course.watchlist_set.count(),
-            'watchers': list(course.watchlist_set.values_list('user__email', flat=True)),
-            
+            'sections': sections_data,
         }
-        courses_data.append(course_info)
-    
-    snapshot_data = {
-        'courses': courses_data,
-    }
+        courses_data.append(course_data)
+
+    snapshot_data = {'courses': courses_data}
     SystemSnapshot.objects.create(name=snapshot_name, data=snapshot_data)
+
+
+    
 
 @login_required
 @user_passes_test(is_admin)
@@ -672,25 +615,45 @@ def view_snapshot_report(request, snapshot_id):
     return render(request, 'snapshot_report.html', context)
 
 
+@login_required
+@user_passes_test(is_admin)
 def apply_snapshot(request, snapshot_id):
     snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
     snapshot_data = snapshot.data
 
-    for course_info in snapshot_data['courses']:
-        course_id = course_info['course_id']
-        course = get_object_or_404(Course, course_id=course_id)
-        course.watchlist_set.all().delete()
+    courses_data = []
+    for course_info in snapshot_data.get('courses', []):
+        total_watchers = 0
+        for section_info in course_info.get('sections', []):
+            total_watchers += len(section_info.get('watchers', []))  
 
-        for user_email in course_info['watchers']:
-            user = get_object_or_404(Person, email=user_email)
-            Watchlist.objects.create(user=user, course=course)
+        course_data = {
+            'course_id': course_info.get('course_id'),
+            'title': course_info.get('title'),
+            'num_students_on_watch': total_watchers,  
+        }
+        courses_data.append(course_data)
 
-    return redirect('admin_report')
+    context = {
+        'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
+        'selected_snapshot_id': snapshot_id,
+        'courses_data': courses_data,
+    }
 
+    return render(request, 'admin_report.html', context)
 def change_seats(request, section_id):
-    section = get_object_or_404(Section, pk=section_id)
+    section = get_object_or_404(Section, section_id=section_id)
 
     if request.method == 'POST':
         section.change_seats()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def set_email(current, max, title, section_id, request):
+    recipient_email = request.session.get('email', 'recipient@example.com')
+    if current < max and Watchlist.objects.filter(user=request.user, section_id=section_id).exists():
+            # Send email notification
+            subject = f'Seats Available for {title}'
+            message = f'There are {max - current} available seats for {title}.'
+            ##html_message = render_to_string('email_notification_template.html', {'message': message})
+            send_email(recipient_email, subject, message)
