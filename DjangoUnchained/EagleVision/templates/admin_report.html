@@ -66,12 +66,12 @@
                     <!-- List of courses -->
                     <div class="course-list">
                         {% for course in courses_data %}
-                            <div class="course">
-                                <h3>{{ course.title }}</h3>
-                                <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
-                                <p>Max: {{ course.max_students_on_watch }}</p>
-                                <p>Min: {{ course.min_students_on_watch }}</p>
-                                {% if selected_snapshot_id %}
+                        <div class="course">
+                            <h3>{{ course.title }}</h3>
+                            <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
+                            <p>Max: {{ course.max_students_on_watch }}</p>
+                            <p>Min: {{ course.min_students_on_watch }}</p>
+                            {% if selected_snapshot_id %}
                                 <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
                                     <button type="submit">View Details</button>
                                 </form>
