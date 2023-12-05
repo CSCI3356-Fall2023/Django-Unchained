@@ -363,10 +363,82 @@ def filterRequest(request):
             time = form.cleaned_data['time_slot']
             days = form.cleaned_data['days']
             major = form.cleaned_data['subject_area']
-            
-    else: 
-        context = {}; context['form'] = CourseFilterForm()
-        return render(request, 'filters.html', context)
+            response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + major)
+            data_list = []
+            if response.status_code == 200:
+                for course in response.json():
+                    offering = course['courseOffering']
+                    term = course['term']
+                    requisite_ids = course.get('courseOffering', {}).get('requisiteIds', [])
+                    req = []
+                    for id in requisite_ids:
+                        if id == offering['id']:
+                            req.append(offering['name'])
+                    desc = offering['descr']['plain']
+                    date = term['descr']['plain']
+                    soup = BeautifulSoup(desc, 'html.parser')
+                    desc_text = soup.get_text(separator=' ')
+                    sections = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
+                    course_info = {}
+
+                    for act in sections.json():
+                        if isinstance(act, str):
+                            continue
+                        activity = act['activityOffering']
+                        if activity:
+                            course_id = offering['id']
+                            instructors = activity.get('instructors', [])
+                            schedule = act.get('scheduleNames', [])
+                            if course_id in course_info:
+                                course_info[course_id]['schedules'].extend(schedule)
+                                course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
+                            else:
+                                course_info[course_id] = {
+                                    'schedules': schedule, 
+                                    'instructors': [instructor.get('person', '') for instructor in instructors]
+                                }
+
+                    for course_id, info in course_info.items():
+                        upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
+                        upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
+                        unique_sche = list(set(upper_sche))
+                        unique_instr = list(set(upper_instr))
+                        schedules_str = ', '.join(sorted(unique_sche))
+                        instructors_str = ', '.join(sorted(unique_instr))
+                        new_course = Course(
+                            course_id=course_id, 
+                            title=offering['name'], 
+                            description=desc_text, 
+                            date=date, 
+                            schedule=schedules_str, 
+                            instructor=instructors_str)
+                        new_course.save()
+                        data_list.append(new_course)
+            for block in Course.objects.all():
+                if Course.objects.filter(course_id=block.course_id).count() > 1:
+                    block.delete()
+
+            courses = Course.objects.all()
+
+            if major:
+                courses = courses.filter(title__icontains=major)
+            if days:
+                for day in days:
+                    courses = courses.filter(schedule__icontains=day)
+            if time:
+                courses = courses.filter(schedule__in=time)
+            distinct = {}
+            for c in courses:
+                distinct[c.title] = c
+            print(distinct)
+            filteredCourses = list(distinct.values())
+            return render(request, "search_results.html", {'filtered_courses': filteredCourses})
+    else:
+        context = {}
+        context['form'] = CourseFilterForm(initial={'time_slot': 'Early Morning (00:00-09:59)', 
+                                            'days': 'Monday', 
+                                            'subject_area': 'CSCI'})
+        return render(request, "filters.html", context)
 
 
 @login_required
