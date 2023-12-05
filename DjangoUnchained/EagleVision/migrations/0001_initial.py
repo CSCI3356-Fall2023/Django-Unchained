@@ -33,6 +33,7 @@ class Migration(migrations.Migration):
             name='Section',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('section_id', models.CharField(default='', max_length=255)),
                 ('instructor', models.CharField(default='', max_length=255)),
                 ('title', models.CharField(default='', max_length=255)),
                 ('location', models.CharField(default='', max_length=255)),
@@ -110,7 +111,7 @@ class Migration(migrations.Migration):
             name='Watchlist',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='EagleVision.course')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='EagleVision.section')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

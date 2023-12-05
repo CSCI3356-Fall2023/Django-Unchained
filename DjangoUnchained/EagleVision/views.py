@@ -352,7 +352,6 @@ def api_endpoint(request):
             block.delete()
     return render(request, 'course_selection.html', {'courses': data_list})
 
-
 def search_results(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_query', '')
@@ -384,7 +383,6 @@ def filter(request):
     context['form'] = CourseFilterForm()
     return render(request, "filters.html", context)
     # return render(request, "filters.html", {'TIME_SLOTS': TIME_SLOTS})
-
 
 ## we need to delete this later
 def filterRequest(request):
@@ -473,13 +471,15 @@ def filterRequest(request):
 
 @login_required
 def watchlist(request):
-    user_watchlist_courses = Course.objects.filter(watchlist__user=request.user)
+    user_watchlist_courses = Watchlist.objects.filter(user=request.user)
+    sections = [thing.course for thing in user_watchlist_courses]
+    seats = [str(section.currentSeats) + '/' + str(section.maxSeats) for section in sections]
     context = {
         'user': request.user,
-        'watchlist_courses': user_watchlist_courses,
+        'watchlist_courses': sections,
+        'seats': seats
     }
     return render(request, "watchlist.html", context)
-
 
 @login_required
 @require_http_methods(["POST"])
@@ -493,8 +493,8 @@ def add_to_watchlist(request):
         messages.error(request, "System state is not set. Please contact the administrator.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-    course_id = request.POST.get('course_id')
-    course = get_object_or_404(Course, pk=course_id)
+    course_id = request.POST.get('section_id')
+    course = get_object_or_404(Section, pk=course_id)
     watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, course=course)
     
     if created:
@@ -502,32 +502,29 @@ def add_to_watchlist(request):
     else:
         messages.info(request, "This course is already in your watchlist.")
 
-
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 @login_required
 @require_http_methods(["POST"])
 def remove_from_watchlist(request):
-    course_id = request.POST.get('course_id')
-    course = get_object_or_404(Course, pk=course_id)
+    section_id = request.POST.get('section_id')
+    course = get_object_or_404(Section,pk=section_id)    
     Watchlist.objects.filter(user=request.user, course=course).delete()
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def section_api_endpoint(request, title):
-    # recipient_email = request.session.get('email', 'recipient@example.com')
+    recipient_email = request.session.get('email', 'recipient@example.com')
     getID = requests.get("http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=" + title[0:9]).json()
     courseID = getID[0]['courseOffering']['id']
-    print(courseID)
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + courseID).json()
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []
             for instructor in section['activityOffering']['instructors']:
                 instructors.append(instructor['personName'])
-            print(instructors)
+            identity = section['activityOffering']['id']
             current = section['activitySeatCount']['used']
-            print(current)
             max = section['activitySeatCount']['total']
             name = section['activityOffering']['formatOfferingName']
             locale = section['scheduleNames'][0]
@@ -538,13 +535,15 @@ def section_api_endpoint(request, title):
                                 maxSeats=max, 
                                 location=locale, 
                                 courseid=courseID)
+            '''
             for courses in Section.objects.all():
                 if courses.location == course.location and courses.courseid == course.courseid:
                     courses.delete()
             course.save()
+            '''
 
     ## Sends an email if avaible seats and course is in waitlist    
-    check_email(max, current, courseID, title, request)
+    check_email(max, current, identity, title, request)
     # Deletes the duplicate objects after they're added
     
     queryset = Section.objects.filter(courseid=courseID)
@@ -587,9 +586,9 @@ def admin_report(request):
 
 
 def check_email(max, current, courseID, title, request):
-    print(Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists())
+    #print(Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists())
     recipient_email = request.session.get('email', 'recipient@example.com')
-    if current < max and Watchlist.objects.filter(user=request.user, course__course_id=courseID).exists():
+    if current < max:
         # Send email notification
         subject = f'Seats Available for {title}'
         message = f'There are {max - current} available seats for {title}.'

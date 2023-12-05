@@ -93,11 +93,8 @@ class Course(models.Model):
     def getTimeSlot(self):
         return self.time_slot
 
-class Watchlist(models.Model):
-    user = models.ForeignKey(Person, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-
 class Section(models.Model):
+    section_id = models.CharField(max_length=255, default='')
     instructor = models.CharField(max_length=255, default='')
     title = models.CharField(max_length=255, default='')
     location = models.CharField(max_length=255, default='')
@@ -105,6 +102,9 @@ class Section(models.Model):
     maxSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     courseid = models.CharField(max_length=255, default='')
 
+class Watchlist(models.Model):
+    user = models.ForeignKey(Person, on_delete=models.CASCADE)
+    course = models.ForeignKey(Section, on_delete=models.CASCADE)
 
 class SystemSnapshot(models.Model):
     name = models.CharField(max_length=255)
