@@ -19,5 +19,5 @@ def check_and_notify():
                 send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(check_and_notify, 'interval', minutes=60)  # Adjust the interval as needed
+scheduler.add_job(check_and_notify, 'interval', minutes=5)  # Adjust the interval as needed
 scheduler.start()

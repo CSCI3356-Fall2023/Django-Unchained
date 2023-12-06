@@ -21,23 +21,39 @@
             <a href="{% url 'filter' %}" class="filter-icon"><i class="fas fa-filter"></i></a>
         </form>
         
-        {% for course in courses %}
-            <div class="course-list">
-                {% if course.title %}
-                    <div class="course">
-                        <p class="course-title">{{ course.title }}<hr></p>
-                        <p>Date: {{ course.date }}</p>
-                        <p>Description: {{ course.description }}</p>
-                        
-                        <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
-                            {% csrf_token %}
-                            <input type="hidden" name="course_id" value="{{ course.title }}">
-                            <button type="submit"> See Sections </button>
-                        </form>
-                    </div>
-                {% endif %}
+        
+        {% for course in page_obj %}
+        <div class="course-list">
+            <div class="course">
+                <p class="course-title">{{ course.title }}<hr></p>
+                <p>Date: {{ course.date }}</p>
+                <p>Description: {{ course.description }}</p>
+                
+                <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
+                    {% csrf_token %}
+                    <input type="hidden" name="course_id" value="{{ course.title }}">
+                    <button type="submit"> See Sections </button>
+                </form>
             </div>
-        {% endfor %}
+        </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
+</div>
 </body>
 </html>

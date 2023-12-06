@@ -30,6 +30,7 @@ import uuid
 from django.utils.timezone import now
 from pprint import pprint
 import random
+from django.core.paginator import Paginator
 oauth = OAuth()
 oauth.register(
     "auth0",
@@ -151,9 +152,13 @@ def course_selection(request):
                         'instructor': instructors_str
                     }
                 )
-
     all_courses = Course.objects.all()
+    paginator = Paginator(all_courses, 10) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
+        'page_obj': page_obj,
         'courses': all_courses,
         'user_watchlist_ids': user_watchlist_course_ids,
     }
