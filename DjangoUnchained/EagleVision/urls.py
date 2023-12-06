@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/report/detailed/<str:course_id>/<int:snapshot_id>/', views.detailed_report, name='detailed_report'),
     path('system_snapshots/', views.list_system_snapshots, name='list_system_snapshots'),
     path('change_seats/<uuid:section_id>/', views.change_seats, name='change_seats'),
+    #path('sort_sections/<str:course_id>/', views.sort_sections, name='sort_sections'),
 ]
