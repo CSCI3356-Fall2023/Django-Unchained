@@ -320,9 +320,18 @@ def filterRequest(request):
     if request.method == 'GET':
         form = CourseFilterForm(request.GET)
         if form.is_valid():
-            time = form.cleaned_data['time_slot']
-            days = form.cleaned_data['days']
-            major = form.cleaned_data['subject_area']
+            try:
+                time = form.cleaned_data['time_slot']
+            except:
+                time = None
+            try:
+                days = form.cleaned_data['days']
+            except:
+                days = None
+            try:
+                major = form.cleaned_data['subject_area']
+            except:
+                major = 'CSCI'
             response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=' + major)
             data_list = []
             if response.status_code == 200:
@@ -365,32 +374,43 @@ def filterRequest(request):
                         unique_instr = list(set(upper_instr))
                         schedules_str = ', '.join(sorted(unique_sche))
                         instructors_str = ', '.join(sorted(unique_instr))
-                        new_course = Course(
-                            course_id=course_id, 
-                            title=offering['name'], 
-                            description=desc_text, 
-                            date=date, 
-                            schedule=schedules_str, 
-                            instructor=instructors_str)
-                        new_course.save()
+                        new_course = Course.objects.filter(course_id=course_id)
+                        if not new_course:
+                            new_course = Course(
+                                course_id=course_id, 
+                                title=offering['name'], 
+                                description=desc_text, 
+                                date=date, 
+                                schedule=schedules_str, 
+                                instructor=instructors_str)
+                            new_course.save()
+                        else:
+                            new_course = new_course[0]
                         data_list.append(new_course)
             for block in Course.objects.all():
                 if Course.objects.filter(course_id=block.course_id).count() > 1:
                     block.delete()
-
             courses = Course.objects.all()
-
             if major:
-                courses = courses.filter(title__icontains=major)
+                try:
+                    courses = courses.filter(title__icontains=major)
+                except:
+                    pass
             if days:
                 for day in days:
-                    courses = courses.filter(schedule__icontains=day)
+                    try:
+                        courses = courses.filter(schedule__icontains=day)
+                    except:
+                        pass
             if time:
-                courses = courses.filter(schedule__in=time)
+                try:
+                    courses = courses.filter(schedule__in=time)
+                except:
+                    pass
             distinct = {}
+            courses = data_list
             for c in courses:
                 distinct[c.title] = c
-            print(distinct)
             filteredCourses = list(distinct.values())
             return render(request, "search_results.html", {'filtered_courses': filteredCourses})
     else:

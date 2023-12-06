@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import random
 import logging
+import requests
 
 from django.conf import settings
 
@@ -107,8 +108,12 @@ class Section(models.Model):
     courseid = models.CharField(max_length=255, default='')
 
     def change_seats(self):
-        self.currentSeats = random.randint(0, min(int(self.maxSeats),999))
-        self.save()
+        response = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + self.courseid).json()
+        for entry in response:
+            for section in entry['activityOfferings']:
+                if section['activityOffering']['id'] == self.section_id:
+                    self.currentSeats = section['activitySeatCount']['used']
+                    self.save()
 
 class Watchlist(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE)

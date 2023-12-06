@@ -12,7 +12,6 @@ def check_and_notify():
 
         for watchlist_entry in watchlist_entries:
             user = watchlist_entry.user
-
             if section.currentSeats < section.maxSeats:
                 # Send email notification
                 subject = f'Seats Available for {section.title}'
