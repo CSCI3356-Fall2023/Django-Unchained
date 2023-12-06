@@ -26,9 +26,7 @@
                 {% if course.title %}
                     <div class="course">
                         <p class="course-title">{{ course.title }}<hr></p>
-                        <p>Schedule: {{ course.schedule }}</p>
                         <p>Date: {{ course.date }}</p>
-                        <p>Instructor: {{ course.instructor }}<hr></p>
                         <p>Description: {{ course.description }}</p>
                         
                         <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 

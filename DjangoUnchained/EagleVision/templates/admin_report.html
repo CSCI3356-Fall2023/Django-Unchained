@@ -34,18 +34,10 @@
                         </select>
                         <button type="submit">Apply Snapshot</button>
                     </form>
-                    {% comment %}<form method="GET" action="{% url 'admin_report' %}">
-                        <select name="department">
-                            <option value="">Select Department</option>
-                            <!-- Populate department options dynamically from your database -->
-                            {% for department in departments %}
-                                <option value="{{ department }}">{{ department }}</option>
-                            {% endfor %}
-                        </select>
+                    <form method="GET" action="{% url 'admin_report' %}">
                     
                         <select name="course">
                             <option value="">Select Course</option>
-                            <!-- Populate course options dynamically from your database -->
                             {% for course in courses %}
                                 <option value="{{ course.title }}">{{ course.title }}</option>
                             {% endfor %}
@@ -53,14 +45,13 @@
                     
                         <select name="professor">
                             <option value="">Select Professor</option>
-                            <!-- Populate professor options dynamically from your database -->
                             {% for professor in professors %}
                                 <option value="{{ professor }}">{{ professor }}</option>
                             {% endfor %}
                         </select>
                     
                         <button type="submit">Apply Filters</button>
-                    </form>{% endcomment %}
+                    </form>
                     
 
                     <!-- List of courses -->

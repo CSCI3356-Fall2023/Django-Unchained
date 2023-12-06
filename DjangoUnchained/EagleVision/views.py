@@ -266,58 +266,18 @@ def api_endpoint(request):
         for entry in response.json():
             offering = entry['courseOffering']
             term = entry['term']
-            requisite_ids = entry.get('courseOffering', {}).get('requisiteIds', [])
-            req = []
-            for id in requisite_ids:
-                if id == offering['id']:
-                    req.append(offering['name'])
-            #'requisiteIds' is not the same as 'id' of requisites. Still exploring...#
             description_html = offering['descr']['plain']
             date_text = term['descr']['plain']
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
-            new_response = requests.get('http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId=' + offering['id'])
-            course_info = {}
-
-            for new_entry in new_response.json():
-                if isinstance(new_entry, str):
-                    continue
-
-                activity = new_entry.get('activityOffering')
-
-                if activity:
-                    course_id = offering['id']
-                    instructors = activity.get('instructors', [])
-                    schedule_names = new_entry.get('scheduleNames', [])
-                    if course_id in course_info:
-                        course_info[course_id]['schedules'].extend(schedule_names)
-                        course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
-                    else:
-                        course_info[course_id] = {
-                            'schedules': schedule_names,
-                            'instructors': [instructor.get('personName', '') for instructor in instructors]
-                        }
-
-
-            for course_id, info in course_info.items():
-                upper_sche = [sche.upper() for sche in sorted(info['schedules'])]
-                upper_instr = [instr.upper() for instr in sorted(info['instructors'])]
-                unique_sche = list(set(upper_sche))
-                unique_instr = list(set(upper_instr))
-
-                schedules_str = ', '.join(sorted(unique_sche))
-                instructors_str = ', '.join(sorted(unique_instr))
                 
-                new_course = Course(
-                    course_id=course_id,
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                    schedule=schedules_str,
-                    instructor=instructors_str
-                )
-                new_course.save()
-                data_list.append(new_course)
+            new_course = Course(
+                title=offering['name'],
+                description=description_text,
+                date=date_text,
+            )
+            new_course.save()
+            data_list.append(new_course)
     for block in Course.objects.all():
         if Course.objects.filter(course_id=block.course_id).count() > 1:
             block.delete()
@@ -527,41 +487,45 @@ def section_api_endpoint(request, id):
     return render(request, 'section_selection.html', context)
 def is_admin(user):
     return user.is_authenticated and user.is_staff
+
+from django.db.models import Q
+
 @login_required
 @user_passes_test(is_admin)
 def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     selected_snapshot_id = None
     courses_data = []
-    departments = Course.objects.values_list('department', flat=True).distinct()
     courses = Course.objects.values_list('title', flat=True).distinct()
     professors = Course.objects.values_list('instructor', flat=True).distinct()
 
-    # Handling POST 
+    # Handling POST
     if request.method == 'POST':
         selected_snapshot_id = request.POST.get('snapshot')
         if selected_snapshot_id:
             return apply_snapshot(request, selected_snapshot_id)
 
-    # Handling GET 
+    # Handling GET
     elif request.method == 'GET':
         selected_snapshot_id = request.GET.get('snapshot', None)
+        selected_course = request.GET.get('course', '')
+        selected_professor = request.GET.get('professor', '')
+
         if selected_snapshot_id:
             selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
             courses_data = selected_snapshot.data['courses']
         else:
-            courses_data = Course.objects.all().annotate(
-                num_students_on_watch=Count('watchlist')
-            ).annotate(
-                max_students_watch=Max('watchlist__user_id'),
-                min_students_watch=Min('watchlist__user_id'),
-            )
+            filters = Q()
+
+            if selected_professor:
+                filters &= Q(instructor=selected_professor)
+
+            courses_data = Course.objects.filter(filters)
 
     context = {
         'snapshots': snapshots,
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': courses_data,
-        'departments': departments,
         'courses': courses,
         'professors': professors,
     }
