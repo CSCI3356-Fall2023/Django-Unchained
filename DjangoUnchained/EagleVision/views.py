@@ -109,7 +109,7 @@ def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
     subject_areas = [
     'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'INTL','JOUR', 'LAWS', 'MATH', 
+    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -337,8 +337,7 @@ def logout(request):
 def api_endpoint(request):
     subject_areas = [
     'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'ENGL', 'FILM', 'GERM', 'HIST',
-    'INTL', 'JESU', 'JOUR', 'LAWS', 'MATH', 'UNCS', 'XRBC'
+    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -545,6 +544,13 @@ def admin_report(request):
     professors = Course.objects.values_list('instructor', flat=True).distinct()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number 
+    most_popular_course = MostPopularCourse.objects.all().first()
+    if most_popular_course:
+        most_popular_course_name = most_popular_course.most_popular_course
+        most_popular_course_count = most_popular_course.most_popular_course_count
+    else:
+        most_popular_course_name = ''
+        most_popular_course_count = 0
 
     if 'snapshot_data' in request.session:
        
@@ -581,13 +587,15 @@ def admin_report(request):
 
         filters = Q()
         if selected_professor:
-            filters &= Q(instructor=selected_professor)
+            filters &= Q(instructor__icontains=selected_professor)
         if selected_course:
-            filters &= Q(title=selected_course)
+            filters &= Q(title__icontains=selected_course)
 
         courses_query = Course.objects.filter(filters)
-        paginator = Paginator(courses_query, 9)  
+        paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
+        most_popular_class_title = ''
+        most_popular_class_watch_count = 0
 
 
         context = {
@@ -596,8 +604,10 @@ def admin_report(request):
             'courses_data': paginated_courses_data,
             'courses': courses,
             'professors': professors,
-            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
-            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
+            'most_popular_class_title': most_popular_class_title,
+            'most_popular_class_watch_count': most_popular_class_watch_count,
+            'MostPopularCourse': most_popular_course_name,
+            'MostPopularCourseCount': most_popular_course_count,
         }
 
     return render(request, 'admin_report.html', context)
