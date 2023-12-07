@@ -424,8 +424,8 @@ def watchlist(request):
 def add_to_watchlist(request):
     try:
         current_state = SystemState.objects.latest('updated_at')
-        if not current_state.state:  
-            messages.error(request, "The system is currently closed. You cannot add courses to your watchlist.")
+        if not current_state.state:   
+            messages.error(request, 'Sorry System is closed right now please contact Admin.')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     except SystemState.DoesNotExist:
         messages.error(request, "System state is not set. Please contact the administrator.")
