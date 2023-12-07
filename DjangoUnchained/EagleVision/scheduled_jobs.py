@@ -19,7 +19,7 @@ def check_and_notify():
         # Send priority email less than five seats
         if section.maxSeats - section.currentSeats < 6:
             subject = f'Only {section.maxSeats - section.currentSeats} seats available for {section.title}'
-            message = f'There are {section.maxSeats - section.currentSeats} available seats for {section.title}. Register soon since seats may fill up quickly'
+            message = f'There are {section.maxSeats - section.currentSeats} available seats for {section.title}. Register soon since seats may fill up quickly.'
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
         course_available.append({'title': section.title, 'available_seats': section.maxSeats - section.currentSeats})
 
