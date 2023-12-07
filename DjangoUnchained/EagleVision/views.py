@@ -241,10 +241,11 @@ def logout_view(request):
 @login_required
 def user_profile(request):
     user = request.user
+    system_state = SystemState.objects.get_or_create()[0].state
     try:
-        system_state = SystemState.objects.get(id=1)  
+        system_state = SystemState.objects.get(id=1)
     except SystemState.DoesNotExist:
-        system_state = None  
+        system_state = None
 
     context = {
         'user': user,
@@ -438,8 +439,8 @@ def watchlist(request):
 def add_to_watchlist(request):
     try:
         current_state = SystemState.objects.latest('updated_at')
-        if not current_state.state:  
-            messages.error(request, "The system is currently closed. You cannot add courses to your watchlist.")
+        if not current_state.state:   
+            messages.error(request, 'Sorry System is closed right now please contact Admin.')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     except SystemState.DoesNotExist:
         messages.error(request, "System state is not set. Please contact the administrator.")
@@ -710,7 +711,6 @@ def sort_sections(request, queryset):
                     'time_descending': lambda section: section.time
     }
 
-    print(queryset[0].time)
     reversed_queries = {'teacher_descending', 'max_seats_descending', 'open_seats_descending', 'time_descending'}
     queryset.sort(key=sort_functions[parameter], reverse=parameter in reversed_queries)
     if parameter == 'time_ascending' or parameter == 'time_descending':
