@@ -599,8 +599,6 @@ def admin_report(request):
             'courses_data': paginated_courses_data,
             'courses': courses,
             'professors': professors,
-            'most_popular_class_title': most_popular_class_title,
-            'most_popular_class_watch_count': most_popular_class_watch_count,
             'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
             'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
         }
