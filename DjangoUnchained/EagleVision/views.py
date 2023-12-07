@@ -740,10 +740,6 @@ def apply_snapshot(request, snapshot_id):
 
     return redirect('admin_report')  
 
-
-
-
-
 @login_required
 @user_passes_test(is_admin)
 @require_http_methods(["POST"])
