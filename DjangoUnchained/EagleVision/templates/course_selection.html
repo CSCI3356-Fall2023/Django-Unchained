@@ -32,8 +32,11 @@
     <nav class="nav-menu">
         <a href="{% url 'profile'%}">Home</a>
         <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+        <a href="#">Export Schedule</a>
         <a href =" {% url 'courseselect' %}">Search Courses</a>
-        <a href="{% url 'admin_report' %}">Admin Report</a>
+        {% if user.is_staff %}
+            <a href="{% url 'admin_report' %}">Admin Report</a>
+        {% endif %}
     </nav>
     <div class="content-wrapper">
         <div class="filter-sidebar">

@@ -65,7 +65,9 @@
                 <a href="{% url 'watchlist' %}">My WatchList</a>
                 <a href="#">Export Schedule</a>
                 <a href="{% url 'courseselect' %}">Search Courses</a>
-                <a href="{% url 'admin_report' %}" class="active">Admin Report</a>
+                {% if user.is_staff %}
+                    <a href="{% url 'admin_report' %}">Admin Report</a>
+                {% endif %}
             </nav>
         </aside>
         <main class="main-content">
