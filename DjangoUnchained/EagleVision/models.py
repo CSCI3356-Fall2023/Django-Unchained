@@ -109,6 +109,7 @@ class Section(models.Model):
     currentSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     maxSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     courseid = models.CharField(max_length=255, default='')
+    time = models.CharField(max_length=255, default='')
 
 
     def change_seats(self):

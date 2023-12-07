@@ -39,10 +39,24 @@
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
-            <a href="{% url 'filter' %}" class="filter-icon"><i class="fas fa-filter"></i></a>
         </form>
         
         
+        <form method="POST">
+            {% csrf_token %}
+            <label for="sort">Sort by:</label>
+            <select name="sort" id="sort" onChange="this.form.submit();">
+              <option value="default">Default</option>
+              <option value="teacher_ascending">Instructor A_Z</option>
+              <option value="teacher_descending">Instructor Z_A</option>
+              <option value="max_seats_ascending">Least max seats</option>
+              <option value="max_seats_descending">Most max seats</option>
+              <option value="open_seats_ascending">Least open seats</option>
+              <option value="open_seats_descending">Most open seats</option>
+              <option value="time_ascending">Earliest time</option>
+              <option value="time_descending">Latest time</option>
+            </select>
+          </form>
         <div class="filter-link">
             <a href="{% url 'filter'%}">Filter Courses</a>
         </div>

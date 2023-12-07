@@ -466,6 +466,7 @@ def section_api_endpoint(request, id):
             max = section['activitySeatCount']['total']
             name = section['activityOffering']['name']
             locale = section['scheduleNames'][0]
+            time = section['scheduleNames'][0].replace('Noon', 'PM')[-16:].strip()
 
             Section.objects.get_or_create(
                 section_id=identity,
@@ -475,7 +476,8 @@ def section_api_endpoint(request, id):
                     'location': locale,
                     'currentSeats': current,
                     'maxSeats': max,
-                    'courseid': id
+                    'courseid': id,
+                    'time': time
                 }
             )
 
@@ -484,13 +486,18 @@ def section_api_endpoint(request, id):
     #
     
     queryset = Section.objects.filter(courseid=id)
+    if request.method == 'POST':
+        queryset = sort_sections(request, queryset)
     context = {
+            'course_id' : id,
             'data': queryset,
             'user_watchlist_section_ids': user_watchlist_section_ids,
         }
     return render(request, 'section_selection.html', context)
+
 def is_admin(user):
     return user.is_authenticated and user.is_staff
+
 
 
 
@@ -590,8 +597,6 @@ def change_state(request):
     context = {'form': form, 'current_state': current_state.state if current_state else ''}
     return render(request, 'change_state.html', context)
 
-
-    
 from django.utils.timezone import now
 
 def capture_system_snapshot():
@@ -629,15 +634,11 @@ def capture_system_snapshot():
     snapshot_data = {'courses': courses_data}
     SystemSnapshot.objects.create(name=snapshot_name, data=snapshot_data)
 
-
-    
-
 @login_required
 @user_passes_test(is_admin)
 def list_system_snapshots(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')  
     return render(request, 'list_system_snapshots.html', {'snapshots': snapshots})
-
 
 
 def view_snapshot_report(request, snapshot_id):
@@ -648,7 +649,6 @@ def view_snapshot_report(request, snapshot_id):
         'courses': snapshot.data.get('courses', []),
     }
     return render(request, 'snapshot_report.html', context)
-
 
 @login_required
 @user_passes_test(is_admin)
@@ -677,9 +677,39 @@ def apply_snapshot(request, snapshot_id):
 
     return render(request, 'admin_report.html', context)
 
-
 @require_http_methods(["POST"])
 def change_seats(request, section_id):
     section = get_object_or_404(Section, section_id=section_id)
     section.change_seats()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+@require_http_methods(['POST'])
+def sort_sections(request, queryset):
+    queryset = list(queryset)
+    try:
+        parameter = request.POST['sort']
+    except:
+        parameter='default'
+    
+    sort_functions = {
+                    'default': lambda section: section.title,
+                    'teacher_ascending' : lambda section : section.instructor,
+                    'teacher_descending' : lambda section: section.instructor,
+                    'max_seats_ascending': lambda section: section.maxSeats,
+                    'max_seats_descending' : lambda section: section.maxSeats,
+                    'open_seats_ascending' : lambda section: section.maxSeats - section.currentSeats,
+                    'open_seats_descending' : lambda section: section.maxSeats - section.currentSeats,
+                    'time_ascending': lambda section: section.time,
+                    'time_descending': lambda section: section.time
+    }
+
+    reversed_queries = {'teacher_descending', 'max_seats_descending', 'open_seats_descending', 'time_descending'}
+    queryset.sort(key=sort_functions[parameter], reverse=parameter in reversed_queries)
+    if parameter == 'time_ascending' or parameter == 'time_descending':
+        morning = [section for section in queryset if 'AM' in section.time[:7]]
+        night = [section for section in queryset if 'PM' in section.time[:7]]
+        if parameter in reversed_queries:
+            queryset = night + morning
+        else:
+            queryset = morning + night
+    return queryset
