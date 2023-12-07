@@ -20,8 +20,7 @@ def check_and_notify():
         if section.maxSeats - section.currentSeats < 6:
             subject = f'Only {section.maxSeats - section.currentSeats} seats available for {section.title}'
             message = f'There are {section.maxSeats - section.currentSeats} available seats for {section.title}. Register soon since seats may fill up quickly'
-            print(message)
-            #send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
         course_available.append({'title': section.title, 'available_seats': section.maxSeats - section.currentSeats})
 
     if course_available:
@@ -31,6 +30,4 @@ def check_and_notify():
             f'{course["title"]}: {course["available_seats"]} available seats'
             for course in course_available
         ])
-        print()
-        print(message)
-        #send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
