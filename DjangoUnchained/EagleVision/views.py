@@ -109,8 +109,7 @@ def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
     subject_areas = [
     'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'ENGL', 'FILM', 'GERM', 'HIST',
-    'INTL', 'JESU', 'JOUR', 'LAWS', 'MATH', 'UNCS', 'XRBC'
+    'INTL','JOUR', 'LAWS', 'MATH', 
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -174,7 +173,8 @@ def course_selection(request):
 
     all_courses = Course.objects.all()
     paginator = Paginator(all_courses, 10)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get('page', 1)
+    request.session['last_course_page'] = page_number 
     page_obj = paginator.get_page(page_number)
 
 
@@ -404,7 +404,11 @@ def filterRequest(request):
             days = form.cleaned_data.get('days', [])
             major = form.cleaned_data.get('subject_area', 'CSCI')
 
+
             courses = Course.objects.all()
+
+            if major:
+                courses = courses.filter(department__contains=major)
             if days:    
                 first_day = days[0]
                 courses = courses.filter(days__contains=first_day)
@@ -424,17 +428,21 @@ def filterRequest(request):
 def watchlist(request):
     user_watchlist_courses = Watchlist.objects.filter(user=request.user).select_related('section')
     sections = [entry.section for entry in user_watchlist_courses]
-    seats_info = [{'course_title': section.title, 'current_seats': section.currentSeats, 'max_seats': section.maxSeats} for section in sections]
-    
+
+    seats_info = [{'course_title': section.title, 'course_section': section.title.split()[1] if len(section.title.split()) > 1 else "Unknown", 'current_seats': section.currentSeats, 'max_seats': section.maxSeats} for section in sections]
+
+    combined_course_info = zip(sections, seats_info)
+
     if request.method == 'POST':
-        sections = filter_sections(request, sections)
-        sections = sort_sections(request, sections)
+        combined_course_info = filter_sections(request, combined_course_info)
+        combined_course_info = sort_sections(request, combined_course_info)
+
     context = {
         'user': request.user,
-        'watchlist_courses': sections,
-        'seats_info': seats_info
+        'combined_course_info': combined_course_info,
     }
     return render(request, "watchlist.html", context)
+
 
 
 @login_required
@@ -505,53 +513,89 @@ def section_api_endpoint(request, id):
             'course_id' : id,
             'data': queryset,
             'user_watchlist_section_ids': user_watchlist_section_ids,
+            'last_course_id': request.session.get('last_course_id')
         }
     return render(request, 'section_selection.html', context)
 
 def is_admin(user):
     return user.is_authenticated and user.is_staff
 
+
+def process_snapshot_data(snapshot_data):
+    courses_data = []
+
+    for course_info in snapshot_data.get('courses', []):
+        total_watchers = 0
+        for section_info in course_info.get('sections', []):
+            total_watchers += len(section_info.get('watchers', []))
+
+        course_data = {
+            'course_id': course_info.get('course_id'),
+            'title': course_info.get('title'),
+            'num_students_on_watch': total_watchers,
+            'max_students_on_watch': course_info.get('max_students_on_watch', 0),
+            'min_students_on_watch': course_info.get('min_students_on_watch', 0),
+        }
+        courses_data.append(course_data)
+
+    return courses_data
 @login_required
 @user_passes_test(is_admin)
 def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
-    selected_snapshot_id = None
-    courses_data = []
     courses = Course.objects.values_list('title', flat=True).distinct()
     professors = Course.objects.values_list('instructor', flat=True).distinct()
+    page_number = request.GET.get('page', 1)
+    request.session['last_course_page'] = page_number 
 
-    # Handling POST
-    if request.method == 'POST':
-        selected_snapshot_id = request.POST.get('snapshot')
-        if selected_snapshot_id:
-            return apply_snapshot(request, selected_snapshot_id)
+    if 'snapshot_data' in request.session:
+       
+        snapshot_data = request.session['snapshot_data']
+        selected_snapshot_id = request.session['selected_snapshot_id']
 
-    # Handling GET
-    elif request.method == 'GET':
+        courses_data = process_snapshot_data(snapshot_data)  
+
+        paginator = Paginator(courses_data, 9)  
+        paginated_courses_data = paginator.get_page(page_number)
+
+        context = {
+            'snapshots': snapshots,
+            'selected_snapshot_id': selected_snapshot_id,
+            'courses_data': paginated_courses_data,
+            'courses': courses,
+            'professors': professors,
+        }
+    else:
         selected_snapshot_id = request.GET.get('snapshot', None)
         selected_course = request.GET.get('course', '')
         selected_professor = request.GET.get('professor', '')
 
         if selected_snapshot_id:
             selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
-            courses_data = selected_snapshot.data['courses']
-        else:
-            filters = Q()
+            request.session['snapshot_data'] = selected_snapshot.data
+            request.session['selected_snapshot_id'] = selected_snapshot_id
+            return redirect('admin_report')
 
-            if selected_professor:
-                filters &= Q(instructor=selected_professor)
+        filters = Q()
+        if selected_professor:
+            filters &= Q(instructor=selected_professor)
+        if selected_course:
+            filters &= Q(title=selected_course)
 
-            courses_data = Course.objects.filter(filters)
-    
+        courses_query = Course.objects.filter(filters)
+        paginator = Paginator(courses_query, 9)  
+        paginated_courses_data = paginator.get_page(page_number)
 
-    context = {
-        'snapshots': snapshots,
-        'selected_snapshot_id': selected_snapshot_id,
-        'courses_data': courses_data,
-        'courses': courses,
-        'professors': professors,
-    }
+        context = {
+            'snapshots': snapshots,
+            'selected_snapshot_id': selected_snapshot_id,
+            'courses_data': paginated_courses_data,
+            'courses': courses,
+            'professors': professors,
+        }
+
     return render(request, 'admin_report.html', context)
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -668,36 +712,21 @@ def view_snapshot_report(request, snapshot_id):
         'courses': snapshot.data.get('courses', []),
     }
     return render(request, 'snapshot_report.html', context)
-
 @login_required
 @user_passes_test(is_admin)
 def apply_snapshot(request, snapshot_id):
     snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
-    snapshot_data = snapshot.data
+    request.session['snapshot_data'] = snapshot.data  
+    request.session['selected_snapshot_id'] = snapshot_id  
 
-    courses_data = []
-    for course_info in snapshot_data.get('courses', []):
-        total_watchers = 0
-        for section_info in course_info.get('sections', []):
-            total_watchers += len(section_info.get('watchers', []))  
+    return redirect('admin_report')  
 
-        course_data = {
-            'course_id': course_info.get('course_id'),
-            'title': course_info.get('title'),
-            'num_students_on_watch': total_watchers,  
-            'max_students_on_watch': course_info.get('max_students_on_watch', 0),
-            'min_students_on_watch': course_info.get('min_students_on_watch', 0),
-        }
-        courses_data.append(course_data)
 
-    context = {
-        'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
-        'selected_snapshot_id': snapshot_id,
-        'courses_data': courses_data,
-    }
 
-    return render(request, 'admin_report.html', context)
 
+
+@login_required
+@user_passes_test(is_admin)
 @require_http_methods(["POST"])
 def change_seats(request, section_id):
     section = get_object_or_404(Section, section_id=section_id)

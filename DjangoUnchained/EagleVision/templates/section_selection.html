@@ -90,7 +90,7 @@
             </select>
         </form>
         <div class="filter-link">
-            <a href="{% url 'filter'%}">Filter Courses</a>
+            <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
         </div>
             {% for section in data %}
             <div class="course-list">

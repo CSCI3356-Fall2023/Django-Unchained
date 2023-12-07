@@ -4,6 +4,36 @@
 <head>
     <title>Admin Report</title>
     <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
+         <style>
+        .filter-form {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            border: 1px none #ddd;
+            border-radius: 4px;
+        }
+
+        .filter-form select {
+            width:60%;
+            padding: 8px 12px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .filter-form button {
+            background-color: #6D0000;
+            color: white;
+            border-color: #6D0000;
+            cursor: pointer;
+        }
+
+        .filter-form button:hover {
+            background-color: #6D0000;
+            border-color: #6D0000;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,10 +51,10 @@
             <div class="box m-2 w-90 h-90"> 
                 <h1>Admin Report</h1>
                 <div class="courses">
-                    <!-- Form for selecting a snapshot -->
-                    <form method="POST" action="{% url 'admin_report' %}">
-                        {% csrf_token %}
-                        <label for="snapshot">Select Snapshot:</label>
+                
+                    <label for="snapshot">Select Snapshot:</label>
+                    <form method="POST" action="{% url 'admin_report' %}" class="filter-form">
+                        {% csrf_token %}      
                         <select id="snapshot" name="snapshot">
                             {% for snapshot in snapshots %}
                                 <option value="{{ snapshot.id }}" {% if snapshot.id == selected_snapshot_id %}selected{% endif %}>
@@ -34,7 +64,7 @@
                         </select>
                         <button type="submit">Apply Snapshot</button>
                     </form>
-                    <form method="GET" action="{% url 'admin_report' %}">
+                    <form method="GET" action="{% url 'admin_report' %}" class="filter-form">
                     
                         <select name="course">
                             <option value="">Select Course</option>
@@ -71,7 +101,22 @@
                     {% empty %}
                         <p>No courses found.</p>
                     {% endfor %}
-                    
+                    <div class="pagination">
+                        <span class="step-links">
+                        <span class="page-info">Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}.</span>
+
+                        {% if courses_data.has_previous %}
+                        <a href="?page={{ courses_data.previous_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Previous</a>
+                        {% endif %}
+
+                        {% if courses_data.has_next %}
+                        <a href="?page={{ courses_data.next_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Next</a>
+                        {% endif %}
+                    </span>
+                </span>
+                    </div>
+                   
+                </div>
                     </div>
                 </div>
             </div>

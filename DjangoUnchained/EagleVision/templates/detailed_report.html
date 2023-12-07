@@ -5,8 +5,11 @@
     <title>Detailed Report</title>
     <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
 </head>
+
 <body>
+
     <div class="box m-2 w-90 h-90">
+        <a href="{% url 'admin_report' %}?page={{ request.session.last_course_page }}">Go Back </a>
         <h1>Detailed Report for {{ course.title }}</h1>
         {% for section in sections_data %}
             <h3>Section: {{ section.section_title }}</h3>

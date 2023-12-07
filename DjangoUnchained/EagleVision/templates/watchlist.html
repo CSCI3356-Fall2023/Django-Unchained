@@ -77,13 +77,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for course in watchlist_courses %}
-                        <tr>
-                            <td>{{ course.title }}</td>
-                            <td>{{ course.title }}</td>
-                            <td>{{ course.instructor }}</td>
-                            <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
-                            <td>
+                        {% for course, info in combined_course_info %}
+    <tr>
+        <td>{{ info.course_section }}</td>
+        <td>{{ course.title }}</td>
+        <td>{{ course.instructor }}</td>
+        <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
+        <td>
                                 <form action="{% url 'remove_from_watchlist' %}" method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="section_id" value="{{ course.id }}">

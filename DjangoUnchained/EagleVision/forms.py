@@ -129,7 +129,14 @@ class CourseFilterForm(forms.Form):
         ('CSCI', 'CSCI'), 
         ('MATH', 'MATH'), 
         ('CHEM', 'CHEM'), 
-        ('BIOL', 'BIOL')
+        ('BIOL', 'BIOL'),
+        ('HIST', 'HIST'),
+        ('INTL', 'INTL'),
+        ('AADS', 'AADS'),
+        ('ARTS', 'ARTS'),
+        ('ENGL', 'ENGL'),
+        ('LAWS', 'LAWS'),
+
     )
 
 
