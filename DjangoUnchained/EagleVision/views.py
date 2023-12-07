@@ -107,7 +107,7 @@ def callback(request):
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
-    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
+    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=MATH')
 
     if response.status_code == 200:
         for entry in response.json():
@@ -410,6 +410,9 @@ def watchlist(request):
     sections = [entry.section for entry in user_watchlist_courses]
     seats_info = [{'course_title': section.title, 'current_seats': section.currentSeats, 'max_seats': section.maxSeats} for section in sections]
     
+    if request.method == 'POST':
+        sections = filter_sections(request, sections)
+        sections = sort_sections(request, sections)
     context = {
         'user': request.user,
         'watchlist_courses': sections,
@@ -455,7 +458,6 @@ def section_api_endpoint(request, id):
     recipient_email = request.session.get('email', 'recipient@example.com')
     user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
-    print(registrationGroupResponse)
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []
@@ -705,3 +707,26 @@ def sort_sections(request, queryset):
         else:
             queryset = morning + night
     return queryset
+
+@require_http_methods(['POST'])
+def filter_sections(request, queryset):
+    queryset = list(queryset)
+    time_functions = {
+                        'morning': lambda time: int(time[:2]) < 12 and time[5] == 'A',
+                        'afternoon': lambda time: (int(time[:2]) == 12 or int(time[:2]) <= 5) and (time[6] == 'P' or time[5] == 'P'),
+                        'evening': lambda time: int(time[:2]) > 5 and time[5] == 'P' 
+    }
+    filter_functions = {
+                        'department': lambda section, option: section.title[:4] in request.POST.getlist('department'),
+                        'open_seats': lambda section, option: section.maxSeats - section.currentSeats > 0,
+                        'time': lambda section, option: time_functions[option](section.time)
+    }
+
+    filter_options = ['department', 'time', 'open_seats']
+    new_queryset = []
+
+    for option in filter_options:
+        if option in request.POST:
+            for selection in request.POST.getlist(option):
+                new_queryset += [section for section in queryset if filter_functions[option](section, selection)]
+    return list(set(new_queryset))
