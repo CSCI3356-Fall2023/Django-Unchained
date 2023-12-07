@@ -541,14 +541,7 @@ def admin_report(request):
     professors = Course.objects.values_list('instructor', flat=True).distinct()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number 
-    most_popular_course = MostPopularCourse.objects.all().first()
-    if most_popular_course:
-        most_popular_course_name = most_popular_course.most_popular_course
-        most_popular_course_count = most_popular_course.most_popular_course_count
-    else:
-        most_popular_course_name = ''
-        most_popular_course_count = 0
-
+    most_popular_course_instance = MostPopularCourse.objects.all().first()
 
     if most_popular_course_instance:
         most_popular_course = most_popular_course_instance.most_popular_course
