@@ -108,8 +108,7 @@ def callback(request):
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
     subject_areas = [
-    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
+    'MATH', 'BIOL', 'CHEM', 'CSCI',
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -516,14 +515,11 @@ def process_snapshot_data(snapshot_data):
     courses_data = []
 
     for course_info in snapshot_data.get('courses', []):
-        total_watchers = 0
-        for section_info in course_info.get('sections', []):
-            total_watchers += len(section_info.get('watchers', []))
 
         course_data = {
             'course_id': course_info.get('course_id'),
             'title': course_info.get('title'),
-            'num_students_on_watch': total_watchers,
+            'num_students_on_watch': course_info.get('num_students_on_watch', 0),
             'max_students_on_watch': course_info.get('max_students_on_watch', 0),
             'min_students_on_watch': course_info.get('min_students_on_watch', 0),
         }
@@ -539,22 +535,24 @@ def admin_report(request):
     professors = Course.objects.values_list('instructor', flat=True).distinct()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number 
-    most_popular_course = MostPopularCourse.objects.all().first()
-    if most_popular_course:
-        most_popular_course_name = most_popular_course.most_popular_course
-        most_popular_course_count = most_popular_course.most_popular_course_count
-    else:
-        most_popular_course_name = ''
-        most_popular_course_count = 0
+    most_popular_course_instance = MostPopularCourse.objects.all().first()
 
+    if most_popular_course_instance:
+        most_popular_course = most_popular_course_instance.most_popular_course
+        most_popular_course_count = most_popular_course_instance.most_popular_course_count
+    else:
+        most_popular_course = "Not Available"
+        most_popular_course_count = 0
+    if request.method == 'POST':
+        snapshot_id = request.POST.get('snapshot')
+        if snapshot_id:
+            return apply_snapshot(request, snapshot_id)
     if 'snapshot_data' in request.session:
-       
         snapshot_data = request.session['snapshot_data']
         selected_snapshot_id = request.session['selected_snapshot_id']
         most_popular_class_title = snapshot_data.get('most_popular_class_title', '')
         most_popular_class_watch_count = snapshot_data.get('most_popular_class_watch_count', 0)
-        courses_data = process_snapshot_data(snapshot_data)  
-
+        courses_data = process_snapshot_data(snapshot_data) 
         paginator = Paginator(courses_data, 9)  
         paginated_courses_data = paginator.get_page(page_number)
 
@@ -601,7 +599,7 @@ def admin_report(request):
             'professors': professors,
             'most_popular_class_title': most_popular_class_title,
             'most_popular_class_watch_count': most_popular_class_watch_count,
-            'MostPopularCourse': most_popular_course_name,
+            'MostPopularCourse': most_popular_course,
             'MostPopularCourseCount': most_popular_course_count,
         }
 
@@ -675,7 +673,7 @@ def capture_system_snapshot():
         sections_data = []
         course_watcher = 0
         for section in sections:
-            watchers = Watchlist.objects.filter(section=section).select_related('user')
+            watchers = Watchlist.objects.filter(section=section)
             section_watcher_count = len(watchers)
             course_watcher += section_watcher_count
             watchers_data = [{
@@ -693,6 +691,7 @@ def capture_system_snapshot():
             }
 
             sections_data.append(section_data)
+        course.max_students_on_watch = max(course_watcher, course.max_students_on_watch)
         
         if course_watcher > most_popular_courses_count:
             most_popular_courses_count = course_watcher
@@ -704,6 +703,7 @@ def capture_system_snapshot():
             'course_id': course.course_id,
             'title': course.title,
             'sections': sections_data,
+            'num_students_on_watch': course_watcher,
             'max_students_on_watch': course.max_students_on_watch,
             'most_popular_class_title': most_popular_courses_title,
             'most_popular_class_watch_count': most_popular_courses_count,
@@ -743,6 +743,7 @@ def apply_snapshot(request, snapshot_id):
     snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
     request.session['snapshot_data'] = snapshot.data  
     request.session['selected_snapshot_id'] = snapshot_id  
+    print("Applying snapshot:", snapshot_id, snapshot.data)
 
     return redirect('admin_report')  
 

@@ -98,7 +98,7 @@
                     <div class="stats-section">
                         <h2>Stats</h2>
                         <p>Most Popular Class: {{ MostPopularCourse}}</p>
-                        <p>Number of Students Watching: {{MostPopularCourseCount  }}</p>
+                        <p>Number of Students Watching: {{MostPopularCourseCount }}</p>
                     </div>
                     <div class="course-list">
                         {% for course in courses_data %}
@@ -108,9 +108,10 @@
                             <p>Max: {{ course.max_students_on_watch }}</p>
                             <p>Min: {{ course.min_students_on_watch }}</p>
                             {% if selected_snapshot_id %}
-                                <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
-                                    <button type="submit">View Details</button>
-                                </form>
+                            <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
+                                <button type="submit">View Details</button>
+                            </form>
+                            
                             {% endif %}
                         </div>
                     {% empty %}
