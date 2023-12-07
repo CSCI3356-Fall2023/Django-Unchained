@@ -750,7 +750,6 @@ def sort_sections(request, queryset):
                     'time_descending': lambda section: section.time
     }
 
-    print(queryset[0].time)
     reversed_queries = {'teacher_descending', 'max_seats_descending', 'open_seats_descending', 'time_descending'}
     queryset.sort(key=sort_functions[parameter], reverse=parameter in reversed_queries)
     if parameter == 'time_ascending' or parameter == 'time_descending':
