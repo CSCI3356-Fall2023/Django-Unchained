@@ -20,6 +20,35 @@
     padding: 10px 15px; 
     margin: 0; 
 }
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.toast-message {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: slide-in-right 0.5s;
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
     </style>
 </head>
 <body>
@@ -30,11 +59,15 @@
         <a href =" {% url 'courseselect' %}">Search Courses</a>
     </nav>
     <div class="box m-2 w-90 h-90"> 
+        {% if messages %}
+    <div class="toast-container">
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
+            <div class="toast-message alert alert-{{ message.tags }}">
                 {{ message }}
             </div>
         {% endfor %}
+    </div>
+{% endif %}
         <h1>Sections</h1>
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
