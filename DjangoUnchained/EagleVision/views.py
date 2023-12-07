@@ -108,8 +108,7 @@ def callback(request):
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
     subject_areas = [
-    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
+    'MATH', 'BIOL', 'CHEM', 'CSCI',
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -605,7 +604,7 @@ def admin_report(request):
             'professors': professors,
             'most_popular_class_title': most_popular_class_title,
             'most_popular_class_watch_count': most_popular_class_watch_count,
-            'MostPopularCourse': most_popular_course_name,
+            'MostPopularCourse': most_popular_course,
             'MostPopularCourseCount': most_popular_course_count,
         }
 
@@ -696,6 +695,7 @@ def capture_system_snapshot():
             }
 
             sections_data.append(section_data)
+        course.max_students_on_watch = max(course_watcher, course.max_students_on_watch)
         
         if course_watcher > most_popular_courses_count:
             most_popular_courses_count = course_watcher
