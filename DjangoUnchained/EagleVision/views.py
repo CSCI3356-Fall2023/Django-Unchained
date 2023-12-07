@@ -232,10 +232,11 @@ def logout_view(request):
 @login_required
 def user_profile(request):
     user = request.user
+    system_state = SystemState.objects.get_or_create()[0].state
     try:
-        system_state = SystemState.objects.get(id=1)  
+        system_state = SystemState.objects.get(id=1)
     except SystemState.DoesNotExist:
-        system_state = None  
+        system_state = None
 
     context = {
         'user': user,
