@@ -51,7 +51,7 @@ class Person(AbstractBaseUser, PermissionsMixin):
 
 
 class SystemState(models.Model):
-    state = models.BooleanField()
+    state = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Student(Person):
@@ -88,15 +88,18 @@ class Course(models.Model):
     courseIdentifier = models.CharField(max_length=255, default="none")
     max_students_on_watch = models.IntegerField(default=0)
     min_students_on_watch = models.IntegerField(default=0)
-    
+    credits = models.CharField(max_length=10, default='3')
+    time_slots = models.CharField(max_length=255, default='')
+    days = models.CharField(max_length=255, default='none')
+
     def __str__(self):
         return self.title
     def getDepartment(self):
         return self.department
     def getSchedule(self):
         return self.schedule
-    def getTimeSlot(self):
-        return self.time_slot
+
+
 
 class Section(models.Model):
     section_id = models.CharField(max_length=255, unique=True, default='')
@@ -106,6 +109,7 @@ class Section(models.Model):
     currentSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     maxSeats = models.DecimalField(max_digits=3, decimal_places=0, default=0)
     courseid = models.CharField(max_length=255, default='')
+
 
     def change_seats(self):
         response = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + self.courseid).json()
