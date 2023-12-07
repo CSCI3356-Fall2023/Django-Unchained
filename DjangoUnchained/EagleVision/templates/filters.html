@@ -5,62 +5,11 @@
     <title>Course Filtering</title>
     <link rel="stylesheet" href="{% static 'EagleVision\filters.css' %}">
 </head>
-{% comment %} Use getCourseOfferingsByCode for major,
-              getEffectiveCourseOfferingsOnDate for date,
-              getCourseOfferingsByTerm for term. 
-              Put a filter for times in the courses page. 
-            {% endcomment %}
 <body>
     <form method="GET" action="{% url 'filterRequest' %}">
         <h1> Filters </h1>
-        {% csrf_token %}
         {{ form.as_p }}
         <button type="submit"> Filter </button>
     </form>
-        {% comment %} <div class="box"> 
-            <h1> Course Course Filters</h1>
-            <div class="filterBlock m-2 w-33"> 
-                <h3>Term</h3>
-                <select name='term' class="list">
-                    <option value="Fall">Fall</option>
-                    <option value="Spring">Spring</option>
-                    <option value="Summer">Summer</option>
-                </select>
-            </div>
-            <div class="filterBlock m-2 w33"> 
-                <h3>School</h3>
-                <select name='school' class="list"></select>
-                <li><input type="radio" name="school" value="Carroll School of Management"><label>CSOM</label></li><br>
-                <li><input type="radio" name="school" value="Lynch School of Education and Human Development"><label>LSEHD</label></li><br>
-                <li><input type="radio" name="school" value="Morrissey College of Arts and Sciences"><label>MCAS</label></li><br>
-                <li><input type="radio" name="school" value="Woods College of Advancing Studies"><label>WCAS</label></li><br>
-                <li><input type="radio" name="school" value="Boston College Law School"><label>LAW</label></li><br>
-                <li><input type="radio" name="school" value="Connell School of Nursing"><label>CSON</label></li><br>
-                <li><input type="radio" name="school" value="School of Social Work"><label>SSW</label></li><br>
-                <li><input type="radio" name="school" value="School of Theology and Ministry">STM<label></label></li><br>
-            </div>
-            <div class="filterBlock m-2 w-33"> 
-                <h3>Days</h3>
-                <ul>
-                    <div class="list">
-                        <li><input type="checkbox" name="date"><label>M</label></li><br>
-                        <li><input type="checkbox" name="date"><label>T</label></li><br>
-                        <li><input type="checkbox" name="date"><label>W</label></li><br>
-                        <li><input type="checkbox" name="date"><label>TH</label></li><br>
-                        <li><input type="checkbox" name="date"><label>F</label></li><br>
-                    </div>
-                </ul>
-            </div>
-        </div>
-        <div class="filterBlock m-2 w-33">
-            <h3>Time</h3>
-            <ul>
-                <div class="list">
-                    {% for slot_value, slot_display in TIME_SLOTS %}
-                        <li><input type="checkbox" name="time_slot" value="{{ slot_value }}"><label>{{ slot_display }}</label></li><br>
-                    {% endfor %}
-                </div>
-            </ul>
-        </div>{% endcomment %}
 </body>
 </html>
