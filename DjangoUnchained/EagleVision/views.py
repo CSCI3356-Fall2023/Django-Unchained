@@ -135,7 +135,7 @@ def course_selection(request):
                         course_id = offering['id']
                         instructors = activity.get('instructors', [])
                         schedule_names = new_entry.get('scheduleNames', [])
-                        cleaned_schedule = clean_schedule_string(', '.join(schedule_names))
+                        cleaned_schedule = clean_schedule_string(''.join(schedule_names))
                         time_slots = [get_time_slot(time) for _, _, time in cleaned_schedule]
                         days = [day for _, day, _ in cleaned_schedule if day in ALLOWED_DAYS]
 
@@ -165,7 +165,7 @@ def course_selection(request):
                             'date': date_text,
                             'schedule': ', '.join(schedule_names),
                             'instructor': instructors_str,
-                            'time_slots': list(set(info['time_slots'])), 
+                            'time_slots': time_slots, 
                             'days': days_str,
                             'department': department
                         }
@@ -199,17 +199,13 @@ def clean_schedule_string(schedule_str):
     for session in sessions:
         parts = session.split(' ')
         location = ' '.join(parts[:-2])  
-        day_time = ' '.join(parts[-2:])
-        if len(day_time) == 2:
-            day, time = day_time.split(' ')
+        day, time = parts[-2:]
+        if day.lower() == 'by':
+            time = 'BY ARRANGEMENT'
         else:
-            day = day_time[0]
-            time = 'TBA'
-        time = standardize_time_format(time)
-
+            time = standardize_time_format(time)
         if day in ALLOWED_DAYS:
             cleaned_sessions.append((location, day, time))
-
     return cleaned_sessions
 
 def get_time_slot(start_time_str):
@@ -377,7 +373,8 @@ def search_results(request):
         if major:
             courses = courses.filter(major__icontains=major)
         if days:
-            courses = courses.filter(days__in=days)  
+            courses = courses.filter(days__in=days)
+        
         if time_slots:
             courses = courses.filter(time_slot__in=time_slots)  
         distinct_courses = {}
@@ -411,10 +408,8 @@ def filterRequest(request):
             if days:    
                 first_day = days[0]
                 courses = courses.filter(days__contains=first_day)
-            
             if time_slot:
-                time_slot = [time_slot]
-                courses = courses.filter(time_slots__contains=time_slot[0])
+                courses = courses.filter(time_slots__contains=time_slot)
 
             context = {'filtered_courses': courses}
             return render(request, "search_results.html", context)
@@ -674,6 +669,7 @@ def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
     courses_data = []
     most_popular_courses_count = 0
+    most_popular_courses_title='None'
     for course in Course.objects.all():
         sections = Section.objects.filter(courseid=course.course_id)
         sections_data = []
