@@ -21,7 +21,32 @@
                 <a href="#">Export Schedule</a>
                 <a href="{% url 'courseselect' %}">Search Courses</a>
                 <a href="{% url 'admin_report' %}">Admin Report</a>
-            </nav>
+                <a href="{% url 'logout' %}">Logout</a>
+            </nav><br>
+        <h1>Filters</h1>
+
+            <form method="POST" name="filters"> <br>
+                {% csrf_token %}
+                <h4>Department</h4>
+                <input type="checkbox" id="CSCI" name="department" value="CSCI">
+                <label for="CSCI">CSCI</label><br>
+                <input type="checkbox" id="MATH" name="department" value="MATH">
+                <label for="MATH">MATH</label><br>
+                <input type="checkbox" id="CHEM" name="department" value="CHEM">
+                <label for="CHEM">CHEM</label><br>
+                <input type="checkbox" id="BIOL" name="department" value="BIOL">
+                <label for="BIOL">BIOL</label><br><br>
+                <input type="checkbox" id="open_seats" name="open_seats" value="open_seats">
+                <label for="open_seats">Open Seats</label><br><br>
+                <h4>Time</h4>
+                <input type="checkbox" id="morning" name="time" value="morning">
+                <label for="morning">Morning (-12:00 PM)</label><br>
+                <input type="checkbox" id="afternoon" name="time" value="afternoon">
+                <label for="afternoon">Afternoon (12-5:00 PM)</label><br>
+                <input type="checkbox" id="evening" name="time" value="evening">
+                <label for="evening">Evening (5:00 PM-)</label><br><br>
+                <input type="submit" value="Submit">
+            </form>
         </aside>
         <main class="main-content">
             <section class="watchlist">

@@ -107,65 +107,70 @@ def callback(request):
 @login_required
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
-    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
+    subject_areas = [
+    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
+    'ENGL', 'FILM', 'GERM', 'HIST',
+    'INTL', 'JESU', 'JOUR', 'LAWS', 'MATH', 'UNCS', 'XRBC'
+    ]
+    for area in subject_areas:
+        response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
+        if response.status_code == 200:
+            for entry in response.json():
+                offering = entry['courseOffering']
+                term = entry['term']
+                description_html = offering['descr']['plain']
+                date_text = term['descr']['plain']
+                soup = BeautifulSoup(description_html, 'html.parser')
+                description_text = soup.get_text(separator=' ')
 
-    if response.status_code == 200:
-        for entry in response.json():
-            offering = entry['courseOffering']
-            term = entry['term']
-            description_html = offering['descr']['plain']
-            date_text = term['descr']['plain']
-            soup = BeautifulSoup(description_html, 'html.parser')
-            description_text = soup.get_text(separator=' ')
-
-            new_response = requests.get(f'http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId={offering["id"]}')
-            
-            course_info = {}
-
-            for new_entry in new_response.json():
-                if isinstance(new_entry, str):
-                    continue
-
-                activity = new_entry.get('activityOffering')
-                if activity:
-                    course_id = offering['id']
-                    instructors = activity.get('instructors', [])
-                    schedule_names = new_entry.get('scheduleNames', [])
-                    cleaned_schedule = clean_schedule_string(', '.join(schedule_names))
-                    time_slots = [get_time_slot(time) for _, _, time in cleaned_schedule]
-                    days = [day for _, day, _ in cleaned_schedule if day in ALLOWED_DAYS]
-
-                    if course_id in course_info:
-                        course_info[course_id]['time_slots'].extend(time_slots)
-                        course_info[course_id]['days'].extend(days)
-                        course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
-                    else:
-                        course_info[course_id] = {
-                            'time_slots': time_slots,
-                            'days': days,
-                            'instructors': [instructor.get('personName', '') for instructor in instructors],
-                        }
-
-            for course_id, info in course_info.items():
-                unique_instr = list(set(info['instructors']))
-                instructors_str = ', '.join(sorted(unique_instr))
-                unique_days = list(set(info['days']))  
-                days_str = ', '.join(sorted(unique_days))
-                department = offering['name'][:4]
+                new_response = requests.get(f'http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId={offering["id"]}')
                 
-                Course.objects.get_or_create(
-                    course_id=course_id,
-                    defaults={
-                        'title': offering['name'],
-                        'description': description_text,
-                        'date': date_text,
-                        'schedule': ', '.join(schedule_names),
-                        'instructor': instructors_str,
-                        'time_slots': list(set(info['time_slots'])), 
-                        'days': days_str,
-                        'department': department
-                    }
-                )
+                course_info = {}
+
+                for new_entry in new_response.json():
+                    if isinstance(new_entry, str):
+                        continue
+
+                    activity = new_entry.get('activityOffering')
+                    if activity:
+                        course_id = offering['id']
+                        instructors = activity.get('instructors', [])
+                        schedule_names = new_entry.get('scheduleNames', [])
+                        cleaned_schedule = clean_schedule_string(', '.join(schedule_names))
+                        time_slots = [get_time_slot(time) for _, _, time in cleaned_schedule]
+                        days = [day for _, day, _ in cleaned_schedule if day in ALLOWED_DAYS]
+
+                        if course_id in course_info:
+                            course_info[course_id]['time_slots'].extend(time_slots)
+                            course_info[course_id]['days'].extend(days)
+                            course_info[course_id]['instructors'].extend([instructor.get('personName', '') for instructor in instructors])
+                        else:
+                            course_info[course_id] = {
+                                'time_slots': time_slots,
+                                'days': days,
+                                'instructors': [instructor.get('personName', '') for instructor in instructors],
+                            }
+
+                for course_id, info in course_info.items():
+                    unique_instr = list(set(info['instructors']))
+                    instructors_str = ', '.join(sorted(unique_instr))
+                    unique_days = list(set(info['days']))  
+                    days_str = ', '.join(sorted(unique_days))
+                    department = offering['name'][:4]
+                    
+                    Course.objects.get_or_create(
+                        course_id=course_id,
+                        defaults={
+                            'title': offering['name'],
+                            'description': description_text,
+                            'date': date_text,
+                            'schedule': ', '.join(schedule_names),
+                            'instructor': instructors_str,
+                            'time_slots': list(set(info['time_slots'])), 
+                            'days': days_str,
+                            'department': department
+                        }
+                    )
 
     all_courses = Course.objects.all()
     paginator = Paginator(all_courses, 10)
@@ -195,7 +200,11 @@ def clean_schedule_string(schedule_str):
         parts = session.split(' ')
         location = ' '.join(parts[:-2])  
         day_time = ' '.join(parts[-2:])
-        day, time = day_time.split(' ')
+        if len(day_time) == 2:
+            day, time = day_time.split(' ')
+        else:
+            day = day_time[0]
+            time = 'TBA'
         time = standardize_time_format(time)
 
         if day in ALLOWED_DAYS:
@@ -326,24 +335,30 @@ def logout(request):
     )
 
 def api_endpoint(request):
-    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=CSCI')
-    data_list = []
-    if response.status_code == 200:
-        for entry in response.json():
-            offering = entry['courseOffering']
-            term = entry['term']
-            description_html = offering['descr']['plain']
-            date_text = term['descr']['plain']
-            soup = BeautifulSoup(description_html, 'html.parser')
-            description_text = soup.get_text(separator=' ')
-                
-            new_course = Course(
-                title=offering['name'],
-                description=description_text,
-                date=date_text,
-            )
-            new_course.save()
-            data_list.append(new_course)
+    subject_areas = [
+    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
+    'ENGL', 'FILM', 'GERM', 'HIST',
+    'INTL', 'JESU', 'JOUR', 'LAWS', 'MATH', 'UNCS', 'XRBC'
+    ]
+    for area in subject_areas:
+        response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
+        data_list = []
+        if response.status_code == 200:
+            for entry in response.json():
+                offering = entry['courseOffering']
+                term = entry['term']
+                description_html = offering['descr']['plain']
+                date_text = term['descr']['plain']
+                soup = BeautifulSoup(description_html, 'html.parser')
+                description_text = soup.get_text(separator=' ')
+                    
+                new_course = Course(
+                    title=offering['name'],
+                    description=description_text,
+                    date=date_text,
+                )
+                new_course.save()
+                data_list.append(new_course)
     for block in Course.objects.all():
         if Course.objects.filter(course_id=block.course_id).count() > 1:
             block.delete()
@@ -411,6 +426,9 @@ def watchlist(request):
     sections = [entry.section for entry in user_watchlist_courses]
     seats_info = [{'course_title': section.title, 'current_seats': section.currentSeats, 'max_seats': section.maxSeats} for section in sections]
     
+    if request.method == 'POST':
+        sections = filter_sections(request, sections)
+        sections = sort_sections(request, sections)
     context = {
         'user': request.user,
         'watchlist_courses': sections,
@@ -716,3 +734,26 @@ def sort_sections(request, queryset):
         else:
             queryset = morning + night
     return queryset
+
+@require_http_methods(['POST'])
+def filter_sections(request, queryset):
+    queryset = list(queryset)
+    time_functions = {
+                        'morning': lambda time: int(time[:2]) < 12 and time[5] == 'A',
+                        'afternoon': lambda time: (int(time[:2]) == 12 or int(time[:2]) <= 5) and (time[6] == 'P' or time[5] == 'P'),
+                        'evening': lambda time: int(time[:2]) > 5 and time[5] == 'P' 
+    }
+    filter_functions = {
+                        'department': lambda section, option: section.title[:4] in request.POST.getlist('department'),
+                        'open_seats': lambda section, option: section.maxSeats - section.currentSeats > 0,
+                        'time': lambda section, option: time_functions[option](section.time)
+    }
+
+    filter_options = ['department', 'time', 'open_seats']
+    new_queryset = []
+
+    for option in filter_options:
+        if option in request.POST:
+            for selection in request.POST.getlist(option):
+                new_queryset += [section for section in queryset if filter_functions[option](section, selection)]
+    return list(set(new_queryset))
