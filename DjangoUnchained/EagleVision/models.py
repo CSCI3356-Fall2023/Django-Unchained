@@ -117,8 +117,13 @@ class Section(models.Model):
         for entry in response:
             for section in entry['activityOfferings']:
                 if section['activityOffering']['id'] == self.section_id:
-                    self.currentSeats = section['activitySeatCount']['used']
+                    # self.currentSeats = section['activitySeatCount']['used']
+
+                    # change the seats
+                    self.currentSeats = random.randint(0, min(int(self.maxSeats),999))
                     self.save()
+
+
     
 
 class Watchlist(models.Model):
