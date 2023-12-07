@@ -455,7 +455,6 @@ def section_api_endpoint(request, id):
     recipient_email = request.session.get('email', 'recipient@example.com')
     user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
-    print(registrationGroupResponse)
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []
