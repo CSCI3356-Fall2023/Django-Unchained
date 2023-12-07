@@ -542,6 +542,7 @@ def admin_report(request):
                 filters &= Q(instructor=selected_professor)
 
             courses_data = Course.objects.filter(filters)
+    
 
     context = {
         'snapshots': snapshots,
@@ -611,16 +612,17 @@ from django.utils.timezone import now
 
 def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
-
     courses_data = []
+    
     for course in Course.objects.all():
-        # Filter sections directly based on the course
         sections = Section.objects.filter(courseid=course.course_id)
-
         sections_data = []
+        course_watcher = 0
         for section in sections:
-            # Use select_related to optimize database queries
+            
             watchers = Watchlist.objects.filter(section=section).select_related('user')
+            section_watcher_count = len(watchers)
+            course_watcher += section_watcher_count
             watchers_data = [{
                 'name': watcher.user.name,
                 'email': watcher.user.email,
@@ -631,16 +633,23 @@ def capture_system_snapshot():
                 'section_title': section.title,
                 'section_id': section.section_id,
                 'watchers': watchers_data,
+                'section_watcher_count': section_watcher_count,
+            
             }
-            sections_data.append(section_data)
 
+            sections_data.append(section_data)
+        course.max_students_on_watch = max(course_watcher, course.max_students_on_watch)
+
+        
         course_data = {
             'course_id': course.course_id,
             'title': course.title,
             'sections': sections_data,
+            'max_students_on_watch': course.max_students_on_watch,
         }
-        courses_data.append(course_data)
 
+        
+        courses_data.append(course_data)
     snapshot_data = {'courses': courses_data}
     SystemSnapshot.objects.create(name=snapshot_name, data=snapshot_data)
 
@@ -676,6 +685,8 @@ def apply_snapshot(request, snapshot_id):
             'course_id': course_info.get('course_id'),
             'title': course_info.get('title'),
             'num_students_on_watch': total_watchers,  
+            'max_students_on_watch': course_info.get('max_students_on_watch', 0),
+            'min_students_on_watch': course_info.get('min_students_on_watch', 0),
         }
         courses_data.append(course_data)
 

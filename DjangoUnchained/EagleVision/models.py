@@ -119,6 +119,7 @@ class Section(models.Model):
                 if section['activityOffering']['id'] == self.section_id:
                     self.currentSeats = section['activitySeatCount']['used']
                     self.save()
+    
 
 class Watchlist(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE)
