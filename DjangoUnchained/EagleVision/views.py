@@ -672,6 +672,8 @@ def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
     courses_data = []
     most_popular_courses_count = 0
+    most_popular_courses_title = '' 
+    
     for course in Course.objects.all():
         sections = Section.objects.filter(courseid=course.course_id)
         sections_data = []
@@ -700,6 +702,7 @@ def capture_system_snapshot():
         if course_watcher > most_popular_courses_count:
             most_popular_courses_count = course_watcher
             most_popular_courses_title = course.title
+       
 
         most_popular_courses_count = max(most_popular_courses_count, course_watcher)
         

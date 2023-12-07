@@ -7,6 +7,6 @@ from .scheduled_jobs import change_seats_job, check_and_notify
 
 def run_schedule():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(check_and_notify, 'cron', hour='6')  # Adjust the interval as needed
-    scheduler.add_job(change_seats_job, 'cron', hour='6')
+    scheduler.add_job(check_and_notify, 'cron', second = '30')  
+    scheduler.add_job(change_seats_job, 'cron', second = '30')  
     scheduler.start()
