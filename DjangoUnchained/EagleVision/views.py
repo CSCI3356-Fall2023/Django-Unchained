@@ -4,7 +4,7 @@ from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateFo
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
-from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section, SystemSnapshot
+from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
@@ -552,7 +552,8 @@ def admin_report(request):
        
         snapshot_data = request.session['snapshot_data']
         selected_snapshot_id = request.session['selected_snapshot_id']
-
+        most_popular_class_title = snapshot_data.get('most_popular_class_title', '')
+        most_popular_class_watch_count = snapshot_data.get('most_popular_class_watch_count', 0)
         courses_data = process_snapshot_data(snapshot_data)  
 
         paginator = Paginator(courses_data, 9)  
@@ -564,7 +565,11 @@ def admin_report(request):
             'courses_data': paginated_courses_data,
             'courses': courses,
             'professors': professors,
+            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
+            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
+
         }
+        print("hi",MostPopularCourse.objects.all().first().most_popular_course_count)
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
         selected_course = request.GET.get('course', '')
@@ -585,6 +590,8 @@ def admin_report(request):
         courses_query = Course.objects.filter(filters)
         paginator = Paginator(courses_query, 9)  
         paginated_courses_data = paginator.get_page(page_number)
+    
+
 
         context = {
             'snapshots': snapshots,
@@ -592,6 +599,10 @@ def admin_report(request):
             'courses_data': paginated_courses_data,
             'courses': courses,
             'professors': professors,
+            'most_popular_class_title': most_popular_class_title,
+            'most_popular_class_watch_count': most_popular_class_watch_count,
+            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
+            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
         }
 
     return render(request, 'admin_report.html', context)
@@ -657,13 +668,12 @@ from django.utils.timezone import now
 def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
     courses_data = []
-    
+    most_popular_courses_count = 0
     for course in Course.objects.all():
         sections = Section.objects.filter(courseid=course.course_id)
         sections_data = []
         course_watcher = 0
         for section in sections:
-            
             watchers = Watchlist.objects.filter(section=section).select_related('user')
             section_watcher_count = len(watchers)
             course_watcher += section_watcher_count
@@ -682,21 +692,35 @@ def capture_system_snapshot():
             }
 
             sections_data.append(section_data)
-        course.max_students_on_watch = max(course_watcher, course.max_students_on_watch)
+        
+        if course_watcher > most_popular_courses_count:
+            most_popular_courses_count = course_watcher
+            most_popular_courses_title = course.title
 
+        most_popular_courses_count = max(most_popular_courses_count, course_watcher)
         
         course_data = {
             'course_id': course.course_id,
             'title': course.title,
             'sections': sections_data,
             'max_students_on_watch': course.max_students_on_watch,
-        }
-
-        
+            'most_popular_class_title': most_popular_courses_title,
+            'most_popular_class_watch_count': most_popular_courses_count,
+        }      
         courses_data.append(course_data)
+    
     snapshot_data = {'courses': courses_data}
-    SystemSnapshot.objects.create(name=snapshot_name, data=snapshot_data)
-
+    SystemSnapshot.objects.create(
+        name=snapshot_name, 
+        data=snapshot_data,
+    )
+    MostPopularCourse.objects.update_or_create(
+        defaults={
+            'most_popular_course': most_popular_courses_title,
+            'most_popular_course_count': most_popular_courses_count,
+        }
+    )
+    
 @login_required
 @user_passes_test(is_admin)
 def list_system_snapshots(request):

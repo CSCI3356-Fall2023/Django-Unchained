@@ -136,6 +136,11 @@ class SystemSnapshot(models.Model):
     name = models.CharField(max_length=255)
     data = models.JSONField() 
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return self.name
+
+class MostPopularCourse(models.Model):
+    most_popular_course = models.CharField(max_length=255,default='none')
+    most_popular_course_count = models.IntegerField(default=0)
+    
