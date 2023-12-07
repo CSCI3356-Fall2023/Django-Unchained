@@ -95,9 +95,9 @@ button:hover, button:focus {
                         </tr>
                     </thead>
                     <tbody>
-                        {% for course, info in combined_course_info %}
+                        {% for course, id in combined_course_info %}
     <tr>
-        <td>{{ info.course_section }}</td>
+        <td>{{ id }}</td>
         <td>{{ course.title }}</td>
         <td>{{ course.instructor }}</td>
         <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
