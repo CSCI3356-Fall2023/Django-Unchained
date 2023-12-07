@@ -116,22 +116,21 @@
                     {% empty %}
                         <p>No courses found.</p>
                     {% endfor %}
+                    </div>
                     <div class="pagination">
                         <span class="step-links">
-                        <span class="page-info">Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}.</span>
+                            <span class="page-info">Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}.</span>
 
-                        {% if courses_data.has_previous %}
-                        <a href="?page={{ courses_data.previous_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Previous</a>
-                        {% endif %}
+                                {% if courses_data.has_previous %}
+                                    <a href="?page={{ courses_data.previous_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Previous</a>
+                                {% endif %}
 
-                        {% if courses_data.has_next %}
-                        <a href="?page={{ courses_data.next_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Next</a>
-                        {% endif %}
-                    </span>
-                </span>
+                                {% if courses_data.has_next %}
+                                    <a href="?page={{ courses_data.next_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Next</a>
+                                {% endif %}
+                            </span>
+                        </span>
                     </div>
-                   
-                </div>
                     </div>
                 </div>
             </div>
