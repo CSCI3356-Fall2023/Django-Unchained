@@ -14,12 +14,11 @@
 .filter-sidebar {
     flex-basis: 20%; 
     padding: 20px;
-    margin-top:80px;
+    margin: 5em 0 0 2em;
     height: 100vh;
     background-color: #fff; 
     border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-right: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .main-content {
@@ -59,8 +58,8 @@
             <div class="course">
                 <p class="course-title">{{ course.title }}<hr></p>
                 <p>Date: {{ course.date }}</p>
-                <p>Description: {{ course.description }}</p>
                 <p>Credits: {{ course.credits }}</p>
+                <p>Description: {{ course.description }}</p>
                 
                 <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
                     {% csrf_token %}

@@ -137,12 +137,12 @@ class CourseFilterForm(forms.Form):
     
 
     time_slot = forms.ChoiceField(choices=TIME_SLOTS, required=False,
-                                    widget=forms.widgets.RadioSelect, label="time")
+                                    widget=forms.widgets.RadioSelect, label="Time")
    
-    days = forms.MultipleChoiceField(choices=DAYS, required=False, label="days")
+    days = forms.MultipleChoiceField(choices=DAYS, required=False, label="Days")
     
     subject_area = forms.ChoiceField(choices=MAJORS, required=False, 
-                                     widget=forms.widgets.RadioSelect, label="major")
+                                     widget=forms.widgets.RadioSelect, label="Major")
    
     def clean(self):
         cleaned_data = super().clean()
