@@ -93,18 +93,8 @@
                                 <option value="{{ course.title }}">{{ course.title }}</option>
                             {% endfor %}
                         </select>
-                    
-                        <select name="professor">
-                            <option value="">Select Professor</option>
-                            {% for professor in professors %}
-                                <option value="{{ professor }}">{{ professor }}</option>
-                            {% endfor %}
-                        </select>
-                    
                         <button type="submit">Apply Filters</button>
                     </form>
-                    
-
                     <div class="stats-section">
                         <h2>Stats</h2>
                         <p>Most Popular Class: {{ MostPopularCourse}}</p>

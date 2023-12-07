@@ -547,6 +547,13 @@ def admin_report(request):
     professors = Course.objects.values_list('instructor', flat=True).distinct()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number 
+    most_popular_course = MostPopularCourse.objects.all().first()
+    if most_popular_course:
+        most_popular_course_name = most_popular_course.most_popular_course
+        most_popular_course_count = most_popular_course.most_popular_course_count
+    else:
+        most_popular_course_name = ''
+        most_popular_course_count = 0
 
     if 'snapshot_data' in request.session:
        
@@ -590,7 +597,8 @@ def admin_report(request):
         courses_query = Course.objects.filter(filters)
         paginator = Paginator(courses_query, 9)  
         paginated_courses_data = paginator.get_page(page_number)
-    
+        most_popular_class_title = ''
+        most_popular_class_watch_count = 0
 
 
         context = {
@@ -601,8 +609,8 @@ def admin_report(request):
             'professors': professors,
             'most_popular_class_title': most_popular_class_title,
             'most_popular_class_watch_count': most_popular_class_watch_count,
-            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
-            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
+            'MostPopularCourse': most_popular_course_name,
+            'MostPopularCourseCount': most_popular_course_count,
         }
 
     return render(request, 'admin_report.html', context)
