@@ -125,18 +125,18 @@ class CourseFilterForm(forms.Form):
         ('MWF', 'Monday, Wednesday, and Friday'), 
         ('TUTH', 'Tuesday and Thursday')
     )   
-    MAJORS = (
-        ('CSCI', 'CSCI'), 
-        ('MATH', 'MATH'), 
-        ('CHEM', 'CHEM'), 
-        ('BIOL', 'BIOL'),
-        ('HIST', 'HIST'),
-        ('INTL', 'INTL'),
+    MAJORS = ( 
         ('AADS', 'AADS'),
         ('ARTS', 'ARTS'),
+        ('BIOL', 'BIOL'),
+        ('CHEM', 'CHEM'),
+        ('CSCI', 'CSCI'),
+        ('INTL', 'INTL'),
+        ('JOUR', 'JOUR'),
         ('ENGL', 'ENGL'),
         ('LAWS', 'LAWS'),
-
+        ('MATH', 'MATH'), 
+        ('XRBC', 'XRBC'),
     )
 
 

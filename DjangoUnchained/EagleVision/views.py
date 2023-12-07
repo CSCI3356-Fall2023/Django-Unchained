@@ -108,8 +108,7 @@ def callback(request):
 def course_selection(request):
     user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
     subject_areas = [
-    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'INTL','JOUR', 'LAWS', 'MATH', 
+    'MATH', 'BIOL', 'CHEM', 'CSCI',
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -135,7 +134,7 @@ def course_selection(request):
                         course_id = offering['id']
                         instructors = activity.get('instructors', [])
                         schedule_names = new_entry.get('scheduleNames', [])
-                        cleaned_schedule = clean_schedule_string(', '.join(schedule_names))
+                        cleaned_schedule = clean_schedule_string(''.join(schedule_names))
                         time_slots = [get_time_slot(time) for _, _, time in cleaned_schedule]
                         days = [day for _, day, _ in cleaned_schedule if day in ALLOWED_DAYS]
 
@@ -165,7 +164,7 @@ def course_selection(request):
                             'date': date_text,
                             'schedule': ', '.join(schedule_names),
                             'instructor': instructors_str,
-                            'time_slots': list(set(info['time_slots'])), 
+                            'time_slots': time_slots, 
                             'days': days_str,
                             'department': department
                         }
@@ -199,17 +198,13 @@ def clean_schedule_string(schedule_str):
     for session in sessions:
         parts = session.split(' ')
         location = ' '.join(parts[:-2])  
-        day_time = ' '.join(parts[-2:])
-        if len(day_time) == 2:
-            day, time = day_time.split(' ')
+        day, time = parts[-2:]
+        if day.lower() == 'by':
+            time = 'BY ARRANGEMENT'
         else:
-            day = day_time[0]
-            time = 'TBA'
-        time = standardize_time_format(time)
-
+            time = standardize_time_format(time)
         if day in ALLOWED_DAYS:
             cleaned_sessions.append((location, day, time))
-
     return cleaned_sessions
 
 def get_time_slot(start_time_str):
@@ -337,8 +332,7 @@ def logout(request):
 def api_endpoint(request):
     subject_areas = [
     'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'ENGL', 'FILM', 'GERM', 'HIST',
-    'INTL', 'JESU', 'JOUR', 'LAWS', 'MATH', 'UNCS', 'XRBC'
+    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
     ]
     for area in subject_areas:
         response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
@@ -378,7 +372,8 @@ def search_results(request):
         if major:
             courses = courses.filter(major__icontains=major)
         if days:
-            courses = courses.filter(days__in=days)  
+            courses = courses.filter(days__in=days)
+        
         if time_slots:
             courses = courses.filter(time_slot__in=time_slots)  
         distinct_courses = {}
@@ -412,10 +407,8 @@ def filterRequest(request):
             if days:    
                 first_day = days[0]
                 courses = courses.filter(days__contains=first_day)
-            
             if time_slot:
-                time_slot = [time_slot]
-                courses = courses.filter(time_slots__contains=time_slot[0])
+                courses = courses.filter(time_slots__contains=time_slot)
 
             context = {'filtered_courses': courses}
             return render(request, "search_results.html", context)
@@ -429,14 +422,11 @@ def watchlist(request):
     user_watchlist_courses = Watchlist.objects.filter(user=request.user).select_related('section')
     sections = [entry.section for entry in user_watchlist_courses]
 
-    seats_info = [{'course_title': section.title, 'course_section': section.title.split()[1] if len(section.title.split()) > 1 else "Unknown", 'current_seats': section.currentSeats, 'max_seats': section.maxSeats} for section in sections]
-
-    combined_course_info = zip(sections, seats_info)
 
     if request.method == 'POST':
-        combined_course_info = filter_sections(request, combined_course_info)
-        combined_course_info = sort_sections(request, combined_course_info)
+        sections = sort_sections(request, sections)
 
+    combined_course_info = [(section, section.title.split()[1]) for section in sections]
     context = {
         'user': request.user,
         'combined_course_info': combined_course_info,
@@ -525,20 +515,18 @@ def process_snapshot_data(snapshot_data):
     courses_data = []
 
     for course_info in snapshot_data.get('courses', []):
-        total_watchers = 0
-        for section_info in course_info.get('sections', []):
-            total_watchers += len(section_info.get('watchers', []))
 
         course_data = {
             'course_id': course_info.get('course_id'),
             'title': course_info.get('title'),
-            'num_students_on_watch': total_watchers,
+            'num_students_on_watch': course_info.get('num_students_on_watch', 0),
             'max_students_on_watch': course_info.get('max_students_on_watch', 0),
             'min_students_on_watch': course_info.get('min_students_on_watch', 0),
         }
         courses_data.append(course_data)
 
     return courses_data
+
 @login_required
 @user_passes_test(is_admin)
 def admin_report(request):
@@ -547,15 +535,24 @@ def admin_report(request):
     professors = Course.objects.values_list('instructor', flat=True).distinct()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number 
+    most_popular_course_instance = MostPopularCourse.objects.all().first()
 
+    if most_popular_course_instance:
+        most_popular_course = most_popular_course_instance.most_popular_course
+        most_popular_course_count = most_popular_course_instance.most_popular_course_count
+    else:
+        most_popular_course = "Not Available"
+        most_popular_course_count = 0
+    if request.method == 'POST':
+        snapshot_id = request.POST.get('snapshot')
+        if snapshot_id:
+            return apply_snapshot(request, snapshot_id)
     if 'snapshot_data' in request.session:
-       
         snapshot_data = request.session['snapshot_data']
         selected_snapshot_id = request.session['selected_snapshot_id']
         most_popular_class_title = snapshot_data.get('most_popular_class_title', '')
         most_popular_class_watch_count = snapshot_data.get('most_popular_class_watch_count', 0)
-        courses_data = process_snapshot_data(snapshot_data)  
-
+        courses_data = process_snapshot_data(snapshot_data) 
         paginator = Paginator(courses_data, 9)  
         paginated_courses_data = paginator.get_page(page_number)
 
@@ -569,7 +566,7 @@ def admin_report(request):
             'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
 
         }
-        print("hi",MostPopularCourse.objects.all().first().most_popular_course_count)
+
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
         selected_course = request.GET.get('course', '')
@@ -583,14 +580,15 @@ def admin_report(request):
 
         filters = Q()
         if selected_professor:
-            filters &= Q(instructor=selected_professor)
+            filters &= Q(instructor__icontains=selected_professor)
         if selected_course:
-            filters &= Q(title=selected_course)
+            filters &= Q(title__icontains=selected_course)
 
         courses_query = Course.objects.filter(filters)
-        paginator = Paginator(courses_query, 9)  
+        paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
-    
+        most_popular_class_title = ''
+        most_popular_class_watch_count = 0
 
 
         context = {
@@ -601,8 +599,8 @@ def admin_report(request):
             'professors': professors,
             'most_popular_class_title': most_popular_class_title,
             'most_popular_class_watch_count': most_popular_class_watch_count,
-            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
-            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
+            'MostPopularCourse': most_popular_course,
+            'MostPopularCourseCount': most_popular_course_count,
         }
 
     return render(request, 'admin_report.html', context)
@@ -669,12 +667,13 @@ def capture_system_snapshot():
     snapshot_name = f"End of Add/Drop {now().year}"
     courses_data = []
     most_popular_courses_count = 0
+    most_popular_courses_title='None'
     for course in Course.objects.all():
         sections = Section.objects.filter(courseid=course.course_id)
         sections_data = []
         course_watcher = 0
         for section in sections:
-            watchers = Watchlist.objects.filter(section=section).select_related('user')
+            watchers = Watchlist.objects.filter(section=section)
             section_watcher_count = len(watchers)
             course_watcher += section_watcher_count
             watchers_data = [{
@@ -692,6 +691,7 @@ def capture_system_snapshot():
             }
 
             sections_data.append(section_data)
+        course.max_students_on_watch = max(course_watcher, course.max_students_on_watch)
         
         if course_watcher > most_popular_courses_count:
             most_popular_courses_count = course_watcher
@@ -703,6 +703,7 @@ def capture_system_snapshot():
             'course_id': course.course_id,
             'title': course.title,
             'sections': sections_data,
+            'num_students_on_watch': course_watcher,
             'max_students_on_watch': course.max_students_on_watch,
             'most_popular_class_title': most_popular_courses_title,
             'most_popular_class_watch_count': most_popular_courses_count,
@@ -742,12 +743,9 @@ def apply_snapshot(request, snapshot_id):
     snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
     request.session['snapshot_data'] = snapshot.data  
     request.session['selected_snapshot_id'] = snapshot_id  
+    print("Applying snapshot:", snapshot_id, snapshot.data)
 
     return redirect('admin_report')  
-
-
-
-
 
 @login_required
 @user_passes_test(is_admin)
