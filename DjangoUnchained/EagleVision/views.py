@@ -85,7 +85,7 @@ def callback(request):
             else:
                 auth_login(request, user)
                 request.session["email"] = email
-                return redirect('profile')
+                return redirect('courseselect')
         else:
             request.session["email"] = email
             return redirect('role_selection')
@@ -281,7 +281,7 @@ def student_extra_info(request):
             user.extra_info_filled_out = True
             user.is_active = True
             user.save()
-            return redirect('profile')  
+            return redirect('courseselect')  
              
     else:
         form = ExtraInfoForm_student()
@@ -299,7 +299,7 @@ def admin_extra_info(request):
             user.is_staff = True
             user.is_active = True
             user.save()
-            return redirect('profile') 
+            return redirect('courseselect') 
     else:
         form = ExtraInfoForm_admin()
 
@@ -360,12 +360,14 @@ def api_endpoint(request):
 
 def search_results(request):
     if request.method == 'GET':
-        search_query = request.GET.get('search_query', '')
+        search_query = request.GET.get('search_query', '').strip()
         term = request.GET.get('term', '')
         major = request.GET.get('major', '')
         days = request.GET.getlist('date')  
         time_slots = request.GET.getlist('time_slot')
 
+        if not search_query:
+            return render(request, 'course_selection.html', {'error': 'Please enter a valid search query'})
         courses = Course.objects.filter(title__icontains=search_query)
         if term:
             courses = courses.filter(term__icontains=term)
@@ -381,7 +383,12 @@ def search_results(request):
             distinct_courses[course.title] = course
         filtered_courses = list(distinct_courses.values())
 
-        return render(request, 'search_results.html', {'filtered_courses': filtered_courses})
+        #user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
+        context = {
+            'page_obj': filtered_courses,
+            'form': CourseFilterForm()
+        }
+        return render(request, 'course_selection.html', context)
 
     return HttpResponseRedirect(reverse('course_selection'))
 
@@ -749,13 +756,13 @@ def apply_snapshot(request, snapshot_id):
 
     return redirect('admin_report')  
 
-@login_required
-@user_passes_test(is_admin)
-@require_http_methods(["POST"])
-def change_seats(request, section_id):
-    section = get_object_or_404(Section, section_id=section_id)
-    section.change_seats()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+# @login_required
+# @user_passes_test(is_admin)
+# @require_http_methods(["POST"])
+# def change_seats(request, section_id):
+#     section = get_object_or_404(Section, section_id=section_id)
+#     section.change_seats()
+#     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 @require_http_methods(['POST'])
 def sort_sections(request, queryset):

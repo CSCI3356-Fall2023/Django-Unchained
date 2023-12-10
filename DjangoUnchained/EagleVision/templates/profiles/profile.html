@@ -60,6 +60,28 @@
 
                         {% else %}
                             <h3>User Type:</h3> Student
+                            <h3>Eagle ID:</h3> {{ user.eagle_id }}
+                            <h3>Graduating:</h3> {{ user.graduation_semester }}
+                        
+                            {% if user.major_1 %}
+                                <h3>Major 1:</h3> {{ user.major_1 }}
+                            {% endif %}
+                        
+                            {% if user.major_2 %}
+                                <h3>Major 2:</h3> {{ user.major_2 }}
+                            {% endif %}
+                        
+                            {% if user.major_3 %}
+                                <h3>Major 3:</h3> {{ user.major_3 }}
+                            {% endif %}
+                        
+                            {% if user.minor_1 %}
+                                <h3>Minor 1:</h3> {{ user.minor_1 }}
+                            {% endif %}
+                        
+                            {% if user.minor_2 %}
+                                <h3>Minor 2:</h3> {{ user.minor_2 }}
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

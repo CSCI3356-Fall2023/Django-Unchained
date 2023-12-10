@@ -5,17 +5,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;  
+    margin: 0 0 5%;  
     color: #000; 
 }
 
 .bclogo {
     display: grid;
     place-items: center;
-    margin-bottom: 20px;
     width: 50%;
-    margin-top:12%
+    margin: -1.5em 0 -1.5em;
 }
 
 .form-container {
