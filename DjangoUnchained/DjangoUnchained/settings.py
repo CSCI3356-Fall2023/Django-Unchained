@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
-# from decouple import config
 
 
 AUTH_USER_MODEL = 'EagleVision.Person'
@@ -60,12 +59,6 @@ INSTALLED_APPS = [
     'sslserver',
     
 ]
-
-
-
-# AUTHENTICATION_BACKENDS = (
-#     'authlib.backends.EmailBackend',
-#  )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -163,7 +156,7 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'stoeva@bc.edu'           #change this depending if we are using a different email?
-EMAIL_HOST_PASSWORD = 'dmtm dgka elnm quug'
+EMAIL_HOST_USER = 'stoeva@bc.edu'           #change this depending if we are using a different email
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
