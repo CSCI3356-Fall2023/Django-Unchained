@@ -45,6 +45,7 @@
                 {{ form.as_p }}
                 <button type="submit">Filter</button>
             </form>
+
         </div>
         <div class="main-content">
     <div class="box m-2 w-90 h-90"> 
@@ -52,7 +53,7 @@
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
-            <div class="filter-link">
+            <div class="back-link">
                 <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
             </div>
         </form>
@@ -87,7 +88,7 @@
 
             {% if page_obj.has_next %}
                 <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                 </span>
                 <a href="?page={{ page_obj.next_page_number }}">next</a>
                 <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>

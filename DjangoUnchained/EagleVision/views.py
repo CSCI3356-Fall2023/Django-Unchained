@@ -383,7 +383,6 @@ def search_results(request):
             distinct_courses[course.title] = course
         filtered_courses = list(distinct_courses.values())
 
-        #user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
         context = {
             'page_obj': filtered_courses,
             'form': CourseFilterForm()
@@ -406,7 +405,6 @@ def filterRequest(request):
             days = form.cleaned_data.get('days', [])
             major = form.cleaned_data.get('subject_area', 'CSCI')
 
-
             courses = Course.objects.all()
 
             if major:
@@ -417,11 +415,13 @@ def filterRequest(request):
             if time_slot:
                 courses = courses.filter(time_slots__contains=time_slot)
 
-            context = {'filtered_courses': courses}
-            return render(request, "search_results.html", context)
-    else:
-        context = {'form': CourseFilterForm()}
-        return render(request, "filters.html", context)
+            filtered_courses = list(courses)
+
+            context = {'filtered_courses': filtered_courses, 'form': form}
+            return render(request, "filters.html", context)
+
+    context = {'form': CourseFilterForm()}
+    return render(request, "filters.html", context)
 
 
 @login_required
