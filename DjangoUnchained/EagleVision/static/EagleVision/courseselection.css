@@ -93,22 +93,24 @@ button:disabled, .added-to-watchlist {
     border: 1px solid #ddd;
 }
 
-.search-form button {
+.search-form button, .search-form a {
     padding: 12px 20px;
     font-size: 1rem;
     border-radius: 5px;
     border: none;
     background-color: #6D0000;
     color: white;
-    cursor: pointer;
+    text-decoration: none;
+    /* cursor: pointer; */
+    margin-right: 10px;
 }
 
-.search-form button:hover {
+.search-form button:hover, .search-form a:hover {
     background-color: #550000;
 }
 
 
-.filter-icon {
+/* .filter-icon {
     display: inline-block;
     color: #6D0000;
     font-size: 1.5rem;
@@ -118,7 +120,7 @@ button:disabled, .added-to-watchlist {
 
 .filter-icon:hover {
     color: #550000;
-}
+} */
 
 .inline {
     display: inline-flex

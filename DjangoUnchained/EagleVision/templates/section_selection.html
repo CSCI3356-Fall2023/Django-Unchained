@@ -72,6 +72,9 @@
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
+            <div class="filter-link">
+                <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
+            </div>
         </form>
         <form method="POST">
             {% csrf_token %}
@@ -88,9 +91,6 @@
               <option value="time_descending">Latest time</option>
             </select>
         </form>
-        <div class="filter-link">
-            <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
-        </div>
             {% for section in data %}
                 <div class="course-list">
                     <div class="course">

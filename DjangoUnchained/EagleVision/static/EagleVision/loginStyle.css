@@ -1,97 +1,47 @@
 body {
     background-color: #6D0000;
-}
-.sub-container {
-    border-radius: 50px;
-    background-color: #fff;
-    display: flex;
-    margin: auto;
-    width: 100%;
-    max-width: 1139px;
-    padding: 19px 20px 40px;
-    flex-direction: column;
-}
-.bclogo {
-    display: grid;
-    place-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    border: red;
-}
-.title {
-    color: #000;
-    font-family: Rubik, sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    text-align: center;
-    margin: auto;
-    width: 50%;
-}
-label {
-    color: #000;
-    font-family: Rubik, sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    text-align: left;
-}
-.fields {
-    float:left;
-    overflow:hidden;
-    width: 95%;
-    color: #000;
-    background-color: #D9D9D9;
-    font-family: Rubik, sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.confirm {
-    font-family: Rubik, sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    color: #FFFFFF;
-    margin: 25px auto;
-    background-color: #3D0F00;
-    padding: 10px;
-    width: 40%;
-    border-radius: 15px;
-}
-.selectors {
-    font-family: Rubik, sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    margin: auto;
-    width: 100%;
-}
-.Login-Button {
-    margin: auto;
-    width: 90%;
-    display: flex;
-}
-.form-row {
-    display: flex;
-    width: 100%;
-    justify-content:space-between;
+    margin: 0;
+    font-family: 'Rubik', sans-serif;
 }
 
+.eagle-left img {
+    width: 50%;
+}
+
+h1 {
+    font-size: 5em;
+    text-align: center;
+    margin-top: 0;
+}
 
 .login-container {
     text-align: center; 
     padding: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 5em 10em 5em;
 }
 
-.bclogo img {
-    max-width: 100%;
-    height: auto;
+.eagle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eagle-left {
+    flex: 1;
+    text-align: center;
+}
+
+.eagle-right img {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .google-login-button {
     display: inline-block;
-    background-color: #db4437; 
+    background-color: #8a100b; 
     color: white;
     padding: 10px 20px;
     text-decoration: none;

@@ -52,6 +52,9 @@
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
             <input type="text" name="search_query" placeholder="Enter course titles to search...">
             <button type="submit">Search</button>
+            <div class="filter-link">
+                <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
+            </div>
         </form>
         
         {% if page_obj %}
