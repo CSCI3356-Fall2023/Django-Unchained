@@ -87,21 +87,27 @@
                         </select>
                         <button type="submit">Apply Snapshot</button>
                     </form>
-                    <form method="GET" action="{% url 'admin_report' %}" class="filter-form">
-                    
+
+                    <label for="course">If first time, Click the button to populate the list:</label>
+                    <form method="GET" action="{% url 'course_report_filter' %}" class="filter-form">
+                        {% csrf_token %}
                         <select name="course">
                             <option value="">Select Course</option>
-                            {% for course in courses %}
-                                <option value="{{ course.title }}">{{ course.title }}</option>
+                            {% for course in all_courses %}
+                                <option value="{{ course.title }}" {% if course.title == selected_course %}selected{% endif %}>
+                                    {{ course.title }}
+                                </option>
                             {% endfor %}
                         </select>
                         <button type="submit">Apply Filters</button>
                     </form>
+
                     <div class="stats-section">
                         <h2>Stats</h2>
                         <p>Most Popular Class: {{ MostPopularCourse}}</p>
                         <p>Number of Students Watching: {{MostPopularCourseCount }}</p>
                     </div>
+
                     <div class="course-list">
                         {% for course in courses_data %}
                         <div class="course">
