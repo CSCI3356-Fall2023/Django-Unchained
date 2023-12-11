@@ -532,7 +532,6 @@ def process_snapshot_data(snapshot_data):
 def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     courses = Course.objects.values_list('title', flat=True).distinct()
-    professors = Course.objects.values_list('instructor', flat=True).distinct()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number 
     most_popular_course_instance = MostPopularCourse.objects.all().first()
@@ -561,7 +560,6 @@ def admin_report(request):
             'selected_snapshot_id': selected_snapshot_id,
             'courses_data': paginated_courses_data,
             'courses': courses,
-            'professors': professors,
             'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
             'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
 
@@ -570,7 +568,6 @@ def admin_report(request):
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
         selected_course = request.GET.get('course', '')
-        selected_professor = request.GET.get('professor', '')
 
         if selected_snapshot_id:
             selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
@@ -579,8 +576,6 @@ def admin_report(request):
             return redirect('admin_report')
 
         filters = Q()
-        if selected_professor:
-            filters &= Q(instructor__icontains=selected_professor)
         if selected_course:
             filters &= Q(title__icontains=selected_course)
 
@@ -596,7 +591,6 @@ def admin_report(request):
             'selected_snapshot_id': selected_snapshot_id,
             'courses_data': paginated_courses_data,
             'courses': courses,
-            'professors': professors,
             'most_popular_class_title': most_popular_class_title,
             'most_popular_class_watch_count': most_popular_class_watch_count,
             'MostPopularCourse': most_popular_course,
@@ -810,3 +804,18 @@ def filter_sections(request, queryset):
             for selection in request.POST.getlist(option):
                 new_queryset += [section for section in queryset if filter_functions[option](section, selection)]
     return list(set(new_queryset))
+
+def course_report_filter(request):
+    selected_course = request.GET.get('course')
+    all_courses = Course.objects.all()
+
+    if selected_course:
+        filtered_courses = Course.objects.filter(title__icontains=selected_course)
+    else:
+        filtered_courses = all_courses
+
+    context = {
+        'courses_data': filtered_courses,
+        'all_courses': all_courses
+    }
+    return render(request, 'admin_report.html', context)

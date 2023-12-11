@@ -26,4 +26,5 @@ urlpatterns = [
     path('system_snapshots/', views.list_system_snapshots, name='list_system_snapshots'),
     path('change_seats/<uuid:section_id>/', views.change_seats, name='change_seats'),
     #path('sort_sections/<str:course_id>/', views.sort_sections, name='sort_sections'),
+    path('course_report_filter/', views.course_report_filter, name='course_report_filter'),
 ]
