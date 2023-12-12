@@ -77,4 +77,17 @@ body, html {
     background-color: #ddd;
 }
 
+button {
+    background-color: #6D0000; 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+button:hover, button:focus {
+    background-color: #550000;
+
+}
