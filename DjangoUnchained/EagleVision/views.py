@@ -366,8 +366,6 @@ def search_results(request):
         days = request.GET.getlist('date')  
         time_slots = request.GET.getlist('time_slot')
 
-        if not search_query:
-            return render(request, 'course_selection.html', {'error': 'Please enter a valid search query'})
         courses = Course.objects.filter(title__icontains=search_query)
         if term:
             courses = courses.filter(term__icontains=term)
