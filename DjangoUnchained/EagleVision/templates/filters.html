@@ -9,7 +9,6 @@
     <nav class="nav-menu">
         <a href="{% url 'profile'%}">Home</a>
         <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
-        <a href="#">Export Schedule</a>
         <a href =" {% url 'courseselect' %}">Search Courses</a>
         {% if user.is_staff %}
             <a href="{% url 'admin_report' %}">Admin Report</a>
@@ -33,27 +32,45 @@
                 <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
             </div>
         </form>
-        {% if filtered_courses %}
-            {% for course in filtered_courses %}
-            <div class="course-list">
-                <div class="course">
-                    <p class="course-title">{{ course.title }}<hr></p>
-                    <p>Date: {{ course.date }}</p>
-                    <p>Credits: {{ course.credits }}</p>
-                    <p>Description: {{ course.description }}</p>
-                    
-                        <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
-                            {% csrf_token %}
-                            <input type="hidden" name="course_id" value="{{ course.title }}">
-                            <button type="submit"> See Sections </button>
-                        </form>
-                </div>
+               
+        {% if page_obj %}
+        {% for course in page_obj %}
+        <div class="course-list">
+            <div class="course">
+                <p class="course-title">{{ course.title }}<hr></p>
+                <p>Date: {{ course.date }}</p>
+                <p>Credits: {{ course.credits }}</p>
+                <p>Description: {{ course.description }}</p>
+                
+                    <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
+                        {% csrf_token %}
+                        <input type="hidden" name="course_id" value="{{ course.title }}">
+                        <button type="submit"> See Sections </button>
+                    </form>
+            
             </div>
-            {% endfor %}
-        {% else %}
-            <p>No results found for the given filter request.</p>
-        {% endif %}
-    </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No search results found.</p>
+    {% endif %}
+<div class="pagination">
+<span class="step-links">
+    {% if page_obj.has_previous %}
+        <a href="?page=1&{{ current_query }}">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}&{{current_query}}">previous</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+        <a href="?page={{ page_obj.next_page_number }}&{{ current_query }}">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}&{{ current_query }}">Last</a>
+    {% endif %}
+</span>
+</div>
+</div>
 </div>
 </div>
 </body>

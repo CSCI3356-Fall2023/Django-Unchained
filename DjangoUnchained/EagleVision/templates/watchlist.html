@@ -34,7 +34,6 @@ button:hover, button:focus {
             <nav class="nav-menu">
                 <a href="{% url 'profile'%}">Home</a>
                 <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
-                <a href="#">Export Schedule</a>
                 <a href="{% url 'courseselect' %}">Search Courses</a>
                 {% if user.is_staff %}
                     <a href="{% url 'admin_report' %}">Admin Report</a>

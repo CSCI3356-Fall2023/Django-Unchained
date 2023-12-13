@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Admin
+from .models import Student
 
 class StudentRegistrationForm(forms.Form):
     email = forms.EmailField(label="Email")

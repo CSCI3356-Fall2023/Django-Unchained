@@ -5,34 +5,12 @@
     <title>Course Selections</title>
     <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        /* .content-wrapper {
-    display: flex;
-    justify-content: space-between;
-}
-
-.filter-sidebar {
-    flex-basis: 20%; 
-    padding: 20px;
-    margin: 5em 0 0 2em;
-    height: 100vh;
-    background-color: #fff; 
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-}
-
-.main-content {
-    flex-basis: 75%; /
-    
-} */
-
-    </style>
+   
 </head>
 <body>
     <nav class="nav-menu">
         <a href="{% url 'profile'%}">Home</a>
         <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
-        <a href="#">Export Schedule</a>
         <a href =" {% url 'courseselect' %}">Search Courses</a>
         {% if user.is_staff %}
             <a href="{% url 'admin_report' %}">Admin Report</a>
