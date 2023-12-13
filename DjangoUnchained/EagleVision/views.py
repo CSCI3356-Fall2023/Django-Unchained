@@ -1,10 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
-from django.contrib.auth.models import User
+
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
-from .models import Person, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
+from .models import Person,Admin, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse

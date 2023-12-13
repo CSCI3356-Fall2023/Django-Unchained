@@ -34,7 +34,13 @@
                     <div class="info">
                             <h3>Name:</h3>    {{ user.name }}
                             <h3>Email:</h3>    {{ user.email }}
+                            {% if user.is_staff %}
+                                <h3>Department:</h3> {{ user.department }}
+                            
+                            {% else %}
                             <h3>Department:</h3>    {{ user.major_1}}
+
+                            {% endif %}
     
                         {% if user.is_staff %}
                         

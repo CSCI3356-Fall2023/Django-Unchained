@@ -49,6 +49,8 @@ class Person(AbstractBaseUser, PermissionsMixin):
         return bool(self.is_active)
 
 
+class Admin(Person):
+    pass
 
 class SystemState(models.Model):
     state = models.BooleanField(default=False)
