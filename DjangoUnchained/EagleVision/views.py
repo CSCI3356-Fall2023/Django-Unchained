@@ -578,7 +578,7 @@ def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     courses = Course.objects.values_list('title', flat=True).distinct()
     page_number = request.GET.get('page', 1)
-    request.session['last_course_page'] = page_number 
+    request.session['last_course_page'] = page_number
     most_popular_course_instance = MostPopularCourse.objects.all().first()
 
     if most_popular_course_instance:
@@ -587,28 +587,22 @@ def admin_report(request):
     else:
         most_popular_course = "Not Available"
         most_popular_course_count = 0
+
+    selected_snapshot_id = None
+    snapshot_data = request.session.get('snapshot_data')
+
     if request.method == 'POST':
         snapshot_id = request.POST.get('snapshot')
         if snapshot_id:
             return apply_snapshot(request, snapshot_id)
-    if 'snapshot_data' in request.session:
-        snapshot_data = request.session['snapshot_data']
-        selected_snapshot_id = request.session['selected_snapshot_id']
+
+    if snapshot_data:
+        selected_snapshot_id = request.session.get('selected_snapshot_id')
         most_popular_class_title = snapshot_data.get('most_popular_class_title', '')
         most_popular_class_watch_count = snapshot_data.get('most_popular_class_watch_count', 0)
-        courses_data = process_snapshot_data(snapshot_data) 
-        paginator = Paginator(courses_data, 9)  
+        courses_data = process_snapshot_data(snapshot_data)
+        paginator = Paginator(courses_data, 9)
         paginated_courses_data = paginator.get_page(page_number)
-
-        context = {
-            'snapshots': snapshots,
-            'selected_snapshot_id': selected_snapshot_id,
-            'courses_data': paginated_courses_data,
-            'courses': courses,
-            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
-            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
-
-        }
 
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
@@ -620,27 +614,26 @@ def admin_report(request):
             request.session['selected_snapshot_id'] = selected_snapshot_id
             return redirect('admin_report')
 
-        filters = Q()
-        if selected_course:
-            filters &= Q(title__icontains=selected_course)
+        courses_query = Course.objects.all()
 
-        courses_query = Course.objects.filter(filters)
+        if selected_course:
+            courses_query = courses_query.filter(title__icontains=selected_course)
+
         paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
         most_popular_class_title = ''
         most_popular_class_watch_count = 0
 
-
-        context = {
-            'snapshots': snapshots,
-            'selected_snapshot_id': selected_snapshot_id,
-            'courses_data': paginated_courses_data,
-            'courses': courses,
-            'most_popular_class_title': most_popular_class_title,
-            'most_popular_class_watch_count': most_popular_class_watch_count,
-            'MostPopularCourse': most_popular_course,
-            'MostPopularCourseCount': most_popular_course_count,
-        }
+    context = {
+        'snapshots': snapshots,
+        'selected_snapshot_id': selected_snapshot_id,
+        'courses_data': paginated_courses_data,
+        'courses': courses,
+        'most_popular_class_title': most_popular_class_title,
+        'most_popular_class_watch_count': most_popular_class_watch_count,
+        'MostPopularCourse': most_popular_course,
+        'MostPopularCourseCount': most_popular_course_count,
+    }
 
     return render(request, 'admin_report.html', context)
 
