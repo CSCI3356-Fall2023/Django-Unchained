@@ -505,6 +505,22 @@ def admin_report(request):
         courses_data = process_snapshot_data(snapshot_data)
         paginator = Paginator(courses_data, 9)
         paginated_courses_data = paginator.get_page(page_number)
+        selected_course = request.GET.get('course', '')
+
+        courses_query = Course.objects.all()
+
+        if selected_course:
+            courses_query = courses_query.filter(title__icontains=selected_course)
+
+        context = {
+            'snapshots': snapshots,
+            'selected_snapshot_id': selected_snapshot_id,
+            'courses_data': paginated_courses_data,
+            'courses': courses,
+            'filtered_courses': courses_query,
+            'MostPopularCourse': most_popular_course,
+            'MostPopularCourseCount': most_popular_course_count,
+        }
 
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
@@ -520,6 +536,7 @@ def admin_report(request):
 
         if selected_course:
             courses_query = courses_query.filter(title__icontains=selected_course)
+        
 
         paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
@@ -529,6 +546,7 @@ def admin_report(request):
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': paginated_courses_data,
         'courses': courses,
+        'filtered_courses': courses_query,
         'MostPopularCourse': most_popular_course,
         'MostPopularCourseCount': most_popular_course_count,
     }
