@@ -5,7 +5,16 @@
     <title>Detailed Report</title>
     <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
 </head>
-
+<style>
+.student {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .student:last-child {
+            border-bottom: none;
+        }
+  
+</style>
 <body>
 
     <div class="box m-2 w-90 h-90">
@@ -21,7 +30,7 @@
                 <p>No students watching this section.</p>
             {% endfor %}
         {% empty %}
-            <p>No sections found.</p>
+            <p>Currently No student has watch this class.</p>
         {% endfor %}
     </div>
 </body>

@@ -49,6 +49,8 @@ class Person(AbstractBaseUser, PermissionsMixin):
         return bool(self.is_active)
 
 
+class Admin(Person):
+    pass
 
 class SystemState(models.Model):
     state = models.BooleanField(default=False)
@@ -73,8 +75,6 @@ class Student(Person):
     ]
     graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
    
-class Admin(Person):
-    pass
 
 class Course(models.Model):
     course_id = models.CharField(max_length=255,unique =True)

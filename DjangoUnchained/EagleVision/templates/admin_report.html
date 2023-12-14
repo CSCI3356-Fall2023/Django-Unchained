@@ -63,7 +63,6 @@
             <nav class="nav-menu">
                 <a href="{% url 'profile' %}">Home</a>
                 <a href="{% url 'watchlist' %}">My WatchList</a>
-                <a href="#">Export Schedule</a>
                 <a href="{% url 'courseselect' %}">Search Courses</a>
                 {% if user.is_staff %}
                     <a href="{% url 'admin_report' %}">Admin Report</a>
@@ -88,18 +87,18 @@
                         <button type="submit">Apply Snapshot</button>
                     </form>
 
-                    <label for="course">If first time, Click the button to populate the list:</label>
-                    <form method="GET" action="{% url 'course_report_filter' %}" class="filter-form">
+                    <form method="GET" action="{% url 'admin_report' %}" class="filter-form">
                         {% csrf_token %}
+                        <label for="course">Filter by Course:</label>
                         <select name="course">
-                            <option value="">Select Course</option>
-                            {% for course in all_courses %}
-                                <option value="{{ course.title }}" {% if course.title == selected_course %}selected{% endif %}>
-                                    {{ course.title }}
+                            <option value="">All Courses</option>
+                            {% for course in courses %}
+                                <option value="{{ course }}" {% if course == selected_course %}selected{% endif %}>
+                                    {{ course }}
                                 </option>
                             {% endfor %}
                         </select>
-                        <button type="submit">Apply Filters</button>
+                        <button type="submit">Apply</button>
                     </form>
 
                     <div class="stats-section">

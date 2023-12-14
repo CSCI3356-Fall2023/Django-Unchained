@@ -1,10 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
-from django.contrib.auth.models import User
+
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
-from .models import Person, Student, Admin, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
+from .models import Person,Admin, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
@@ -102,6 +102,56 @@ def callback(request):
 
     return redirect('index')
 
+def role_selection(request):
+    email = request.session.get('email')
+    user = Person.objects.get(email=email)
+    if request.method == 'POST':
+        role = request.POST.get('role')
+        if role in ['student', 'admin']:
+            user.user_type = role
+            user.save() 
+            if role == 'student':
+                request.session["email"] = email
+                request.session["user"] = user
+                return redirect('student_extra_info')
+            elif role == 'admin':
+                request.session["email"] = email
+                return redirect('admin_extra_info')
+    return render(request, 'identity_selection.html')
+
+def student_extra_info(request):
+    user = Person.objects.get(email=request.session.get('email'))
+
+    if request.method == 'POST':
+        form = ExtraInfoForm_student(request.POST)
+        if form.is_valid():
+            student, student_created = Student.objects.update_or_create(
+                person_ptr_id=user.id,
+                defaults={
+                    'name': user.name,
+                    'department': form.cleaned_data.get('department'),
+                    'eagle_id': form.cleaned_data.get('eagle_id'),
+                    'graduation_semester': form.cleaned_data.get('graduation_semester'),
+                    'major_1': form.cleaned_data.get('major_1'),
+                    'major_2': form.cleaned_data.get('major_2'),
+                    'major_3': form.cleaned_data.get('major_3'),
+                    'minor_1': form.cleaned_data.get('minor_1'),
+                    'minor_2': form.cleaned_data.get('minor_2'),
+                }
+            )
+
+            user.is_active = True
+            user.is_staff = False
+            user.is_extra_info_filled_out = True
+            user.save()
+
+            auth_login(request, user)
+            return redirect('courseselect')
+
+    else:
+        form = ExtraInfoForm_student()
+
+    return render(request, 'student_extra_info.html', {'form': form})
 
 
 @login_required
@@ -130,6 +180,12 @@ def logout_view(request):
 @login_required
 def user_profile(request):
     user = request.user
+    if user.user_type == 'student':
+        user_info = Student.objects.get(email=user.email)
+    else:
+        user_info = user
+
+
     system_state = SystemState.objects.get_or_create()[0].state
     try:
         system_state = SystemState.objects.get(id=1)
@@ -137,50 +193,12 @@ def user_profile(request):
         system_state = None
 
     context = {
-        'user': user,
+        'user': user_info,
         'system_state': system_state,
     }
     return render(request, 'profiles/profile.html', context)
 
-def role_selection(request):
-    email = request.session.get('email')
-    user = Person.objects.get(email=email)
-    if request.method == 'POST':
-        role = request.POST.get('role')
-        if role in ['student', 'admin']:
-            user.user_type = role
-            user.save() 
-            if role == 'student':
-                request.session["email"] = email
-                return redirect('student_extra_info')
-            elif role == 'admin':
-                request.session["email"] = email
-                return redirect('admin_extra_info')
-    return render(request, 'identity_selection.html')
 
-def student_extra_info(request):
-    email = request.session.get('email')
-    user = Person.objects.get(email=email)
-    if request.method == 'POST':
-        form = ExtraInfoForm_student(request.POST)
-        if form.is_valid():
-            user.department = form.cleaned_data.get('department')
-            user.major_1 = form.cleaned_data.get('major_1')
-            user.major_2 = form.cleaned_data.get('major_2')
-            user.major_3 = form.cleaned_data.get('major_3')
-            user.minor_1 = form.cleaned_data.get('minor_1')
-            user.minor_2 = form.cleaned_data.get('minor_2')
-            user.eagle_id = form.cleaned_data.get('eagle_id')
-            user.graduation_semester = form.cleaned_data.get('graduation_semester')
-            user.extra_info_filled_out = True
-            user.is_active = True
-            user.save()
-            return redirect('courseselect')  
-             
-    else:
-        form = ExtraInfoForm_student()
-
-    return render(request, 'student_extra_info.html', {'form': form})
 
 def admin_extra_info(request):
     email = request.session.get('email')
@@ -260,8 +278,6 @@ def search_results(request):
         days = request.GET.getlist('date')  
         time_slots = request.GET.getlist('time_slot')
 
-        if not search_query:
-            return render(request, 'course_selection.html', {'error': 'Please enter a valid search query'})
         courses = Course.objects.filter(title__icontains=search_query)
         if term:
             courses = courses.filter(term__icontains=term)
@@ -277,14 +293,23 @@ def search_results(request):
             distinct_courses[course.title] = course
         filtered_courses = list(distinct_courses.values())
 
-        #user_watchlist_course_ids = Watchlist.objects.filter(user=request.user).values_list('course_id', flat=True)
-        context = {
-            'page_obj': filtered_courses,
-            'form': CourseFilterForm()
-        }
-        return render(request, 'course_selection.html', context)
+        paginator = Paginator(filtered_courses, 10)  
+        page_number = request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+        query_params = request.GET.copy()
+        if 'page' in query_params:
+            del query_params['page']
+        current_query = query_params.urlencode()
 
-    return HttpResponseRedirect(reverse('course_selection'))
+        context = {
+            'page_obj': page_obj,
+            'courses': filtered_courses,
+            'form': CourseFilterForm(),
+            'current_query': current_query  
+        }
+        return render(request, 'search_results.html', context)
+
+    
 
 def filter(request):
     context = {}
@@ -300,7 +325,6 @@ def filterRequest(request):
             days = form.cleaned_data.get('days', [])
             major = form.cleaned_data.get('subject_area', 'CSCI')
 
-
             courses = Course.objects.all()
 
             if major:
@@ -311,11 +335,25 @@ def filterRequest(request):
             if time_slot:
                 courses = courses.filter(time_slots__contains=time_slot)
 
-            context = {'filtered_courses': courses}
-            return render(request, "search_results.html", context)
-    else:
-        context = {'form': CourseFilterForm()}
-        return render(request, "filters.html", context)
+            filtered_courses = list(courses)
+
+            paginator = Paginator(filtered_courses, 10)
+            page_number = request.GET.get('page', 1)
+            page_obj = paginator.get_page(page_number)
+            query_params = request.GET.copy()
+            if 'page' in query_params:
+                del query_params['page']
+            current_query = query_params.urlencode()
+
+            context = {
+                'page_obj': page_obj,
+                'courses': filtered_courses,
+                'form': CourseFilterForm(),
+                'current_query': current_query  
+            }
+
+
+            return render(request, 'filters.html', context)
 
 
 @login_required
@@ -434,7 +472,7 @@ def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     courses = Course.objects.values_list('title', flat=True).distinct()
     page_number = request.GET.get('page', 1)
-    request.session['last_course_page'] = page_number 
+    request.session['last_course_page'] = page_number
     most_popular_course_instance = MostPopularCourse.objects.all().first()
 
     if most_popular_course_instance:
@@ -443,28 +481,22 @@ def admin_report(request):
     else:
         most_popular_course = "Not Available"
         most_popular_course_count = 0
+
+    selected_snapshot_id = None
+    snapshot_data = request.session.get('snapshot_data')
+
     if request.method == 'POST':
         snapshot_id = request.POST.get('snapshot')
         if snapshot_id:
             return apply_snapshot(request, snapshot_id)
-    if 'snapshot_data' in request.session:
-        snapshot_data = request.session['snapshot_data']
-        selected_snapshot_id = request.session['selected_snapshot_id']
+
+    if snapshot_data:
+        selected_snapshot_id = request.session.get('selected_snapshot_id')
         most_popular_class_title = snapshot_data.get('most_popular_class_title', '')
         most_popular_class_watch_count = snapshot_data.get('most_popular_class_watch_count', 0)
-        courses_data = process_snapshot_data(snapshot_data) 
-        paginator = Paginator(courses_data, 9)  
+        courses_data = process_snapshot_data(snapshot_data)
+        paginator = Paginator(courses_data, 9)
         paginated_courses_data = paginator.get_page(page_number)
-
-        context = {
-            'snapshots': snapshots,
-            'selected_snapshot_id': selected_snapshot_id,
-            'courses_data': paginated_courses_data,
-            'courses': courses,
-            'MostPopularCourse': MostPopularCourse.objects.all().first().most_popular_course,
-            'MostPopularCourseCount': MostPopularCourse.objects.all().first().most_popular_course_count,
-
-        }
 
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
@@ -476,27 +508,26 @@ def admin_report(request):
             request.session['selected_snapshot_id'] = selected_snapshot_id
             return redirect('admin_report')
 
-        filters = Q()
-        if selected_course:
-            filters &= Q(title__icontains=selected_course)
+        courses_query = Course.objects.all()
 
-        courses_query = Course.objects.filter(filters)
+        if selected_course:
+            courses_query = courses_query.filter(title__icontains=selected_course)
+
         paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
         most_popular_class_title = ''
         most_popular_class_watch_count = 0
 
-
-        context = {
-            'snapshots': snapshots,
-            'selected_snapshot_id': selected_snapshot_id,
-            'courses_data': paginated_courses_data,
-            'courses': courses,
-            'most_popular_class_title': most_popular_class_title,
-            'most_popular_class_watch_count': most_popular_class_watch_count,
-            'MostPopularCourse': most_popular_course,
-            'MostPopularCourseCount': most_popular_course_count,
-        }
+    context = {
+        'snapshots': snapshots,
+        'selected_snapshot_id': selected_snapshot_id,
+        'courses_data': paginated_courses_data,
+        'courses': courses,
+        'most_popular_class_title': most_popular_class_title,
+        'most_popular_class_watch_count': most_popular_class_watch_count,
+        'MostPopularCourse': most_popular_course,
+        'MostPopularCourseCount': most_popular_course_count,
+    }
 
     return render(request, 'admin_report.html', context)
 
@@ -640,17 +671,10 @@ def apply_snapshot(request, snapshot_id):
     snapshot = get_object_or_404(SystemSnapshot, id=snapshot_id)
     request.session['snapshot_data'] = snapshot.data  
     request.session['selected_snapshot_id'] = snapshot_id  
-    print("Applying snapshot:", snapshot_id, snapshot.data)
 
     return redirect('admin_report')  
 
-# @login_required
-# @user_passes_test(is_admin)
-# @require_http_methods(["POST"])
-# def change_seats(request, section_id):
-#     section = get_object_or_404(Section, section_id=section_id)
-#     section.change_seats()
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 @require_http_methods(['POST'])
 def sort_sections(request, queryset):
