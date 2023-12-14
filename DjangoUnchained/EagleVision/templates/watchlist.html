@@ -7,22 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Watchlist</title>
     <link rel="stylesheet" href="{% static 'EagleVision/watchlist.css' %}">
-    <!-- <style>
-       button {
-    background-color: #6D0000; 
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-button:hover, button:focus {
-    background-color: #550000;
-
-}
-    </style> -->
 </head>
 <body>
     <div class="dashboard">
@@ -40,30 +25,7 @@ button:hover, button:focus {
                 {% endif %}
                 <a href="{% url 'logout' %}">Logout</a>
             </nav><br>
-        <!-- <h1>Filters</h1>
-
-            <form method="POST" name="filters"> <br>
-                {% csrf_token %}
-                <h4>Department</h4>
-                <input type="checkbox" id="CSCI" name="department" value="CSCI">
-                <label for="CSCI">CSCI</label><br>
-                <input type="checkbox" id="MATH" name="department" value="MATH">
-                <label for="MATH">MATH</label><br>
-                <input type="checkbox" id="CHEM" name="department" value="CHEM">
-                <label for="CHEM">CHEM</label><br>
-                <input type="checkbox" id="BIOL" name="department" value="BIOL">
-                <label for="BIOL">BIOL</label><br><br>
-                <input type="checkbox" id="open_seats" name="open_seats" value="open_seats">
-                <label for="open_seats">Open Seats</label><br><br>
-                <h4>Time</h4>
-                <input type="checkbox" id="morning" name="time" value="morning">
-                <label for="morning">Morning (-12:00 PM)</label><br>
-                <input type="checkbox" id="afternoon" name="time" value="afternoon">
-                <label for="afternoon">Afternoon (12-5:00 PM)</label><br>
-                <input type="checkbox" id="evening" name="time" value="evening">
-                <label for="evening">Evening (5:00 PM-)</label><br><br>
-                <input type="submit" value="Submit">
-            </form> -->
+        
         </aside>
         <main class="main-content">
             <section class="watchlist">
@@ -94,27 +56,44 @@ button:hover, button:focus {
                         </tr>
                     </thead>
                     <tbody>
-                        {% for course, id in combined_course_info %}
-    <tr>
-        <td>{{ id }}</td>
-        <td>{{ course.title }}</td>
-        <td>{{ course.instructor }}</td>
-        <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
-        <td>
-                                <form action="{% url 'remove_from_watchlist' %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="section_id" value="{{ course.id }}">
-                                    <button class = "remove-button" type="submit">Remove</button>
-                                </form>
-                            </td>
-                        </tr>
+                        {% for course, id in page_obj %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ course.title }}</td>
+                                <td>{{ course.instructor }}</td>
+                                <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
+                                <td>
+                                    <form action="{% url 'remove_from_watchlist' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="section_id" value="{{ course.id }}">
+                                        <button class="remove-button" type="submit">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
                         {% empty %}
-                        <tr>
-                            <td colspan="5">No courses in watchlist.</td>
-                        </tr>
+                            <tr>
+                                <td colspan="5">No courses in watchlist.</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                        
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </section>
         </main>
     </div>

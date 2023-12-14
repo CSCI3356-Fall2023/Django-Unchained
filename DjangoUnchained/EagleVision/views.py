@@ -366,9 +366,14 @@ def watchlist(request):
         sections = sort_sections(request, sections)
 
     combined_course_info = [(section, section.title.split()[1]) for section in sections]
+    paginator = Paginator(combined_course_info, 10)
+    page_number = request.GET.get('page', 1)
+    request.session['last_course_page'] = page_number
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'user': request.user,
-        'combined_course_info': combined_course_info,
+        'page_obj': page_obj,
     }
     return render(request, "watchlist.html", context)
 
