@@ -111,20 +111,14 @@ def clean_schedule_string(schedule_str):
     cleaned_sessions = []
     for session in sessions:
         parts = session.split(' ')
-        if len(parts) == 1:
-            location = ''
-            time = standardize_time_format(parts[0])
-            day = ''
-            cleaned_sessions.append((location, day, time))
+        location = ' '.join(parts[:-2])  
+        day, time = parts[-2:]
+        if day.lower() == 'by':
+            time = 'BY ARRANGEMENT'
         else:
-            location = ' '.join(parts[:-2])  
-            day, time = parts[-2:]
-            if day.lower() == 'by':
-                time = 'BY ARRANGEMENT'
-            else:
-                time = standardize_time_format(time)
-            if day in ALLOWED_DAYS:
-                cleaned_sessions.append((location, day, time))
+            time = standardize_time_format(time)
+        if day in ALLOWED_DAYS:
+            cleaned_sessions.append((location, day, time))
     return cleaned_sessions
 
 def get_time_slot(start_time_str):
