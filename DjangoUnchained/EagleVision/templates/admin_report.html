@@ -108,36 +108,22 @@
                     </div>
 
                     <div class="course-list">
-                        {% for course in filtered_courses %}
-                            <div class="course">
-                                <h3>{{ course.title }}</h3>
-                                <p>Number of Students Watching: 
-                                    {% for data in courses_data %}
-                                        {% if data.course_id == course.course_id %}
-                                            {{ data.num_students_on_watch }}
+                        {% for data in courses_data %}
+                            {% for course in filtered_courses %}
+                                {% if course.course_id == data.course_id %}
+                                    <div class="course">
+                                        <h3>{{ course.title }}</h3>
+                                        <p>Number of Students Watching: {{ data.num_students_on_watch }}</p>
+                                        <p>Max: {{ data.max_students_on_watch }}</p>
+                                        <p>Min: {{ data.min_students_on_watch }}</p>
+                                        {% if selected_snapshot_id %}
+                                            <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
+                                                <button type="submit">View Details</button>
+                                            </form>
                                         {% endif %}
-                                    {% endfor %}
-                                </p>
-                                <p>Max: 
-                                    {% for data in courses_data %}
-                                        {% if data.course_id == course.course_id %}
-                                            {{ data.max_students_on_watch }}
-                                        {% endif %}
-                                    {% endfor %}
-                                </p>
-                                <p>Min: 
-                                    {% for data in courses_data %}
-                                        {% if data.course_id == course.course_id %}
-                                            {{ data.min_students_on_watch }}
-                                        {% endif %}
-                                    {% endfor %}
-                                </p>
-                                {% if selected_snapshot_id %}
-                                    <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
-                                        <button type="submit">View Details</button>
-                                    </form>
+                                    </div>
                                 {% endif %}
-                            </div>
+                            {% endfor %}
                         {% empty %}
                             <p>No courses found.</p>
                         {% endfor %}
