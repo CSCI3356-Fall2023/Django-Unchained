@@ -112,15 +112,16 @@ def role_selection(request):
             user.save() 
             if role == 'student':
                 request.session["email"] = email
-                request.session["user"] = user
+                request.session["user_id"] = user.id  
                 return redirect('student_extra_info')
             elif role == 'admin':
                 request.session["email"] = email
                 return redirect('admin_extra_info')
     return render(request, 'identity_selection.html')
 
+
 def student_extra_info(request):
-    user = Person.objects.get(email=request.session.get('email'))
+    user = Person.objects.get(id = request.session.get('user_id'))
 
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
