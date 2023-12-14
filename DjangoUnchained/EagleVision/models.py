@@ -143,4 +143,4 @@ class SystemSnapshot(models.Model):
 class MostPopularCourse(models.Model):
     most_popular_course = models.CharField(max_length=255,default='none')
     most_popular_course_count = models.IntegerField(default=0)
-    
+    snapshot = models.ForeignKey(SystemSnapshot, on_delete=models.CASCADE)

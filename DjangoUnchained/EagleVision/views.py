@@ -595,11 +595,14 @@ def admin_report(request):
         snapshot_id = request.POST.get('snapshot')
         if snapshot_id:
             return apply_snapshot(request, snapshot_id)
+            
 
     if snapshot_data:
         selected_snapshot_id = request.session.get('selected_snapshot_id')
-        most_popular_class_title = snapshot_data.get('most_popular_class_title', '')
-        most_popular_class_watch_count = snapshot_data.get('most_popular_class_watch_count', 0)
+        most_popular_course_instance = MostPopularCourse.objects.filter(snapshot_id=selected_snapshot_id).first()
+        if most_popular_course_instance:
+            most_popular_course = most_popular_course_instance.most_popular_course
+            most_popular_course_count = most_popular_course_instance.most_popular_course_count
         courses_data = process_snapshot_data(snapshot_data)
         paginator = Paginator(courses_data, 9)
         paginated_courses_data = paginator.get_page(page_number)
@@ -621,16 +624,12 @@ def admin_report(request):
 
         paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
-        most_popular_class_title = ''
-        most_popular_class_watch_count = 0
 
     context = {
         'snapshots': snapshots,
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': paginated_courses_data,
         'courses': courses,
-        'most_popular_class_title': most_popular_class_title,
-        'most_popular_class_watch_count': most_popular_class_watch_count,
         'MostPopularCourse': most_popular_course,
         'MostPopularCourseCount': most_popular_course_count,
     }
@@ -739,8 +738,7 @@ def capture_system_snapshot():
             'sections': sections_data,
             'num_students_on_watch': course_watcher,
             'max_students_on_watch': course.max_students_on_watch,
-            'most_popular_class_title': most_popular_courses_title,
-            'most_popular_class_watch_count': most_popular_courses_count,
+            
         }      
         courses_data.append(course_data)
     
@@ -749,7 +747,9 @@ def capture_system_snapshot():
         name=snapshot_name, 
         data=snapshot_data,
     )
+
     MostPopularCourse.objects.update_or_create(
+        snapshot_id=SystemSnapshot.objects.latest('created_at').id,
         defaults={
             'most_popular_course': most_popular_courses_title,
             'most_popular_course_count': most_popular_courses_count,
