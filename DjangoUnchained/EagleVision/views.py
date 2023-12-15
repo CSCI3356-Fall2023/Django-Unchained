@@ -1,14 +1,12 @@
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.template import loader
-from .forms import StudentRegistrationForm, AdminRegistrationForm, ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
+from django.http import HttpResponseRedirect
+from .forms import ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
 
-from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
-from .models import Person,Admin, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
+from .models import Person, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import login as auth_login, logout
 from django.views.decorators.http import require_http_methods
 import requests
 from django.conf import settings
@@ -16,25 +14,12 @@ from authlib.integrations.django_client import OAuth
 from urllib.parse import urlencode
 import json
 from urllib.parse import quote_plus
-from django.utils.html import escape
 from bs4 import BeautifulSoup
-from django.db.models import Count, Max, Min
-from functools import reduce
-from django.views.decorators.csrf import csrf_exempt
 from .constants import TIME_SLOTS
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-import uuid
 from django.utils.timezone import now
-from pprint import pprint
-from datetime import datetime
-import random
 from django.core.paginator import Paginator
-import re
-from datetime import datetime
-from django.db.models import Q
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
 
