@@ -1,0 +1,57 @@
+body {
+    background-color: #6D0000;
+    margin: 0;
+    font-family: 'Rubik', sans-serif;
+}
+
+.eagle-left img {
+    width: 50%;
+}
+
+h1 {
+    font-size: 5em;
+    text-align: center;
+    margin-top: 0;
+}
+
+.login-container {
+    text-align: center; 
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 5em 10em 5em;
+}
+
+.eagle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eagle-left {
+    flex: 1;
+    text-align: center;
+}
+
+.eagle-right img {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.google-login-button {
+    display: inline-block;
+    background-color: #8a100b; 
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.google-login-button:hover, .google-login-button:focus {
+    background-color: #c1351d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
