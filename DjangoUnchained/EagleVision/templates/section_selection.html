@@ -48,6 +48,14 @@
         transform: translateX(0);
     }
 }
+.search-form{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
+
+
 
     </style>
 </head>
@@ -69,8 +77,6 @@
 {% endif %}
         <h1>Sections</h1>
         <form action="{% url 'search_results' %}" method="GET" class="search-form">
-            <input type="text" name="search_query" placeholder="Enter course titles to search...">
-            <button type="submit">Search</button>
             <div class="filter-link">
                 <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
             </div>
@@ -109,13 +115,6 @@
                                         <button type="submit" class="add-to-watchlist">Add to Watchlist</button>
                                     </form>
                                 {% endif %}
-                                <!-- {% comment %}
-                                {% if user.is_staff %}
-                                    <form action="{% url 'change_seats' section.section_id %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit">Change Seats</button>
-                                    </form>
-                                {% endif %} {% endcomment %} -->
                             </div>
                         {% endif %}
                     </div>

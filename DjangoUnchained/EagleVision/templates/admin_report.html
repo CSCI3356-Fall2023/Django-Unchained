@@ -97,14 +97,14 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <select name="department">
-                            <option value="">All Departments</option>
-                            {% for department in departments %}
-                                <option value="{{ department }}" {% if department == selected_department %}selected{% endif %}>
-                                    {{ department }}
-                                </option>
-                            {% endfor %}
-                        </select>
+<select name="department">
+    <option value="">All Departments</option>
+    {% for department in departments %}
+        <option value="{{ department }}" {% if department == selected_department %}selected{% endif %}>
+            {{ department }}
+        </option>
+    {% endfor %}
+</select>
                         <button type="submit">Filter</button>
                     </form>
                     
@@ -115,41 +115,36 @@
                     </div>
 
                     <div class="course-list">
-                        {% for data in courses_data %}
-                            {% for course in filtered_courses %}
-                                {% if course.course_id == data.course_id %}
+                        {% for course in courses_data %}
                                     <div class="course">
                                         <h3>{{ course.title }}</h3>
-                                        <p>Number of Students Watching: {{ data.num_students_on_watch }}</p>
-                                        <p>Max: {{ data.max_students_on_watch }}</p>
-                                        <p>Min: {{ data.min_students_on_watch }}</p>
+                                        <p>Number of Students Watching: {{ course.num_students_on_watch }}</p>
+                                        <p>Max: {{ course.max_students_on_watch }}</p>
+                                        <p>Min: {{ course.min_students_on_watch }}</p>
                                         {% if selected_snapshot_id %}
                                             <form action="{% url 'detailed_report' course.course_id selected_snapshot_id %}" method="get" class="inline section">
                                                 <button type="submit">View Details</button>
                                             </form>
                                         {% endif %}
                                     </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% empty %}
-                            <p>No courses found.</p>
+                              
                         {% endfor %}
+                       
                     </div>
                     <div class="pagination">
                         <span class="step-links">
-                            <span class="page-info">Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}</span>
-
-                                {% if courses_data.has_previous %}
-                                    <a href="?page={{ courses_data.previous_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Previous</a>
-                                {% endif %}
-
-                                {% if courses_data.has_next %}
-                                    <a href="?page={{ courses_data.next_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Next</a>
-                                {% endif %}
+                            {% if courses_data.has_previous %}
+                                <a href="?page={{ courses_data.previous_page_number }}&{{ query_params }}">Previous</a>
+                            {% endif %}
+                            <span class="current">
+                                Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}.
                             </span>
+                            {% if courses_data.has_next %}
+                                <a href="?page={{ courses_data.next_page_number }}&{{ query_params }}">Next</a>
+                            {% endif %}
                         </span>
                     </div>
-                    </div>
+                    
                 </div>
             </div>
         </main>
