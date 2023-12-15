@@ -111,11 +111,10 @@ def student_extra_info(request):
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
         if form.is_valid():
-            student, student_created = Student.objects.update_or_create(
+            Student.objects.update_or_create(
                 person_ptr_id=user.id,
                 defaults={
                     'name': user.name,
-                    'department': form.cleaned_data.get('department'),
                     'eagle_id': form.cleaned_data.get('eagle_id'),
                     'graduation_semester': form.cleaned_data.get('graduation_semester'),
                     'major_1': form.cleaned_data.get('major_1'),
@@ -125,7 +124,7 @@ def student_extra_info(request):
                     'minor_2': form.cleaned_data.get('minor_2'),
                 }
             )
-
+            user.department= form.cleaned_data.get('department')
             user.is_active = True
             user.is_staff = False
             user.is_extra_info_filled_out = True

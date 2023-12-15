@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Admin
+from .models import Student, Admin, Person
 
 class StudentRegistrationForm(forms.Form):
     email = forms.EmailField(label="Email")
@@ -7,7 +7,7 @@ class StudentRegistrationForm(forms.Form):
     confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
     
     name = forms.CharField(label="Name", max_length=255)
-    department = forms.CharField(label="Department", max_length=255)
+    department = forms.ChoiceField(label="Department", choices=Person.DEPARTMENT)
     eagle_id = forms.CharField(label="Eagle ID", max_length=8, min_length=8)
     graduation_semester = forms.ChoiceField(label="Graduation Semester", choices=Student.GRADUATION_SEMESTER)
     
@@ -40,7 +40,7 @@ class AdminRegistrationForm(forms.Form):
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
     confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
     name = forms.CharField(label="Name", max_length=255)
-    department = forms.CharField(label="Department", max_length=255)
+    department = forms.ChoiceField(label="Department", choices=Person.DEPARTMENT)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -73,7 +73,7 @@ class ChangeStateForm(forms.Form):
 
 
 class ExtraInfoForm_student(forms.Form):
-    department = forms.CharField(label="Department", max_length=255)
+    department = forms.ChoiceField(label="Department", choices=Person.DEPARTMENT)
     eagle_id = forms.CharField(label="Eagle ID", max_length=8, min_length=8)
     graduation_semester = forms.ChoiceField(label="Graduation Semester", choices=Student.GRADUATION_SEMESTER)
     
@@ -97,7 +97,7 @@ class ExtraInfoForm_student(forms.Form):
 
 class ExtraInfoForm_admin(forms.Form):
     
-    department = forms.CharField(label="Department", max_length=255)
+    department = forms.ChoiceField(label="Department", choices=Person.DEPARTMENT)
 
     def clean(self):
         cleaned_data = super().clean()

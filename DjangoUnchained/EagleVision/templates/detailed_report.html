@@ -18,19 +18,20 @@
 <body>
 
     <div class="box m-2 w-90 h-90">
-        <a href="{% url 'admin_report' %}?page={{ request.session.last_course_page }}">Go Back </a>
+        <a href="{% url 'admin_report' %}?page={{ request.session.last_course_page }}" name="detail_report_button">Go Back </a>
         <h1>Detailed Report for {{ course.title }}</h1>
         {% for section in sections_data %}
             <h3>Section: {{ section.section_title }}</h3>
             {% for student in section.watchers %}
                 <p>Name: {{ student.name }}</p>
                 <p>Email: {{ student.email }}</p>
-                <p>Department: {{ student.department }}</p>
+                <p>Department: {{ user.department }}</p>
+                <p>Graduation: {{ student.graduation_semester }}</p>
             {% empty %}
-                <p>No students watching this section.</p>
+                <p>No students are watching this section.</p>
             {% endfor %}
         {% empty %}
-            <p>Currently No student has watch this class.</p>
+            <p>Currently no students are watching this class.</p>
         {% endfor %}
     </div>
 </body>

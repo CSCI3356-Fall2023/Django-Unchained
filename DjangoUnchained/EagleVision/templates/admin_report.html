@@ -100,7 +100,7 @@
                         </select>
                         <button type="submit">Apply</button>
                     </form>
-
+                    
                     <div class="stats-section">
                         <h2>Stats</h2>
                         <p>Most Popular Class: {{ MostPopularCourse}}</p>
@@ -130,7 +130,7 @@
                     </div>
                     <div class="pagination">
                         <span class="step-links">
-                            <span class="page-info">Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}.</span>
+                            <span class="page-info">Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}</span>
 
                                 {% if courses_data.has_previous %}
                                     <a href="?page={{ courses_data.previous_page_number }}{% if selected_snapshot_id %}&snapshot={{ selected_snapshot_id }}{% endif %}">Previous</a>
