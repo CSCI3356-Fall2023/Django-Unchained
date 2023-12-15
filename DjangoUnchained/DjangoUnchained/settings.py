@@ -162,3 +162,7 @@ EMAIL_HOST_USER = 'stoeva@bc.edu'           #change this depending if we are usi
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-unchained-production.up.railway.app'
+]
