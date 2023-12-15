@@ -583,7 +583,6 @@ def detailed_report(request, course_id, snapshot_id):
         return redirect('admin_report')
 
     sections_data = course_info.get('sections', [])
-    print(sections_data)
     context = {
         'course': course_info,
         'sections_data': sections_data,
