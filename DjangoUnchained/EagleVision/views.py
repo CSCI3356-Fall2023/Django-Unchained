@@ -226,7 +226,6 @@ def logout(request):
             quote_via=quote_plus,
         ),
     )
-
 def api_endpoint(request):
     subject_areas = [
     'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
@@ -364,6 +363,41 @@ def watchlist(request):
     return render(request, "watchlist.html", context)
 
 
+@login_required
+def edit_student_info(request):
+    person = get_object_or_404(Person, id=request.user.id)
+    student, created = Student.objects.get_or_create(person_ptr_id=person.id)
+
+    if request.method == 'POST':
+        form = ExtraInfoForm_student(request.POST)
+        if form.is_valid():
+            student.department = form.cleaned_data['department']
+            student.eagle_id = form.cleaned_data['eagle_id']
+            student.graduation_semester = form.cleaned_data['graduation_semester']
+            student.major_1 = form.cleaned_data['major_1']
+            student.major_2 = form.cleaned_data['major_2']
+            student.major_3 = form.cleaned_data['major_3']
+            student.minor_1 = form.cleaned_data['minor_1']
+            student.minor_2 = form.cleaned_data['minor_2']
+            student.save()
+            
+            return redirect('profile')
+    else:
+       
+        initial_data = {
+            'department': student.department,
+            'eagle_id': student.eagle_id,
+            'graduation_semester': student.graduation_semester,
+            'major_1': student.major_1,
+            'major_2': student.major_2,
+            'major_3': student.major_3,
+            'minor_1': student.minor_1,
+            'minor_2': student.minor_2,
+        }
+        form = ExtraInfoForm_student(initial=initial_data)
+
+    return render(request, 'edit_student_info.html', {'form': form})
+
 
 @login_required
 @require_http_methods(["POST"])
@@ -457,96 +491,81 @@ def process_snapshot_data(snapshot_data):
 
     return courses_data
 
-
 @login_required
 @user_passes_test(is_admin)
 def admin_report(request):
-    snapshots = SystemSnapshot.objects.all().order_by('-created_at')
-    courses = Course.objects.values_list('title', flat=True).distinct()
+    selected_snapshot_id = request.GET.get('snapshot', None)
+    selected_course = request.GET.get('course', '')
+    selected_department = request.GET.get('department', '')
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number
-    most_popular_course_instance = MostPopularCourse.objects.all().first()
 
-    if most_popular_course_instance:
-        most_popular_course = most_popular_course_instance.most_popular_course
-        most_popular_course_count = most_popular_course_instance.most_popular_course_count
-    else:
-        most_popular_course = "Not Available"
-        most_popular_course_count = 0
+    context = {
+        'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
+        'courses': Course.objects.values_list('title', flat=True).distinct(),
+        'departments': DEPARTMENTS,
+    }
 
-    selected_snapshot_id = None
-    snapshot_data = request.session.get('snapshot_data')
-
+    # Update context for POST request
     if request.method == 'POST':
         snapshot_id = request.POST.get('snapshot')
         if snapshot_id:
             return apply_snapshot(request, snapshot_id)
-            
 
+    # Update context based on session data
+    snapshot_data = request.session.get('snapshot_data')
     if snapshot_data:
         selected_snapshot_id = request.session.get('selected_snapshot_id')
-        most_popular_course_instance = MostPopularCourse.objects.filter(snapshot_id=selected_snapshot_id).first()
-        if most_popular_course_instance:
-            most_popular_course = most_popular_course_instance.most_popular_course
-            most_popular_course_count = most_popular_course_instance.most_popular_course_count
         courses_data = process_snapshot_data(snapshot_data)
-        paginator = Paginator(courses_data, 9)
-        paginated_courses_data = paginator.get_page(page_number)
-        selected_course = request.GET.get('course', '')
-        selected_department = request.GET.get('department', '')
-        print("Selected Department:", selected_department)
-        courses_query = Course.objects.all()
-
-        if selected_course:
-            courses_query = courses_query.filter(title__icontains=selected_course)
-        if selected_department: 
-            courses_query = courses_query.filter(department__icontains=selected_department)
-            
-   
-        context = {
-            'snapshots': snapshots,
-            'selected_snapshot_id': selected_snapshot_id,
-            'courses_data': paginated_courses_data,
-            'courses': courses,
-            'filtered_courses': courses_query,
-            'departments': DEPARTMENTS,
-            'MostPopularCourse': most_popular_course,
-            'MostPopularCourseCount': most_popular_course_count,
-        }
-
+        context.update(get_filtered_context(request, selected_course, selected_department, courses_data, page_number))
     else:
-        selected_snapshot_id = request.GET.get('snapshot', None)
-        selected_course = request.GET.get('course', '')
-        selected_department = request.GET.get('department', '')
-
+        # Handling when snapshot is selected
         if selected_snapshot_id:
             selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
             request.session['snapshot_data'] = selected_snapshot.data
             request.session['selected_snapshot_id'] = selected_snapshot_id
             return redirect('admin_report')
 
-        courses_query = Course.objects.all()
+        courses_data = []  
+        context.update(get_filtered_context(request, selected_course, selected_department, [], page_number))
 
-        if selected_course:
-            courses_query = courses_query.filter(title__icontains=selected_course)
-        if selected_department:
-            courses_query = courses_query.filter(department__icontains=selected_department)
 
-        paginator = Paginator(courses_query, 9)
-        paginated_courses_data = paginator.get_page(page_number)
+    
+    most_popular_course_instance = MostPopularCourse.objects.filter(
+        snapshot_id=selected_snapshot_id).first() if selected_snapshot_id else MostPopularCourse.objects.all().first()
 
-    context = {
-        'snapshots': snapshots,
+    context.update({
+        'MostPopularCourse': most_popular_course_instance.most_popular_course if most_popular_course_instance else "Not Available",
+        'MostPopularCourseCount': most_popular_course_instance.most_popular_course_count if most_popular_course_instance else 0,
         'selected_snapshot_id': selected_snapshot_id,
-        'courses_data': paginated_courses_data,
-        'courses': courses,
-        'filtered_courses': courses_query,
-        'departments': DEPARTMENTS,
-        'MostPopularCourse': most_popular_course,
-        'MostPopularCourseCount': most_popular_course_count,
-    }
+    })
 
     return render(request, 'admin_report.html', context)
+
+
+
+
+def get_filtered_context( request,selected_course, selected_department, courses_data, page_number):
+    courses_query = Course.objects.all()
+    if selected_course:
+        courses_query = courses_query.filter(title__icontains=selected_course)
+    if selected_department:
+        courses_query = courses_query.filter(department__icontains=selected_department)
+
+    new_courses_data = [data for course in courses_query for data in courses_data if course.title == data['title']]
+    new_courses_data.sort(key=lambda course: course['num_students_on_watch'], reverse=True)
+    paginator = Paginator(new_courses_data, 9)
+    paginated_courses_data = paginator.get_page(page_number)
+
+    query_params = request.GET.copy()
+    query_params.pop('page', None)
+
+    return {
+        'filtered_courses': courses_query,
+        'courses_data': paginated_courses_data,
+        'query_params': query_params.urlencode(),
+    }
+
 
 
 @login_required
@@ -564,7 +583,7 @@ def detailed_report(request, course_id, snapshot_id):
         return redirect('admin_report')
 
     sections_data = course_info.get('sections', [])
-
+    print(sections_data)
     context = {
         'course': course_info,
         'sections_data': sections_data,

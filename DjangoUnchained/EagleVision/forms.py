@@ -83,17 +83,16 @@ class ExtraInfoForm_student(forms.Form):
     minor_1 = forms.CharField(label="Minor 1", max_length=255, required=False)
     minor_2 = forms.CharField(label="Minor 2", max_length=255, required=False)
 
-    def clean(self):
+    
         
-        cleaned_data = super().clean()
-        if Student.objects.filter(eagle_id=cleaned_data.get("eagle_id")).exists():
-            self.add_error('eagle_id', "This Eagle ID is already registered.")
-        if Student.objects.filter(email=cleaned_data.get("email")).exists():
-            self.add_error('email', "This email is already registered.")
-        
-        
-        return cleaned_data
+    def __init__(self, *args, **kwargs):
+        self.student_instance = kwargs.pop('student_instance', None)
+        super(ExtraInfoForm_student, self).__init__(*args, **kwargs)
 
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
 
 class ExtraInfoForm_admin(forms.Form):
     

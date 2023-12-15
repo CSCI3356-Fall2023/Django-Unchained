@@ -1,0 +1,83 @@
+body {
+    background-color: #370000;
+    font-family: 'Rubik', sans-serif;
+    color: #fff;
+}
+
+.box {
+    border-radius: 20px;
+    background-color: #fff;
+    margin: 2em auto;
+    width: 80%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-dropdown {
+    cursor: pointer;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.section-dropdown:hover {
+    background-color: #e0e0e0; 
+}
+
+.section-dropdown a {
+    text-decoration: none;
+    color: #6D0000;
+    font-weight: bold;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.section-dropdown a:focus {
+    transform: scale(1.05);
+}
+
+.section-content {
+    display: none;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+}
+
+.section-content:target {
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.student {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    color: #6D0000;
+}
+
+.student:last-child {
+    border-bottom: none;
+}
+
+
+@media (max-width: 768px) {
+    .box {
+        width: 95%;
+        margin-top: 2em;
+    }
+}
+
+h1 {
+    text-align: center;
+    color:#6D0000;
+}
+p{
+    text-align: center;
+    color:#6D0000;
+}
