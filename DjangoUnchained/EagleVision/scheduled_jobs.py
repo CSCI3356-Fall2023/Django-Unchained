@@ -8,6 +8,7 @@ import re
 from datetime import datetime
 from .models import Course
 
+
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
 
 def change_seats_job():
@@ -64,8 +65,24 @@ def load_courses():
                     instructors = activity.get('instructors', [])
                     schedule_names = new_entry.get('scheduleNames', [])
                     cleaned_schedule = clean_schedule_string(''.join(schedule_names))
-                    time_slots = [get_time_slot(time) for _, _, time in cleaned_schedule]
-                    days = [day for _, day, _ in cleaned_schedule if day in ALLOWED_DAYS]
+                    time_slots = []
+                    for schedule in cleaned_schedule:
+                        if len(schedule) == 3:
+                            location, day, time = schedule
+
+                            time_slot = get_time_slot(time)
+                            time_slots.append(time_slot)
+                        else:
+        
+                            time_slots.append('Unknown')
+
+                    days = []
+                    for schedule in cleaned_schedule:
+                        if len(schedule) >= 2:
+                            _, day, *_ = schedule
+                            if day in ALLOWED_DAYS:
+                                days.append(day)
+
 
                     if course_id in course_info:
                         course_info[course_id]['time_slots'].extend(time_slots)
@@ -106,27 +123,38 @@ def standardize_time_format(time_str):
     time_str = re.sub(r"(AM|PM)", r" \1", time_str, flags=re.IGNORECASE)
     return time_str
 
+
 def clean_schedule_string(schedule_str):
     sessions = schedule_str.split(', ')
     cleaned_sessions = []
+
     for session in sessions:
+        if "Asynchronous" in session or "Arrangement" in session:
+            cleaned_sessions.append(('Online', 'BY ARRANGEMENT'))
+            continue
+
         parts = session.split(' ')
-        location = ' '.join(parts[:-2])  
-        day, time = parts[-2:]
-        if day.lower() == 'by':
-            time = 'BY ARRANGEMENT'
+        if len(parts) >= 2:
+            day, time = parts[-2], parts[-1]
+            if day.lower() == 'by':
+                time = 'BY ARRANGEMENT'
+            else:
+                time = standardize_time_format(time)
+            cleaned_sessions.append((session.replace(day, '').replace(time, '').strip(), day, time))
         else:
-            time = standardize_time_format(time)
-        if day in ALLOWED_DAYS:
-            cleaned_sessions.append((location, day, time))
+            cleaned_sessions.append(('Unknown', 'Unknown'))
+
     return cleaned_sessions
 
-def get_time_slot(start_time_str):
 
+
+
+def get_time_slot(start_time_str):
     standardized_time = standardize_time_format(start_time_str.split('-')[0].strip())
 
-    if standardized_time == 'BY ARRANGEMENT':
+    if standardized_time == 'BY ARRANGEMENT' or not is_valid_time(standardized_time):
         return 'BY ARRANGEMENT'
+
     start_time = datetime.strptime(standardized_time, '%I:%M %p')
 
     if start_time.hour < 10:
@@ -139,3 +167,10 @@ def get_time_slot(start_time_str):
         return 'late_afternoon'
     else:
         return 'evening'
+
+def is_valid_time(time_str):
+    try:
+        datetime.strptime(time_str, '%I:%M %p')
+        return True
+    except ValueError:
+        return False
