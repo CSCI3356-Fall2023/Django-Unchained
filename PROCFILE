@@ -1,1 +1,1 @@
-web: cd ./DjangoUnchained && python manage.py migrate && gunicorn DjangoUnchained.wsgi
+web: cd ./DjangoUnchained && python3 manage.py migrate && gunicorn DjangoUnchained.wsgi
