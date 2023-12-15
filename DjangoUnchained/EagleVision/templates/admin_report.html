@@ -89,7 +89,6 @@
 
                     <form method="GET" action="{% url 'admin_report' %}" class="filter-form">
                         {% csrf_token %}
-                        <label for="course">Filter by Course:</label>
                         <select name="course">
                             <option value="">All Courses</option>
                             {% for course in courses %}
@@ -98,7 +97,15 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <button type="submit">Apply</button>
+                        <select name="department">
+                            <option value="">All Departments</option>
+                            {% for department in departments %}
+                                <option value="{{ department }}" {% if department == selected_department %}selected{% endif %}>
+                                    {{ department }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Filter</button>
                     </form>
                     
                     <div class="stats-section">

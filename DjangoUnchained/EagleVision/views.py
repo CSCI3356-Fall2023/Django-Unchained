@@ -22,6 +22,7 @@ from django.utils.timezone import now
 from django.core.paginator import Paginator
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
+DEPARTMENTS = ['AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI', 'INTL', 'JOUR', 'ENGL', 'LAWS', 'MATH', 'XRBC']
 
 oauth = OAuth()
 oauth.register(
@@ -456,6 +457,7 @@ def process_snapshot_data(snapshot_data):
 
     return courses_data
 
+
 @login_required
 @user_passes_test(is_admin)
 def admin_report(request):
@@ -491,18 +493,23 @@ def admin_report(request):
         paginator = Paginator(courses_data, 9)
         paginated_courses_data = paginator.get_page(page_number)
         selected_course = request.GET.get('course', '')
-
+        selected_department = request.GET.get('department', '')
+        print("Selected Department:", selected_department)
         courses_query = Course.objects.all()
 
         if selected_course:
             courses_query = courses_query.filter(title__icontains=selected_course)
-
+        if selected_department: 
+            courses_query = courses_query.filter(department__icontains=selected_department)
+            
+   
         context = {
             'snapshots': snapshots,
             'selected_snapshot_id': selected_snapshot_id,
             'courses_data': paginated_courses_data,
             'courses': courses,
             'filtered_courses': courses_query,
+            'departments': DEPARTMENTS,
             'MostPopularCourse': most_popular_course,
             'MostPopularCourseCount': most_popular_course_count,
         }
@@ -510,6 +517,7 @@ def admin_report(request):
     else:
         selected_snapshot_id = request.GET.get('snapshot', None)
         selected_course = request.GET.get('course', '')
+        selected_department = request.GET.get('department', '')
 
         if selected_snapshot_id:
             selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
@@ -521,7 +529,8 @@ def admin_report(request):
 
         if selected_course:
             courses_query = courses_query.filter(title__icontains=selected_course)
-        
+        if selected_department:
+            courses_query = courses_query.filter(department__icontains=selected_department)
 
         paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
@@ -532,6 +541,7 @@ def admin_report(request):
         'courses_data': paginated_courses_data,
         'courses': courses,
         'filtered_courses': courses_query,
+        'departments': DEPARTMENTS,
         'MostPopularCourse': most_popular_course,
         'MostPopularCourseCount': most_popular_course_count,
     }
