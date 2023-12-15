@@ -25,11 +25,12 @@ def check_and_notify():
         section = watchlist_entry.section
 
         # Send priority email less than five seats
-        if section.maxSeats - section.currentSeats < 6:
+        if section.maxSeats - section.currentSeats < 6 and section.maxSeats - section.currentSeats > 0:
             subject = f'Only {section.maxSeats - section.currentSeats} seats available for {section.title}'
             message = f'There are {section.maxSeats - section.currentSeats} available seats for {section.title}. Register soon since seats may fill up quickly.'
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
-        course_available.append({'title': section.title, 'available_seats': section.maxSeats - section.currentSeats})
+        if section.maxSeats - section.currentSeats > 0:
+            course_available.append({'title': section.title, 'available_seats': section.maxSeats - section.currentSeats})
 
     if course_available:
         # Send a single email if there are more than five seats available
