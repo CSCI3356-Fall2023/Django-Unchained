@@ -463,6 +463,9 @@ def process_snapshot_data(snapshot_data):
 def admin_report(request):
     snapshots = SystemSnapshot.objects.all().order_by('-created_at')
     courses = Course.objects.values_list('title', flat=True).distinct()
+    instructors = Course.objects.values_list('instructor', flat=True).distinct().exclude(instructor='none').exclude(instructor= '').order_by('instructor')
+    print(instructors)
+    print()
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number
     most_popular_course_instance = MostPopularCourse.objects.all().first()
@@ -494,6 +497,7 @@ def admin_report(request):
         paginated_courses_data = paginator.get_page(page_number)
         selected_course = request.GET.get('course', '')
         selected_department = request.GET.get('department', '')
+        selected_instructor = request.GET.get('instructor', '')
         print("Selected Department:", selected_department)
         courses_query = Course.objects.all()
 
@@ -501,6 +505,8 @@ def admin_report(request):
             courses_query = courses_query.filter(title__icontains=selected_course)
         if selected_department: 
             courses_query = courses_query.filter(department__icontains=selected_department)
+        if selected_instructor: 
+            courses_query = courses_query.filter(department__icontains=selected_instructor)
             
    
         context = {
@@ -508,6 +514,7 @@ def admin_report(request):
             'selected_snapshot_id': selected_snapshot_id,
             'courses_data': paginated_courses_data,
             'courses': courses,
+            'instructors': instructors,
             'filtered_courses': courses_query,
             'departments': DEPARTMENTS,
             'MostPopularCourse': most_popular_course,
@@ -518,6 +525,7 @@ def admin_report(request):
         selected_snapshot_id = request.GET.get('snapshot', None)
         selected_course = request.GET.get('course', '')
         selected_department = request.GET.get('department', '')
+        selected_instructor = request.GET.get('instructor', '')
 
         if selected_snapshot_id:
             selected_snapshot = get_object_or_404(SystemSnapshot, id=selected_snapshot_id)
@@ -531,6 +539,8 @@ def admin_report(request):
             courses_query = courses_query.filter(title__icontains=selected_course)
         if selected_department:
             courses_query = courses_query.filter(department__icontains=selected_department)
+        if selected_instructor:
+            courses_query = courses_query.filter(instructor__icontains=selected_instructor)
 
         paginator = Paginator(courses_query, 9)
         paginated_courses_data = paginator.get_page(page_number)
@@ -540,6 +550,7 @@ def admin_report(request):
         'selected_snapshot_id': selected_snapshot_id,
         'courses_data': paginated_courses_data,
         'courses': courses,
+        'instructors': instructors,
         'filtered_courses': courses_query,
         'departments': DEPARTMENTS,
         'MostPopularCourse': most_popular_course,
