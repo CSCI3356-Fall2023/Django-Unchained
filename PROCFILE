@@ -1,3 +1,2 @@
 
-
-web:python3 manage.py migrate && gunicorn DjangoUnchained.wsgi
+web: python3 DjangoUnchained/manage.py migrate && gunicorn DjangoUnchained.DjangoUnchained.DjangoUnchained.wsgi
