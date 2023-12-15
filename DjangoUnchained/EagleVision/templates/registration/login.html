@@ -3,6 +3,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Login</title> 
+        <link rel="stylesheet" href="{% static 'EagleVision/loginStyle.css' %}">
+        <!-- {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} -->
+    </head>
+    <body>
+        <div class="login-container"> 
+            <div class="eagle">
+                <div class="eagle-left">
+                    <div class="bclogo">
+                        <img src="{% static 'images/BCLogo.png' %}" alt="Boston College Logo">
+                    </div>
+                    <h1>EagleVision</h1>
+                    <a href="{% url 'login' %}" class="google-login-button">Login with Google</a>
+                </div>
+                <div class="eagle-right">
+                    <img src="{% static 'images/eagle.png' %}" alt="Eagle Photo">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+    <head>
         <title> Login </title>
         <link rel="stylesheet" href="{% static 'EagleVision/loginStyle.css' %}">
         {% if messages %}

@@ -1,0 +1,53 @@
+
+
+ body {
+    background-color: #6D0000;
+    font-family: Rubik, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.bclogo {
+    margin-bottom: 20px;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 50%;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #6D0000;
+}
+
+.button {
+    display: block;
+    background-color: #fff;
+    color: #6D0000;
+    text-align: center;
+    margin: 10px auto;
+    padding: 15px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 200px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.student-button:hover {
+    background-color: #6D0000;
+    color: #fff;
+}
+
+.admin-button:hover {
+    background-color: #6D0000;
+    color: #fff;
+}

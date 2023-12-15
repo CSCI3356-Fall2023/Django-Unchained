@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Selections</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/courseselection.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+   
+</head>
+<body>
+    <nav class="nav-menu">
+        <a href="{% url 'profile'%}">Home</a>
+        <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+        <a href =" {% url 'courseselect' %}">Search Courses</a>
+        {% if user.is_staff %}
+            <a href="{% url 'admin_report' %}">Admin Report</a>
+        {% endif %}
+    </nav>
+    <div class="content-wrapper">
+        <div class="filter-sidebar">
+            <form method="GET" action="{% url 'filterRequest' %}">
+                <h2>Filters</h2>
+                {{ form.as_p }}
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+
+        <div class="main-content">
+        <div class="box m-2 w-90 h-90"> 
+            <h1>Courses</h1>
+            <form action="{% url 'search_results' %}" method="GET" class="search-form">
+                <input type="text" name="search_query" placeholder="Enter course titles to search...">
+                <button type="submit">Search</button>
+                <div class="back-link">
+                    <a href="{% url 'courseselect' %}?page={{ request.session.last_course_page }}">Go Back </a>
+                </div>
+            </form>
+            
+            {% if page_obj %}
+                {% for course in page_obj %}
+                <div class="course-list">
+                    <div class="course">
+                        <p class="course-title">{{ course.title }}<hr></p>
+                        <p>Date: {{ course.date }}</p>
+                        <p>Credits: {{ course.credits }}</p>
+                        <p>Description: {{ course.description }}</p>
+                        
+                            <form action="{% url 'section_selection' course.course_id %}" method="post" class="inline section"> 
+                                {% csrf_token %}
+                                <input type="hidden" name="course_id" value="{{ course.title }}">
+                                <button type="submit"> See Sections </button>
+                            </form>
+                    
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No search results found.</p>
+            {% endif %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

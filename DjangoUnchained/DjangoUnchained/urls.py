@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from EagleVision.scheduler import run_schedule
 
 urlpatterns = [
     path('', include('EagleVision.urls')),
     path('admin/', admin.site.urls),
-    path('', include('django.contrib.auth.urls')),
-    path("account/", include("allauth.urls"))
+    # path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+run_schedule()
