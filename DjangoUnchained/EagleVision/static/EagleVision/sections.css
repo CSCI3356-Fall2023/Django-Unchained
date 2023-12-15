@@ -65,6 +65,23 @@ body {
     border-bottom: none;
 }
 
+.back-link a {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #6D0000;
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+
+
+button:hover, button:focus {
+    background-color: #550000;
+
+}
 
 @media (max-width: 768px) {
     .box {
