@@ -92,6 +92,7 @@ class Course(models.Model):
     date = models.CharField(max_length=255, default = '01/01/2023')
     schedule = models.CharField(max_length=255, default = 'none')
     instructor = models.CharField(max_length=255, default = 'none')
+    level = models.CharField(max_length=255, default = 'none')
     requisite = models.CharField(max_length=255, default = 'none')
     department = models.CharField(max_length=255, default = 'none')
     courseIdentifier = models.CharField(max_length=255, default="none")

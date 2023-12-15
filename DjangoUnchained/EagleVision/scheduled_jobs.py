@@ -101,6 +101,7 @@ def load_courses():
                 unique_days = list(set(info['days']))  
                 days_str = ', '.join(sorted(unique_days))
                 department = offering['name'][:4]
+                level = offering['name'][4]+ '000'
                 
                 Course.objects.get_or_create(
                     course_id=course_id,
@@ -110,6 +111,7 @@ def load_courses():
                         'date': date_text,
                         'schedule': ', '.join(schedule_names),
                         'instructor': instructors_str,
+                        'level': level,
                         'time_slots': time_slots, 
                         'days': days_str,
                         'department': department

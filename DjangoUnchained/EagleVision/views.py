@@ -366,7 +366,7 @@ def watchlist(request):
 @login_required
 def edit_student_info(request):
     person = get_object_or_404(Person, id=request.user.id)
-    student, created = Student.objects.get_or_create(person_ptr_id=person.id)
+    student = Student.objects.get_or_create(person_ptr_id=person.id)
 
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
@@ -414,7 +414,7 @@ def add_to_watchlist(request):
     section_id = request.POST.get('section_id')
     section = Section.objects.get(section_id=section_id)
     course = Course.objects.get(course_id=section.courseid)
-    watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, section=section, course=course)
+    created = Watchlist.objects.get_or_create(user=request.user, section=section, course=course)
     if created:
         messages.success(request, "Course added to watchlist successfully.")
     else:
@@ -433,7 +433,6 @@ def remove_from_watchlist(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def section_api_endpoint(request, id):
-    recipient_email = request.session.get('email', 'recipient@example.com')
     user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
     registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
     for entry in registrationGroupResponse:
@@ -497,6 +496,7 @@ def admin_report(request):
     selected_snapshot_id = request.GET.get('snapshot', None)
     selected_course = request.GET.get('course', '')
     selected_department = request.GET.get('department', '')
+    selected_level = request.GET.get('level', '')
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number
 
@@ -504,6 +504,8 @@ def admin_report(request):
         'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
         'courses': Course.objects.values_list('title', flat=True).distinct(),
         'departments': DEPARTMENTS,
+        'levels': Course.objects.values_list('level', flat=True).distinct().order_by('level')
+
     }
 
     # Update context for POST request
@@ -517,7 +519,7 @@ def admin_report(request):
     if snapshot_data:
         selected_snapshot_id = request.session.get('selected_snapshot_id')
         courses_data = process_snapshot_data(snapshot_data)
-        context.update(get_filtered_context(request, selected_course, selected_department, courses_data, page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, courses_data, page_number))
     else:
         # Handling when snapshot is selected
         if selected_snapshot_id:
@@ -527,7 +529,7 @@ def admin_report(request):
             return redirect('admin_report')
 
         courses_data = []  
-        context.update(get_filtered_context(request, selected_course, selected_department, [], page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, [], page_number))
 
 
     
@@ -545,13 +547,14 @@ def admin_report(request):
 
 
 
-def get_filtered_context( request,selected_course, selected_department, courses_data, page_number):
+def get_filtered_context( request,selected_course, selected_department, selected_level, courses_data, page_number):
     courses_query = Course.objects.all()
     if selected_course:
         courses_query = courses_query.filter(title__icontains=selected_course)
     if selected_department:
         courses_query = courses_query.filter(department__icontains=selected_department)
-
+    if selected_level:
+        courses_query = courses_query.filter(level__icontains=selected_level)
     new_courses_data = [data for course in courses_query for data in courses_data if course.title == data['title']]
     new_courses_data.sort(key=lambda course: course['num_students_on_watch'], reverse=True)
     paginator = Paginator(new_courses_data, 9)

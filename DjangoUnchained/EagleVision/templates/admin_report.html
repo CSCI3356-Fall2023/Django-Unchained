@@ -97,14 +97,22 @@
                                 </option>
                             {% endfor %}
                         </select>
-<select name="department">
-    <option value="">All Departments</option>
-    {% for department in departments %}
-        <option value="{{ department }}" {% if department == selected_department %}selected{% endif %}>
-            {{ department }}
-        </option>
-    {% endfor %}
-</select>
+                        <select name="department">
+                            <option value="">All Departments</option>
+                            {% for department in departments %}
+                                <option value="{{ department }}" {% if department == selected_department %}selected{% endif %}>
+                                    {{ department }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <select name="level">
+                            <option value="">All Levels</option>
+                            {% for level in levels %}
+                                <option value="{{ level }}" {% if level == selected_level %}selected{% endif %}>
+                                    {{ level }}
+                                </option>
+                            {% endfor %}
+                        </select>
                         <button type="submit">Filter</button>
                     </form>
                     
@@ -137,7 +145,7 @@
                                 <a href="?page={{ courses_data.previous_page_number }}&{{ query_params }}">Previous</a>
                             {% endif %}
                             <span class="current">
-                                Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}.
+                                Page {{ courses_data.number }} of {{ courses_data.paginator.num_pages }}
                             </span>
                             {% if courses_data.has_next %}
                                 <a href="?page={{ courses_data.next_page_number }}&{{ query_params }}">Next</a>
