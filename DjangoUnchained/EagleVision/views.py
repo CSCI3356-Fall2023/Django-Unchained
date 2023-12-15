@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from .forms import ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
-
+from dotenv import find_dotenv, load_dotenv
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
 from .models import Person, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
@@ -20,9 +20,19 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.timezone import now
 from django.core.paginator import Paginator
+import os
+
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
 DEPARTMENTS = ['AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI', 'INTL', 'JOUR', 'ENGL', 'LAWS', 'MATH', 'XRBC']
+
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+
+AUTH0_DOMAIN = os.environ.get("AUTH0_DOMAIN")
+AUTH0_CLIENT_ID = os.environ.get("AUTH0_CLIENT_ID")
+AUTH0_CLIENT_SECRET = os.environ.get("AUTH0_CLIENT_SECRET")
 
 oauth = OAuth()
 oauth.register(
