@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/report/detailed/<str:course_id>/<int:snapshot_id>/', views.detailed_report, name='detailed_report'),
     path('system_snapshots/', views.list_system_snapshots, name='list_system_snapshots'),
     path('course_report_filter/', views.course_report_filter, name='course_report_filter'),
+    path('edit_student_info/', views.edit_student_info, name='edit_student_info'),
 ]

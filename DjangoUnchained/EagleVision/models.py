@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import random
-import logging
 import requests
 
 from django.conf import settings
@@ -33,7 +32,17 @@ class Person(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=255, default=email)
     name = models.CharField(max_length=255, blank=True)
-    department = models.CharField(max_length=255, blank=True)
+    DEPARTMENT = [
+        ('MCAS', 'MCAS'),
+        ('CSOM', 'CSOM'),
+        ('CSON', 'CSON'),
+        ('LYNCH', 'LYNCH'),
+        ('LAW', 'LAW'),
+        ('WOODS', 'WOODS'),
+        ('STM', 'STM'),
+        ('SSW', 'SSW'),
+    ]
+    department = models.CharField(max_length=10, choices=DEPARTMENT)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_extra_info_filled_out = models.BooleanField(default=False)
@@ -64,16 +73,16 @@ class Student(Person):
     minor_2 = models.CharField(max_length=255, blank=True, null=True)
     eagle_id = models.CharField(max_length=50, unique=True)
     GRADUATION_SEMESTER = [
-        ('Spring2024', 'Spring 2024'),
-        ('Fall2024', 'Fall 2024'),
-        ('Spring2025', 'Spring 2025'),
-        ('Fall2025', 'Fall 2025'),
-        ('Spring2026', 'Spring 2026'),
-        ('Fall2026', 'Fall 2026'),
-        ('Spring2027', 'Spring 2027'),
-        ('Fall2027', 'Fall 2027'),    
+        ('Spring 2024', 'Spring 2024'),
+        ('Fall 2024', 'Fall 2024'),
+        ('Spring 2025', 'Spring 2025'),
+        ('Fall 2025', 'Fall 2025'),
+        ('Spring 2026', 'Spring 2026'),
+        ('Fall 2026', 'Fall 2026'),
+        ('Spring 2027', 'Spring 2027'),
+        ('Fall 2027', 'Fall 2027'),    
     ]
-    graduation_semester = models.CharField(max_length=10, choices=GRADUATION_SEMESTER)
+    graduation_semester = models.CharField(max_length=11, choices=GRADUATION_SEMESTER)
    
 
 class Course(models.Model):

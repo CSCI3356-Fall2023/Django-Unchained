@@ -18,6 +18,10 @@
                     <a href="{% url 'profile' %}" class="active">Home</a>
                     <a href="{% url 'watchlist' %}">My WatchList</a>
                     <a href="{% url 'courseselect' %}">Search Courses</a>
+                {% if user.user_type == 'student'%}
+                    <a href="{% url 'edit_student_info' %}">Edit Student Info</a>
+                {% endif %}
+
                     {% if user.is_staff %}
                         <a href="{% url 'admin_report' %}">Admin Report</a>
                     {% endif %}
@@ -30,17 +34,10 @@
                     <div class="bclogo">
                         <img src="{% static 'images/BCLogo.png' %}" alt="Boston College Logo" width="320" height="180">
                     </div>
-                    <h1>Welcome to Your User Profile</h1>
                     <div class="info">
                             <h3>Name:</h3>    {{ user.name }}
                             <h3>Email:</h3>    {{ user.email }}
-                            {% if user.is_staff %}
-                                <h3>Department:</h3> {{ user.department }}
-                            
-                            {% else %}
-                            <h3>Department:</h3>    {{ user.major_1}}
-
-                            {% endif %}
+                            <h3>School:</h3>    {{ user.department}}
     
                         {% if user.is_staff %}
                         
