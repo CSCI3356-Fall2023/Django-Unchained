@@ -180,5 +180,5 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://django-unchained-production.up.railway.app'
+    'https://django-unchained-production-a0a6.up.railway.app/'
 ]
