@@ -171,7 +171,7 @@ button:disabled, .added-to-watchlist {
     flex-basis: 20%; 
     padding: 20px;
     margin: 5em 0 0 2em;
-    height: 100vh;
+    /* height: 75vh; */
     background-color: #fff; 
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 

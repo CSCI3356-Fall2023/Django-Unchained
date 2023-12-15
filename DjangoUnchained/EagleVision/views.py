@@ -366,12 +366,12 @@ def watchlist(request):
 @login_required
 def edit_student_info(request):
     person = get_object_or_404(Person, id=request.user.id)
-    student = Student.objects.get_or_create(person_ptr_id=person.id)
+    student, created = Student.objects.get_or_create(person_ptr_id=person.id)
 
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
         if form.is_valid():
-            student.department = form.cleaned_data['department']
+            person.department = form.cleaned_data['department']
             student.eagle_id = form.cleaned_data['eagle_id']
             student.graduation_semester = form.cleaned_data['graduation_semester']
             student.major_1 = form.cleaned_data['major_1']
@@ -385,7 +385,7 @@ def edit_student_info(request):
     else:
        
         initial_data = {
-            'department': student.department,
+            'department': person.department,
             'eagle_id': student.eagle_id,
             'graduation_semester': student.graduation_semester,
             'major_1': student.major_1,
