@@ -29,6 +29,8 @@ DEPARTMENTS = ['AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI', 'INTL', 'JOUR', 'ENGL', '
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
+#triiger redeploy
+
 
 AUTH0_REDIRECT_URI = 'https://django-unchained-production.up.railway.app/login'
 
