@@ -11,11 +11,11 @@ class StudentRegistrationForm(forms.Form):
     eagle_id = forms.CharField(label="Eagle ID", max_length=8, min_length=8)
     graduation_semester = forms.ChoiceField(label="Graduation Semester", choices=Student.GRADUATION_SEMESTER)
     
-    major_1 = forms.CharField(label="Major 1", max_length=255)
-    major_2 = forms.CharField(label="Major 2", max_length=255, required=False)
-    major_3 = forms.CharField(label="Major 3", max_length=255, required=False)
-    minor_1 = forms.CharField(label="Minor 1", max_length=255, required=False)
-    minor_2 = forms.CharField(label="Minor 2", max_length=255, required=False)
+    major_1 = forms.ChoiceField(label="Major 1", choices=Student.MAJORS)
+    major_2 = forms.ChoiceField(label="Major 2", required=False, choices=Student.MAJORS)
+    major_3 = forms.ChoiceField(label="Major 3", required=False, choices=Student.MAJORS)
+    minor_1 = forms.ChoiceField(label="Minor 1", required=False, choices=Student.MINORS)
+    minor_2 = forms.ChoiceField(label="Minor 2", required=False, choices=Student.MINORS)
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
@@ -77,14 +77,25 @@ class ExtraInfoForm_student(forms.Form):
     eagle_id = forms.CharField(label="Eagle ID", max_length=8, min_length=8)
     graduation_semester = forms.ChoiceField(label="Graduation Semester", choices=Student.GRADUATION_SEMESTER)
     
-    major_1 = forms.CharField(label="Major 1", max_length=255)
-    major_2 = forms.CharField(label="Major 2", max_length=255, required=False)
-    major_3 = forms.CharField(label="Major 3", max_length=255, required=False)
-    minor_1 = forms.CharField(label="Minor 1", max_length=255, required=False)
-    minor_2 = forms.CharField(label="Minor 2", max_length=255, required=False)
+    major_1 = forms.ChoiceField(label="Major 1", choices=Student.MAJORS)
+    major_2 = forms.ChoiceField(label="Major 2", choices=Student.MAJORS, required=False)
+    major_3 = forms.ChoiceField(label="Major 3", choices=Student.MAJORS, required=False)
+    minor_1 = forms.ChoiceField(label="Minor 1", choices=Student.MINORS, required=False)
+    minor_2 = forms.ChoiceField(label="Minor 2", choices=Student.MINORS, required=False)
 
-    
-        
+    def check_for_duplicates(self, cleaned_data):
+        field_names = ['major_1', 'major_2', 'major_3', 'minor_1', 'minor_2']
+        field_values = [cleaned_data.get(field) for field in field_names]
+
+        # Check for duplicates between majors and minors
+        for i, field_name in enumerate(field_names):
+            for other_field_name in field_names[i + 1:]:
+                field_value = cleaned_data.get(field_name)
+                other_field_value = cleaned_data.get(other_field_name)
+
+                if field_value and other_field_value and field_value == other_field_value:
+                    raise forms.ValidationError(f"{field_name.capitalize()} should be different from {other_field_name.capitalize()}.")
+
     def __init__(self, *args, **kwargs):
         self.student_instance = kwargs.pop('student_instance', None)
         super(ExtraInfoForm_student, self).__init__(*args, **kwargs)
@@ -92,6 +103,7 @@ class ExtraInfoForm_student(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        self.check_for_duplicates(cleaned_data)
         return cleaned_data
 
 class ExtraInfoForm_admin(forms.Form):
