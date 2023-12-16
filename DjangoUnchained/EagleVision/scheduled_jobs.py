@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import re
 from datetime import datetime
 from .models import Course
+from django.conf import settings
 
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
@@ -41,7 +42,7 @@ def check_and_notify():
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
     
 def load_courses():
-    response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=')
+    response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code=')
     if response.status_code == 200:
         for entry in response.json():
             offering = entry['courseOffering']

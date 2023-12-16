@@ -170,3 +170,5 @@ EMAIL_USE_SSL = False
 CSRF_TRUSTED_ORIGINS = [
     'https://django-unchained-production.up.railway.app'
 ]
+
+API_BASE_URL = 'http://localhost:8080'
