@@ -88,13 +88,13 @@ class ExtraInfoForm_student(forms.Form):
         field_values = [cleaned_data.get(field) for field in field_names]
 
         # Check for duplicates between majors and minors
-        for i, field_name in enumerate(field_names):
-            for other_field_name in field_names[i + 1:]:
-                field_value = cleaned_data.get(field_name)
-                other_field_value = cleaned_data.get(other_field_name)
+        for i, majorminor1 in enumerate(field_names):
+            for majorminor2 in field_names[i + 1:]:
+                majorminor1 = cleaned_data.get(majorminor1)
+                majorminor2 = cleaned_data.get(majorminor2)
 
-                if field_value and other_field_value and field_value == other_field_value:
-                    raise forms.ValidationError(f"{field_name.capitalize()} should be different from {other_field_name.capitalize()}.")
+                if majorminor1 and majorminor2 and majorminor1 == majorminor2:
+                    raise forms.ValidationError(f"{majorminor1.capitalize()} should be different from {majorminor2.capitalize()}.")
 
     def __init__(self, *args, **kwargs):
         self.student_instance = kwargs.pop('student_instance', None)
