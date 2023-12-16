@@ -512,6 +512,7 @@ def admin_report(request):
     selected_snapshot_id = request.GET.get('snapshot', None)
     selected_course = request.GET.get('course', '')
     selected_department = request.GET.get('department', '')
+    selected_level = request.GET.get('level', '')
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number
 
@@ -519,6 +520,7 @@ def admin_report(request):
         'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
         'courses': Course.objects.values_list('title', flat=True).distinct(),
         'departments': DEPARTMENTS,
+        'levels': Course.objects.values_list('level', flat=True).distinct().order_by('level')
     }
 
     # Update context for POST request
@@ -532,7 +534,7 @@ def admin_report(request):
     if snapshot_data:
         selected_snapshot_id = request.session.get('selected_snapshot_id')
         courses_data = process_snapshot_data(snapshot_data)
-        context.update(get_filtered_context(request, selected_course, selected_department, courses_data, page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, courses_data, page_number))
     else:
         # Handling when snapshot is selected
         if selected_snapshot_id:
@@ -542,7 +544,7 @@ def admin_report(request):
             return redirect('admin_report')
 
         courses_data = []  
-        context.update(get_filtered_context(request, selected_course, selected_department, [], page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, [], page_number))
 
 
     
@@ -560,12 +562,14 @@ def admin_report(request):
 
 
 
-def get_filtered_context( request,selected_course, selected_department, courses_data, page_number):
+def get_filtered_context( request,selected_course, selected_department, selected_level, courses_data, page_number):
     courses_query = Course.objects.all()
     if selected_course:
         courses_query = courses_query.filter(title__icontains=selected_course)
     if selected_department:
         courses_query = courses_query.filter(department__icontains=selected_department)
+    if selected_level:
+        courses_query = courses_query.filter(level__icontains=selected_level)
 
     new_courses_data = [data for course in courses_query for data in courses_data if course.title == data['title']]
     new_courses_data.sort(key=lambda course: course['num_students_on_watch'], reverse=True)

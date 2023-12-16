@@ -105,6 +105,14 @@
         </option>
     {% endfor %}
 </select>
+<select name="level">
+    <option value="">All Levels</option>
+    {% for level in levels %}
+        <option value="{{ level }}" {% if level == selected_level %}selected{% endif %}>
+            {{ level }}
+        </option>
+    {% endfor %}
+</select>
                         <button type="submit">Filter</button>
                     </form>
                     
