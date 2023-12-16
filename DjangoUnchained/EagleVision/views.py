@@ -30,6 +30,8 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
+AUTH0_REDIRECT_URI = 'https://django-unchained-production.up.railway.app/login'
+
 AUTH0_DOMAIN = 'dev-tyenzjqgsqdzkkqd.us.auth0.com'
 AUTH0_CLIENT_ID = 'hs5GAOve1ehItJIZ7rLs9itiQnaS7Fbi'
 AUTH0_CLIENT_SECRET = 'YoqlkQFFPdaUUt8zk_JdQqN2xmYenf6b0OPEoz165RTrI07EUogStYun8yGRYKKH'
@@ -41,6 +43,7 @@ oauth.register(
     client_secret=settings.AUTH0_CLIENT_SECRET,
     client_kwargs={
         "scope": "openid profile email",
+        "redirect_uri": AUTH0_REDIRECT_URI 
     },
     server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
