@@ -247,7 +247,7 @@ def api_endpoint(request):
     'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
     ]
     for area in subject_areas:
-        response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
+        response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
         data_list = []
         if response.status_code == 200:
             for entry in response.json():
