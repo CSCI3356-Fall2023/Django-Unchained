@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from .forms import ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
-
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
 from .models import Person, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
@@ -759,3 +761,37 @@ def course_report_filter(request):
         'all_courses': all_courses
     }
     return render(request, 'admin_report.html', context)
+
+def export_watchlist_to_pdf(request):
+    current_user = request.user
+    user_watchlist = Watchlist.objects.filter(user=current_user)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="watchlist.pdf"'
+
+    p = canvas.Canvas(response, pagesize=letter)
+
+    y_coordinate = 750
+    line_spacing = 20 
+    course_spacing = 40  
+
+    for item in user_watchlist:
+        course_title = item.course.title
+        instructor = item.section.instructor
+        current_seats = item.section.currentSeats
+        max_seats = item.section.maxSeats
+
+        p.drawString(100, y_coordinate, f"Course: {course_title}")
+        p.drawString(100, y_coordinate - line_spacing, f"Instructor: {instructor}")
+        p.drawString(100, y_coordinate - (line_spacing * 2), f"Current Seats: {current_seats}")
+        p.drawString(100, y_coordinate - (line_spacing * 3), f"Max Seats: {max_seats}")
+
+        y_coordinate -= line_spacing * 4  
+        y_coordinate -= course_spacing 
+
+        if y_coordinate < 50:
+            p.showPage() 
+            y_coordinate = 750  
+
+    p.save()
+
+    return response
