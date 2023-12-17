@@ -450,7 +450,7 @@ def remove_from_watchlist(request):
 def section_api_endpoint(request, id):
     recipient_email = request.session.get('email', 'recipient@example.com')
     user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
-    registrationGroupResponse = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistregistrationgroups?courseOfferingId=" + id').json()
+    registrationGroupResponse = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistregistrationgroups?courseOfferingId=' + id).json()
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []
