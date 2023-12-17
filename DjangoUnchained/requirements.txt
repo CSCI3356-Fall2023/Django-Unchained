@@ -117,3 +117,5 @@ Werkzeug==2.1.2
 whitenoise==6.6.0
 widgetsnbextension==3.5.1
 zipp==3.8.0
+whitenoise==6.6.0
+gunicorn==21.2.0
