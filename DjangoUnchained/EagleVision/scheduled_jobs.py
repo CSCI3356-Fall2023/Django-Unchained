@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 import re
 from datetime import datetime
 from .models import Course
-from django.conf import settings
 
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
@@ -52,7 +51,7 @@ def load_courses():
             soup = BeautifulSoup(description_html, 'html.parser')
             description_text = soup.get_text(separator=' ')
 
-            new_response = requests.get(f'http://localhost:8080/waitlist/waitlistactivityofferings?courseOfferingId={offering["id"]}')
+            new_response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistactivityofferings?courseOfferingId={offering["id"]}')
             
             course_info = {}
 
