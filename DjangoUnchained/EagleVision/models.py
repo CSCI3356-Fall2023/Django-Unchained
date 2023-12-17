@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import random
 import requests
+from django.conf import settings
 
 from django.conf import settings
 
@@ -231,6 +232,7 @@ class Course(models.Model):
     level = models.CharField(max_length=255, default = 'none')
     requisite = models.CharField(max_length=255, default = 'none')
     department = models.CharField(max_length=255, default = 'none')
+    level = models.CharField(max_length=255, default = 'none')
     courseIdentifier = models.CharField(max_length=255, default="none")
     max_students_on_watch = models.IntegerField(default=0)
     min_students_on_watch = models.IntegerField(default=0)
@@ -259,7 +261,7 @@ class Section(models.Model):
 
 
     def change_seats(self):
-        response = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + self.courseid).json()
+        response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistregistrationgroups?courseOfferingId=' + self.courseid).json()
         for entry in response:
             for section in entry['activityOfferings']:
                 if section['activityOffering']['id'] == self.section_id:
