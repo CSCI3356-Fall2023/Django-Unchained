@@ -642,12 +642,36 @@ def capture_system_snapshot():
             watchers = Watchlist.objects.filter(section=section)
             section_watcher_count = len(watchers)
             course_watcher += section_watcher_count
-            watchers_data = [{
-                'name': watcher.user.name,
-                'email': watcher.user.email,
-                'department': watcher.user.department,
-            } for watcher in watchers]
-
+            # watchers_data = [{
+            #     'name': watcher.user.name,
+            #     'email': watcher.user.email,
+            #     'department': watcher.user.department,
+            #     'graduation_semester': watcher.user.graduation_semester if hasattr(watcher.user, 'graduation_semester') else 'IS_ADMIN'
+            # } for watcher in watchers]
+            watchers_data = []
+            
+            for watcher in watchers:
+                name = watcher.user.name
+                email = watcher.user.email
+                department = watcher.user.department
+                if watcher.user.user_type == 'student':
+                    student = Student.objects.get(email=email)
+                    graduation_semester = student.graduation_semester
+                    major = student.major_1
+                else:
+                    graduation_semester = 'IS_ADMIN'
+                    major = 'IS_ADMIN'
+                watcher_data = {
+                    'user_type': watcher.user.user_type,
+                    'name': name,
+                    'email': email,
+                    'department': department,
+                    'graduation_semester': graduation_semester,
+                    'major': major,
+                }
+                watchers_data.append(watcher_data)
+            
+            
             section_data = {
                 'section_title': section.title,
                 'section_id': section.section_id,
