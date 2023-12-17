@@ -105,6 +105,14 @@
                                 </option>
                             {% endfor %}
                         </select>
+                        <select name="instructor">
+                            <option value="">All Instructors</option>
+                            {% for instructor in instructors %}
+                                <option value="{{ instructor }}" {% if instructor == selected_instructor %}selected{% endif %}>
+                                    {{ instructor }}
+                                </option>
+                            {% endfor %}
+                        </select>
                         <select name="level">
                             <option value="">All Levels</option>
                             {% for level in levels %}

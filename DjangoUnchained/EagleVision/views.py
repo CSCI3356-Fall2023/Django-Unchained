@@ -226,34 +226,6 @@ def logout(request):
             quote_via=quote_plus,
         ),
     )
-def api_endpoint(request):
-    subject_areas = [
-    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
-    ]
-    for area in subject_areas:
-        response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
-        data_list = []
-        if response.status_code == 200:
-            for entry in response.json():
-                offering = entry['courseOffering']
-                term = entry['term']
-                description_html = offering['descr']['plain']
-                date_text = term['descr']['plain']
-                soup = BeautifulSoup(description_html, 'html.parser')
-                description_text = soup.get_text(separator=' ')
-                    
-                new_course = Course(
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                )
-                new_course.save()
-                data_list.append(new_course)
-    for block in Course.objects.all():
-        if Course.objects.filter(course_id=block.course_id).count() > 1:
-            block.delete()
-    return render(request, 'course_selection.html', {'courses': data_list})
 
 def search_results(request):
     if request.method == 'GET':
@@ -496,6 +468,7 @@ def admin_report(request):
     selected_snapshot_id = request.GET.get('snapshot', None)
     selected_course = request.GET.get('course', '')
     selected_department = request.GET.get('department', '')
+    selected_instructor = request.GET.get('instructor', '')
     selected_level = request.GET.get('level', '')
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number
@@ -504,6 +477,7 @@ def admin_report(request):
         'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
         'courses': Course.objects.values_list('title', flat=True).distinct(),
         'departments': DEPARTMENTS,
+        'instructors': Course.objects.values_list('instructor', flat=True).distinct(),
         'levels': Course.objects.values_list('level', flat=True).distinct().order_by('level')
 
     }
@@ -519,7 +493,7 @@ def admin_report(request):
     if snapshot_data:
         selected_snapshot_id = request.session.get('selected_snapshot_id')
         courses_data = process_snapshot_data(snapshot_data)
-        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, courses_data, page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_instructor, selected_level, courses_data, page_number))
     else:
         # Handling when snapshot is selected
         if selected_snapshot_id:
@@ -529,7 +503,7 @@ def admin_report(request):
             return redirect('admin_report')
 
         courses_data = []  
-        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, [], page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_instructor, selected_level, [], page_number))
 
 
     
@@ -547,12 +521,14 @@ def admin_report(request):
 
 
 
-def get_filtered_context( request,selected_course, selected_department, selected_level, courses_data, page_number):
+def get_filtered_context( request,selected_course, selected_department, selected_instructor, selected_level, courses_data, page_number):
     courses_query = Course.objects.all()
     if selected_course:
         courses_query = courses_query.filter(title__icontains=selected_course)
     if selected_department:
         courses_query = courses_query.filter(department__icontains=selected_department)
+    if selected_instructor:
+        courses_query = courses_query.filter(instructor__icontains=selected_instructor)
     if selected_level:
         courses_query = courses_query.filter(level__icontains=selected_level)
     new_courses_data = [data for course in courses_query for data in courses_data if course.title == data['title']]

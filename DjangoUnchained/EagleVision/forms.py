@@ -124,7 +124,6 @@ class CourseFilterForm(forms.Form):
         ('late_afternoon', 'Late Afternoon (16:00-17:59)'),
         ('evening', 'Evening (18:00-23:59)'),
     )
-  
    
     DAYS = (
         ('M', 'Monday'), 
@@ -136,6 +135,7 @@ class CourseFilterForm(forms.Form):
         ('MWF', 'Monday, Wednesday, and Friday'), 
         ('TUTH', 'Tuesday and Thursday')
     )   
+
     MAJORS = ( 
         ("AADS", "AADS"),
         ("ACCT", "ACCT"),
@@ -247,7 +247,7 @@ class CourseFilterForm(forms.Form):
    
     days = forms.MultipleChoiceField(choices=DAYS, required=False, label="Days")
     
-    subject_area = forms.ChoiceField(choices=MAJORS, required=False, label="Major")
+    subject_area = forms.MultipleChoiceField(choices=MAJORS, required=False, label="Major")
    
     def clean(self):
         cleaned_data = super().clean()
