@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from .forms import ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
-
+from dotenv import find_dotenv, load_dotenv
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
 from .models import Person, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
@@ -20,9 +20,23 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.timezone import now
 from django.core.paginator import Paginator
+import os
+
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
 DEPARTMENTS = ['AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI', 'INTL', 'JOUR', 'ENGL', 'LAWS', 'MATH', 'XRBC']
+
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+#triiger redeploy
+
+
+AUTH0_REDIRECT_URI = 'https://django-unchained-production.up.railway.app/login'
+
+AUTH0_DOMAIN = 'dev-tyenzjqgsqdzkkqd.us.auth0.com'
+AUTH0_CLIENT_ID = 'hs5GAOve1ehItJIZ7rLs9itiQnaS7Fbi'
+AUTH0_CLIENT_SECRET = 'YoqlkQFFPdaUUt8zk_JdQqN2xmYenf6b0OPEoz165RTrI07EUogStYun8yGRYKKH'
 
 oauth = OAuth()
 oauth.register(
@@ -31,6 +45,7 @@ oauth.register(
     client_secret=settings.AUTH0_CLIENT_SECRET,
     client_kwargs={
         "scope": "openid profile email",
+        "redirect_uri": AUTH0_REDIRECT_URI 
     },
     server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
@@ -232,7 +247,7 @@ def api_endpoint(request):
     'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
     ]
     for area in subject_areas:
-        response = requests.get('http://localhost:8080/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
+        response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
         data_list = []
         if response.status_code == 200:
             for entry in response.json():
@@ -435,7 +450,7 @@ def remove_from_watchlist(request):
 def section_api_endpoint(request, id):
     recipient_email = request.session.get('email', 'recipient@example.com')
     user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
-    registrationGroupResponse = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + id).json()
+    registrationGroupResponse = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistregistrationgroups?courseOfferingId=' + id).json()
     for entry in registrationGroupResponse:
         for section in entry['activityOfferings']:
             instructors = []

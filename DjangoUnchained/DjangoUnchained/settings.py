@@ -29,6 +29,10 @@ if ENV_FILE:
 AUTH0_DOMAIN = os.environ.get("AUTH0_DOMAIN")
 AUTH0_CLIENT_ID = os.environ.get("AUTH0_CLIENT_ID")
 AUTH0_CLIENT_SECRET = os.environ.get("AUTH0_CLIENT_SECRET")
+AUTH0_REDIRECT_URI = 'https://django-unchained-production.up.railway.app/login'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +47,9 @@ SECRET_KEY = 'django-insecure-pm3=454tqba&qi_!#%t*f$1^6pe310aw*+8yne7@2ur+@g3b4!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Application definition
@@ -62,6 +68,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -159,3 +166,12 @@ EMAIL_HOST_USER = 'stoeva@bc.edu'           #change this depending if we are usi
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-unchained-production.up.railway.app'
+]
+
+API_BASE_URL = 'https://volatile-birds-production.up.railway.app'
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True

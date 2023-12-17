@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import random
 import requests
+from django.conf import settings
 
 from django.conf import settings
 
@@ -123,7 +124,7 @@ class Section(models.Model):
 
 
     def change_seats(self):
-        response = requests.get("http://localhost:8080/waitlist/waitlistregistrationgroups?courseOfferingId=" + self.courseid).json()
+        response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistregistrationgroups?courseOfferingId=' + self.courseid).json()
         for entry in response:
             for section in entry['activityOfferings']:
                 if section['activityOffering']['id'] == self.section_id:
