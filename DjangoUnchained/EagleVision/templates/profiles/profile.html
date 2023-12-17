@@ -18,6 +18,7 @@
                     <a href="{% url 'profile' %}" class="active">Home</a>
                     <a href="{% url 'watchlist' %}">My WatchList</a>
                     <a href="{% url 'courseselect' %}">Search Courses</a>
+                    <a href="{% url 'export_watchlist_pdf' %}">Export Watchlist</a>
                 {% if user.user_type == 'student'%}
                     <a href="{% url 'edit_student_info' %}">Edit Student Info</a>
                 {% endif %}
