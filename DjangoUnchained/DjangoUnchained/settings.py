@@ -171,7 +171,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://django-unchained-production.up.railway.app'
 ]
 
-API_BASE_URL = 'volatile-birds-production.up.railway.app'
+API_BASE_URL = 'https://volatile-birds-production.up.railway.app'
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
