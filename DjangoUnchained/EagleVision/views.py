@@ -28,11 +28,6 @@ import os
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
 DEPARTMENTS = ['AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI', 'INTL', 'JOUR', 'ENGL', 'LAWS', 'MATH', 'XRBC']
 
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
-#triiger redeploy
-
 
 AUTH0_REDIRECT_URI = 'https://django-unchained-production.up.railway.app/login'
 
