@@ -28,9 +28,10 @@
                 <div class="student">
                     <p>Name: {{ student.name }}</p>
                     <p>Email: {{ student.email }}</p>
-                    <p>Department: {{ student.department }}</p>
+                    <p>School: {{ student.department }}</p>
                     {% if student.user_type == 'student' %}
-                        <p>Graduation: {{ student.graduation_semester }}</p>
+                    <p>Year:{{student.graduation_semester}} </p>
+                    <p>Major:{{student.major}}</p>
                     {% endif %}
                 </div>
             {% empty %}
