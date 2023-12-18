@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from .forms import ChangeStateForm,ExtraInfoForm_student,ExtraInfoForm_admin, CourseFilterForm
-from dotenv import find_dotenv, load_dotenv
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404, get_object_or_404
 from .models import Person, Student, SystemState, Course, Watchlist, Section, SystemSnapshot, MostPopularCourse
 from django.contrib.auth.decorators import login_required
@@ -25,11 +27,6 @@ import os
 
 ALLOWED_DAYS = {'M', 'T', 'W', 'TH', 'F', 'Tu', 'TuTh', 'MWF'}
 DEPARTMENTS = ['AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI', 'INTL', 'JOUR', 'ENGL', 'LAWS', 'MATH', 'XRBC']
-
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
-#triiger redeploy
 
 
 AUTH0_REDIRECT_URI = 'https://django-unchained-production.up.railway.app/login'
@@ -241,34 +238,6 @@ def logout(request):
             quote_via=quote_plus,
         ),
     )
-def api_endpoint(request):
-    subject_areas = [
-    'AADS', 'ARTS', 'BIOL', 'CHEM', 'CSCI',
-    'INTL','JOUR', 'LAWS', 'MATH', 'XRBC'
-    ]
-    for area in subject_areas:
-        response = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistcourseofferings?termId=kuali.atp.FA2023-2024&code='+area)
-        data_list = []
-        if response.status_code == 200:
-            for entry in response.json():
-                offering = entry['courseOffering']
-                term = entry['term']
-                description_html = offering['descr']['plain']
-                date_text = term['descr']['plain']
-                soup = BeautifulSoup(description_html, 'html.parser')
-                description_text = soup.get_text(separator=' ')
-                    
-                new_course = Course(
-                    title=offering['name'],
-                    description=description_text,
-                    date=date_text,
-                )
-                new_course.save()
-                data_list.append(new_course)
-    for block in Course.objects.all():
-        if Course.objects.filter(course_id=block.course_id).count() > 1:
-            block.delete()
-    return render(request, 'course_selection.html', {'courses': data_list})
 
 def search_results(request):
     if request.method == 'GET':
@@ -386,7 +355,7 @@ def edit_student_info(request):
     if request.method == 'POST':
         form = ExtraInfoForm_student(request.POST)
         if form.is_valid():
-            student.department = form.cleaned_data['department']
+            person.department = form.cleaned_data['department']
             student.eagle_id = form.cleaned_data['eagle_id']
             student.graduation_semester = form.cleaned_data['graduation_semester']
             student.major_1 = form.cleaned_data['major_1']
@@ -400,7 +369,7 @@ def edit_student_info(request):
     else:
        
         initial_data = {
-            'department': student.department,
+            'department': person.department,
             'eagle_id': student.eagle_id,
             'graduation_semester': student.graduation_semester,
             'major_1': student.major_1,
@@ -429,7 +398,7 @@ def add_to_watchlist(request):
     section_id = request.POST.get('section_id')
     section = Section.objects.get(section_id=section_id)
     course = Course.objects.get(course_id=section.courseid)
-    watchlist_entry, created = Watchlist.objects.get_or_create(user=request.user, section=section, course=course)
+    created = Watchlist.objects.get_or_create(user=request.user, section=section, course=course)
     if created:
         messages.success(request, "Course added to watchlist successfully.")
     else:
@@ -448,7 +417,6 @@ def remove_from_watchlist(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def section_api_endpoint(request, id):
-    recipient_email = request.session.get('email', 'recipient@example.com')
     user_watchlist_section_ids = Watchlist.objects.filter(user=request.user).values_list('section_id', flat=True)    
     registrationGroupResponse = requests.get(f'{settings.API_BASE_URL}/waitlist/waitlistregistrationgroups?courseOfferingId=' + id).json()
     for entry in registrationGroupResponse:
@@ -512,6 +480,7 @@ def admin_report(request):
     selected_snapshot_id = request.GET.get('snapshot', None)
     selected_course = request.GET.get('course', '')
     selected_department = request.GET.get('department', '')
+    selected_instructor = request.GET.get('instructor', '')
     selected_level = request.GET.get('level', '')
     page_number = request.GET.get('page', 1)
     request.session['last_course_page'] = page_number
@@ -520,7 +489,9 @@ def admin_report(request):
         'snapshots': SystemSnapshot.objects.all().order_by('-created_at'),
         'courses': Course.objects.values_list('title', flat=True).distinct(),
         'departments': DEPARTMENTS,
+        'instructors': Course.objects.values_list('instructor', flat=True).distinct(),
         'levels': Course.objects.values_list('level', flat=True).distinct().order_by('level')
+
     }
 
     # Update context for POST request
@@ -534,7 +505,7 @@ def admin_report(request):
     if snapshot_data:
         selected_snapshot_id = request.session.get('selected_snapshot_id')
         courses_data = process_snapshot_data(snapshot_data)
-        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, courses_data, page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_instructor, selected_level, courses_data, page_number))
     else:
         # Handling when snapshot is selected
         if selected_snapshot_id:
@@ -544,7 +515,7 @@ def admin_report(request):
             return redirect('admin_report')
 
         courses_data = []  
-        context.update(get_filtered_context(request, selected_course, selected_department, selected_level, [], page_number))
+        context.update(get_filtered_context(request, selected_course, selected_department, selected_instructor, selected_level, [], page_number))
 
 
     
@@ -562,15 +533,16 @@ def admin_report(request):
 
 
 
-def get_filtered_context( request,selected_course, selected_department, selected_level, courses_data, page_number):
+def get_filtered_context( request,selected_course, selected_department, selected_instructor, selected_level, courses_data, page_number):
     courses_query = Course.objects.all()
     if selected_course:
         courses_query = courses_query.filter(title__icontains=selected_course)
     if selected_department:
         courses_query = courses_query.filter(department__icontains=selected_department)
+    if selected_instructor:
+        courses_query = courses_query.filter(instructor__icontains=selected_instructor)
     if selected_level:
         courses_query = courses_query.filter(level__icontains=selected_level)
-
     new_courses_data = [data for course in courses_query for data in courses_data if course.title == data['title']]
     new_courses_data.sort(key=lambda course: course['num_students_on_watch'], reverse=True)
     paginator = Paginator(new_courses_data, 9)
@@ -657,14 +629,8 @@ def capture_system_snapshot():
             watchers = Watchlist.objects.filter(section=section)
             section_watcher_count = len(watchers)
             course_watcher += section_watcher_count
-            # watchers_data = [{
-            #     'name': watcher.user.name,
-            #     'email': watcher.user.email,
-            #     'department': watcher.user.department,
-            #     'graduation_semester': watcher.user.graduation_semester if hasattr(watcher.user, 'graduation_semester') else 'IS_ADMIN'
-            # } for watcher in watchers]
             watchers_data = []
-            
+
             for watcher in watchers:
                 name = watcher.user.name
                 email = watcher.user.email
@@ -823,3 +789,37 @@ def course_report_filter(request):
         'all_courses': all_courses
     }
     return render(request, 'admin_report.html', context)
+
+def export_watchlist_to_pdf(request):
+    current_user = request.user
+    user_watchlist = Watchlist.objects.filter(user=current_user)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="watchlist.pdf"'
+
+    p = canvas.Canvas(response, pagesize=letter)
+
+    y_coordinate = 750
+    line_spacing = 20 
+    course_spacing = 40  
+
+    for item in user_watchlist:
+        course_title = item.course.title
+        instructor = item.section.instructor
+        current_seats = item.section.currentSeats
+        max_seats = item.section.maxSeats
+
+        p.drawString(100, y_coordinate, f"Course: {course_title}")
+        p.drawString(100, y_coordinate - line_spacing, f"Instructor: {instructor}")
+        p.drawString(100, y_coordinate - (line_spacing * 2), f"Current Seats: {current_seats}")
+        p.drawString(100, y_coordinate - (line_spacing * 3), f"Max Seats: {max_seats}")
+
+        y_coordinate -= line_spacing * 4  
+        y_coordinate -= course_spacing 
+
+        if y_coordinate < 50:
+            p.showPage() 
+            y_coordinate = 750  
+
+    p.save()
+
+    return response

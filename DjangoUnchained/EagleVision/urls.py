@@ -13,7 +13,7 @@ urlpatterns = [
     path("callback", views.callback, name="callback"),
     path('courseselection/', views.course_selection, name='courseselect'),
     path('search/', views.search_results, name='search_results'),
-    path('filter/', views.filter, name="filter"),
+    #path('filter/', views.filter, name="filter"),
     path('filterRequest/', views.filterRequest, name="filterRequest"),
     path('watchlist/', views.watchlist, name="watchlist"),
     path('add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist'),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('system_snapshots/', views.list_system_snapshots, name='list_system_snapshots'),
     path('course_report_filter/', views.course_report_filter, name='course_report_filter'),
     path('edit_student_info/', views.edit_student_info, name='edit_student_info'),
+    path('export-watchlist-pdf/', views.export_watchlist_to_pdf, name='export_watchlist_pdf'),
 ]

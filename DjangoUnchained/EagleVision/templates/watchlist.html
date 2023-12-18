@@ -20,6 +20,7 @@
                 <a href="{% url 'profile'%}">Home</a>
                 <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
                 <a href="{% url 'courseselect' %}">Search Courses</a>
+                <a href="{% url 'export_watchlist_pdf' %}">Export Watchlist</a>
                 {% if user.is_staff %}
                     <a href="{% url 'admin_report' %}">Admin Report</a>
                 {% endif %}
@@ -85,7 +86,7 @@
                         {% endif %}
                         
                         <span class="current">
-                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                         </span>
                         
                         {% if page_obj.has_next %}

@@ -112,6 +112,7 @@ def load_courses():
                         'date': date_text,
                         'schedule': ', '.join(schedule_names),
                         'instructor': instructors_str,
+                        'level': level,
                         'time_slots': time_slots, 
                         'level': level,
                         'days': days_str,

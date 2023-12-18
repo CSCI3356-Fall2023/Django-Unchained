@@ -64,6 +64,7 @@
         <a href="{% url 'profile'%}">Home</a>
         <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
         <a href =" {% url 'courseselect' %}">Search Courses</a>
+        <a href="{% url 'export_watchlist_pdf' %}">Export Watchlist</a>
     </nav>
     <div class="box m-2 w-90 h-90"> 
         {% if messages %}
