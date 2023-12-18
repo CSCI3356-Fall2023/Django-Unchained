@@ -247,7 +247,7 @@ class CourseFilterForm(forms.Form):
    
     days = forms.MultipleChoiceField(choices=DAYS, required=False, label="Days")
     
-    subject_area = forms.MultipleChoiceField(choices=MAJORS, required=False, label="Major")
+    subject_area = forms.ChoiceField(choices=MAJORS, required=False, label="Major")
    
     def clean(self):
         cleaned_data = super().clean()
