@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'EagleVision/identitySelection.css' %}">
+</head>
+<body>
+    <div class="bclogo">
+        <img src="{% static 'images/BCLogo.png' %}" alt="Boston College Logo" width="480" height="270">
+    </div>
+    <div class="container">
+        <h2>Select Your Identity</h2>
+        <form action="{% url 'role_selection' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="role" value="student" class="button student-button">I'm a Student</button>
+            <button type="submit" name="role" value="admin" class="button admin-button">I'm an Admin</button>
+        </form>
+    </div>
+</body>
+</html>

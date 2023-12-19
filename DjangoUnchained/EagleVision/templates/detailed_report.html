@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detailed Report</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/sections.css' %}">
+</head>
+<style>
+    .back-link-container {
+       margin-bottom:20px;
+    }
+</style>
+<body>
+
+<div class="box m-2 w-90 h-90">
+    <h1>Detailed Report for {{ course.title }}</h1>
+    <div class = "back-link-container">
+    <div class="back-link">
+        <a href="{% url 'admin_report' %}">Go Back </a>
+    </div>
+</div>
+    {% for section in sections_data %}
+        <div class="section-dropdown">
+            <a href="#section-{{ forloop.counter }}">View Section: {{ section.section_title }} ({{ section.section_watcher_count }} students)</a>
+        </div>
+        <div class="section-content" id="section-{{ forloop.counter }}">
+            {% for student in section.watchers %}
+                <div class="student">
+                    <p>Name: {{ student.name }}</p>
+                    <p>Email: {{ student.email }}</p>
+                    <p>School: {{ student.department }}</p>
+                    {% if student.user_type == 'student' %}
+                    <p>Year:{{student.graduation_semester}} </p>
+                    <p>Major:{{student.major}}</p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No students are watching this section.</p>
+            {% endfor %}
+            <div class="section-dropdown">
+                <a href="#top">Collapse Section</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>Currently no students are watching this class.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Watchlist</title>
+    <link rel="stylesheet" href="{% static 'EagleVision/watchlist.css' %}">
+
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="{% static 'images/user-avatar.png' %}" alt="User Avatar" class="avatar">
+                <h2>{{ user.name }}</h2> 
+            </div>
+            <nav class="nav-menu">
+                <a href="{% url 'profile'%}">Home</a>
+                <a href="{% url 'watchlist' %}" class="active">My WatchList</a>
+                <a href="{% url 'courseselect' %}">Search Courses</a>
+                <a href="{% url 'export_watchlist_pdf' %}">Export Watchlist</a>
+                {% if user.is_staff %}
+                    <a href="{% url 'admin_report' %}">Admin Report</a>
+                {% endif %}
+                <a href="{% url 'logout' %}">Logout</a>
+            </nav><br>
+        
+        </aside>
+        <main class="main-content">
+            <section class="watchlist">
+                <h1>My WatchList</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="sort">Sort by:</label>
+                    <select name="sort" id="sort" onChange="this.form.submit();">
+                      <option value="default">Default</option>
+                      <option value="teacher_ascending">Instructor A_Z</option>
+                      <option value="teacher_descending">Instructor Z_A</option>
+                      <option value="max_seats_ascending">Least max seats</option>
+                      <option value="max_seats_descending">Most max seats</option>
+                      <option value="open_seats_ascending">Least open seats</option>
+                      <option value="open_seats_descending">Most open seats</option>
+                      <option value="time_ascending">Earliest time</option>
+                      <option value="time_descending">Latest time</option>
+                    </select>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>Course Title</th>
+                            <th>Instructor</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course, id in page_obj %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ course.title }}</td>
+                                <td>{{ course.instructor }}</td>
+                                <td>{{ course.currentSeats }}/{{ course.maxSeats }}</td>
+                                <td>
+                                    <form action="{% url 'remove_from_watchlist' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="section_id" value="{{ course.id }}">
+                                        <button class="remove-button" type="submit">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5">No courses in watchlist.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                        
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </span>
+                        
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
