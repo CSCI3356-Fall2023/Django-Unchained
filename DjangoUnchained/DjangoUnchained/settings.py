@@ -66,6 +66,21 @@ INSTALLED_APPS = [
     
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '159123941533-972leu77ipdva2jn60hki4r5j0qquh3d.apps.googleusercontent.com',
+            'secret': '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',
+            'key': '',
+        }
+    },
+}
+
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -75,6 +90,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'DjangoUnchained.urls'
